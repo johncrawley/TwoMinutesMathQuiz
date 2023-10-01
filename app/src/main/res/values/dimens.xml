@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="button_table_margin_top_landscape">4dp</dimen>
+    <dimen name="button_table_margin_bottom_landscape">8dp</dimen>
+    <dimen name="button_table_margin_bottom_portrait">18dp</dimen>
+
+    <dimen name="button_margin">6dp</dimen>
+    <dimen name="button_minHeight">20dp</dimen>
+    <dimen name="button_minWidth">20dp</dimen>
+    <dimen name="button_paddingHorizontal">20dp</dimen>
+    <dimen name="button_paddingVertical">20dp</dimen>
+    <dimen name="display_margin_top">20dp</dimen>
+
+
+    <dimen name="button_margin_landscape">6dp</dimen>
+    <dimen name="button_minWidth_landscape">20dp</dimen>
+    <dimen name="button_minHeight_landscape">10dp</dimen>
+    <dimen name="button_paddingHorizontal_landscape">20dp</dimen>
+    <dimen name="button_paddingVertical_landscape">12dp</dimen>
+</resources>
