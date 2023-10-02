@@ -2,9 +2,10 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_gravity="center"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content">
+    android:layout_gravity="center"
+    android:gravity="center">
 
     <TableLayout
         android:id="@+id/buttonTable"
@@ -13,159 +14,158 @@
         android:layout_marginBottom="@dimen/button_table_margin_bottom_portrait"
         tools:ignore="ButtonStyle">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_7"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_7" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_8"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_8" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_9" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_9" />
 
-    </TableRow>
-
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_4"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_5" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_6"/>
-
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_1"  />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_2" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_3"/>
+        </TableRow>
 
 
-    </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_4" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_5" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_6" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_2" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_3" />
 
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        </TableRow>
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_0" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonBackspace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/button_margin"
-            android:minHeight="@dimen/button_minHeight"
-            android:minWidth="@dimen/button_minWidth"
-            android:paddingHorizontal="@dimen/button_paddingHorizontal"
-            android:paddingVertical="@dimen/button_paddingVertical"
-            android:text="@string/symbol_backspace" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_0" />
 
 
-    </TableRow>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonBackspace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_backspace" />
 
 
+        </TableRow>
 
-</TableLayout>
+
+    </TableLayout>
 
 </LinearLayout>
