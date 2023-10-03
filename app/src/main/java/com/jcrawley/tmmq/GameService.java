@@ -9,6 +9,7 @@ public class GameService extends Service {
     int startMode;       // indicates how to behave if the service is killed
     IBinder binder;      // interface for clients that bind
     boolean allowRebind; // indicates whether onRebind should be used
+    private MainActivity mainActivity;
 
     @Override
     public void onCreate() {
@@ -47,6 +48,11 @@ public class GameService extends Service {
     @Override
     public void onDestroy() {
         // The service is no longer used and is being destroyed
+    }
+
+
+    public void setActivity(MainActivity mainActivity){
+        this.mainActivity = mainActivity;
     }
 
 

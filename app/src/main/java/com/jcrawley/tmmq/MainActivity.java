@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             // We've bound to LocalService, cast the IBinder and get LocalService instance.
             GameService.LocalBinder binder = (GameService.LocalBinder) service;
             gameService = binder.getService();
+            gameService.setActivity(MainActivity.this);
             bound = true;
         }
 
