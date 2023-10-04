@@ -6,10 +6,21 @@ public class Game {
     private int currentRemainingTime = initialRemainingTime;
     private int currentScore;
     private MathQuestion currentQuestion;
+    private QuestionGenerator questionGenerator;
+    private final GameService gameService;
+
+
+    public Game(GameService gameService){
+        questionGenerator = new QuestionGenerator();
+        this.gameService = gameService;
+    }
+
 
     void startGame(){
-
+      currentQuestion = questionGenerator.generate();
+      gameService.displayQuestionOnView(currentQuestion.getQuestionText());
     }
+
 
     void stopGame(){
 

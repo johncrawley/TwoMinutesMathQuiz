@@ -11,6 +11,13 @@ public class GameService extends Service {
     boolean allowRebind; // indicates whether onRebind should be used
     private MainActivity mainActivity;
 
+
+
+    public void displayQuestionOnView(String questionText){
+
+    }
+
+
     @Override
     public void onCreate() {
         // The service is being created
