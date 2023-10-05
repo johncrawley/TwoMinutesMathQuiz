@@ -2,12 +2,11 @@ package com.jcrawley.tmmq;
 
 public class Game {
 
-    private final int initialRemainingTime = 120;
-    private int currentRemainingTime = initialRemainingTime;
     private int currentScore;
     private MathQuestion currentQuestion;
-    private QuestionGenerator questionGenerator;
+    private final QuestionGenerator questionGenerator;
     private final GameService gameService;
+    private GameTimer gametimer;
 
 
     public Game(GameService gameService){
@@ -15,10 +14,14 @@ public class Game {
         this.gameService = gameService;
     }
 
+    public void init(){
+        gametimer = new GameTimer(this);
+    }
+
 
     void startGame(){
       currentQuestion = questionGenerator.generate();
-      gameService.displayQuestionOnView(currentQuestion.getQuestionText());
+      gameService.setQuestionText(currentQuestion.getQuestionText());
     }
 
 
@@ -27,8 +30,21 @@ public class Game {
     }
 
 
-    public void checkAnswer(int answer){
+    public void checkAnswer(String answerStr){
+        if(currentQuestion.isGivenAnswerCorrect(answerStr)){
+            currentScore++;
+            gameService.updateScore(currentScore);
+        }
+        else{
+            gameService.notifyIncorrectAnswer();
+        }
+        currentQuestion = questionGenerator.generate();
+        gameService.setQuestionText(currentQuestion.getQuestionText());
+    }
 
+
+    public void updateTime(int minutesRemaining, int secondsRemaining){
+        gameService.updateTimer(minutesRemaining, secondsRemaining);
     }
 
 
@@ -39,15 +55,10 @@ public class Game {
 
     public void resetGame(){
         currentScore = 0;
-        currentRemainingTime = initialRemainingTime;
+        gametimer.resetTime();
+
     }
 
 
-    private void decrementRemainingTime(){
-        currentRemainingTime--;
-        if(currentRemainingTime <= 0){
-
-        }
-    }
 
 }

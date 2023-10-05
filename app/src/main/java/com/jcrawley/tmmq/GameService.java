@@ -13,7 +13,21 @@ public class GameService extends Service {
 
 
 
-    public void displayQuestionOnView(String questionText){
+    public void setQuestionText(String questionText){
+
+    }
+
+
+    public void notifyIncorrectAnswer(){
+
+    }
+
+
+    public void updateScore(int score){
+
+    }
+
+    public void updateTimer(int minutesRemaining, int secondsRemaining){
 
     }
 
