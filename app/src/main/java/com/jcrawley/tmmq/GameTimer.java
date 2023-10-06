@@ -1,14 +1,26 @@
 package com.jcrawley.tmmq;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 public class GameTimer {
 
     private final Game game;
     private final int initialRemainingTime = 120;
     private int currentRemainingTime = initialRemainingTime;
     private int minutesRemaining, secondsRemaining;
+    private ScheduledFuture<?> future;
+    private ScheduledExecutorService scheduledExecutorService;
 
     public GameTimer(Game game){
         this.game = game;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+    }
+
+    public void startTimer(){
+        future = scheduledExecutorService.schedule(this::decrementRemainingTime, 1, TimeUnit.SECONDS);
     }
 
 
@@ -26,10 +38,9 @@ public class GameTimer {
         currentRemainingTime--;
         updateCurrentRemainingTime();
         updateTimer();
-        if(currentRemainingTime <= 0){
-            stopTimer();
-        }
+        cancelTimerWhenTimeExpires();
     }
+
 
     private void updateCurrentRemainingTime(){
         minutesRemaining = currentRemainingTime / 60;
@@ -37,8 +48,11 @@ public class GameTimer {
     }
 
 
-    private void stopTimer(){
 
+    private void cancelTimerWhenTimeExpires(){
+        if(currentRemainingTime <= 0){
+            future.cancel(false);
+        }
     }
 
 }

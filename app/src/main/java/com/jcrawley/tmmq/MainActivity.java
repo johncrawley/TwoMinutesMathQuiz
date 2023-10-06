@@ -7,9 +7,12 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -17,12 +20,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView questionTextView;
     private boolean bound = false;
     private GameService gameService;
+    private AtomicBoolean isGameStarted = new AtomicBoolean(false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         questionTextView = findViewById(R.id.questionText);
+        setupStartButton();
      }
 
 
@@ -37,6 +42,17 @@ public class MainActivity extends AppCompatActivity {
         // Bind to LocalService.
         Intent intent = new Intent(this, GameService.class);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
+    }
+
+    private void setupStartButton(){
+        Button button = findViewById(R.id.startGameButton);
+        button.setOnClickListener(v -> {
+            if(isGameStarted.get()){
+                return;
+            }
+            gameService.startGame();
+            isGameStarted.set(true);
+        });
     }
 
 

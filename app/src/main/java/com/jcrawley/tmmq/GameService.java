@@ -31,6 +31,10 @@ public class GameService extends Service {
 
     }
 
+    public void startGame(){
+
+    }
+
 
     @Override
     public void onCreate() {
