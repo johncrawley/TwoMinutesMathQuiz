@@ -5,12 +5,24 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
+
+
 public class GameService extends Service {
     int startMode;       // indicates how to behave if the service is killed
-    IBinder binder;      // interface for clients that bind
+    IBinder binder = new LocalBinder();   // interface for clients that bind
     boolean allowRebind; // indicates whether onRebind should be used
     private MainActivity mainActivity;
+    private Game game;
 
+
+    public GameService(String name) {
+        super();
+    }
+
+
+    public GameService() {
+        super();
+    }
 
 
     public void setQuestionText(String questionText){
@@ -27,52 +39,60 @@ public class GameService extends Service {
 
     }
 
-    public void updateTimer(int minutesRemaining, int secondsRemaining){
 
+    public void updateTimer(int minutesRemaining, int secondsRemaining){
+        mainActivity.updateTime(minutesRemaining, secondsRemaining);
     }
 
-    public void startGame(){
 
+    public void startGame(){
+        game.startGame();
     }
 
 
     @Override
     public void onCreate() {
-        // The service is being created
+        game = new Game(this);
+        game.init();
+        log("entered onCreate()");
     }
+
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // The service is starting, due to a call to startService()
+        log("Entered onStartCommand()");
         return startMode;
+    }
+
+    private void log(String msg){
+        System.out.println("^^^ GameService: " + msg);
     }
 
 
     @Override
     public IBinder onBind(Intent intent) {
-        // A client is binding to the service with bindService()
+        log("entered onBind()");
         return binder;
     }
 
 
+
     @Override
     public boolean onUnbind(Intent intent) {
-        // All clients have unbound with unbindService()
+        mainActivity = null;
         return allowRebind;
     }
 
 
     @Override
     public void onRebind(Intent intent) {
-        // A client is binding to the service with bindService(),
-        // after onUnbind() has already been called
     }
 
 
     @Override
     public void onDestroy() {
-        // The service is no longer used and is being destroyed
+        mainActivity = null;
     }
 
 
@@ -82,8 +102,8 @@ public class GameService extends Service {
 
 
     public class LocalBinder extends Binder {
-        GameService getService() {
-            // Return this instance of LocalService so clients can call public methods.
+        public GameService getService() {
+            log("Entered LocalBinder.getService()");
             return GameService.this;
         }
     }

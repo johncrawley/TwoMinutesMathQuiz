@@ -1,12 +1,13 @@
 package com.jcrawley.tmmq;
 
-import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,17 +18,60 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView questionTextView;
+    private TextView questionTextView, timeRemainingTextView;
     private boolean bound = false;
     private GameService gameService;
-    private AtomicBoolean isGameStarted = new AtomicBoolean(false);
+    private final AtomicBoolean isGameStarted = new AtomicBoolean(false);
+    private ViewGroup startGameScreen;
+
+
+    private final ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            log("Entered onServiceConnected()");
+            GameService.LocalBinder binder = (GameService.LocalBinder) service;
+            log("onServiceConnected() created an instance of GameService.LocalBinder");
+            gameService = binder.getService();
+            gameService.setActivity(MainActivity.this);
+            bound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            bound = false;
+        }
+
+
+        @Override
+        public void onBindingDied(ComponentName name) {
+            log("Entered onBindingDied()");
+            throw new RuntimeException("Stub!");
+        }
+
+        @Override
+        public void onNullBinding(ComponentName name) {
+            log("Entered onNullBinding()");
+            throw new RuntimeException("Stub!");
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         questionTextView = findViewById(R.id.questionText);
+        timeRemainingTextView = findViewById(R.id.timeRemainingText);
+        startGameScreen = findViewById(R.id.startGameScreenInclude);
+       // startGameService();
         setupStartButton();
+     }
+
+     private void startGameService(){
+         Intent gameServiceIntent = new Intent(this, GameService.class);
+         startService(gameServiceIntent);
+         getApplicationContext().bindService(gameServiceIntent, connection, 0);
      }
 
 
@@ -39,10 +83,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // Bind to LocalService.
-        Intent intent = new Intent(this, GameService.class);
-        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+        log("entered onStart() about to create and bind to service");
+        Intent intent = new Intent(getApplicationContext(), GameService.class);
+        ComponentName componentName = getApplicationContext().startService(intent);
+        log("about to bindService()");
+        getApplicationContext().bindService(intent, connection, Context.BIND_AUTO_CREATE);
+        log("onStart() just called bindService()");
+
     }
+
+
+    public void updateTime(int minutesRemaining, int secondsRemaining){
+        runOnUiThread(()->{
+            timeRemainingTextView.setText(createTimeRemainingString(minutesRemaining, secondsRemaining));
+        });
+    }
+
+
+    private String createTimeRemainingString(int minutesRemaining, int secondsRemaining){
+        String delimiter = ":";
+        String displaySeconds = secondsRemaining < 10 ? "0" + secondsRemaining : String.valueOf(secondsRemaining);
+        return minutesRemaining + delimiter + displaySeconds;
+    }
+
 
     private void setupStartButton(){
         Button button = findViewById(R.id.startGameButton);
@@ -50,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             if(isGameStarted.get()){
                 return;
             }
+            startGameScreen.setVisibility(View.INVISIBLE);
             gameService.startGame();
             isGameStarted.set(true);
         });
@@ -64,24 +128,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private final ServiceConnection connection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
-            // We've bound to LocalService, cast the IBinder and get LocalService instance.
-            GameService.LocalBinder binder = (GameService.LocalBinder) service;
-            gameService = binder.getService();
-            gameService.setActivity(MainActivity.this);
-            bound = true;
-        }
-
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            bound = false;
-        }
-    };
+    private void log(String msg){
+        System.out.println("^^^ MainActivity : " + msg);
+    }
 
 
 }

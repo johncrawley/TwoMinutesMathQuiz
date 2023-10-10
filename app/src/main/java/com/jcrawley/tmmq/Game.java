@@ -22,6 +22,7 @@ public class Game {
     void startGame(){
       currentQuestion = questionGenerator.generate();
       gameService.setQuestionText(currentQuestion.getQuestionText());
+      gametimer.startTimer();
     }
 
 

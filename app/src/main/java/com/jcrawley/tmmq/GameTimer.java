@@ -20,7 +20,7 @@ public class GameTimer {
     }
 
     public void startTimer(){
-        future = scheduledExecutorService.schedule(this::decrementRemainingTime, 1, TimeUnit.SECONDS);
+        future = scheduledExecutorService.scheduleAtFixedRate(this::decrementRemainingTime, 0,1, TimeUnit.SECONDS);
     }
 
 
