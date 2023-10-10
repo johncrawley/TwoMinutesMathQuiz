@@ -29,7 +29,8 @@
             android:name=".GameService"
             android:enabled="true"
             android:exported="false"
-            android:label="GameService">
+            android:label="GameService"
+            android:stopWithTask="true">
             <intent-filter>
                 <action android:name="com.jcrawley.tmmq.GameService" />
             </intent-filter>

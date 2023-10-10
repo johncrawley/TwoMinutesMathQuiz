@@ -22,6 +22,9 @@ public class GameService extends Service {
 
     public GameService() {
         super();
+        log("Entered constructor");
+        game = new Game(this);
+        game.init();
     }
 
 
@@ -52,8 +55,7 @@ public class GameService extends Service {
 
     @Override
     public void onCreate() {
-        game = new Game(this);
-        game.init();
+
         log("entered onCreate()");
     }
 
@@ -62,7 +64,8 @@ public class GameService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         log("Entered onStartCommand()");
-        return startMode;
+        //return startMode;
+        return Service.START_NOT_STICKY; // service is not restarted when terminated
     }
 
     private void log(String msg){

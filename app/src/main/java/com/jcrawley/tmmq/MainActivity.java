@@ -64,14 +64,14 @@ public class MainActivity extends AppCompatActivity {
         questionTextView = findViewById(R.id.questionText);
         timeRemainingTextView = findViewById(R.id.timeRemainingText);
         startGameScreen = findViewById(R.id.startGameScreenInclude);
-       // startGameService();
+        setupGameService();
         setupStartButton();
      }
 
-     private void startGameService(){
-         Intent gameServiceIntent = new Intent(this, GameService.class);
-         startService(gameServiceIntent);
-         getApplicationContext().bindService(gameServiceIntent, connection, 0);
+
+     @Override
+     public void onDestroy(){
+        super.onDestroy();
      }
 
 
@@ -80,16 +80,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        log("entered onStart() about to create and bind to service");
+    private void setupGameService(){
         Intent intent = new Intent(getApplicationContext(), GameService.class);
-        ComponentName componentName = getApplicationContext().startService(intent);
-        log("about to bindService()");
-        getApplicationContext().bindService(intent, connection, Context.BIND_AUTO_CREATE);
-        log("onStart() just called bindService()");
-
+        getApplicationContext().startService(intent);
+        getApplicationContext().bindService(intent, connection, 0);
     }
 
 
@@ -119,13 +113,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unbindService(connection);
-        bound = false;
-    }
 
 
     private void log(String msg){
