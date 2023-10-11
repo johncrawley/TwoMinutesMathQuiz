@@ -1,7 +1,6 @@
 package com.jcrawley.tmmq;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -12,6 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.jcrawley.tmmq.view.InputHelper;
+import com.jcrawley.tmmq.view.MainViewModel;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -23,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private GameService gameService;
     private final AtomicBoolean isGameStarted = new AtomicBoolean(false);
     private ViewGroup startGameScreen;
+    private MainViewModel viewModel;
+    private InputHelper inputHelper;
 
 
     private final ServiceConnection connection = new ServiceConnection() {
-
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
             log("Entered onServiceConnected()");
@@ -41,19 +45,6 @@ public class MainActivity extends AppCompatActivity {
         public void onServiceDisconnected(ComponentName arg0) {
             bound = false;
         }
-
-
-        @Override
-        public void onBindingDied(ComponentName name) {
-            log("Entered onBindingDied()");
-            throw new RuntimeException("Stub!");
-        }
-
-        @Override
-        public void onNullBinding(ComponentName name) {
-            log("Entered onNullBinding()");
-            throw new RuntimeException("Stub!");
-        }
     };
 
 
@@ -64,14 +55,19 @@ public class MainActivity extends AppCompatActivity {
         questionTextView = findViewById(R.id.questionText);
         timeRemainingTextView = findViewById(R.id.timeRemainingText);
         startGameScreen = findViewById(R.id.startGameScreenInclude);
+        setupViewModel();
+        inputHelper = new InputHelper(this);
         setupGameService();
         setupStartButton();
      }
 
+     public MainViewModel getViewModel(){
+        return viewModel;
+     }
 
-     @Override
-     public void onDestroy(){
-        super.onDestroy();
+
+     private void setupViewModel(){
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
      }
 
 

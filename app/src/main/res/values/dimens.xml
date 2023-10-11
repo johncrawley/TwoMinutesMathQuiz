@@ -25,5 +25,7 @@
     <dimen name="question_text_size">32sp</dimen>
     <dimen name="time_remaining_text_size">26sp</dimen>
 
+    <dimen name="input_text_size">32sp</dimen>
+
 
 </resources>
