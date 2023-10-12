@@ -21,13 +21,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView questionTextView, timeRemainingTextView;
+    private TextView questionTextView, timeRemainingTextView, scoreView;
     private boolean bound = false;
     private GameService gameService;
     private final AtomicBoolean isGameStarted = new AtomicBoolean(false);
     private ViewGroup startGameScreen;
     private MainViewModel viewModel;
     private InputHelper inputHelper;
+
 
 
     private final ServiceConnection connection = new ServiceConnection() {
@@ -52,14 +53,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        questionTextView = findViewById(R.id.questionText);
-        timeRemainingTextView = findViewById(R.id.timeRemainingText);
-        startGameScreen = findViewById(R.id.startGameScreenInclude);
+        setupViews();
         setupViewModel();
         inputHelper = new InputHelper(this);
         setupGameService();
         setupStartButton();
      }
+
+     private void setupViews(){
+         questionTextView = findViewById(R.id.questionText);
+         timeRemainingTextView = findViewById(R.id.timeRemainingText);
+         startGameScreen = findViewById(R.id.startGameScreenInclude);
+         scoreView = findViewById(R.id.scoreText);
+     }
+
 
      public MainViewModel getViewModel(){
         return viewModel;
@@ -109,6 +116,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    public void submitAnswer(){
+        gameService.submitAnswer(viewModel.currentAnswerText);
+    }
+
+
+    public void updateScore(int score){
+        String scoreStr = getString(R.string.score_label) + score;
+        scoreView.setText(scoreStr);
+    }
 
 
     private void log(String msg){

@@ -31,23 +31,27 @@ public class InputHelper {
         setupButtonForAdd(R.id.button7, 7);
         setupButtonForAdd(R.id.button8, 8);
         setupButtonForAdd(R.id.button9, 9);
-        setupButton(R.id.buttonBackspace, ()-> backspace());
+        setupButton(R.id.buttonBackspace, this::backspace);
+        setupButton(R.id.buttonEnter, this::submitAnswer);
     }
 
 
-    private Button setupButton(int buttonId, Runnable runnable){
+    private void setupButton(int buttonId, Runnable runnable){
         Button button = activity.findViewById(buttonId);
         button.setOnClickListener(v->{
             runnable.run();
         });
-        return button;
+    }
+
+    private void submitAnswer(){
+        activity.submitAnswer();
+        clearAnswerText();
     }
 
 
-    private Button setupButtonForAdd(int buttonId, int digit){
+    private void setupButtonForAdd(int buttonId, int digit){
         Button button = activity.findViewById(buttonId);
         button.setOnClickListener(v-> addDigitToAnswer(digit));
-        return button;
     }
 
 
@@ -80,6 +84,12 @@ public class InputHelper {
 
     private void setAnswerText(int number){
         viewModel.currentAnswerText = String.valueOf(number);
+        inputTextView.setText(viewModel.currentAnswerText);
+    }
+
+
+    private void clearAnswerText(){
+        viewModel.currentAnswerText = "";
         inputTextView.setText(viewModel.currentAnswerText);
     }
 

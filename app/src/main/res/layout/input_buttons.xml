@@ -163,6 +163,19 @@
                 android:text="@string/symbol_backspace" />
 
 
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonEnter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_enter" />
+
+
         </TableRow>
 
 

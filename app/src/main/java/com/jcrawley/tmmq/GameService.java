@@ -29,7 +29,7 @@ public class GameService extends Service {
 
 
     public void setQuestionText(String questionText){
-
+        mainActivity.setQuestionText(questionText);
     }
 
 
@@ -39,7 +39,7 @@ public class GameService extends Service {
 
 
     public void updateScore(int score){
-
+        mainActivity.updateScore(score);
     }
 
 
@@ -55,7 +55,6 @@ public class GameService extends Service {
 
     @Override
     public void onCreate() {
-
         log("entered onCreate()");
     }
 
@@ -96,6 +95,11 @@ public class GameService extends Service {
     @Override
     public void onDestroy() {
         mainActivity = null;
+    }
+
+
+    public void submitAnswer(String answerText){
+        game.checkAnswer(answerText);
     }
 
 
