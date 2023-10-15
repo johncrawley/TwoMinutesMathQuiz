@@ -1,4 +1,4 @@
-package com.jcrawley.tmmq;
+package com.jcrawley.tmmq.service.question;
 
 public class MathQuestion {
 

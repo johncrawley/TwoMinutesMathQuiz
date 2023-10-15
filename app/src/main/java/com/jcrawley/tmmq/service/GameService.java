@@ -1,10 +1,11 @@
-package com.jcrawley.tmmq;
+package com.jcrawley.tmmq.service;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
+import com.jcrawley.tmmq.MainActivity;
 
 
 public class GameService extends Service {

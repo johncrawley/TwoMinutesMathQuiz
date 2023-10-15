@@ -1,4 +1,7 @@
-package com.jcrawley.tmmq;
+package com.jcrawley.tmmq.service;
+
+import com.jcrawley.tmmq.service.question.MathQuestion;
+import com.jcrawley.tmmq.service.question.QuestionGenerator;
 
 public class Game {
 

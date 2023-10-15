@@ -1,4 +1,6 @@
-package com.jcrawley.tmmq;
+package com.jcrawley.tmmq.service;
+
+import com.jcrawley.tmmq.service.Game;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

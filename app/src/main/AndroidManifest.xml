@@ -26,7 +26,7 @@
         </activity>
 
         <service
-            android:name=".GameService"
+            android:name=".service.GameService"
             android:enabled="true"
             android:exported="false"
             android:label="GameService"
