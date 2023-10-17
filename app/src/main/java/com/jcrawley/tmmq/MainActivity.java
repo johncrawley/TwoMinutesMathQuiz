@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.view.InputHelper;
 import com.jcrawley.tmmq.view.MainViewModel;
+import com.jcrawley.tmmq.view.TextAnimator;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -29,15 +30,14 @@ public class MainActivity extends AppCompatActivity {
     private ViewGroup startGameScreen;
     private MainViewModel viewModel;
     private InputHelper inputHelper;
+    private TextAnimator textAnimator;
 
 
 
     private final ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
-            log("Entered onServiceConnected()");
             GameService.LocalBinder binder = (GameService.LocalBinder) service;
-            log("onServiceConnected() created an instance of GameService.LocalBinder");
             gameService = binder.getService();
             gameService.setActivity(MainActivity.this);
             bound = true;
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
      private void setupViews(){
          questionTextView = findViewById(R.id.questionText);
+         textAnimator = new TextAnimator(questionTextView);
          timeRemainingTextView = findViewById(R.id.timeRemainingText);
          startGameScreen = findViewById(R.id.startGameScreenInclude);
          scoreView = findViewById(R.id.scoreText);
@@ -80,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setQuestionText(String questionText){
-       questionTextView.setText(questionText);
+        textAnimator.setNextText(questionText);
+        questionTextView.startAnimation(textAnimator.getFadeOutAnimation());
     }
 
 
@@ -126,11 +128,6 @@ public class MainActivity extends AppCompatActivity {
     public void updateScore(int score){
         String scoreStr = getString(R.string.score_label) + score;
         scoreView.setText(scoreStr);
-    }
-
-
-    private void log(String msg){
-        System.out.println("^^^ MainActivity : " + msg);
     }
 
 

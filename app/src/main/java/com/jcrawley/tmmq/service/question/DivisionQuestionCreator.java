@@ -3,7 +3,7 @@ package com.jcrawley.tmmq.service.question;
 public class DivisionQuestionCreator extends QuestionCreator{
 
     public DivisionQuestionCreator(int minNumber, int maxNumber){
-        super("/", minNumber, maxNumber, (x,y)-> x / y);
+        super("÷", minNumber, maxNumber, (x,y)-> x / y);
     }
 
     @Override
