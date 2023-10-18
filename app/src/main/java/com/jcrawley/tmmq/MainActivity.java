@@ -1,10 +1,15 @@
 package com.jcrawley.tmmq;
 
+import static android.os.VibrationEffect.DEFAULT_AMPLITUDE;
+
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,14 +34,15 @@ public class MainActivity extends AppCompatActivity {
     private final AtomicBoolean isGameStarted = new AtomicBoolean(false);
     private ViewGroup startGameScreen;
     private MainViewModel viewModel;
-    private InputHelper inputHelper;
     private TextAnimator textAnimator;
+    private Vibrator vibrator;
 
 
 
     private final ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
+            log("Entered onServiceConnected()");
             GameService.LocalBinder binder = (GameService.LocalBinder) service;
             gameService = binder.getService();
             gameService.setActivity(MainActivity.this);
@@ -45,9 +51,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
+
+            log("Entered onServiceDisconnected()");
             bound = false;
         }
     };
+
+
+    private void log(String msg){
+        System.out.println("^^^ MainActivity: " + msg);
+    }
 
 
     @Override
@@ -56,10 +69,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupViews();
         setupViewModel();
-        inputHelper = new InputHelper(this);
+        new InputHelper(this);
         setupGameService();
         setupStartButton();
+        setupVibe();
      }
+
 
      private void setupViews(){
          questionTextView = findViewById(R.id.questionText);
@@ -67,6 +82,18 @@ public class MainActivity extends AppCompatActivity {
          timeRemainingTextView = findViewById(R.id.timeRemainingText);
          startGameScreen = findViewById(R.id.startGameScreenInclude);
          scoreView = findViewById(R.id.scoreText);
+     }
+
+
+     private void setupVibe(){
+        vibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+     }
+
+
+     public void vibrateOnPress(){
+         if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+             vibrator.vibrate(VibrationEffect.createOneShot(55, 1));
+         }
      }
 
 
@@ -121,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void submitAnswer(){
+        if(viewModel.currentAnswerText.trim().isEmpty()){
+            return;
+        }
         gameService.submitAnswer(viewModel.currentAnswerText);
     }
 

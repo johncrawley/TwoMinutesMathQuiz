@@ -40,8 +40,10 @@ public class InputHelper {
         Button button = activity.findViewById(buttonId);
         button.setOnClickListener(v->{
             runnable.run();
+            activity.vibrateOnPress();
         });
     }
+
 
     private void submitAnswer(){
         activity.submitAnswer();
@@ -51,7 +53,10 @@ public class InputHelper {
 
     private void setupButtonForAdd(int buttonId, int digit){
         Button button = activity.findViewById(buttonId);
-        button.setOnClickListener(v-> addDigitToAnswer(digit));
+        button.setOnClickListener(v-> {
+            addDigitToAnswer(digit);
+            activity.vibrateOnPress();
+        });
     }
 
 
@@ -75,7 +80,7 @@ public class InputHelper {
 
 
     private int getAnswerNumber(){
-        if(viewModel.currentAnswerText.isEmpty()){
+        if(viewModel.currentAnswerText.trim().isEmpty()){
             return 0;
         }
         return Integer.parseInt(viewModel.currentAnswerText);

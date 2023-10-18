@@ -87,6 +87,7 @@ public class GameService extends Service {
 
     @Override
     public void onDestroy() {
+        log("Entered onDestroy() setting activity ref to null");
         mainActivity = null;
     }
 
@@ -97,13 +98,13 @@ public class GameService extends Service {
 
 
     public void setActivity(MainActivity mainActivity){
+        log("Entered setActivity()");
         this.mainActivity = mainActivity;
     }
 
 
     public class LocalBinder extends Binder {
         public GameService getService() {
-            log("Entered LocalBinder.getService()");
             return GameService.this;
         }
     }
