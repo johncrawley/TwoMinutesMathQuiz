@@ -1,7 +1,8 @@
-package com.jcrawley.tmmq.service;
+package com.jcrawley.tmmq.service.game;
 
-import com.jcrawley.tmmq.service.question.MathQuestion;
-import com.jcrawley.tmmq.service.question.QuestionGenerator;
+import com.jcrawley.tmmq.service.GameService;
+import com.jcrawley.tmmq.service.game.question.MathQuestion;
+import com.jcrawley.tmmq.service.game.question.QuestionGenerator;
 
 public class Game {
 
@@ -22,14 +23,14 @@ public class Game {
     }
 
 
-    void startGame(){
+    public void startGame(){
       currentQuestion = questionGenerator.generate();
       gameService.setQuestionText(currentQuestion.getQuestionText());
       gametimer.startTimer();
     }
 
 
-    void stopGame(){
+    public void stopGame(){
 
     }
 

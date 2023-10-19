@@ -1,7 +1,5 @@
 package com.jcrawley.tmmq;
 
-import static android.os.VibrationEffect.DEFAULT_AMPLITUDE;
-
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -12,6 +10,11 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel viewModel;
     private TextAnimator textAnimator;
     private Vibrator vibrator;
+    private Button gameStartButton;
+    private TextView gameStartCountdownText;
 
 
 
@@ -82,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
          timeRemainingTextView = findViewById(R.id.timeRemainingText);
          startGameScreen = findViewById(R.id.startGameScreenInclude);
          scoreView = findViewById(R.id.scoreText);
+         gameStartCountdownText = findViewById(R.id.gameStartCountdownText);
      }
 
 
@@ -135,14 +141,98 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupStartButton(){
-        Button button = findViewById(R.id.startGameButton);
-        button.setOnClickListener(v -> {
+        gameStartButton = findViewById(R.id.startGameButton);
+        gameStartButton.setOnClickListener(v -> {
             if(isGameStarted.get()){
                 return;
             }
-            startGameScreen.setVisibility(View.INVISIBLE);
-            gameService.startGame();
+            beginGameStartAnimations();
             isGameStarted.set(true);
+        });
+    }
+
+
+    private void beginGameStartAnimations(){
+        Animation startButtonFadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);
+        startButtonFadeOutAnimation.setDuration(300);
+        startButtonFadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                gameStartButton.setVisibility(View.GONE);
+                updateGameStartCountdownText();
+                viewModel.gameStartCurrentCountdown = viewModel.gameStartInitialCountdown;
+               // startGameCountdownTextAnimation();
+                startTextAnimation(gameStartCountdownText, 500,500);
+
+            }
+            @Override public void onAnimationStart(Animation animation){/*do nothing */}
+            @Override public void onAnimationRepeat(Animation animation) { /* do nothing */}
+        });
+        gameStartButton.startAnimation(startButtonFadeOutAnimation);
+    }
+
+
+    public void startTextAnimation(final TextView v, int enlargeTime, int reductionTime){
+        final AnimationSet animationSet = new AnimationSet(true);
+
+        Animation enlargeAnimation = new ScaleAnimation(1.0f,2f,1.0f,2f,
+                Animation.RELATIVE_TO_SELF,0.5f,
+                Animation.RELATIVE_TO_SELF,0.5f);
+        enlargeAnimation.setFillAfter(true);
+        enlargeAnimation.setDuration(enlargeTime);
+
+        Animation reductionAnimation = new ScaleAnimation(1.0f,0.5f,1.0f,0.5f,
+                Animation.RELATIVE_TO_SELF,0.5f,
+                Animation.RELATIVE_TO_SELF,0.5f);
+        reductionAnimation.setFillAfter(true);
+        reductionAnimation.setDuration(reductionTime);
+        reductionAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation){ v.setVisibility(View.VISIBLE);}
+
+            @Override
+            public void onAnimationEnd(Animation animation)
+            {
+                if(viewModel.gameStartCurrentCountdown > 1){
+                    viewModel.gameStartCurrentCountdown--;
+                    updateGameStartCountdownText();
+                    v.startAnimation(animationSet);
+                }
+                else{
+                    log("entered else");
+                    fadeOutStartScreen(startGameScreen);
+                }
+            }
+            @Override public void onAnimationRepeat(Animation animation){}
+        });
+
+        animationSet.addAnimation(enlargeAnimation);
+        animationSet.addAnimation(reductionAnimation);
+        v.startAnimation(animationSet);
+    }
+
+
+    private void fadeOutStartScreen(final ViewGroup startScreen){
+
+        TranslateAnimation animation = new TranslateAnimation(0, 0,0, 3000);
+        animation.setDuration(500);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override public void onAnimationStart(Animation animation){}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                gameService.startGame();
+                startScreen.setVisibility(View.GONE);
+            }
+            @Override public void onAnimationRepeat(Animation animation){}
+        });
+        startScreen.startAnimation(animation);
+    }
+
+
+    private void updateGameStartCountdownText(){
+        runOnUiThread(()->{
+            gameStartCountdownText.setText(String.valueOf(viewModel.gameStartCurrentCountdown));
         });
     }
 

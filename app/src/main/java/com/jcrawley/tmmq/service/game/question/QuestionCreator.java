@@ -1,4 +1,4 @@
-package com.jcrawley.tmmq.service.question;
+package com.jcrawley.tmmq.service.game.question;
 
 import java.util.Random;
 import java.util.function.BiFunction;

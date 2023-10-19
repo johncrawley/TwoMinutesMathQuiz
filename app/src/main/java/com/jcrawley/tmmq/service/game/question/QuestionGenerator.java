@@ -1,6 +1,4 @@
-package com.jcrawley.tmmq.service.question;
-
-import com.jcrawley.tmmq.service.question.MathQuestion;
+package com.jcrawley.tmmq.service.game.question;
 
 import java.util.ArrayList;
 import java.util.List;

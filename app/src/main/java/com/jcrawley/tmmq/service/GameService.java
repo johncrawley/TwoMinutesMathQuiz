@@ -6,6 +6,7 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.jcrawley.tmmq.MainActivity;
+import com.jcrawley.tmmq.service.game.Game;
 
 
 public class GameService extends Service {

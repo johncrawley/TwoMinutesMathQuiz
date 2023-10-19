@@ -1,6 +1,4 @@
-package com.jcrawley.tmmq.service;
-
-import com.jcrawley.tmmq.service.Game;
+package com.jcrawley.tmmq.service.game;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,7 +12,7 @@ public class GameTimer {
     private int currentRemainingTime = initialRemainingTime;
     private int minutesRemaining, secondsRemaining;
     private ScheduledFuture<?> future;
-    private ScheduledExecutorService scheduledExecutorService;
+    private final ScheduledExecutorService scheduledExecutorService;
 
     public GameTimer(Game game){
         this.game = game;
@@ -22,7 +20,7 @@ public class GameTimer {
     }
 
     public void startTimer(){
-        future = scheduledExecutorService.scheduleAtFixedRate(this::decrementRemainingTime, 0,1, TimeUnit.SECONDS);
+        future = scheduledExecutorService.scheduleAtFixedRate(this::decrementRemainingTime, 1,1, TimeUnit.SECONDS);
     }
 
 
