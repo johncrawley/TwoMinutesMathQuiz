@@ -24,18 +24,12 @@ public class GameTimer {
     }
 
 
-    private void updateTimer(){
-        game.updateTime(minutesRemaining, secondsRemaining);
-    }
-
-
     public void resetTime(){
         currentRemainingTime = initialRemainingTime;
     }
 
 
     private void decrementRemainingTime(){
-        currentRemainingTime--;
         updateCurrentRemainingTime();
         updateTimer();
         cancelTimerWhenTimeExpires();
@@ -43,8 +37,14 @@ public class GameTimer {
 
 
     private void updateCurrentRemainingTime(){
+        currentRemainingTime = Math.max(0, currentRemainingTime -1);
         minutesRemaining = currentRemainingTime / 60;
         secondsRemaining = currentRemainingTime % 60;
+    }
+
+
+    private void updateTimer(){
+        game.updateTime(minutesRemaining, secondsRemaining);
     }
 
 

@@ -11,6 +11,7 @@ public class Game {
     private final QuestionGenerator questionGenerator;
     private final GameService gameService;
     private GameTimer gametimer;
+    private int questionCount;
 
 
     public Game(GameService gameService){
@@ -25,13 +26,8 @@ public class Game {
 
     public void startGame(){
       currentQuestion = questionGenerator.generate();
-      gameService.setQuestionText(currentQuestion.getQuestionText());
+      setQuestionTextOnView();
       gametimer.startTimer();
-    }
-
-
-    public void stopGame(){
-
     }
 
 
@@ -44,7 +40,12 @@ public class Game {
             gameService.notifyIncorrectAnswer();
         }
         currentQuestion = questionGenerator.generate();
-        gameService.setQuestionText(currentQuestion.getQuestionText());
+        gameService.fadeInQuestionTextOnView(currentQuestion.getQuestionText());
+    }
+
+
+    private void setQuestionTextOnView(){
+        gameService.setQuestionTextOnView(currentQuestion.getQuestionText());
     }
 
 

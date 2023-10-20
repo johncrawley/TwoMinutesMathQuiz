@@ -27,7 +27,12 @@ public class GameService extends Service {
     }
 
 
-    public void setQuestionText(String questionText){
+    public void setQuestionTextOnView(String questionText){
+        mainActivity.setQuestionText(questionText);
+    }
+
+
+    public void fadeInQuestionTextOnView(String questionText){
         mainActivity.setQuestionText(questionText);
     }
 
@@ -90,6 +95,11 @@ public class GameService extends Service {
     public void onDestroy() {
         log("Entered onDestroy() setting activity ref to null");
         mainActivity = null;
+    }
+
+
+    public boolean isActivityUnbound(){
+        return mainActivity == null;
     }
 
 

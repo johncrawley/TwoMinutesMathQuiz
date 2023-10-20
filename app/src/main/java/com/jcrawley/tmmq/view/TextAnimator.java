@@ -15,8 +15,6 @@ public class TextAnimator {
 
         fadeOutAnimation.setDuration(200);
         fadeInAnimation.setDuration(200);
-
-
         fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
