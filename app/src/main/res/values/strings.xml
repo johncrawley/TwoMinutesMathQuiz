@@ -6,7 +6,7 @@
     <string name="default_time_remaining">2:00</string>
     <string name="default_score_text">Score:0</string>
 
-    <string name="symbol_0">0</string>
+    <string name="symbol_0">&#160;&#160;0&#160;&#160;</string>
     <string name="symbol_1">1</string>
     <string name="symbol_2">2</string>
     <string name="symbol_3">3</string>
@@ -17,7 +17,7 @@
     <string name="symbol_8">8</string>
     <string name="symbol_9">9</string>
     <string name="symbol_backspace">DEL</string>
-    <string name="symbol_enter">→</string>
+    <string name="symbol_enter">&#160;→&#160;</string>
 
     <string name="score_label">Score:</string>
 </resources>

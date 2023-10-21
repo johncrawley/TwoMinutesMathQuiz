@@ -33,7 +33,7 @@ public class GameService extends Service {
 
 
     public void fadeInQuestionTextOnView(String questionText){
-        mainActivity.setQuestionText(questionText);
+        mainActivity.fadeInQuestionText(questionText);
     }
 
 

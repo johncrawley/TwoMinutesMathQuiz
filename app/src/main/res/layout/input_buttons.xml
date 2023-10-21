@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button7"
+                android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/button_margin"
@@ -27,10 +27,10 @@
                 android:minHeight="@dimen/button_minHeight"
                 android:paddingHorizontal="@dimen/button_paddingHorizontal"
                 android:paddingVertical="@dimen/button_paddingVertical"
-                android:text="@string/symbol_7" />
+                android:text="@string/symbol_1" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button8"
+                android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/button_margin"
@@ -38,10 +38,10 @@
                 android:minHeight="@dimen/button_minHeight"
                 android:paddingHorizontal="@dimen/button_paddingHorizontal"
                 android:paddingVertical="@dimen/button_paddingVertical"
-                android:text="@string/symbol_8" />
+                android:text="@string/symbol_2" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button9"
+                android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/button_margin"
@@ -49,10 +49,8 @@
                 android:minHeight="@dimen/button_minHeight"
                 android:paddingHorizontal="@dimen/button_paddingHorizontal"
                 android:paddingVertical="@dimen/button_paddingVertical"
-                android:text="@string/symbol_9" />
-
+                android:text="@string/symbol_3" />
         </TableRow>
-
 
         <TableRow
             android:layout_width="match_parent"
@@ -90,7 +88,6 @@
                 android:paddingHorizontal="@dimen/button_paddingHorizontal"
                 android:paddingVertical="@dimen/button_paddingVertical"
                 android:text="@string/symbol_6" />
-
         </TableRow>
 
         <TableRow
@@ -98,7 +95,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button1"
+                android:id="@+id/button7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/button_margin"
@@ -106,10 +103,10 @@
                 android:minHeight="@dimen/button_minHeight"
                 android:paddingHorizontal="@dimen/button_paddingHorizontal"
                 android:paddingVertical="@dimen/button_paddingVertical"
-                android:text="@string/symbol_1" />
+                android:text="@string/symbol_7" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button2"
+                android:id="@+id/button8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/button_margin"
@@ -117,10 +114,10 @@
                 android:minHeight="@dimen/button_minHeight"
                 android:paddingHorizontal="@dimen/button_paddingHorizontal"
                 android:paddingVertical="@dimen/button_paddingVertical"
-                android:text="@string/symbol_2" />
+                android:text="@string/symbol_8" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button3"
+                android:id="@+id/button9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/button_margin"
@@ -128,28 +125,12 @@
                 android:minHeight="@dimen/button_minHeight"
                 android:paddingHorizontal="@dimen/button_paddingHorizontal"
                 android:paddingVertical="@dimen/button_paddingVertical"
-                android:text="@string/symbol_3" />
-
-
+                android:text="@string/symbol_9" />
         </TableRow>
-
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/button_margin"
-                android:minWidth="@dimen/button_minWidth"
-                android:minHeight="@dimen/button_minHeight"
-                android:paddingHorizontal="@dimen/button_paddingHorizontal"
-                android:paddingVertical="@dimen/button_paddingVertical"
-                android:text="@string/symbol_0" />
-
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonBackspace"
@@ -162,7 +143,16 @@
                 android:paddingVertical="@dimen/button_paddingVertical"
                 android:text="@string/symbol_backspace" />
 
-
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:minWidth="@dimen/button_minWidth"
+                android:minHeight="@dimen/button_minHeight"
+                android:paddingHorizontal="@dimen/button_paddingHorizontal"
+                android:paddingVertical="@dimen/button_paddingVertical"
+                android:text="@string/symbol_0" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonEnter"

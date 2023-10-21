@@ -54,7 +54,7 @@ public class StartScreenAnimator {
 
     public void startTextAnimation(final TextView v){
         final AnimationSet animationSet = new AnimationSet(true);
-        int duration = 3000;
+        int duration = 500;
         float pivotX = 0.5f;
         float pivotY = 0.5f;
         Animation enlargeAnimation = new ScaleAnimation(1.0f,2f,1.0f,2f,
