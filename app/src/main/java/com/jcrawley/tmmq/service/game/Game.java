@@ -11,6 +11,7 @@ public class Game {
     private final QuestionGenerator questionGenerator;
     private final GameService gameService;
     private GameTimer gametimer;
+    private boolean isStarted;
     private int questionCount;
 
 
@@ -25,9 +26,13 @@ public class Game {
 
 
     public void startGame(){
-      currentQuestion = questionGenerator.generate();
-      setQuestionTextOnView();
-      gametimer.startTimer();
+        if(isStarted){
+            return;
+        }
+        isStarted = true;
+        currentQuestion = questionGenerator.generate();
+        setQuestionTextOnView();
+        gametimer.startTimer();
     }
 
 
@@ -46,6 +51,12 @@ public class Game {
 
     private void setQuestionTextOnView(){
         gameService.setQuestionTextOnView(currentQuestion.getQuestionText());
+    }
+
+
+    void gameOver(){
+        gameService.onGameOver(currentScore);
+        isStarted = false;
     }
 
 

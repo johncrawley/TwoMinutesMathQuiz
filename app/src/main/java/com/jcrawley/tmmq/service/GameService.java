@@ -52,6 +52,11 @@ public class GameService extends Service {
     }
 
 
+    public void onGameOver(int finalScore){
+        mainActivity.onGameOver(finalScore);
+    }
+
+
     public void startGame(){
         game.startGame();
     }

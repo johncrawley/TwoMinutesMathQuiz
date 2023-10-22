@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.view.InputHelper;
 import com.jcrawley.tmmq.view.MainViewModel;
-import com.jcrawley.tmmq.view.StartScreenAnimator;
+import com.jcrawley.tmmq.view.ScreenAnimator;
 import com.jcrawley.tmmq.view.TextAnimator;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -30,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
     private boolean bound = false;
     private GameService gameService;
     private final AtomicBoolean isGameStarted = new AtomicBoolean(false);
-    private ViewGroup startGameScreen, gameScreen;
     private MainViewModel viewModel;
     private TextAnimator textAnimator;
     private Vibrator vibrator;
     private Button gameStartButton;
     private TextView gameStartCountdownText;
-    private StartScreenAnimator startScreenAnimator;
+    private ScreenAnimator screenAnimator;
+    private TextView endingScoreText;
 
 
 
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupViews();
         setupViewModel();
-        startScreenAnimator = new StartScreenAnimator(MainActivity.this);
+        screenAnimator = new ScreenAnimator(MainActivity.this);
         new InputHelper(this);
         setupGameService();
         setupStartButton();
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
          questionTextView = findViewById(R.id.questionText);
          textAnimator = new TextAnimator(questionTextView);
          timeRemainingTextView = findViewById(R.id.timeRemainingText);
-         startGameScreen = findViewById(R.id.startGameLayoutInclude);
+         endingScoreText = findViewById(R.id.endingScoreText);
          scoreView = findViewById(R.id.scoreText);
          gameStartCountdownText = findViewById(R.id.gameStartCountdownText);
      }
@@ -139,6 +138,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void onGameOver(int finalScore){
+        runOnUiThread(()->{
+            endingScoreText.setText(String.valueOf(finalScore));
+            screenAnimator.fadeInGameOverScreen();
+        });
+    }
+
+
     private String createTimeRemainingString(int minutesRemaining, int secondsRemaining){
         String delimiter = ":";
         String displaySeconds = secondsRemaining < 10 ? "0" + secondsRemaining : String.valueOf(secondsRemaining);
@@ -152,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             if(isGameStarted.get()){
                 return;
             }
-            startScreenAnimator.beginGameStartAnimations(gameStartButton);
+            screenAnimator.beginGameStartAnimations(gameStartButton);
             isGameStarted.set(true);
         });
     }

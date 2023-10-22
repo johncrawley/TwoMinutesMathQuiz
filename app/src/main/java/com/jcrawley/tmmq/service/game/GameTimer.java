@@ -52,6 +52,7 @@ public class GameTimer {
     private void cancelTimerWhenTimeExpires(){
         if(currentRemainingTime <= 0){
             future.cancel(false);
+            game.gameOver();
         }
     }
 

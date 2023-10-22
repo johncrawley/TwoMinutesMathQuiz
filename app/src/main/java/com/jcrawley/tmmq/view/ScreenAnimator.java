@@ -13,15 +13,17 @@ import android.widget.TextView;
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
 
-public class StartScreenAnimator {
+public class ScreenAnimator {
 
     private final MainActivity activity;
     private final MainViewModel viewModel;
     private TextView gameStartCountdownText;
-    private ViewGroup startGameLayout, gameLayout;
+    private ViewGroup startGameLayout, gameLayout, gameOverLayout;
+    private int screenEnd = 3000;
+    private final int screenSweepTime = 900;
 
 
-    public StartScreenAnimator(MainActivity activity){
+    public ScreenAnimator(MainActivity activity){
         this.activity = activity;
         viewModel = activity.getViewModel();
         setupViews();
@@ -31,6 +33,7 @@ public class StartScreenAnimator {
         gameStartCountdownText = activity.findViewById(R.id.gameStartCountdownText);
         startGameLayout = activity.findViewById(R.id.startGameLayoutInclude);
         gameLayout = activity.findViewById(R.id.gameLayout);
+        gameOverLayout = activity.findViewById(R.id.gameOverLayoutInclude);
     }
 
 
@@ -96,8 +99,8 @@ public class StartScreenAnimator {
 
     private void fadeOutStartScreen(final ViewGroup startScreen){
 
-        TranslateAnimation animation = new TranslateAnimation(0, 0,0, 3000);
-        animation.setDuration(500);
+        TranslateAnimation animation = new TranslateAnimation(0, 0,0, screenEnd);
+        animation.setDuration(screenSweepTime);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override public void onAnimationStart(Animation animation){}
 
@@ -109,5 +112,23 @@ public class StartScreenAnimator {
             @Override public void onAnimationRepeat(Animation animation){}
         });
         startScreen.startAnimation(animation);
+    }
+
+
+    public void fadeInGameOverScreen(){
+        TranslateAnimation animation = new TranslateAnimation(0, 0,screenEnd, 0);
+        animation.setDuration(screenSweepTime);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override public void onAnimationStart(Animation animation){}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                startGameLayout.setVisibility(View.GONE);
+                gameLayout.setVisibility(View.GONE);
+            }
+            @Override public void onAnimationRepeat(Animation animation){}
+        });
+        gameOverLayout.setVisibility(View.VISIBLE);
+        gameOverLayout.startAnimation(animation);
     }
 }
