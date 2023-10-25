@@ -36,6 +36,11 @@ public class Game {
     }
 
 
+    public boolean isStarted(){
+        return isStarted;
+    }
+
+
     public void checkAnswer(String answerStr){
         if(currentQuestion.isGivenAnswerCorrect(answerStr)){
             currentScore++;
@@ -57,6 +62,7 @@ public class Game {
     void gameOver(){
         gameService.onGameOver(currentScore);
         isStarted = false;
+        currentScore = 0;
     }
 
 
@@ -66,14 +72,34 @@ public class Game {
 
 
     public int getScore(){
+        return currentScore;
+    }
+
+
+    public String getCurrentQuestionText(){
+        return currentQuestion == null ? "" : currentQuestion.getQuestionText();
+    }
+
+
+    public int getSecondsRemaining(){
+        if(gametimer == null){
+            return 0;
+        }
+        return gametimer.getSecondsRemaining();
+    }
+
+
+    public int getMinutesRemaining(){
+        if(gametimer == null){
         return 0;
+    }
+        return gametimer.getMinutesRemaining();
     }
 
 
     public void resetGame(){
         currentScore = 0;
         gametimer.resetTime();
-
     }
 
 

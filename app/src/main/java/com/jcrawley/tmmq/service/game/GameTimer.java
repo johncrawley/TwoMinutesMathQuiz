@@ -26,6 +26,7 @@ public class GameTimer {
 
     public void resetTime(){
         currentRemainingTime = initialRemainingTime;
+        calculateMinutesAndSeconds();
     }
 
 
@@ -36,8 +37,23 @@ public class GameTimer {
     }
 
 
+    public int getSecondsRemaining(){
+        return secondsRemaining;
+    }
+
+
+    public int getMinutesRemaining(){
+        return minutesRemaining;
+    }
+
+
     private void updateCurrentRemainingTime(){
         currentRemainingTime = Math.max(0, currentRemainingTime -1);
+        calculateMinutesAndSeconds();
+    }
+
+
+    private void calculateMinutesAndSeconds(){
         minutesRemaining = currentRemainingTime / 60;
         secondsRemaining = currentRemainingTime % 60;
     }
@@ -53,6 +69,7 @@ public class GameTimer {
         if(currentRemainingTime <= 0){
             future.cancel(false);
             game.gameOver();
+            resetTime();
         }
     }
 

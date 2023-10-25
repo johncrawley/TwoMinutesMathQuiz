@@ -43,12 +43,12 @@ public class GameService extends Service {
 
 
     public void updateScore(int score){
-        mainActivity.updateScore(score);
+        mainActivity.setScore(score);
     }
 
 
     public void updateTimer(int minutesRemaining, int secondsRemaining){
-        mainActivity.updateTime(minutesRemaining, secondsRemaining);
+        mainActivity.setTimeRemaining(minutesRemaining, secondsRemaining);
     }
 
 
@@ -61,6 +61,28 @@ public class GameService extends Service {
         game.startGame();
     }
 
+
+    public boolean isGameStarted(){
+        return game.isStarted();
+    }
+
+    public int getScore(){
+        return game.getScore();
+    }
+
+
+    public String getQuestionText(){
+        return game.getCurrentQuestionText();
+    }
+
+
+    public int getSecondsRemaining(){
+        return game.getSecondsRemaining();
+    }
+
+    public int getMinutesRemaining(){
+        return game.getMinutesRemaining();
+    }
 
     @Override
     public void onCreate() {

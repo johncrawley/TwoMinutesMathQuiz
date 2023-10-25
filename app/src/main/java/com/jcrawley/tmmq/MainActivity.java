@@ -50,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
             gameService = binder.getService();
             gameService.setActivity(MainActivity.this);
             bound = true;
+            updateCurrentStatusFromService();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
-
             log("Entered onServiceDisconnected()");
             bound = false;
         }
@@ -70,12 +70,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setupViews();
         setupViewModel();
+        setupViews();
         screenAnimator = new ScreenAnimator(MainActivity.this);
         new InputHelper(this);
         setupGameService();
-        setupStartButton();
         setupVibe();
      }
 
@@ -88,6 +87,41 @@ public class MainActivity extends AppCompatActivity {
          endingScoreText = findViewById(R.id.endingScoreText);
          scoreView = findViewById(R.id.scoreText);
          gameStartCountdownText = findViewById(R.id.gameStartCountdownText);
+         setupStartButton();
+         Button newGameButton = findViewById(R.id.newGameButton);
+         newGameButton.setOnClickListener(V -> {
+             screenAnimator.hideGameOverScreen();});
+     }
+
+
+     public void resetStartGameScreen(){
+        updateGameViewsFromService();
+        gameStartCountdownText.setVisibility(View.GONE);
+        isGameStarted.set(false);
+        gameStartCountdownText.setText(String.valueOf(viewModel.gameStartInitialCountdown));
+        gameStartButton.setVisibility(View.VISIBLE);
+     }
+
+
+     public void updateCurrentStatusFromService(){
+        if(gameService.isGameStarted()){
+            updateGameViewsFromService();
+            return;
+        }
+        setGameOverScreenVisibility(View.GONE);
+        setGameScreenVisibility(View.GONE);
+        setStartScreenVisibility(View.VISIBLE);
+     }
+
+
+     private void updateGameViewsFromService(){
+         reassignActivityToService();
+         runOnUiThread(()->{
+
+         });
+         setTimeRemaining(gameService.getMinutesRemaining(), gameService.getSecondsRemaining());
+         setScore(gameService.getScore());
+         setQuestionText(gameService.getQuestionText());
      }
 
 
@@ -149,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void updateTime(int minutesRemaining, int secondsRemaining){
+    public void setTimeRemaining(int minutesRemaining, int secondsRemaining){
         runOnUiThread(()->{
             timeRemainingTextView.setText(createTimeRemainingString(minutesRemaining, secondsRemaining));
         });
@@ -183,21 +217,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void showStartScreen(){
-        viewModel.startScreenVisibility = View.VISIBLE;
+    public void setStartScreenVisibility(int visibility){
+        viewModel.startScreenVisibility = visibility;
         startScreenLayout.setVisibility(viewModel.startScreenVisibility);
     }
 
 
-    public void showGameOverScreen(){
-        viewModel.gameOverScreenVisibility = View.VISIBLE;
-        gameOverScreenLayout.setVisibility(viewModel.gameOverScreenVisibility);
+    public void setGameScreenVisibility(int visibility){
+        viewModel.gameScreenVisibility = visibility;
+        gameScreenLayout.setVisibility(viewModel.gameScreenVisibility);
     }
 
 
-    public void showGameScreen(){
-        viewModel.gameScreenVisibility = View.VISIBLE;
-        gameScreenLayout.setVisibility(viewModel.gameScreenVisibility);
+    public void setGameOverScreenVisibility(int visibility){
+        viewModel.gameOverScreenVisibility = visibility;
+        gameOverScreenLayout.setVisibility(viewModel.gameOverScreenVisibility);
     }
 
 
@@ -216,9 +250,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void updateScore(int score){
+    public void setScore(int score){
         String scoreStr = getString(R.string.score_label) + score;
-        scoreView.setText(scoreStr);
+        runOnUiThread(()->{
+            scoreView.setText(scoreStr);
+        });
     }
 
 

@@ -18,8 +18,8 @@ public class ScreenAnimator {
     private final MainActivity activity;
     private final MainViewModel viewModel;
     private TextView gameStartCountdownText;
-    private ViewGroup startGameLayout, gameLayout, gameOverLayout;
-    private int screenEnd = 3000;
+    private ViewGroup startGameLayout, gameOverLayout;
+    private final int screenEnd = 3000;
     private final int screenSweepTime = 900;
 
 
@@ -32,7 +32,6 @@ public class ScreenAnimator {
     private void setupViews(){
         gameStartCountdownText = activity.findViewById(R.id.gameStartCountdownText);
         startGameLayout = activity.findViewById(R.id.startGameLayoutInclude);
-        gameLayout = activity.findViewById(R.id.gameLayout);
         gameOverLayout = activity.findViewById(R.id.gameOverLayoutInclude);
     }
 
@@ -84,7 +83,7 @@ public class ScreenAnimator {
                     v.startAnimation(animationSet);
                 }
                 else{
-                    gameLayout.setVisibility(View.VISIBLE);
+                    activity.setGameScreenVisibility(View.VISIBLE);
                     fadeOutStartScreen(startGameLayout);
                 }
             }
@@ -98,7 +97,6 @@ public class ScreenAnimator {
 
 
     private void fadeOutStartScreen(final ViewGroup startScreen){
-
         TranslateAnimation animation = new TranslateAnimation(0, 0,0, screenEnd);
         animation.setDuration(screenSweepTime);
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -107,7 +105,8 @@ public class ScreenAnimator {
             @Override
             public void onAnimationEnd(Animation animation) {
                 activity.startGame();
-                startScreen.setVisibility(View.GONE);
+                activity.setStartScreenVisibility(View.GONE);
+                viewModel.gameStartCurrentCountdown = viewModel.gameStartInitialCountdown;
             }
             @Override public void onAnimationRepeat(Animation animation){}
         });
@@ -116,19 +115,38 @@ public class ScreenAnimator {
 
 
     public void fadeInGameOverScreen(){
-        TranslateAnimation animation = new TranslateAnimation(0, 0,screenEnd, 0);
+        TranslateAnimation animation = new TranslateAnimation(0, 0, screenEnd, 0);
         animation.setDuration(screenSweepTime);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override public void onAnimationStart(Animation animation){}
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startGameLayout.setVisibility(View.GONE);
-                gameLayout.setVisibility(View.GONE);
+                activity.setStartScreenVisibility(View.GONE);
+                activity.setGameScreenVisibility(View.GONE);
             }
             @Override public void onAnimationRepeat(Animation animation){}
         });
-        gameOverLayout.setVisibility(View.VISIBLE);
+        activity.setGameOverScreenVisibility(View.VISIBLE);
+        gameOverLayout.startAnimation(animation);
+    }
+
+
+    public void hideGameOverScreen(){
+        TranslateAnimation animation = new TranslateAnimation(0, 0, 0, screenEnd);
+        animation.setDuration(screenSweepTime);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override public void onAnimationStart(Animation animation){}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                activity.setGameOverScreenVisibility(View.GONE);
+                activity.setGameScreenVisibility(View.GONE);
+            }
+            @Override public void onAnimationRepeat(Animation animation){}
+        });
+        activity.setStartScreenVisibility(View.VISIBLE);
+        activity.resetStartGameScreen();
         gameOverLayout.startAnimation(animation);
     }
 }
