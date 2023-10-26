@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,7 +29,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MainActivity extends AppCompatActivity {
 
     private TextView questionTextView, timeRemainingTextView, scoreView;
-    private boolean bound = false;
     private GameService gameService;
     private final AtomicBoolean isGameStarted = new AtomicBoolean(false);
     private MainViewModel viewModel;
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ScreenAnimator screenAnimator;
     private TextView endingScoreText;
     private ViewGroup gameScreenLayout, gameOverScreenLayout, startScreenLayout;
+    int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
 
 
 
@@ -49,14 +50,12 @@ public class MainActivity extends AppCompatActivity {
             GameService.LocalBinder binder = (GameService.LocalBinder) service;
             gameService = binder.getService();
             gameService.setActivity(MainActivity.this);
-            bound = true;
             updateCurrentStatusFromService();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             log("Entered onServiceDisconnected()");
-            bound = false;
         }
     };
 
@@ -71,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupViewModel();
+        setupColors();
         setupViews();
         screenAnimator = new ScreenAnimator(MainActivity.this);
         new InputHelper(this);
@@ -88,23 +88,23 @@ public class MainActivity extends AppCompatActivity {
          scoreView = findViewById(R.id.scoreText);
          gameStartCountdownText = findViewById(R.id.gameStartCountdownText);
          setupStartButton();
-         Button newGameButton = findViewById(R.id.newGameButton);
-         newGameButton.setOnClickListener(V -> {
-             screenAnimator.hideGameOverScreen();});
+         setupNewGameButton();
      }
 
 
      public void resetStartGameScreen(){
-        updateGameViewsFromService();
+        gameStartButton.setVisibility(View.VISIBLE);
         gameStartCountdownText.setVisibility(View.GONE);
         isGameStarted.set(false);
-        gameStartCountdownText.setText(String.valueOf(viewModel.gameStartInitialCountdown));
-        gameStartButton.setVisibility(View.VISIBLE);
      }
 
 
      public void updateCurrentStatusFromService(){
+        log("Entered updateCurrentStatusFromService()");
         if(gameService.isGameStarted()){
+            setGameOverScreenVisibility(View.GONE);
+            setGameScreenVisibility(View.VISIBLE);
+            setStartScreenVisibility(View.GONE);
             updateGameViewsFromService();
             return;
         }
@@ -116,9 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
      private void updateGameViewsFromService(){
          reassignActivityToService();
-         runOnUiThread(()->{
-
-         });
          setTimeRemaining(gameService.getMinutesRemaining(), gameService.getSecondsRemaining());
          setScore(gameService.getScore());
          setQuestionText(gameService.getQuestionText());
@@ -183,10 +180,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void setupColors(){
+        timeRemainingTextNormalColor = getColorFromAttribute(R.attr.time_remaining_text_normal_color);
+        timeRemainingTextWarningColor = getColorFromAttribute(R.attr.time_remaining_text_warning_color);
+    }
+
+
+    private int getColorFromAttribute(int attr){
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(attr, typedValue, true);
+        return typedValue.data;
+    }
+
+
     public void setTimeRemaining(int minutesRemaining, int secondsRemaining){
         runOnUiThread(()->{
+            setTimeRemainingTextColor(minutesRemaining, secondsRemaining);
             timeRemainingTextView.setText(createTimeRemainingString(minutesRemaining, secondsRemaining));
         });
+    }
+
+
+    private void setTimeRemainingTextColor(int minutesRemaining, int secondsRemaining){
+        int textColor = minutesRemaining == 0 && secondsRemaining < 10 ?
+                timeRemainingTextWarningColor : timeRemainingTextNormalColor;
+        timeRemainingTextView.setTextColor(textColor);
     }
 
 
@@ -211,9 +229,18 @@ public class MainActivity extends AppCompatActivity {
             if(isGameStarted.get()){
                 return;
             }
+            updateGameViewsFromService();
+            questionTextView.setText("");
             screenAnimator.beginGameStartAnimations(gameStartButton);
             isGameStarted.set(true);
         });
+    }
+
+
+    private void setupNewGameButton(){
+        Button newGameButton = findViewById(R.id.newGameButton);
+        newGameButton.setOnClickListener(V -> {
+            screenAnimator.hideGameOverScreen();});
     }
 
 

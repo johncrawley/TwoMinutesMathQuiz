@@ -12,18 +12,12 @@ import com.jcrawley.tmmq.service.game.Game;
 public class GameService extends Service {
     IBinder binder = new LocalBinder();
     private MainActivity mainActivity;
-    private Game game;
-
-
-    public GameService(String name) {
-        super();
-    }
+    private final Game game;
 
 
     public GameService() {
         super();
-        game = new Game(this);
-        game.init();
+        game = new Game();
     }
 
 
@@ -80,13 +74,16 @@ public class GameService extends Service {
         return game.getSecondsRemaining();
     }
 
+
     public int getMinutesRemaining(){
         return game.getMinutesRemaining();
     }
 
+
     @Override
     public void onCreate() {
         log("entered onCreate()");
+        game.init(this);
     }
 
 

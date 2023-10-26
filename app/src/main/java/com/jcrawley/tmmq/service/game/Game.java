@@ -9,18 +9,19 @@ public class Game {
     private int currentScore;
     private MathQuestion currentQuestion;
     private final QuestionGenerator questionGenerator;
-    private final GameService gameService;
+    private GameService gameService;
     private GameTimer gametimer;
     private boolean isStarted;
     private int questionCount;
 
 
-    public Game(GameService gameService){
+    public Game(){
         questionGenerator = new QuestionGenerator();
-        this.gameService = gameService;
     }
 
-    public void init(){
+
+    public void init(GameService gameService){
+        this.gameService = gameService;
         gametimer = new GameTimer(this);
     }
 
@@ -82,18 +83,12 @@ public class Game {
 
 
     public int getSecondsRemaining(){
-        if(gametimer == null){
-            return 0;
-        }
-        return gametimer.getSecondsRemaining();
+        return gametimer == null ? 0 : gametimer.getSecondsRemaining();
     }
 
 
     public int getMinutesRemaining(){
-        if(gametimer == null){
-        return 0;
-    }
-        return gametimer.getMinutesRemaining();
+        return gametimer == null ? 0 : gametimer.getMinutesRemaining();
     }
 
 
@@ -101,7 +96,6 @@ public class Game {
         currentScore = 0;
         gametimer.resetTime();
     }
-
 
 
 }

@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class GameTimer {
 
     private final Game game;
-    private final int initialRemainingTime = 120;
+    private final int initialRemainingTime = 12;
     private int currentRemainingTime = initialRemainingTime;
     private int minutesRemaining, secondsRemaining;
     private ScheduledFuture<?> future;
@@ -17,6 +17,7 @@ public class GameTimer {
     public GameTimer(Game game){
         this.game = game;
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        calculateMinutesAndSeconds();
     }
 
     public void startTimer(){
