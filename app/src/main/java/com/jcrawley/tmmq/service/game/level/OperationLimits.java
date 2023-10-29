@@ -1,5 +1,7 @@
 package com.jcrawley.tmmq.service.game.level;
 
+import com.jcrawley.tmmq.service.game.question.MathOperation;
+
 public class OperationLimits {
 
     private final boolean isEnabled;

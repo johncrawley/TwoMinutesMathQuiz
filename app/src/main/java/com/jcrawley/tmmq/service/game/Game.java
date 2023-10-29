@@ -2,6 +2,7 @@ package com.jcrawley.tmmq.service.game;
 
 import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.game.level.GameLevel;
+import com.jcrawley.tmmq.service.game.level.LevelFactory;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.game.question.QuestionGenerator;
 
@@ -16,11 +17,13 @@ public class Game {
     private GameTimer gametimer;
     private boolean isStarted;
     private int questionCount;
-    private Map<Integer, GameLevel> levels;
+    private final Map<Integer, GameLevel> levels;
 
 
     public Game(){
+        levels = LevelFactory.createAndAddLevels();
         questionGenerator = new QuestionGenerator();
+        questionGenerator.setGameLevel(levels.get(5));
     }
 
 

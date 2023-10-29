@@ -7,18 +7,9 @@ import java.util.Map;
 
 public class LevelFactory {
 
-    private final Map<Integer, GameLevel> levels;
+    public static Map<Integer, GameLevel> createAndAddLevels(){
 
-
-    public LevelFactory(){
-        levels = new HashMap<>(10);
-        createAndAddLevels();
-    }
-
-
-    private void createAndAddLevels(){
-
-
+        Map<Integer, GameLevel> levels = new HashMap<>(10);
         GameLevel gameLevel1 = new GameLevel();
         addOperationLimitsTo(gameLevel1, MathOperation.ADDITION, 1,5,1,5);
         levels.put(1, gameLevel1);
@@ -56,15 +47,13 @@ public class LevelFactory {
         addOperationLimitsTo(gameLevel7, MathOperation.MULTIPLICATION, 2,12,2,12);
         addOperationLimitsTo(gameLevel7, MathOperation.DIVISION, 4,12,2,12);
         levels.put(7, gameLevel7);
+
+        return levels;
     }
 
-    private void addOperationLimitsTo(GameLevel gameLevel, MathOperation mathOperation, int number1Min,
+    private static void addOperationLimitsTo(GameLevel gameLevel, MathOperation mathOperation, int number1Min,
                                       int number1Max, int number2Min, int number2Max){
         gameLevel.addOperationLimits(mathOperation, new OperationLimits(number1Min, number1Max, number2Min, number2Max));
-    }
-
-    public Map<Integer, GameLevel> getLevels(){
-        return levels;
     }
 
 }

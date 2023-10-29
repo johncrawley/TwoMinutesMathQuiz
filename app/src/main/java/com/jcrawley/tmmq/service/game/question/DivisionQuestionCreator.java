@@ -2,8 +2,8 @@ package com.jcrawley.tmmq.service.game.question;
 
 public class DivisionQuestionCreator extends QuestionCreator{
 
-    public DivisionQuestionCreator(int minNumber, int maxNumber){
-        super("÷", minNumber, maxNumber, (x,y)-> x / y);
+    public DivisionQuestionCreator(){
+        super(MathOperation.DIVISION, "÷", (x,y)-> x / y);
     }
 
     @Override
