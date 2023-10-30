@@ -30,6 +30,8 @@
     <dimen name="score_text_size">32sp</dimen>
     <dimen name="input_text_size">72sp</dimen>
     <dimen name="game_start_countdown_text">72sp</dimen>
+    <dimen name="game_start_get_ready_text">58sp</dimen>
+    <dimen name="game_start_get_ready_text_margin">18dp</dimen>
     <dimen name="game_over_text_size">56sp</dimen>
     <dimen name="ending_score_label_text_size">36sp</dimen>
     <dimen name="ending_score_text_size">56sp</dimen>

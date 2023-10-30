@@ -132,6 +132,14 @@ public class ScreenAnimator {
     }
 
 
+    public void fadeInView(View view){
+        AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(250);
+        view.setVisibility(View.VISIBLE);
+        view.startAnimation(animation);
+    }
+
+
     public void hideGameOverScreen(){
         TranslateAnimation animation = new TranslateAnimation(0, 0, 0, screenEnd);
         animation.setDuration(screenSweepTime);

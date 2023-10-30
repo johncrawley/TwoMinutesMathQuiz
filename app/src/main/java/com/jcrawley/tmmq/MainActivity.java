@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextAnimator textAnimator;
     private Vibrator vibrator;
     private Button gameStartButton;
+    private TextView getReadyText;
     private TextView gameStartCountdownText;
     private ScreenAnimator screenAnimator;
     private TextView endingScoreText;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
          timeRemainingTextView = findViewById(R.id.timeRemainingText);
          endingScoreText = findViewById(R.id.endingScoreText);
          scoreView = findViewById(R.id.scoreText);
+         getReadyText = findViewById(R.id.getReadyText);
          gameStartCountdownText = findViewById(R.id.gameStartCountdownText);
          setupStartButton();
          setupNewGameButton();
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
      public void resetStartGameScreen(){
         gameStartButton.setVisibility(View.VISIBLE);
+        getReadyText.setVisibility(View.INVISIBLE);
         gameStartCountdownText.setVisibility(View.GONE);
         isGameStarted.set(false);
      }
@@ -231,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
             }
             updateGameViewsFromService();
             questionTextView.setText("");
+            screenAnimator.fadeInView(getReadyText);
             screenAnimator.beginGameStartAnimations(gameStartButton);
             isGameStarted.set(true);
         });

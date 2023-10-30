@@ -78,7 +78,7 @@ public class QuestionCreator {
 
     private int getRandomNumber(int min, int max){
         log("getRandomNumber() min max: " + min + "," + max);
-        return Math.max(min, random.nextInt(max));
+        return Math.max(min, random.nextInt(Math.max(1, max)));
     }
 
     private void log(String msg){
