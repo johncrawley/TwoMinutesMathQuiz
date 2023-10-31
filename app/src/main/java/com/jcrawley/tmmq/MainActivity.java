@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel viewModel;
     private TextAnimator textAnimator;
     private Vibrator vibrator;
-    private Button gameStartButton;
     private TextView getReadyText;
     private TextView gameStartCountdownText;
     private ScreenAnimator screenAnimator;
     private TextView endingScoreText;
     private ViewGroup gameScreenLayout, gameOverScreenLayout, startScreenLayout;
+    private ViewGroup startGameButtonsLayout;
     int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
 
 
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
 
      public void resetStartGameScreen(){
-        gameStartButton.setVisibility(View.VISIBLE);
+        startGameButtonsLayout.setVisibility(View.VISIBLE);
         getReadyText.setVisibility(View.INVISIBLE);
         gameStartCountdownText.setVisibility(View.GONE);
         isGameStarted.set(false);
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
      private void setupScreenViews(){
          startScreenLayout = setupScreenView(R.id.startGameLayoutInclude, viewModel.startScreenVisibility);
-         gameScreenLayout = setupScreenView(R.id.gameLayout, viewModel.gameScreenVisibility);
+         gameScreenLayout = setupScreenView(R.id.gameLayoutInclude, viewModel.gameScreenVisibility);
          gameOverScreenLayout = setupScreenView(R.id.gameOverLayoutInclude, viewModel.gameOverScreenVisibility);
      }
 
@@ -227,7 +227,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupStartButton(){
-        gameStartButton = findViewById(R.id.startGameButton);
+        Button gameStartButton = findViewById(R.id.startGameButton);
+        startGameButtonsLayout = findViewById(R.id.startButtonsLayout);
         gameStartButton.setOnClickListener(v -> {
             if(isGameStarted.get()){
                 return;
@@ -235,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
             updateGameViewsFromService();
             questionTextView.setText("");
             screenAnimator.fadeInView(getReadyText);
-            screenAnimator.beginGameStartAnimations(gameStartButton);
+            screenAnimator.beginGameStartAnimations(startGameButtonsLayout);
             isGameStarted.set(true);
         });
     }

@@ -36,27 +36,34 @@ public class ScreenAnimator {
     }
 
 
-    public void beginGameStartAnimations(Button gameStartButton){
+    public void beginGameStartAnimations(ViewGroup viewGroup){
+        fadeOutAndThen(viewGroup, () ->{
+            viewGroup.setVisibility(View.GONE);
+            activity.updateGameStartCountdownText();
+            viewModel.gameStartCurrentCountdown = viewModel.gameStartInitialCountdown;
+            startTextAnimation(gameStartCountdownText);
+        });
+    }
+
+
+    public void fadeOutAndThen(View view, Runnable runnable){
         Animation startButtonFadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);
         startButtonFadeOutAnimation.setDuration(300);
         startButtonFadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
-                gameStartButton.setVisibility(View.GONE);
-                activity.updateGameStartCountdownText();
-                viewModel.gameStartCurrentCountdown = viewModel.gameStartInitialCountdown;
-                startTextAnimation(gameStartCountdownText);
+                runnable.run();
             }
             @Override public void onAnimationStart(Animation animation){/*do nothing */}
             @Override public void onAnimationRepeat(Animation animation) { /* do nothing */}
         });
-        gameStartButton.startAnimation(startButtonFadeOutAnimation);
+        view.startAnimation(startButtonFadeOutAnimation);
     }
 
 
     public void startTextAnimation(final TextView v){
         final AnimationSet animationSet = new AnimationSet(true);
-        int duration = 500;
+        int duration = 800;
         float pivotX = 0.5f;
         float pivotY = 0.5f;
         Animation enlargeAnimation = new ScaleAnimation(1.0f,2f,1.0f,2f,
