@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.jcrawley.tmmq.service.GameService;
@@ -22,6 +24,7 @@ import com.jcrawley.tmmq.view.InputHelper;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.ScreenAnimator;
 import com.jcrawley.tmmq.view.TextAnimator;
+import com.jcrawley.tmmq.view.WelcomeScreenFragment;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewGroup gameScreenLayout, gameOverScreenLayout, startScreenLayout;
     private ViewGroup startGameButtonsLayout;
     int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
+    private FragmentContainerView fragmentContainerView;
 
 
 
@@ -82,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
      private void setupViews(){
          setupScreenViews();
+         setupFragments();
          questionTextView = findViewById(R.id.questionText);
          textAnimator = new TextAnimator(questionTextView);
          timeRemainingTextView = findViewById(R.id.timeRemainingText);
@@ -91,6 +96,15 @@ public class MainActivity extends AppCompatActivity {
          gameStartCountdownText = findViewById(R.id.gameStartCountdownText);
          setupStartButton();
          setupNewGameButton();
+     }
+
+
+     private void setupFragments(){
+        fragmentContainerView = findViewById(R.id.fragment_container);
+        Fragment welcomeScreenFragment = new WelcomeScreenFragment();
+        getSupportFragmentManager().beginTransaction()
+        .add(R.id.fragment_container, welcomeScreenFragment)
+        .commit();
      }
 
 
