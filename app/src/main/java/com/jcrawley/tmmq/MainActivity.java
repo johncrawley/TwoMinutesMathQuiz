@@ -24,7 +24,7 @@ import com.jcrawley.tmmq.view.InputHelper;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.ScreenAnimator;
 import com.jcrawley.tmmq.view.TextAnimator;
-import com.jcrawley.tmmq.view.WelcomeScreenFragment;
+import com.jcrawley.tmmq.view.fragments.WelcomeScreenFragment;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
