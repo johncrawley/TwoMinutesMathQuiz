@@ -31,8 +31,8 @@ public class ScreenAnimator {
 
     private void setupViews(){
         gameStartCountdownText = activity.findViewById(R.id.gameStartCountdownText);
-        startGameLayout = activity.findViewById(R.id.startGameLayoutInclude);
-        gameOverLayout = activity.findViewById(R.id.gameOverLayoutInclude);
+      //  startGameLayout = activity.findViewById(R.id.startGameLayoutInclude);
+        //gameOverLayout = activity.findViewById(R.id.gameOverLayoutInclude);
     }
 
 

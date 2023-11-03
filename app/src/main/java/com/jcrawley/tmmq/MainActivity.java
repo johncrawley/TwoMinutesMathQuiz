@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private Vibrator vibrator;
     private TextView getReadyText;
     private TextView gameStartCountdownText;
-    private ScreenAnimator screenAnimator;
+   // private ScreenAnimator screenAnimator;
     private TextView endingScoreText;
-    private ViewGroup gameScreenLayout, gameOverScreenLayout, startScreenLayout;
+  //  private ViewGroup gameScreenLayout, gameOverScreenLayout, startScreenLayout;
     private ViewGroup startGameButtonsLayout;
     int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
     private FragmentContainerView fragmentContainerView;
@@ -75,18 +75,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupViewModel();
-        setupColors();
-        setupViews();
-        screenAnimator = new ScreenAnimator(MainActivity.this);
-        new InputHelper(this);
+        setupFragments();
+       // setupColors();
+       // setupViews();
+       // screenAnimator = new ScreenAnimator(MainActivity.this);
+       // new InputHelper(this);
         setupGameService();
-        setupVibe();
+       // setupVibe();
      }
 
 
      private void setupViews(){
-         setupScreenViews();
-         setupFragments();
+        // setupScreenViews();
          questionTextView = findViewById(R.id.questionText);
          textAnimator = new TextAnimator(questionTextView);
          timeRemainingTextView = findViewById(R.id.timeRemainingText);
@@ -138,12 +138,15 @@ public class MainActivity extends AppCompatActivity {
          setQuestionText(gameService.getQuestionText());
      }
 
-
+/*
      private void setupScreenViews(){
          startScreenLayout = setupScreenView(R.id.startGameLayoutInclude, viewModel.startScreenVisibility);
          gameScreenLayout = setupScreenView(R.id.gameLayoutInclude, viewModel.gameScreenVisibility);
          gameOverScreenLayout = setupScreenView(R.id.gameOverLayoutInclude, viewModel.gameOverScreenVisibility);
      }
+
+
+ */
 
 
      private ViewGroup setupScreenView(int id, int initialVisibility){
@@ -228,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
     public void onGameOver(int finalScore){
         runOnUiThread(()->{
             endingScoreText.setText(String.valueOf(finalScore));
-            screenAnimator.fadeInGameOverScreen();
+        //    screenAnimator.fadeInGameOverScreen();
         });
     }
 
@@ -249,8 +252,8 @@ public class MainActivity extends AppCompatActivity {
             }
             updateGameViewsFromService();
             questionTextView.setText("");
-            screenAnimator.fadeInView(getReadyText);
-            screenAnimator.beginGameStartAnimations(startGameButtonsLayout);
+          //  screenAnimator.fadeInView(getReadyText);
+            //  screenAnimator.beginGameStartAnimations(startGameButtonsLayout);
             isGameStarted.set(true);
         });
     }
@@ -259,25 +262,26 @@ public class MainActivity extends AppCompatActivity {
     private void setupNewGameButton(){
         Button newGameButton = findViewById(R.id.newGameButton);
         newGameButton.setOnClickListener(V -> {
-            screenAnimator.hideGameOverScreen();});
+          //  screenAnimator.hideGameOverScreen();
+              });
     }
 
 
     public void setStartScreenVisibility(int visibility){
         viewModel.startScreenVisibility = visibility;
-        startScreenLayout.setVisibility(viewModel.startScreenVisibility);
+       // startScreenLayout.setVisibility(viewModel.startScreenVisibility);
     }
 
 
     public void setGameScreenVisibility(int visibility){
         viewModel.gameScreenVisibility = visibility;
-        gameScreenLayout.setVisibility(viewModel.gameScreenVisibility);
+       // gameScreenLayout.setVisibility(viewModel.gameScreenVisibility);
     }
 
 
     public void setGameOverScreenVisibility(int visibility){
         viewModel.gameOverScreenVisibility = visibility;
-        gameOverScreenLayout.setVisibility(viewModel.gameOverScreenVisibility);
+       // gameOverScreenLayout.setVisibility(viewModel.gameOverScreenVisibility);
     }
 
 

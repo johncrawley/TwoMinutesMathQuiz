@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.jcrawley.tmmq.R;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +28,7 @@ public class WelcomeScreenFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private final AtomicBoolean isGameStartInitiated = new AtomicBoolean(false);
 
     public WelcomeScreenFragment() {
         // Required empty public constructor
@@ -48,6 +52,7 @@ public class WelcomeScreenFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +60,38 @@ public class WelcomeScreenFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        isGameStartInitiated.set(false);
     }
+
+    private void setupButtons(View parent){
+        Button button = parent.findViewById(R.id.startGameButton);
+        button.setOnClickListener(v -> startGame());
+    }
+
+
+    private void startGame(){
+        if(isGameStartInitiated.get()){
+            return;
+        }
+        isGameStartInitiated.set(true);
+        GetReadyScreenFragment getReadyScreenFragment= new GetReadyScreenFragment();
+        if(getActivity() == null){
+            return;
+        }
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, getReadyScreenFragment, "getReadyScreenFragment")
+                .addToBackStack(null)
+                .commit();
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_welcome_screen, container, false);
+        View parent = inflater.inflate(R.layout.fragment_welcome_screen, container, false);
+        setupButtons(parent);
+        return parent;
     }
 }
