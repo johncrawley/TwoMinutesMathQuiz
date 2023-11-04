@@ -1,5 +1,6 @@
 package com.jcrawley.tmmq.view;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,11 +12,13 @@ public class InputHelper {
     private final MainActivity activity;
     private final MainViewModel viewModel;
     private final TextView inputTextView;
+    private final View parentView;
 
-    public InputHelper(MainActivity activity){
+    public InputHelper(MainActivity activity, View parentView){
         this.activity = activity;
+        this.parentView = parentView;
         viewModel = activity.getViewModel();
-        inputTextView = activity.findViewById(R.id.inputText);
+        inputTextView = parentView.findViewById(R.id.inputText);
         setupButtons();
     }
 
@@ -37,7 +40,7 @@ public class InputHelper {
 
 
     private void setupButton(int buttonId, Runnable runnable){
-        Button button = activity.findViewById(buttonId);
+        Button button = parentView.findViewById(buttonId);
         button.setOnClickListener(v->{
             runnable.run();
             activity.vibrateOnPress();
@@ -52,7 +55,7 @@ public class InputHelper {
 
 
     private void setupButtonForAdd(int buttonId, int digit){
-        Button button = activity.findViewById(buttonId);
+        Button button = parentView.findViewById(buttonId);
         button.setOnClickListener(v-> {
             addDigitToAnswer(digit);
             activity.vibrateOnPress();

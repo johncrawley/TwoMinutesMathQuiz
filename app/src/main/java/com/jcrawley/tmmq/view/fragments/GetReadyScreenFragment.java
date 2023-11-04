@@ -129,11 +129,7 @@ public class GetReadyScreenFragment extends Fragment {
         if(getActivity() == null){
             return;
         }
-        GameScreenFragment gameScreenFragment = new GameScreenFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, gameScreenFragment, "gameScreenFragment")
-                .addToBackStack(null)
-                .commit();
+        FragmentManagerHelper.loadFragment(this, new GameScreenFragment(), "gameScreenFragment");
     }
 
 

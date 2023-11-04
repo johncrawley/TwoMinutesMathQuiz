@@ -81,6 +81,8 @@ public class QuestionCreator {
         return Math.max(min, random.nextInt(Math.max(1, max)));
     }
 
+
+
     private void log(String msg){
         System.out.println("^^^ Question Creator: " + msg);
     }

@@ -24,6 +24,7 @@ import com.jcrawley.tmmq.view.InputHelper;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.ScreenAnimator;
 import com.jcrawley.tmmq.view.TextAnimator;
+import com.jcrawley.tmmq.view.fragments.GameScreenFragment;
 import com.jcrawley.tmmq.view.fragments.WelcomeScreenFragment;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewGroup startGameButtonsLayout;
     int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
     private FragmentContainerView fragmentContainerView;
-
 
 
     private final ServiceConnection connection = new ServiceConnection() {
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupViewModel();
+        setupVibe();
         setupFragments();
        // setupColors();
        // setupViews();
@@ -214,6 +215,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setTimeRemaining(int minutesRemaining, int secondsRemaining){
+         Bundle bundle = new Bundle();
+        bundle.putInt(GameScreenFragment.MINUTES_REMAINING_TAG, minutesRemaining);
+        bundle.putInt(GameScreenFragment.SECONDS_REMAINING_TAG, secondsRemaining);
         runOnUiThread(()->{
             setTimeRemainingTextColor(minutesRemaining, secondsRemaining);
             timeRemainingTextView.setText(createTimeRemainingString(minutesRemaining, secondsRemaining));
