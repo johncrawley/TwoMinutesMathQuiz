@@ -9,10 +9,7 @@ import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.TypedValue;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -20,10 +17,8 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.jcrawley.tmmq.service.GameService;
-import com.jcrawley.tmmq.view.InputHelper;
 import com.jcrawley.tmmq.view.MainViewModel;
-import com.jcrawley.tmmq.view.ScreenAnimator;
-import com.jcrawley.tmmq.view.TextAnimator;
+import com.jcrawley.tmmq.view.fragments.GameOverScreenFragment;
 import com.jcrawley.tmmq.view.fragments.GameScreenFragment;
 import com.jcrawley.tmmq.view.fragments.WelcomeScreenFragment;
 
@@ -32,19 +27,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView questionTextView, timeRemainingTextView, scoreView;
     private GameService gameService;
     private final AtomicBoolean isGameStarted = new AtomicBoolean(false);
     private MainViewModel viewModel;
-    private TextAnimator textAnimator;
     private Vibrator vibrator;
-    private TextView getReadyText;
-    private TextView gameStartCountdownText;
-   // private ScreenAnimator screenAnimator;
-    private TextView endingScoreText;
-  //  private ViewGroup gameScreenLayout, gameOverScreenLayout, startScreenLayout;
-    private ViewGroup startGameButtonsLayout;
-    int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
     private FragmentContainerView fragmentContainerView;
 
 
@@ -55,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
             GameService.LocalBinder binder = (GameService.LocalBinder) service;
             gameService = binder.getService();
             gameService.setActivity(MainActivity.this);
-            updateCurrentStatusFromService();
         }
 
         @Override
@@ -77,26 +62,7 @@ public class MainActivity extends AppCompatActivity {
         setupViewModel();
         setupVibe();
         setupFragments();
-       // setupColors();
-       // setupViews();
-       // screenAnimator = new ScreenAnimator(MainActivity.this);
-       // new InputHelper(this);
         setupGameService();
-       // setupVibe();
-     }
-
-
-     private void setupViews(){
-        // setupScreenViews();
-         questionTextView = findViewById(R.id.questionText);
-         textAnimator = new TextAnimator(questionTextView);
-         timeRemainingTextView = findViewById(R.id.timeRemainingText);
-         endingScoreText = findViewById(R.id.endingScoreText);
-         scoreView = findViewById(R.id.scoreText);
-         getReadyText = findViewById(R.id.getReadyText);
-         gameStartCountdownText = findViewById(R.id.gameStartCountdownText);
-         setupStartButton();
-         setupNewGameButton();
      }
 
 
@@ -110,25 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
 
      public void resetStartGameScreen(){
-        startGameButtonsLayout.setVisibility(View.VISIBLE);
-        getReadyText.setVisibility(View.INVISIBLE);
-        gameStartCountdownText.setVisibility(View.GONE);
         isGameStarted.set(false);
-     }
-
-
-     public void updateCurrentStatusFromService(){
-        log("Entered updateCurrentStatusFromService()");
-        if(gameService.isGameStarted()){
-            setGameOverScreenVisibility(View.GONE);
-            setGameScreenVisibility(View.VISIBLE);
-            setStartScreenVisibility(View.GONE);
-            updateGameViewsFromService();
-            return;
-        }
-        setGameOverScreenVisibility(View.GONE);
-        setGameScreenVisibility(View.GONE);
-        setStartScreenVisibility(View.VISIBLE);
      }
 
 
@@ -180,17 +128,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void fadeInQuestionText(String questionText){
-        runOnUiThread(()->{
-            textAnimator.setNextText(questionText);
-            questionTextView.startAnimation(textAnimator.getFadeOutAnimation());
-        });
+         log("entered fadeInQuestionText, text: " + questionText);
+        Bundle bundle = new Bundle();
+        bundle.putString(GameScreenFragment.QUESTION_TAG, questionText);
+        getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_QUESTION, bundle );
     }
 
 
     public void setQuestionText(String questionText){
-        runOnUiThread(()->{
-            questionTextView.setText(questionText);
-        });
+         Bundle bundle = new Bundle();
+        bundle.putString(GameScreenFragment.QUESTION_TAG, questionText);
+        getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_QUESTION, bundle );
     }
 
 
@@ -198,12 +146,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), GameService.class);
         getApplicationContext().startService(intent);
         getApplicationContext().bindService(intent, connection, 0);
-    }
-
-
-    private void setupColors(){
-        timeRemainingTextNormalColor = getColorFromAttribute(R.attr.time_remaining_text_normal_color);
-        timeRemainingTextWarningColor = getColorFromAttribute(R.attr.time_remaining_text_warning_color);
     }
 
 
@@ -218,81 +160,19 @@ public class MainActivity extends AppCompatActivity {
          Bundle bundle = new Bundle();
         bundle.putInt(GameScreenFragment.MINUTES_REMAINING_TAG, minutesRemaining);
         bundle.putInt(GameScreenFragment.SECONDS_REMAINING_TAG, secondsRemaining);
-        runOnUiThread(()->{
-            setTimeRemainingTextColor(minutesRemaining, secondsRemaining);
-            timeRemainingTextView.setText(createTimeRemainingString(minutesRemaining, secondsRemaining));
-        });
-    }
-
-
-    private void setTimeRemainingTextColor(int minutesRemaining, int secondsRemaining){
-        int textColor = minutesRemaining == 0 && secondsRemaining < 10 ?
-                timeRemainingTextWarningColor : timeRemainingTextNormalColor;
-        timeRemainingTextView.setTextColor(textColor);
+        getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_TIME_REMAINING, bundle);
     }
 
 
     public void onGameOver(int finalScore){
-        runOnUiThread(()->{
-            endingScoreText.setText(String.valueOf(finalScore));
-        //    screenAnimator.fadeInGameOverScreen();
-        });
-    }
-
-
-    private String createTimeRemainingString(int minutesRemaining, int secondsRemaining){
-        String delimiter = ":";
-        String displaySeconds = secondsRemaining < 10 ? "0" + secondsRemaining : String.valueOf(secondsRemaining);
-        return minutesRemaining + delimiter + displaySeconds;
-    }
-
-
-    private void setupStartButton(){
-        Button gameStartButton = findViewById(R.id.startGameButton);
-        startGameButtonsLayout = findViewById(R.id.startButtonsLayout);
-        gameStartButton.setOnClickListener(v -> {
-            if(isGameStarted.get()){
-                return;
-            }
-            updateGameViewsFromService();
-            questionTextView.setText("");
-          //  screenAnimator.fadeInView(getReadyText);
-            //  screenAnimator.beginGameStartAnimations(startGameButtonsLayout);
-            isGameStarted.set(true);
-        });
-    }
-
-
-    private void setupNewGameButton(){
-        Button newGameButton = findViewById(R.id.newGameButton);
-        newGameButton.setOnClickListener(V -> {
-          //  screenAnimator.hideGameOverScreen();
-              });
-    }
-
-
-    public void setStartScreenVisibility(int visibility){
-        viewModel.startScreenVisibility = visibility;
-       // startScreenLayout.setVisibility(viewModel.startScreenVisibility);
-    }
-
-
-    public void setGameScreenVisibility(int visibility){
-        viewModel.gameScreenVisibility = visibility;
-       // gameScreenLayout.setVisibility(viewModel.gameScreenVisibility);
-    }
-
-
-    public void setGameOverScreenVisibility(int visibility){
-        viewModel.gameOverScreenVisibility = visibility;
-       // gameOverScreenLayout.setVisibility(viewModel.gameOverScreenVisibility);
+         Bundle bundle = new Bundle();
+         bundle.putInt(GameOverScreenFragment.FINAL_SCORE_KEY, finalScore);
+         getSupportFragmentManager().setFragmentResult(GameScreenFragment.NOTIFY_GAME_OVER, bundle);
     }
 
 
     public void updateGameStartCountdownText(){
-        runOnUiThread(()->{
-            gameStartCountdownText.setText(String.valueOf(viewModel.gameStartCurrentCountdown));
-        });
+      // waiting for deletion!
     }
 
 
@@ -305,10 +185,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setScore(int score){
-        String scoreStr = getString(R.string.score_label) + score;
-        runOnUiThread(()->{
-            scoreView.setText(scoreStr);
-        });
+         Bundle bundle = new Bundle();
+         bundle.putInt(GameScreenFragment.SCORE_TAG, score);
+         getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_SCORE, bundle);
     }
 
 

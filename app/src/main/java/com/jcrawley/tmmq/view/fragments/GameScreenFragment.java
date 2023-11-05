@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.view.InputHelper;
+import com.jcrawley.tmmq.view.TextAnimator;
 
 
 public class GameScreenFragment extends Fragment {
@@ -22,18 +23,20 @@ public class GameScreenFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static final String SET_TIME_REMAINING = "send_time_remaining";
+    public static final String NOTIFY_GAME_OVER = "notify_game_over";
     public static final String SET_SCORE = "set_score";
     public static final String SET_QUESTION = "set_question";
-    public static final String MINUTES_REMAINING_TAG = "minutes_remaining";
-    public static final String SECONDS_REMAINING_TAG = "seconds_remaining";
+    public static final String MINUTES_REMAINING_TAG = "minutes_remaining_tag";
+    public static final String SECONDS_REMAINING_TAG = "seconds_remaining_tag";
+    public static final String SCORE_TAG = "score_tag";
+    public static final String QUESTION_TAG = "question_tag";
     private TextView timeRemainingTextView, scoreTextView, questionTextView;
-    int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
-
+    private int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
+    private TextAnimator textAnimator;
 
     public GameScreenFragment() {
         // Required empty public constructor
     }
-
 
 
     public static GameScreenFragment newInstance(String param1, String param2) {
@@ -57,12 +60,14 @@ public class GameScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View parentView = inflater.inflate(R.layout.fragment_game_screen, container, false);
-        if(getActivity() == null){
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if(mainActivity == null){
             return parentView;
         }
         setupColors();
         setupViews(parentView);
-        new InputHelper((MainActivity) getActivity(), parentView);
+        new InputHelper(mainActivity, parentView);
+        mainActivity.startGame();
         return parentView;
     }
 
@@ -71,7 +76,7 @@ public class GameScreenFragment extends Fragment {
         FragmentManagerHelper.setListener(this, SET_TIME_REMAINING, this::updateTimeRemaining);
         FragmentManagerHelper.setListener(this, SET_SCORE, this::setScore);
         FragmentManagerHelper.setListener(this, SET_QUESTION, this::setQuestion);
-
+        FragmentManagerHelper.setListener(this, NOTIFY_GAME_OVER, this::onGameOver);
     }
 
 
@@ -79,6 +84,7 @@ public class GameScreenFragment extends Fragment {
         timeRemainingTextView = parentView.findViewById(R.id.timeRemainingText);
         scoreTextView = parentView.findViewById(R.id.scoreText);
         questionTextView = parentView.findViewById(R.id.questionText);
+        textAnimator = new TextAnimator(questionTextView);
     }
 
 
@@ -108,12 +114,21 @@ public class GameScreenFragment extends Fragment {
 
 
     private void setScore(Bundle bundle){
-
+        int score = bundle.getInt(SCORE_TAG);
+        String scoreStr = getString(R.string.score_label) + (score);
+        runOnUiThread(()->{
+            scoreTextView.setText(scoreStr);
+        });
     }
 
 
     private void setQuestion(Bundle bundle){
-
+        String text = bundle.getString(QUESTION_TAG);
+        System.out.println("^^^ GameScreenFragment entered setQuestion(), text = " + text);
+        runOnUiThread(()-> {
+            textAnimator.setNextText(text);
+            questionTextView.startAnimation(textAnimator.getFadeOutAnimation());
+        });
     }
 
 
@@ -125,6 +140,11 @@ public class GameScreenFragment extends Fragment {
         activity.runOnUiThread(runnable);
     }
 
+
+    private void onGameOver(Bundle bundle){
+        GameOverScreenFragment gameOverScreenFragment = new GameOverScreenFragment();
+        FragmentManagerHelper.loadFragment(this, gameOverScreenFragment, "game_over_screen", bundle);
+    }
 
 
     private void setupColors(){
