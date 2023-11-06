@@ -61,14 +61,11 @@ public class WelcomeScreenFragment extends Fragment {
             return;
         }
         isGameStartInitiated.set(true);
-        GetReadyScreenFragment getReadyScreenFragment= new GetReadyScreenFragment();
         if(getActivity() == null){
             return;
         }
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, getReadyScreenFragment, "getReadyScreenFragment")
-                .addToBackStack(null)
-                .commit();
+        GetReadyScreenFragment getReadyScreenFragment= new GetReadyScreenFragment();
+        FragmentUtils.loadFragment(this, getReadyScreenFragment, GetReadyScreenFragment.FRAGMENT_TAG);
     }
 
 

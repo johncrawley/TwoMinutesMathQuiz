@@ -2,6 +2,7 @@ package com.jcrawley.tmmq.view.fragments;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,7 +12,7 @@ import com.jcrawley.tmmq.R;
 
 import java.util.function.Consumer;
 
-public class FragmentManagerHelper {
+public class FragmentUtils {
 
 
     public static void showDialog(Fragment parentFragment, DialogFragment dialogFragment, String tag, Bundle bundle){
@@ -29,20 +30,31 @@ public class FragmentManagerHelper {
         removePreviousFragmentTransaction(fragmentManager, tag, fragmentTransaction);
         fragment.setArguments(bundle);
         fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.pop_enter, R.anim.pop_exit )
                 .replace(R.id.fragment_container, fragment, tag)
                 .addToBackStack(null)
                 .commit();
     }
 
 
+    public static void onBackButtonPressed(Fragment parentFragment, Runnable action){
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                action.run();
+            }
+        };
+        parentFragment.requireActivity().getOnBackPressedDispatcher().addCallback(parentFragment.getViewLifecycleOwner(), callback);
+    }
+
+
+    public static void doNothingWhenBackButtonPressed(Fragment parentFragment){
+        onBackButtonPressed(parentFragment, ()->{});
+    }
+
+
     public static void loadFragment(Fragment parentFragment, Fragment fragment, String tag){
-        FragmentManager fragmentManager = parentFragment.getParentFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        removePreviousFragmentTransaction(fragmentManager, tag, fragmentTransaction);
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment, tag)
-                .addToBackStack(null)
-                .commit();
+        loadFragment(parentFragment, fragment, tag, new Bundle());
     }
 
 

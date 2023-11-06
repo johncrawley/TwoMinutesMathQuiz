@@ -73,10 +73,10 @@ public class GameScreenFragment extends Fragment {
 
 
     private void setupListeners(){
-        FragmentManagerHelper.setListener(this, SET_TIME_REMAINING, this::updateTimeRemaining);
-        FragmentManagerHelper.setListener(this, SET_SCORE, this::setScore);
-        FragmentManagerHelper.setListener(this, SET_QUESTION, this::setQuestion);
-        FragmentManagerHelper.setListener(this, NOTIFY_GAME_OVER, this::onGameOver);
+        FragmentUtils.setListener(this, SET_TIME_REMAINING, this::updateTimeRemaining);
+        FragmentUtils.setListener(this, SET_SCORE, this::setScore);
+        FragmentUtils.setListener(this, SET_QUESTION, this::setQuestion);
+        FragmentUtils.setListener(this, NOTIFY_GAME_OVER, this::onGameOver);
     }
 
 
@@ -143,7 +143,7 @@ public class GameScreenFragment extends Fragment {
 
     private void onGameOver(Bundle bundle){
         GameOverScreenFragment gameOverScreenFragment = new GameOverScreenFragment();
-        FragmentManagerHelper.loadFragment(this, gameOverScreenFragment, "game_over_screen", bundle);
+        FragmentUtils.loadFragment(this, gameOverScreenFragment, "game_over_screen", bundle);
     }
 
 

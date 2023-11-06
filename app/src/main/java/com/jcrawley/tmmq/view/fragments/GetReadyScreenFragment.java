@@ -2,8 +2,11 @@ package com.jcrawley.tmmq.view.fragments;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,9 @@ public class GetReadyScreenFragment extends Fragment {
 
 
     private TextView countdownTextView;
+
+    public static final String FRAGMENT_TAG = "get_ready_fragment_tag";
+
 
     public GetReadyScreenFragment() {
         // Required empty public constructor
@@ -48,6 +54,7 @@ public class GetReadyScreenFragment extends Fragment {
                              Bundle savedInstanceState) {
         View parentView = inflater.inflate(R.layout.fragment_get_ready_screen, container, false);
         setupViews(parentView);
+
         return parentView;
     }
 
@@ -63,11 +70,6 @@ public class GetReadyScreenFragment extends Fragment {
     private void setInitialCountdownValue(MainViewModel viewModel){
         viewModel.gameStartCurrentCountdown = viewModel.gameStartInitialCountdown;
         countdownTextView.setText(String.valueOf(viewModel.gameStartInitialCountdown));
-    }
-
-
-    private void log(String msg){
-        System.out.println("^^^ GetReadyScreenFragment: " + msg);
     }
 
 
@@ -109,7 +111,7 @@ public class GetReadyScreenFragment extends Fragment {
 
         animationSet.addAnimation(enlargeAnimation);
         animationSet.addAnimation(reductionAnimation);
-        v.startAnimation(animationSet);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> v.startAnimation(animationSet), 500);
     }
 
 
@@ -117,7 +119,7 @@ public class GetReadyScreenFragment extends Fragment {
         if(getActivity() == null){
             return;
         }
-        FragmentManagerHelper.loadFragment(this, new GameScreenFragment(), "gameScreenFragment");
+        FragmentUtils.loadFragment(this, new GameScreenFragment(), "gameScreenFragment");
     }
 
 

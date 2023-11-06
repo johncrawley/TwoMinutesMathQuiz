@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.TypedValue;
-import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -22,13 +20,10 @@ import com.jcrawley.tmmq.view.fragments.GameOverScreenFragment;
 import com.jcrawley.tmmq.view.fragments.GameScreenFragment;
 import com.jcrawley.tmmq.view.fragments.WelcomeScreenFragment;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 
 public class MainActivity extends AppCompatActivity {
 
     private GameService gameService;
-    private final AtomicBoolean isGameStarted = new AtomicBoolean(false);
     private MainViewModel viewModel;
     private Vibrator vibrator;
     private FragmentContainerView fragmentContainerView;
@@ -75,36 +70,6 @@ public class MainActivity extends AppCompatActivity {
      }
 
 
-     public void resetStartGameScreen(){
-        isGameStarted.set(false);
-     }
-
-
-     private void updateGameViewsFromService(){
-         reassignActivityToService();
-         setTimeRemaining(gameService.getMinutesRemaining(), gameService.getSecondsRemaining());
-         setScore(gameService.getScore());
-         setQuestionText(gameService.getQuestionText());
-     }
-
-/*
-     private void setupScreenViews(){
-         startScreenLayout = setupScreenView(R.id.startGameLayoutInclude, viewModel.startScreenVisibility);
-         gameScreenLayout = setupScreenView(R.id.gameLayoutInclude, viewModel.gameScreenVisibility);
-         gameOverScreenLayout = setupScreenView(R.id.gameOverLayoutInclude, viewModel.gameOverScreenVisibility);
-     }
-
-
- */
-
-
-     private ViewGroup setupScreenView(int id, int initialVisibility){
-        ViewGroup viewGroup = findViewById(id);
-        viewGroup.setVisibility(initialVisibility);
-        return viewGroup;
-     }
-
-
      private void setupVibe(){
         vibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
      }
@@ -128,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void fadeInQuestionText(String questionText){
-         log("entered fadeInQuestionText, text: " + questionText);
         Bundle bundle = new Bundle();
         bundle.putString(GameScreenFragment.QUESTION_TAG, questionText);
         getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_QUESTION, bundle );
@@ -149,15 +113,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private int getColorFromAttribute(int attr){
-        TypedValue typedValue = new TypedValue();
-        getTheme().resolveAttribute(attr, typedValue, true);
-        return typedValue.data;
-    }
-
-
     public void setTimeRemaining(int minutesRemaining, int secondsRemaining){
-         Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();
         bundle.putInt(GameScreenFragment.MINUTES_REMAINING_TAG, minutesRemaining);
         bundle.putInt(GameScreenFragment.SECONDS_REMAINING_TAG, secondsRemaining);
         getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_TIME_REMAINING, bundle);
@@ -168,11 +125,6 @@ public class MainActivity extends AppCompatActivity {
          Bundle bundle = new Bundle();
          bundle.putInt(GameOverScreenFragment.FINAL_SCORE_KEY, finalScore);
          getSupportFragmentManager().setFragmentResult(GameScreenFragment.NOTIFY_GAME_OVER, bundle);
-    }
-
-
-    public void updateGameStartCountdownText(){
-      // waiting for deletion!
     }
 
 

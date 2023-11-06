@@ -63,6 +63,6 @@ public class GameOverScreenFragment extends Fragment {
 
 
     private void startWelcomeScreenFragment(){
-        FragmentManagerHelper.loadFragment(this, new WelcomeScreenFragment(), WelcomeScreenFragment.FRAGMENT_TAG);
+        FragmentUtils.loadFragment(this, new WelcomeScreenFragment(), WelcomeScreenFragment.FRAGMENT_TAG);
     }
 }
