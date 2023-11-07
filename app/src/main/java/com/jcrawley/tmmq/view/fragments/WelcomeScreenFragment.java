@@ -1,5 +1,6 @@
 package com.jcrawley.tmmq.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.view.SettingsActivity;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -53,6 +55,12 @@ public class WelcomeScreenFragment extends Fragment {
     private void setupButtons(View parent){
         Button button = parent.findViewById(R.id.startGameButton);
         button.setOnClickListener(v -> startGame());
+
+        Button settingsButton = parent.findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), SettingsActivity.class);
+            startActivity(intent);
+        });
     }
 
 
