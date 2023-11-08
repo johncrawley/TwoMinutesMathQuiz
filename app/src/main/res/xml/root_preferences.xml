@@ -17,6 +17,15 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/preferences_general_header">
+
+        <SwitchPreference
+            app:key="vibration_enabled"
+            app:title="@string/preferences_vibration"
+            app:enabled="true"
+            />
+</PreferenceCategory>
+
     <PreferenceCategory app:title="@string/sync_header">
 
         <SwitchPreferenceCompat

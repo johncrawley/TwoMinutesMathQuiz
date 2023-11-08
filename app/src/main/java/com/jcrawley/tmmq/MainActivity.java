@@ -3,6 +3,7 @@ package com.jcrawley.tmmq;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 
 import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.view.MainViewModel;
@@ -60,8 +62,17 @@ public class MainActivity extends AppCompatActivity {
         setupGameService();
      }
 
+    private boolean isVibrationEnabled;
 
-     private void setupFragments(){
+
+    public void assignVibrationSettings() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        isVibrationEnabled = prefs.getBoolean("vibration_enabled", true);
+    }
+
+
+
+    private void setupFragments(){
         fragmentContainerView = findViewById(R.id.fragment_container);
         Fragment welcomeScreenFragment = new WelcomeScreenFragment();
         getSupportFragmentManager().beginTransaction()
@@ -71,13 +82,16 @@ public class MainActivity extends AppCompatActivity {
 
 
      private void setupVibe(){
+        assignVibrationSettings();
         vibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
      }
 
 
      public void vibrateOnPress(){
          if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-             vibrator.vibrate(VibrationEffect.createOneShot(55, 1));
+             if(isVibrationEnabled) {
+                 vibrator.vibrate(VibrationEffect.createOneShot(55, 1));
+             }
          }
      }
 
@@ -151,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startGame(){
       reassignActivityToService();
+      assignVibrationSettings();
       gameService.startGame();
     }
 

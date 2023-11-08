@@ -29,6 +29,8 @@
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
+    <string name="preferences_general_header">General</string>
+    <string name="preferences_vibration">Vibration</string>
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
 
