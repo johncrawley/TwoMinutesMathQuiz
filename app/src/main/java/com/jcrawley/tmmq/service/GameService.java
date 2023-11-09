@@ -56,6 +56,11 @@ public class GameService extends Service {
     }
 
 
+    public void setGameLevel(int levelNumber){
+        game.setDifficulty(levelNumber);
+    }
+
+
     public boolean isGameStarted(){
         return game.isStarted();
     }

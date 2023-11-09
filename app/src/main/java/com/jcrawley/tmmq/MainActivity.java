@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private GameService gameService;
     private MainViewModel viewModel;
     private Vibrator vibrator;
+    private boolean isVibrationEnabled;
     private FragmentContainerView fragmentContainerView;
 
 
@@ -62,14 +63,11 @@ public class MainActivity extends AppCompatActivity {
         setupGameService();
      }
 
-    private boolean isVibrationEnabled;
-
 
     public void assignVibrationSettings() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         isVibrationEnabled = prefs.getBoolean("vibration_enabled", true);
     }
-
 
 
     private void setupFragments(){
@@ -164,9 +162,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void startGame(){
-      reassignActivityToService();
-      assignVibrationSettings();
-      gameService.startGame();
+        reassignActivityToService();
+        assignVibrationSettings();
+        gameService.startGame();
+    }
+
+
+    public void setDifficulty(int gameLevel){
+        reassignActivityToService();
+        gameService.setGameLevel(gameLevel);
     }
 
 

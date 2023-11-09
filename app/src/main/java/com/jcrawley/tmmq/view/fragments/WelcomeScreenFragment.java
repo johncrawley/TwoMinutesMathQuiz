@@ -72,8 +72,7 @@ public class WelcomeScreenFragment extends Fragment {
         if(getActivity() == null){
             return;
         }
-        GetReadyScreenFragment getReadyScreenFragment= new GetReadyScreenFragment();
-        FragmentUtils.loadFragment(this, getReadyScreenFragment, GetReadyScreenFragment.FRAGMENT_TAG);
+        FragmentUtils.loadFragment(this, new ChooseLevelFragment(), ChooseLevelFragment.FRAGMENT_TAG);
     }
 
 

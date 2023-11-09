@@ -43,7 +43,7 @@ public class LevelFactory {
 
         GameLevel gameLevel7 = new GameLevel();
         addOperationLimitsTo(gameLevel7, MathOperation.ADDITION, 5,25,5,25);
-        addOperationLimitsTo(gameLevel7, MathOperation.SUBTRACTION, 1,15,1,15);
+        addOperationLimitsTo(gameLevel7, MathOperation.SUBTRACTION, 5,15,8,15);
         addOperationLimitsTo(gameLevel7, MathOperation.MULTIPLICATION, 2,12,2,12);
         addOperationLimitsTo(gameLevel7, MathOperation.DIVISION, 4,12,2,12);
         levels.put(7, gameLevel7);

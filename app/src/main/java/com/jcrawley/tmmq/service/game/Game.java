@@ -16,6 +16,7 @@ public class Game {
     private GameService gameService;
     private GameTimer gametimer;
     private boolean isStarted;
+    private int difficulty = 5;
     private int questionCount;
     private final Map<Integer, GameLevel> levels;
 
@@ -23,7 +24,7 @@ public class Game {
     public Game(){
         levels = LevelFactory.createAndAddLevels();
         questionGenerator = new QuestionGenerator();
-        questionGenerator.setGameLevel(levels.get(5));
+        setDifficulty(difficulty);
     }
 
 
@@ -41,6 +42,13 @@ public class Game {
         currentQuestion = questionGenerator.generate();
         setQuestionTextOnView();
         gametimer.startTimer();
+    }
+
+
+    public void setDifficulty(int difficulty){
+        this.difficulty = difficulty;
+        GameLevel level = levels.containsKey(difficulty) ? levels.get(difficulty) : levels.get(5);
+        questionGenerator.setGameLevel(level);
     }
 
 

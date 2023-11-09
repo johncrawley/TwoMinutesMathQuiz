@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_background"
+    tools:context=".view.fragments.ChooseLevelFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/chooseLevelHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="@dimen/choose_level_heading_text_size"
+            android:text="@string/choose_level_heading" />
+
+        <Button
+            android:id="@+id/level1Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_level_1" />
+
+        <Button
+            android:id="@+id/level2Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_level_2" />
+        <Button
+            android:id="@+id/level3Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_level_3" />
+        <Button
+            android:id="@+id/level4Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_level_4" />
+        <Button
+            android:id="@+id/level5Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_level_5" />
+        <Button
+            android:id="@+id/level6Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_level_6" />
+        <Button
+            android:id="@+id/level7Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_level_7" />
+        <Button
+            android:id="@+id/level8Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_level_8" />
+        <Button
+            android:id="@+id/level9Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_level_9" />
+        <Button
+            android:id="@+id/level10Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_level_10" />
+
+    </LinearLayout>
+
+</FrameLayout>
