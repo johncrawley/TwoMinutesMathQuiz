@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -66,8 +67,10 @@ public class GameScreenFragment extends Fragment {
         }
         setupColors();
         setupViews(parentView);
-        new InputHelper(mainActivity, parentView);
+        GameScreenViewModel viewModel = new ViewModelProvider(requireActivity()).get(GameScreenViewModel.class);
+        new InputHelper(mainActivity, parentView, viewModel);
         mainActivity.startGame();
+
         return parentView;
     }
 

@@ -6,20 +6,24 @@ import android.widget.TextView;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.view.fragments.GameScreenViewModel;
 
 public class InputHelper {
 
     private final MainActivity activity;
-    private final MainViewModel viewModel;
+   // private final MainViewModel viewModel;
     private final TextView inputTextView;
     private final View parentView;
+    private final GameScreenViewModel viewModel;
 
-    public InputHelper(MainActivity activity, View parentView){
+    public InputHelper(MainActivity activity, View parentView, GameScreenViewModel viewModel){
         this.activity = activity;
         this.parentView = parentView;
-        viewModel = activity.getViewModel();
+        this.viewModel = viewModel;
+        //viewModel = activity.getViewModel();
         inputTextView = parentView.findViewById(R.id.inputText);
         setupButtons();
+        clearAnswerText();
     }
 
 
@@ -49,7 +53,11 @@ public class InputHelper {
 
 
     private void submitAnswer(){
-        activity.submitAnswer();
+        String answer = viewModel.inputText.trim();
+        if(answer.isEmpty()){
+            return;
+        }
+        activity.submitAnswer(answer);
         clearAnswerText();
     }
 
@@ -64,7 +72,7 @@ public class InputHelper {
 
 
     private void backspace(){
-        if(viewModel.currentAnswerText.isEmpty()){
+        if(viewModel.inputText.isEmpty()){
             return;
         }
         int amendedValue = getAnswerNumber() / 10;
@@ -74,7 +82,7 @@ public class InputHelper {
 
     private void addDigitToAnswer(int digit){
         int maxNumberOfDigits = 5;
-        if(viewModel.currentAnswerText.length() >= maxNumberOfDigits){
+        if(viewModel.inputText.length() >= maxNumberOfDigits){
             return;
         }
         int amendedValue = (getAnswerNumber() * 10) + digit;
@@ -83,22 +91,22 @@ public class InputHelper {
 
 
     private int getAnswerNumber(){
-        if(viewModel.currentAnswerText.trim().isEmpty()){
+        if(viewModel.inputText.trim().isEmpty()){
             return 0;
         }
-        return Integer.parseInt(viewModel.currentAnswerText);
+        return Integer.parseInt(viewModel.inputText);
     }
 
 
     private void setAnswerText(int number){
-        viewModel.currentAnswerText = String.valueOf(number);
-        inputTextView.setText(viewModel.currentAnswerText);
+        viewModel.inputText = String.valueOf(number);
+        inputTextView.setText(viewModel.inputText);
     }
 
 
     private void clearAnswerText(){
-        viewModel.currentAnswerText = "";
-        inputTextView.setText(viewModel.currentAnswerText);
+        viewModel.inputText = "";
+        inputTextView.setText(viewModel.inputText);
     }
 
 }

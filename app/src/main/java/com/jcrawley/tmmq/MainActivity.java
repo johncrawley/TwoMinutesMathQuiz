@@ -140,14 +140,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void submitAnswer(){
-        if(viewModel.currentAnswerText.trim().isEmpty()){
-            return;
-        }
-        submitAnswer(viewModel.currentAnswerText);
-    }
-
-
     public void setScore(int score){
          Bundle bundle = new Bundle();
          bundle.putInt(GameScreenFragment.SCORE_TAG, score);
@@ -155,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void submitAnswer(String answerStr){
+    public void submitAnswer(String answerStr){
         reassignActivityToService();
         gameService.submitAnswer(answerStr);
     }
