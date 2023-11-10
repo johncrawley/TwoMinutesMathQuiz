@@ -51,8 +51,8 @@ public class GameService extends Service {
     }
 
 
-    public void startGame(){
-        game.startGame();
+    public void startGame(int timerLength){
+        game.startGame(timerLength);
     }
 
 

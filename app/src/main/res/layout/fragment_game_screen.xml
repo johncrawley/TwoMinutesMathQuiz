@@ -17,6 +17,7 @@
             android:id="@+id/timeRemainingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:textSize="@dimen/time_remaining_text_size"
             android:text="@string/default_time_remaining"
             android:layout_margin="@dimen/time_remaining_margin"

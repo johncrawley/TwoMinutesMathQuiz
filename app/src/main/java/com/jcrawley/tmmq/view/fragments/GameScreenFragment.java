@@ -92,10 +92,11 @@ public class GameScreenFragment extends Fragment {
 
 
     private void updateTimeRemaining(Bundle bundle){
-        int minutesRemaining =  bundle.getInt(MINUTES_REMAINING_TAG);
+        int minutesRemaining = bundle.getInt(MINUTES_REMAINING_TAG);
         int secondsRemaining = bundle.getInt(SECONDS_REMAINING_TAG);
 
         runOnUiThread(()->{
+            timeRemainingTextView.setVisibility(View.VISIBLE);
             setTimeRemainingTextColor(minutesRemaining, secondsRemaining);
             timeRemainingTextView.setText(createTimeRemainingString(minutesRemaining, secondsRemaining));
         });

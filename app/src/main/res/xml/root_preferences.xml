@@ -19,6 +19,14 @@
 
     <PreferenceCategory app:title="@string/preferences_general_header">
 
+        <ListPreference
+            app:entries="@array/time_limit_entries"
+            app:entryValues="@array/time_limit_values"
+            app:key="timer_length"
+            app:defaultValue="120"
+            app:title="@string/preference_timer_length"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreference
             app:key="vibration_enabled"
             app:title="@string/preferences_vibration"

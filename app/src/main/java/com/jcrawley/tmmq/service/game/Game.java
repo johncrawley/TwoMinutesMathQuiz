@@ -34,10 +34,11 @@ public class Game {
     }
 
 
-    public void startGame(){
+    public void startGame(int timerLength){
         if(isStarted){
             return;
         }
+        gametimer.setTimerLength(timerLength);
         isStarted = true;
         currentQuestion = questionGenerator.generate();
         setQuestionTextOnView();

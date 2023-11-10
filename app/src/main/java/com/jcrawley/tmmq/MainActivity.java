@@ -65,8 +65,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void assignVibrationSettings() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        isVibrationEnabled = prefs.getBoolean("vibration_enabled", true);
+
+        isVibrationEnabled = getPrefs().getBoolean("vibration_enabled", true);
+    }
+
+
+    private SharedPreferences getPrefs(){
+        return PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
 
@@ -156,7 +161,12 @@ public class MainActivity extends AppCompatActivity {
     public void startGame(){
         reassignActivityToService();
         assignVibrationSettings();
-        gameService.startGame();
+        gameService.startGame(getTimerLength());
+    }
+
+
+    public int getTimerLength(){
+        return Integer.parseInt(getPrefs().getString("timer_length", "120"));
     }
 
 
