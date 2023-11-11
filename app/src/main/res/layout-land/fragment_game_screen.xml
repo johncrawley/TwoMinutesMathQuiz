@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragments.GameScreenFragment"
+    android:background="@drawable/layout_background"
+    >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:baselineAligned="false"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:id="@+id/gameLayout">
+
+
+        <include
+            android:id="@+id/panelInclude"
+            layout="@layout/game_screen_panel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/input_buttons_include_margin" />
+
+        <include
+            android:id="@+id/inputButtonsInclude"
+            layout="@layout/game_screen_input_buttons"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/input_buttons_include_margin"/>
+
+
+    </LinearLayout>
+</FrameLayout>

@@ -59,13 +59,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupViewModel();
         setupVibe();
-        setupFragments();
+        if(savedInstanceState == null){
+            setupFragments();
+        }
         setupGameService();
      }
 
 
     public void assignVibrationSettings() {
-
         isVibrationEnabled = getPrefs().getBoolean("vibration_enabled", true);
     }
 
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupFragments(){
         fragmentContainerView = findViewById(R.id.fragment_container);
+
         Fragment welcomeScreenFragment = new WelcomeScreenFragment();
         getSupportFragmentManager().beginTransaction()
         .add(R.id.fragment_container, welcomeScreenFragment)
@@ -159,8 +161,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void startGame(){
-        reassignActivityToService();
         assignVibrationSettings();
+        if(gameService == null){
+            return;
+        }
+        reassignActivityToService();
         gameService.startGame(getTimerLength());
     }
 
@@ -177,6 +182,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void reassignActivityToService(){
+        if(gameService == null){
+            return;
+        }
         if(gameService.isActivityUnbound()){
             gameService.setActivity(MainActivity.this);
         }

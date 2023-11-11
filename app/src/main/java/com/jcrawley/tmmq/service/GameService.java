@@ -2,6 +2,7 @@ package com.jcrawley.tmmq.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
 
@@ -35,6 +36,15 @@ public class GameService extends Service {
 
     }
 
+    public void setupPrefs(){
+       SharedPreferences sharedPreferences = getSharedPreferences("ScorePreferences", MODE_PRIVATE);
+
+    }
+
+    private void getHighScore(){
+
+
+    }
 
     public void updateScore(int score){
         mainActivity.setScore(score);
