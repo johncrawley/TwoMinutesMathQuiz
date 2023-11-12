@@ -33,7 +33,10 @@
     <dimen name="game_start_countdown_text">72sp</dimen>
     <dimen name="game_start_get_ready_text">58sp</dimen>
     <dimen name="game_start_get_ready_text_margin">18dp</dimen>
-    <dimen name="game_over_text_size">56sp</dimen>
+    <dimen name="game_over_heading_text_size">56sp</dimen>
+    <dimen name="game_over_heading_margin">18dp</dimen>
+    <dimen name="game_over_your_score_heading_margin">8dp</dimen>
+    <dimen name="game_over_buttons_margin">12dp</dimen>
     <dimen name="ending_score_label_text_size">36sp</dimen>
     <dimen name="ending_score_text_size">56sp</dimen>
 

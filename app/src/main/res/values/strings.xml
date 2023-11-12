@@ -2,26 +2,27 @@
     <string name="app_name">Two Minutes Math Quiz</string>
 
 
-    <string name="start_game_button_text">Start</string>
+    <string name="main_menu_screen_start_game_button_text">New Game</string>
+    <string name="game_over_to_main_menu_button_text">Main Menu</string>
     <string name="options_button_text">Options</string>
     <string name="default_time_remaining">2:00</string>
     <string name="default_score_text">Score:0</string>
 
     <string name="symbol_0">&#160;&#160;0&#160;&#160;</string>
-    <string name="symbol_1">1</string>
-    <string name="symbol_2">2</string>
-    <string name="symbol_3">3</string>
-    <string name="symbol_4">4</string>
-    <string name="symbol_5">5</string>
-    <string name="symbol_6">6</string>
-    <string name="symbol_7">7</string>
-    <string name="symbol_8">8</string>
-    <string name="symbol_9">9</string>
+    <string name="symbol_1">&#160;&#160;1&#160;&#160;</string>
+    <string name="symbol_2">&#160;&#160;2&#160;&#160;</string>
+    <string name="symbol_3">&#160;&#160;3&#160;&#160;</string>
+    <string name="symbol_4">&#160;&#160;4&#160;&#160;</string>
+    <string name="symbol_5">&#160;&#160;5&#160;&#160;</string>
+    <string name="symbol_6">&#160;&#160;6&#160;&#160;</string>
+    <string name="symbol_7">&#160;&#160;7&#160;&#160;</string>
+    <string name="symbol_8">&#160;&#160;8&#160;&#160;</string>
+    <string name="symbol_9">&#160;&#160;9&#160;&#160;</string>
     <string name="symbol_backspace">DEL</string>
     <string name="symbol_enter">&#160;→&#160;</string>
 
     <string name="score_label">Score:</string>
-    <string name="game_over_text">Game Over</string>
+    <string name="game_over_text">Game\nOver</string>
     <string name="start_game_get_ready">GET READY</string>
     <string name="ending_score_label_text">Your Score:</string>
 

@@ -57,7 +57,7 @@ public class GameOverScreenFragment extends Fragment {
 
 
     private void setupStartNewGameButton(View parentView){
-        Button button = parentView.findViewById(R.id.newGameButton);
+        Button button = parentView.findViewById(R.id.mainMenuButton);
         button.setOnClickListener(v -> startWelcomeScreenFragment());
     }
 
