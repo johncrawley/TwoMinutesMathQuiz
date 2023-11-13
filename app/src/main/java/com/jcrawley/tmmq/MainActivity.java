@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putInt(GameScreenFragment.MINUTES_REMAINING_TAG, minutesRemaining);
         bundle.putInt(GameScreenFragment.SECONDS_REMAINING_TAG, secondsRemaining);
+        log("Entered setTimeRemaining() mins: secs: " + minutesRemaining + ":" + secondsRemaining);
         getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_TIME_REMAINING, bundle);
     }
 

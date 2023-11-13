@@ -34,6 +34,7 @@ public class GameScreenFragment extends Fragment {
     private TextView timeRemainingTextView, scoreTextView, questionTextView;
     private int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
     private TextAnimator textAnimator;
+    private GameScreenViewModel viewModel;
 
     public GameScreenFragment() {
         // Required empty public constructor
@@ -67,7 +68,7 @@ public class GameScreenFragment extends Fragment {
         }
         setupColors();
         setupViews(parentView);
-        GameScreenViewModel viewModel = new ViewModelProvider(requireActivity()).get(GameScreenViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(GameScreenViewModel.class);
         new InputHelper(mainActivity, parentView, viewModel);
         mainActivity.startGame();
 
@@ -89,6 +90,26 @@ public class GameScreenFragment extends Fragment {
         questionTextView = parentView.findViewById(R.id.questionText);
         textAnimator = new TextAnimator(questionTextView);
     }
+
+
+    private void setTimeRemaining(String timeRemaining){
+        viewModel.timeRemaining = timeRemaining;
+        timeRemainingTextView.setText(viewModel.timeRemaining);
+    }
+
+
+
+    private void setScore(String score){
+        viewModel.score = score;
+        scoreTextView.setText(viewModel.score);
+    }
+
+
+    private void setQuestionText(String questionText){
+        viewModel.questionText = questionText;
+        questionTextView.setText(viewModel.questionText);
+    }
+
 
 
     private void updateTimeRemaining(Bundle bundle){
