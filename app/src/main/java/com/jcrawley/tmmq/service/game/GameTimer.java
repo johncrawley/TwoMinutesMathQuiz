@@ -20,15 +20,23 @@ public class GameTimer {
         calculateMinutesAndSeconds();
     }
 
+
     public void startTimer(){
         future = scheduledExecutorService.scheduleAtFixedRate(this::decrementRemainingTime, 1,1, TimeUnit.SECONDS);
     }
+
 
     public void setTimerLength(int timerLength){
         initialRemainingTime = timerLength;
         resetTime();
         updateTimer();
     }
+
+
+    public boolean isTimeUp(){
+        return currentRemainingTime <= 0;
+    }
+
 
     public void resetTime(){
         currentRemainingTime = initialRemainingTime;
@@ -75,7 +83,6 @@ public class GameTimer {
         if(currentRemainingTime <= 0){
             future.cancel(false);
             game.gameOver();
-            resetTime();
         }
     }
 

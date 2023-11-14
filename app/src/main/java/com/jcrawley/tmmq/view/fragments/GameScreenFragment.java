@@ -35,6 +35,7 @@ public class GameScreenFragment extends Fragment {
     private int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
     private TextAnimator textAnimator;
     private GameScreenViewModel viewModel;
+    private InputHelper inputHelper;
 
     public GameScreenFragment() {
         // Required empty public constructor
@@ -54,7 +55,6 @@ public class GameScreenFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupListeners();
     }
 
 
@@ -67,12 +67,17 @@ public class GameScreenFragment extends Fragment {
             return parentView;
         }
         setupColors();
+        setupViewModel();
         setupViews(parentView);
-        viewModel = new ViewModelProvider(requireActivity()).get(GameScreenViewModel.class);
-        new InputHelper(mainActivity, parentView, viewModel);
+        inputHelper = new InputHelper(mainActivity, parentView, viewModel);
         mainActivity.startGame();
-
+        setupListeners();
         return parentView;
+    }
+
+
+    private void setupViewModel(){
+        viewModel = new ViewModelProvider(requireActivity()).get(GameScreenViewModel.class);
     }
 
 
@@ -85,41 +90,29 @@ public class GameScreenFragment extends Fragment {
 
 
     private void setupViews(View parentView){
-        timeRemainingTextView = parentView.findViewById(R.id.timeRemainingText);
-        scoreTextView = parentView.findViewById(R.id.scoreText);
-        questionTextView = parentView.findViewById(R.id.questionText);
+        timeRemainingTextView = setupTextView(parentView, R.id.timeRemainingText, viewModel.timeRemaining);
+        scoreTextView = setupTextView(parentView, R.id.scoreText, createScoreString(viewModel.scoreValue));
+        questionTextView = setupTextView(parentView, R.id.questionText, viewModel.questionText);
         textAnimator = new TextAnimator(questionTextView);
     }
 
 
-    private void setTimeRemaining(String timeRemaining){
-        viewModel.timeRemaining = timeRemaining;
-        timeRemainingTextView.setText(viewModel.timeRemaining);
+    private TextView setupTextView(View parentView, int id, String viewModelValue){
+        TextView textView = parentView.findViewById(id);
+        textView.setText(viewModelValue);
+        return textView;
     }
-
-
-
-    private void setScore(String score){
-        viewModel.score = score;
-        scoreTextView.setText(viewModel.score);
-    }
-
-
-    private void setQuestionText(String questionText){
-        viewModel.questionText = questionText;
-        questionTextView.setText(viewModel.questionText);
-    }
-
 
 
     private void updateTimeRemaining(Bundle bundle){
         int minutesRemaining = bundle.getInt(MINUTES_REMAINING_TAG);
         int secondsRemaining = bundle.getInt(SECONDS_REMAINING_TAG);
-
+        log("Entered updateTimeRemaining()");
         runOnUiThread(()->{
             timeRemainingTextView.setVisibility(View.VISIBLE);
             setTimeRemainingTextColor(minutesRemaining, secondsRemaining);
-            timeRemainingTextView.setText(createTimeRemainingString(minutesRemaining, secondsRemaining));
+            viewModel.timeRemaining = createTimeRemainingString(minutesRemaining, secondsRemaining);;
+            timeRemainingTextView.setText(viewModel.timeRemaining);
         });
     }
 
@@ -139,11 +132,13 @@ public class GameScreenFragment extends Fragment {
 
 
     private void setScore(Bundle bundle){
-        int score = bundle.getInt(SCORE_TAG);
-        String scoreStr = getString(R.string.score_label) + (score);
-        runOnUiThread(()->{
-            scoreTextView.setText(scoreStr);
-        });
+        viewModel.scoreValue = bundle.getInt(SCORE_TAG);;
+        runOnUiThread(()-> scoreTextView.setText(createScoreString(viewModel.scoreValue)));
+    }
+
+
+    private String createScoreString(int score){
+        return getString(R.string.score_label) + score;
     }
 
 
@@ -152,6 +147,7 @@ public class GameScreenFragment extends Fragment {
         System.out.println("^^^ GameScreenFragment entered setQuestion(), text = " + text);
         runOnUiThread(()-> {
             textAnimator.setNextText(text);
+            viewModel.questionText = text;
             questionTextView.startAnimation(textAnimator.getFadeOutAnimation());
         });
     }
@@ -166,9 +162,29 @@ public class GameScreenFragment extends Fragment {
     }
 
 
+    private void log(String msg){
+        System.out.println("^^^ GameScreenFragment " +  msg);
+    }
+
+
     private void onGameOver(Bundle bundle){
+        log("Entered onGameOver()");
+        MainActivity mainActivity = (MainActivity)getActivity();
+        if(mainActivity != null) {
+            mainActivity.notifyServiceThatGameHasFinished();
+        }
+        runOnUiThread(()->inputHelper.clearAnswerText());
         GameOverScreenFragment gameOverScreenFragment = new GameOverScreenFragment();
         FragmentUtils.loadFragment(this, gameOverScreenFragment, "game_over_screen", bundle);
+        resetViewData();
+    }
+
+
+    private void resetViewData(){
+        viewModel.scoreValue = 0;
+        viewModel.inputText = "";
+        viewModel.timeRemaining = "";
+        viewModel.questionText = "";
     }
 
 

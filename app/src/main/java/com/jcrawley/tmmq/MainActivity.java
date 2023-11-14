@@ -142,9 +142,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onGameOver(int finalScore){
+        log("Entered onGameOver() final score: " + finalScore);
          Bundle bundle = new Bundle();
          bundle.putInt(GameOverScreenFragment.FINAL_SCORE_KEY, finalScore);
          getSupportFragmentManager().setFragmentResult(GameScreenFragment.NOTIFY_GAME_OVER, bundle);
+    }
+
+
+    public void notifyServiceThatGameHasFinished(){
+        reassignActivityToService();
+        gameService.notifyThatGameFinished();
     }
 
 

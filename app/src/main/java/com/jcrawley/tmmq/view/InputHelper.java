@@ -22,8 +22,8 @@ public class InputHelper {
         this.viewModel = viewModel;
         //viewModel = activity.getViewModel();
         inputTextView = parentView.findViewById(R.id.inputText);
+        inputTextView.setText(viewModel.inputText);
         setupButtons();
-        clearAnswerText();
     }
 
 
@@ -51,10 +51,21 @@ public class InputHelper {
         });
     }
 
+    private void log(String msg){
+        System.out.println("^^^ InputHelper: " + msg);
+    }
 
     private void submitAnswer(){
+        log("entered submitAnswer()");
         String answer = viewModel.inputText.trim();
+        log("answer trimmed = " + answer);
         if(answer.isEmpty()){
+            log("answer is empty!");
+            return;
+        }
+        log("about to submit answer");
+        if(activity == null){
+            log("activity is null!");
             return;
         }
         activity.submitAnswer(answer);
@@ -104,7 +115,7 @@ public class InputHelper {
     }
 
 
-    private void clearAnswerText(){
+    public void clearAnswerText(){
         viewModel.inputText = "";
         inputTextView.setText(viewModel.inputText);
     }

@@ -9,11 +9,17 @@ import android.os.IBinder;
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 
 public class GameService extends Service {
     IBinder binder = new LocalBinder();
     private MainActivity mainActivity;
     private final Game game;
+    private ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
 
     public GameService() {
@@ -55,9 +61,15 @@ public class GameService extends Service {
         mainActivity.setTimeRemaining(minutesRemaining, secondsRemaining);
     }
 
+    private ScheduledFuture<?> notifyGameOverFuture;
 
     public void onGameOver(int finalScore){
-        mainActivity.onGameOver(finalScore);
+       notifyGameOverFuture = scheduledExecutorService.scheduleAtFixedRate(()-> mainActivity.onGameOver(finalScore), 0, 2, TimeUnit.SECONDS);
+    }
+
+
+    public void notifyThatGameFinished(){
+        notifyGameOverFuture.cancel(false);
     }
 
 
@@ -118,6 +130,7 @@ public class GameService extends Service {
 
 
     public void submitAnswer(String answerText){
+        log("entered submitAnswer() answer: " + answerText);
         game.checkAnswer(answerText);
     }
 

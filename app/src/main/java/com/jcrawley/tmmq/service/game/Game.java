@@ -39,6 +39,7 @@ public class Game {
             return;
         }
         gametimer.setTimerLength(timerLength);
+
         isStarted = true;
         currentQuestion = questionGenerator.generate();
         setQuestionTextOnView();
@@ -59,6 +60,9 @@ public class Game {
 
 
     public void checkAnswer(String answerStr){
+        if(currentQuestion == null){
+            return;
+        }
         if(currentQuestion.isGivenAnswerCorrect(answerStr)){
             currentScore++;
             gameService.updateScore(currentScore);
@@ -87,31 +91,6 @@ public class Game {
         gameService.updateTimer(minutesRemaining, secondsRemaining);
     }
 
-
-    public int getScore(){
-        return currentScore;
-    }
-
-
-    public String getCurrentQuestionText(){
-        return currentQuestion == null ? "" : currentQuestion.getQuestionText();
-    }
-
-
-    public int getSecondsRemaining(){
-        return gametimer == null ? 0 : gametimer.getSecondsRemaining();
-    }
-
-
-    public int getMinutesRemaining(){
-        return gametimer == null ? 0 : gametimer.getMinutesRemaining();
-    }
-
-
-    public void resetGame(){
-        currentScore = 0;
-        gametimer.resetTime();
-    }
 
 
 }
