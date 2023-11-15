@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Two Minutes Math Quiz</string>
-
+    <string name="app_name">Quick Maths Quiz</string>
 
     <string name="main_menu_screen_start_game_button_text">New Game</string>
     <string name="game_over_to_main_menu_button_text">Main Menu</string>

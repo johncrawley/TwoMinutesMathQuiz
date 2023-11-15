@@ -1,14 +1,19 @@
 package com.jcrawley.tmmq.view.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.view.SettingsActivity;
@@ -52,6 +57,17 @@ public class WelcomeScreenFragment extends Fragment {
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View parent = inflater.inflate(R.layout.fragment_welcome_screen, container, false);
+        setupButtons(parent);
+        setupTitleText(parent);
+        return parent;
+    }
+
+
     private void setupButtons(View parent){
         Button button = parent.findViewById(R.id.startGameButton);
         button.setOnClickListener(v -> startGame());
@@ -76,13 +92,19 @@ public class WelcomeScreenFragment extends Fragment {
     }
 
 
+    private void setupTitleText(View parentView){
+        TextView titleText = (TextView)parentView.findViewById(R.id.titleText);
+        TextPaint paint = titleText.getPaint();
+        float width = paint.measureText("Tianjin, China");
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View parent = inflater.inflate(R.layout.fragment_welcome_screen, container, false);
-        setupButtons(parent);
-        return parent;
+        Shader textShader = new LinearGradient(0, 0, width, titleText.getTextSize(),
+                new int[]{
+                        Color.parseColor("#D1973C"),
+                        Color.parseColor("#FDBAAE"),
+                        Color.parseColor("#64B678"),
+                        Color.parseColor("#C44C1C")
+                }, null, Shader.TileMode.CLAMP);
+        titleText.getPaint().setShader(textShader);
     }
+
 }
