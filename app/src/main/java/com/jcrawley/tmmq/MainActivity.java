@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void startGame(){
+        log("Entered startGame()");
         assignVibrationSettings();
         if(gameService == null){
             return;

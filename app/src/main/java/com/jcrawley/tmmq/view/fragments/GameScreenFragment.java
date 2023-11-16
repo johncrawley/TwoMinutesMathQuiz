@@ -1,13 +1,12 @@
 package com.jcrawley.tmmq.view.fragments;
 
+import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
+
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,6 +104,9 @@ public class GameScreenFragment extends Fragment {
 
 
     private void updateTimeRemaining(Bundle bundle){
+        if(timeRemainingTextView == null){
+            return;
+        }
         int minutesRemaining = bundle.getInt(MINUTES_REMAINING_TAG);
         int secondsRemaining = bundle.getInt(SECONDS_REMAINING_TAG);
         log("Entered updateTimeRemaining()");
@@ -189,20 +191,10 @@ public class GameScreenFragment extends Fragment {
 
 
     private void setupColors(){
-        timeRemainingTextNormalColor = getColorFromAttribute(R.attr.time_remaining_text_normal_color);
-        timeRemainingTextWarningColor = getColorFromAttribute(R.attr.time_remaining_text_warning_color);
+        timeRemainingTextNormalColor = getColorFromAttribute(R.attr.time_remaining_text_normal_color, getContext());
+        timeRemainingTextWarningColor = getColorFromAttribute(R.attr.time_remaining_text_warning_color, getContext());
     }
 
-
-    private int getColorFromAttribute(int attr){
-        Activity activity = getActivity();
-        if(activity == null){
-            return Color.BLACK;
-        }
-        TypedValue typedValue = new TypedValue();
-        activity.getTheme().resolveAttribute(attr, typedValue, true);
-        return typedValue.data;
-    }
 
 
 }

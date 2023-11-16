@@ -1,5 +1,6 @@
 package com.jcrawley.tmmq.view.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.view.SettingsActivity;
+import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -62,6 +64,7 @@ public class WelcomeScreenFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View parent = inflater.inflate(R.layout.fragment_welcome_screen, container, false);
+        isGameStartInitiated.set(false);
         setupButtons(parent);
         setupTitleText(parent);
         return parent;
@@ -93,16 +96,18 @@ public class WelcomeScreenFragment extends Fragment {
 
 
     private void setupTitleText(View parentView){
-        TextView titleText = (TextView)parentView.findViewById(R.id.titleText);
+        TextView titleText = parentView.findViewById(R.id.titleText);
         TextPaint paint = titleText.getPaint();
-        float width = paint.measureText("Tianjin, China");
+        float width = paint.measureText(titleText.getText().toString());
+        Context context = getContext();
 
         Shader textShader = new LinearGradient(0, 0, width, titleText.getTextSize(),
                 new int[]{
-                        Color.parseColor("#D1973C"),
-                        Color.parseColor("#FDBAAE"),
-                        Color.parseColor("#64B678"),
-                        Color.parseColor("#C44C1C")
+                        getColorFromAttribute(R.attr.title_text_color_1, context),
+                        getColorFromAttribute(R.attr.title_text_color_2, context),
+                        getColorFromAttribute(R.attr.title_text_color_3, context),
+                        getColorFromAttribute(R.attr.title_text_color_4, context),
+                        getColorFromAttribute(R.attr.title_text_color_5, context)
                 }, null, Shader.TileMode.CLAMP);
         titleText.getPaint().setShader(textShader);
     }
