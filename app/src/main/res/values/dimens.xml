@@ -46,6 +46,7 @@
     <dimen name="game_over_buttons_margin">12dp</dimen>
     <dimen name="ending_score_label_text_size">36sp</dimen>
     <dimen name="ending_score_text_size">56sp</dimen>
+    <dimen name="input_button">100dp</dimen>
 
 
 </resources>

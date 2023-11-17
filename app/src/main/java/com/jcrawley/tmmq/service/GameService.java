@@ -19,7 +19,8 @@ public class GameService extends Service {
     IBinder binder = new LocalBinder();
     private MainActivity mainActivity;
     private final Game game;
-    private ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+    private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+    private ScheduledFuture<?> notifyGameOverFuture;
 
 
     public GameService() {
@@ -29,11 +30,17 @@ public class GameService extends Service {
 
 
     public void setQuestionTextOnView(String questionText){
+        if(mainActivity == null){
+            return;
+        }
         mainActivity.setQuestionText(questionText);
     }
 
 
     public void fadeInQuestionTextOnView(String questionText){
+        if(mainActivity == null){
+            return;
+        }
         mainActivity.fadeInQuestionText(questionText);
     }
 
@@ -44,7 +51,6 @@ public class GameService extends Service {
 
     public void setupPrefs(){
        SharedPreferences sharedPreferences = getSharedPreferences("ScorePreferences", MODE_PRIVATE);
-
     }
 
     private void getHighScore(){
@@ -53,15 +59,20 @@ public class GameService extends Service {
     }
 
     public void updateScore(int score){
+        if(mainActivity == null){
+            return;
+        }
         mainActivity.setScore(score);
     }
 
 
     public void updateTimer(int minutesRemaining, int secondsRemaining){
+        if(mainActivity == null){
+            return;
+        }
         mainActivity.setTimeRemaining(minutesRemaining, secondsRemaining);
     }
 
-    private ScheduledFuture<?> notifyGameOverFuture;
 
     public void onGameOver(int finalScore){
        notifyGameOverFuture = scheduledExecutorService.scheduleAtFixedRate(()-> mainActivity.onGameOver(finalScore), 0, 2, TimeUnit.SECONDS);

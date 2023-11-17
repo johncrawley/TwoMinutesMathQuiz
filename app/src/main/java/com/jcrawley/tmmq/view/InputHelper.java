@@ -1,5 +1,11 @@
 package com.jcrawley.tmmq.view;
 
+import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
+
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,7 +17,6 @@ import com.jcrawley.tmmq.view.fragments.GameScreenViewModel;
 public class InputHelper {
 
     private final MainActivity activity;
-   // private final MainViewModel viewModel;
     private final TextView inputTextView;
     private final View parentView;
     private final GameScreenViewModel viewModel;
@@ -20,7 +25,6 @@ public class InputHelper {
         this.activity = activity;
         this.parentView = parentView;
         this.viewModel = viewModel;
-        //viewModel = activity.getViewModel();
         inputTextView = parentView.findViewById(R.id.inputText);
         inputTextView.setText(viewModel.inputText);
         setupButtons();
@@ -43,42 +47,56 @@ public class InputHelper {
     }
 
 
-    private void setupButton(int buttonId, Runnable runnable){
-        Button button = parentView.findViewById(buttonId);
-        button.setOnClickListener(v->{
-            runnable.run();
-            activity.vibrateOnPress();
+    private void setupButton(int viewId, Runnable runnable){
+        View view = parentView.findViewById(viewId);
+        setViewBrightnessOnClick(view, runnable);
+    }
+
+
+    private void setupButtonForAdd(int viewId, int digit){
+        View view = parentView.findViewById(viewId);
+        setViewBrightnessOnClick(view, ()-> addDigitToAnswer(digit));
+    }
+
+
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setViewBrightnessOnClick(View view, Runnable onRelease){
+        view.setOnTouchListener((view1, motionEvent) -> {
+            int action = motionEvent.getAction();
+            if(action == MotionEvent.ACTION_DOWN){
+                animateViewBrightness(view, R.attr.input_view_normal_color, R.attr.input_view_pressed_color);
+                activity.vibrateOnPress();
+            }
+            else if(action == MotionEvent.ACTION_UP){
+                animateViewBrightness(view, R.attr.input_view_pressed_color, R.attr.input_view_normal_color);
+                onRelease.run();
+            }
+            return true;
         });
     }
 
-    private void log(String msg){
-        System.out.println("^^^ InputHelper: " + msg);
+
+    private void animateViewBrightness(View view, int startColorAttributeId, int endColorAttributeId){
+        int colorFrom = getColorFromAttribute(startColorAttributeId, activity);
+        int colorTo = getColorFromAttribute(endColorAttributeId, activity);
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        colorAnimation.setDuration(300);
+        colorAnimation.addUpdateListener(animator -> view.setBackgroundColor((int) animator.getAnimatedValue()));
+        colorAnimation.start();
     }
 
+
     private void submitAnswer(){
-        log("entered submitAnswer()");
         String answer = viewModel.inputText.trim();
-        log("answer trimmed = " + answer);
         if(answer.isEmpty()){
-            log("answer is empty!");
             return;
         }
-        log("about to submit answer");
         if(activity == null){
-            log("activity is null!");
             return;
         }
         activity.submitAnswer(answer);
         clearAnswerText();
-    }
-
-
-    private void setupButtonForAdd(int buttonId, int digit){
-        Button button = parentView.findViewById(buttonId);
-        button.setOnClickListener(v-> {
-            addDigitToAnswer(digit);
-            activity.vibrateOnPress();
-        });
     }
 
 

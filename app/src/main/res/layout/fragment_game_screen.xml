@@ -26,7 +26,7 @@
 
         <include
             android:id="@+id/inputButtonsInclude"
-            layout="@layout/game_screen_input_buttons"
+            layout="@layout/game_screen_input_controls_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/input_buttons_include_margin"
