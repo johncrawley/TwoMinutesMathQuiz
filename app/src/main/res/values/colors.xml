@@ -19,8 +19,12 @@
     <color name="title_text_5">#8E24AA</color>
 
 
-    <color name="input_view_normal">#5C5743</color>
-    <color name="input_view_pressed">#8E24AA</color>
+    <color name="input_view_normal">#005C5743</color>
+    <color name="input_view_pressed">#6ABE24E6</color>
+
+    <color name="input_button_accent">#005C5743</color>
+    <color name="input_button_outline">#005C5743</color>
+    <color name="input_button_text">#00CAB356</color>
 
 
 </resources>

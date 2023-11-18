@@ -65,11 +65,11 @@ public class InputHelper {
         view.setOnTouchListener((view1, motionEvent) -> {
             int action = motionEvent.getAction();
             if(action == MotionEvent.ACTION_DOWN){
-                animateViewBrightness(view, R.attr.input_view_normal_color, R.attr.input_view_pressed_color);
+               // animateViewBrightness(view, R.attr.input_view_normal_color, R.attr.input_view_pressed_color);
                 activity.vibrateOnPress();
             }
             else if(action == MotionEvent.ACTION_UP){
-                animateViewBrightness(view, R.attr.input_view_pressed_color, R.attr.input_view_normal_color);
+               // animateViewBrightness(view, R.attr.input_view_pressed_color, R.attr.input_view_normal_color);
                 onRelease.run();
             }
             return true;
