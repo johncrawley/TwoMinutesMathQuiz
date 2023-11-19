@@ -22,9 +22,9 @@
     <color name="input_view_normal">#005C5743</color>
     <color name="input_view_pressed">#6ABE24E6</color>
 
-    <color name="input_button_accent">#005C5743</color>
-    <color name="input_button_outline">#005C5743</color>
-    <color name="input_button_text">#00CAB356</color>
+    <color name="input_button_accent">#B39DDB</color>
+    <color name="input_button_outline">#00716843</color>
+    <color name="input_button_text">#B1A883</color>
 
 
 </resources>

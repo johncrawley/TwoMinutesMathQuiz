@@ -56,7 +56,7 @@
         app:layout_constraintWidth_max="@dimen/welcome_screen_button_layout_max_width"
         android:id="@+id/startButtonsLayout"
         app:layout_constraintTop_toBottomOf="@+id/titleText"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center">

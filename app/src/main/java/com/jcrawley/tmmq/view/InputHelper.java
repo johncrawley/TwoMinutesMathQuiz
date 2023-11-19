@@ -4,10 +4,7 @@ import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttr
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.jcrawley.tmmq.MainActivity;
@@ -49,32 +46,21 @@ public class InputHelper {
 
     private void setupButton(int viewId, Runnable runnable){
         View view = parentView.findViewById(viewId);
-        setViewBrightnessOnClick(view, runnable);
+        view.setOnClickListener(v -> {
+            runnable.run();
+            activity.vibrateOnPress();
+        });
     }
 
 
     private void setupButtonForAdd(int viewId, int digit){
         View view = parentView.findViewById(viewId);
-        setViewBrightnessOnClick(view, ()-> addDigitToAnswer(digit));
-    }
-
-
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void setViewBrightnessOnClick(View view, Runnable onRelease){
-        view.setOnTouchListener((view1, motionEvent) -> {
-            int action = motionEvent.getAction();
-            if(action == MotionEvent.ACTION_DOWN){
-               // animateViewBrightness(view, R.attr.input_view_normal_color, R.attr.input_view_pressed_color);
-                activity.vibrateOnPress();
-            }
-            else if(action == MotionEvent.ACTION_UP){
-               // animateViewBrightness(view, R.attr.input_view_pressed_color, R.attr.input_view_normal_color);
-                onRelease.run();
-            }
-            return true;
+        view.setOnClickListener(v -> {
+            addDigitToAnswer(digit);
+            activity.vibrateOnPress();
         });
     }
+
 
 
     private void animateViewBrightness(View view, int startColorAttributeId, int endColorAttributeId){
