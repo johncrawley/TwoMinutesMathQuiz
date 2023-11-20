@@ -8,15 +8,14 @@
                 android:id="@+id/button1"
                 android:layout_width="0dp"
                  android:layout_height="0dp"
-                style="?attr/input_button_style"
                 android:gravity="center"
-               
                 android:text="@string/symbol_1"
                 android:textSize="28sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button2"
                 app:layout_constraintBottom_toTopOf="@id/button4"
+                style="?attr/input_button_style"
                 />
 
             <com.google.android.material.button.MaterialButton

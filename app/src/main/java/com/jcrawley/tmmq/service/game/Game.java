@@ -19,6 +19,7 @@ public class Game {
     private int difficulty = 5;
     private int questionCount;
     private final Map<Integer, GameLevel> levels;
+    private GameLevel currentLevel;
 
 
     public Game(){
@@ -47,10 +48,20 @@ public class Game {
     }
 
 
+    public int getInitialTimer(){
+        return gametimer.getInitialRemainingTime();
+    }
+
+
     public void setDifficulty(int difficulty){
         this.difficulty = difficulty;
-        GameLevel level = levels.containsKey(difficulty) ? levels.get(difficulty) : levels.get(5);
-        questionGenerator.setGameLevel(level);
+        currentLevel = levels.containsKey(difficulty) ? levels.get(difficulty) : levels.get(5);
+        questionGenerator.setGameLevel(currentLevel);
+    }
+
+
+    public GameLevel getCurrentLevel(){
+        return currentLevel;
     }
 
 

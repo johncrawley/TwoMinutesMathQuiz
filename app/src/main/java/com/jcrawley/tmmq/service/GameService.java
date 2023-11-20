@@ -8,6 +8,7 @@ import android.os.IBinder;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
+import com.jcrawley.tmmq.service.game.level.GameLevel;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -57,6 +58,14 @@ public class GameService extends Service {
 
 
     }
+
+
+    private String createScorePrefKey(Game game){
+        GameLevel gameLevel = game.getCurrentLevel();
+        int timerLength = game.getInitialTimer();
+        return "scoreFor_" + gameLevel.toString() + "_"  + timerLength;
+    }
+
 
     public void updateScore(int score){
         if(mainActivity == null){

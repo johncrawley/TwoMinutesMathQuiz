@@ -33,6 +33,11 @@ public class GameTimer {
     }
 
 
+    public int getInitialRemainingTime(){
+        return initialRemainingTime;
+    }
+
+
     public boolean isTimeUp(){
         return currentRemainingTime <= 0;
     }
