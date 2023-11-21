@@ -10,6 +10,7 @@ import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.game.level.GameLevel;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -22,6 +23,12 @@ public class GameService extends Service {
     private final Game game;
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> notifyGameOverFuture;
+
+
+    private enum RecordType { DAILY, ALL_TIME }
+    private final String SCORE_PREFERENCES = "score_preferences";
+    private final String LAST_RECORD_DATE_KEY = "last_record_date";
+
 
 
     public GameService() {
@@ -50,13 +57,20 @@ public class GameService extends Service {
 
     }
 
+
     public void setupPrefs(){
-       SharedPreferences sharedPreferences = getSharedPreferences("ScorePreferences", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("ScorePreferences", MODE_PRIVATE);
     }
 
+
+
+    public SharedPreferences getScorePrefs(){
+        return getSharedPreferences(SCORE_PREFERENCES, MODE_PRIVATE);
+    }
+
+
     private void getHighScore(){
-
-
+        
     }
 
 
@@ -64,6 +78,53 @@ public class GameService extends Service {
         GameLevel gameLevel = game.getCurrentLevel();
         int timerLength = game.getInitialTimer();
         return "scoreFor_" + gameLevel.toString() + "_"  + timerLength;
+    }
+
+
+    private String createScorePrefKey(RecordType recordType, GameLevel gameLevel, int timerLength){
+        return "scoreFor_" + recordType.toString() + "_" + gameLevel.toString() + "_"  + timerLength;
+    }
+
+
+    private boolean saveHighScore(Game game, int finalScore, RecordType recordType){
+        SharedPreferences scorePrefs = getScorePrefs();
+        String allTimeKey = createScorePrefKey(recordType, game.getCurrentLevel(), game.getInitialTimer());
+        int allTimeScore = scorePrefs.getInt(allTimeKey, 0);
+        if(finalScore > allTimeScore){
+            scorePrefs.edit().putInt(allTimeKey, finalScore).apply();
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+    private boolean saveDailyHighScore(Game game, int finalScore){
+        SharedPreferences scorePrefs = getScorePrefs();
+        String todayDateStr = LocalDateTime.now().toString();
+        String allTimeKey = createScorePrefKey(RecordType.DAILY, game.getCurrentLevel(), game.getInitialTimer());
+        String lastDateStr = scorePrefs.getString(LAST_RECORD_DATE_KEY, todayDateStr);
+        if(!lastDateStr.equals(todayDateStr)){
+            scorePrefs.edit().putInt(allTimeKey, finalScore).apply();
+            return true;
+        }
+
+        int allTimeScore = scorePrefs.getInt(allTimeKey, 0);
+        if(finalScore > allTimeScore){
+            scorePrefs.edit().putInt(allTimeKey, finalScore).apply();
+            return true;
+        }
+        return false;
+    }
+
+
+    private void saveDate(SharedPreferences sharedPreferences, String dateStr){
+        sharedPreferences.edit().putString(LAST_RECORD_DATE_KEY, dateStr).apply();
+    }
+
+    private void saveScore(SharedPreferences sharedPreferences, String key, int score){
+        sharedPreferences.edit().putInt(key, score).apply();
     }
 
 
