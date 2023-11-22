@@ -98,21 +98,38 @@ public class GameService extends Service {
     }
 
 
+    private int getDailyHighScoreRecord(Game game){
+        SharedPreferences scorePrefs = getScorePrefs();
+        String todayDateStr = getDateToday();
+        String lastDateStr = scorePrefs.getString(LAST_RECORD_DATE_KEY, todayDateStr);
+        if(!lastDateStr.equals(todayDateStr)){
+            return 0;
+        }
+        String scoreKey = createScorePrefKey(RecordType.DAILY, game.getCurrentLevel(), game.getInitialTimer());
+        return getScorePrefs().getInt(scoreKey, 0);
+    }
+
+
+    private String getDateToday(){
+        LocalDateTime dateToday = LocalDateTime.now();
+        return  dateToday.getDayOfMonth()
+                + "-" + dateToday.getMonthValue()
+                + "-" + dateToday.getYear();
+    }
 
 
     private boolean saveDailyHighScore(Game game, int finalScore){
         SharedPreferences scorePrefs = getScorePrefs();
         String todayDateStr = LocalDateTime.now().toString();
-        String allTimeKey = createScorePrefKey(RecordType.DAILY, game.getCurrentLevel(), game.getInitialTimer());
+        String scoreKey = createScorePrefKey(RecordType.DAILY, game.getCurrentLevel(), game.getInitialTimer());
         String lastDateStr = scorePrefs.getString(LAST_RECORD_DATE_KEY, todayDateStr);
-        if(!lastDateStr.equals(todayDateStr)){
-            scorePrefs.edit().putInt(allTimeKey, finalScore).apply();
-            return true;
-        }
 
-        int allTimeScore = scorePrefs.getInt(allTimeKey, 0);
-        if(finalScore > allTimeScore){
-            scorePrefs.edit().putInt(allTimeKey, finalScore).apply();
+        boolean hasNoScoreBeenRecordedToday = !lastDateStr.equals(todayDateStr);
+        int highestScoreToday = getScorePrefs().getInt(scoreKey, 0);
+
+        if(hasNoScoreBeenRecordedToday || highestScoreToday < finalScore){
+            saveDate(scorePrefs, todayDateStr);
+            saveScore(scorePrefs, scoreKey, finalScore);
             return true;
         }
         return false;
@@ -122,6 +139,7 @@ public class GameService extends Service {
     private void saveDate(SharedPreferences sharedPreferences, String dateStr){
         sharedPreferences.edit().putString(LAST_RECORD_DATE_KEY, dateStr).apply();
     }
+
 
     private void saveScore(SharedPreferences sharedPreferences, String key, int score){
         sharedPreferences.edit().putInt(key, score).apply();
