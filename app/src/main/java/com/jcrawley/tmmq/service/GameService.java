@@ -25,15 +25,16 @@ public class GameService extends Service {
     private ScheduledFuture<?> notifyGameOverFuture;
 
 
-    private enum RecordType { DAILY, ALL_TIME }
-    private final String SCORE_PREFERENCES = "score_preferences";
-    private final String LAST_RECORD_DATE_KEY = "last_record_date";
-
-
-
     public GameService() {
         super();
         game = new Game();
+    }
+
+
+
+    public SharedPreferences getScorePrefs(){
+        final String SCORE_PREFERENCES = "score_preferences";
+        return getSharedPreferences(SCORE_PREFERENCES, MODE_PRIVATE);
     }
 
 
@@ -63,87 +64,6 @@ public class GameService extends Service {
     }
 
 
-
-    public SharedPreferences getScorePrefs(){
-        return getSharedPreferences(SCORE_PREFERENCES, MODE_PRIVATE);
-    }
-
-
-    private void getHighScore(){
-        
-    }
-
-
-    private String createScorePrefKey(Game game){
-        GameLevel gameLevel = game.getCurrentLevel();
-        int timerLength = game.getInitialTimer();
-        return "scoreFor_" + gameLevel.toString() + "_"  + timerLength;
-    }
-
-
-    private String createScorePrefKey(RecordType recordType, GameLevel gameLevel, int timerLength){
-        return "scoreFor_" + recordType.toString() + "_" + gameLevel.toString() + "_"  + timerLength;
-    }
-
-
-    private boolean saveHighScore(Game game, int finalScore, RecordType recordType){
-        SharedPreferences scorePrefs = getScorePrefs();
-        String allTimeKey = createScorePrefKey(recordType, game.getCurrentLevel(), game.getInitialTimer());
-        int allTimeScore = scorePrefs.getInt(allTimeKey, 0);
-        if(finalScore > allTimeScore){
-            scorePrefs.edit().putInt(allTimeKey, finalScore).apply();
-            return true;
-        }
-        return false;
-    }
-
-
-    private int getDailyHighScoreRecord(Game game){
-        SharedPreferences scorePrefs = getScorePrefs();
-        String todayDateStr = getDateToday();
-        String lastDateStr = scorePrefs.getString(LAST_RECORD_DATE_KEY, todayDateStr);
-        if(!lastDateStr.equals(todayDateStr)){
-            return 0;
-        }
-        String scoreKey = createScorePrefKey(RecordType.DAILY, game.getCurrentLevel(), game.getInitialTimer());
-        return getScorePrefs().getInt(scoreKey, 0);
-    }
-
-
-    private String getDateToday(){
-        LocalDateTime dateToday = LocalDateTime.now();
-        return  dateToday.getDayOfMonth()
-                + "-" + dateToday.getMonthValue()
-                + "-" + dateToday.getYear();
-    }
-
-
-    private boolean saveDailyHighScore(Game game, int finalScore){
-        SharedPreferences scorePrefs = getScorePrefs();
-        String todayDateStr = LocalDateTime.now().toString();
-        String scoreKey = createScorePrefKey(RecordType.DAILY, game.getCurrentLevel(), game.getInitialTimer());
-        String lastDateStr = scorePrefs.getString(LAST_RECORD_DATE_KEY, todayDateStr);
-
-        boolean hasNoScoreBeenRecordedToday = !lastDateStr.equals(todayDateStr);
-        int highestScoreToday = getScorePrefs().getInt(scoreKey, 0);
-
-        if(hasNoScoreBeenRecordedToday || highestScoreToday < finalScore){
-            saveDate(scorePrefs, todayDateStr);
-            saveScore(scorePrefs, scoreKey, finalScore);
-            return true;
-        }
-        return false;
-    }
-
-
-    private void saveDate(SharedPreferences sharedPreferences, String dateStr){
-        sharedPreferences.edit().putString(LAST_RECORD_DATE_KEY, dateStr).apply();
-    }
-
-
-    private void saveScore(SharedPreferences sharedPreferences, String key, int score){
-        sharedPreferences.edit().putInt(key, score).apply();
-    }
 
 
     public void updateScore(int score){
