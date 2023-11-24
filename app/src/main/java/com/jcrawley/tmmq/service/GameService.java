@@ -9,6 +9,8 @@ import android.os.IBinder;
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.game.level.GameLevel;
+import com.jcrawley.tmmq.service.score.ScoreRecords;
+import com.jcrawley.tmmq.service.score.ScoreStatistics;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
@@ -82,8 +84,10 @@ public class GameService extends Service {
     }
 
 
-    public void onGameOver(int finalScore){
-       notifyGameOverFuture = scheduledExecutorService.scheduleAtFixedRate(()-> mainActivity.onGameOver(finalScore), 0, 2, TimeUnit.SECONDS);
+
+    public void onGameOver(ScoreStatistics scoreStatistics){
+       ScoreStatistics fullScoreStats = new ScoreRecords(getScorePrefs()).getCompleteScoreStatsAndSaveRecords(scoreStatistics);
+       notifyGameOverFuture = scheduledExecutorService.scheduleAtFixedRate(()-> mainActivity.onGameOver(fullScoreStats), 0, 2, TimeUnit.SECONDS);
     }
 
 

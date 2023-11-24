@@ -5,6 +5,7 @@ import com.jcrawley.tmmq.service.game.level.GameLevel;
 import com.jcrawley.tmmq.service.game.level.LevelFactory;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.game.question.QuestionGenerator;
+import com.jcrawley.tmmq.service.score.ScoreStatistics;
 
 import java.util.Map;
 
@@ -92,7 +93,11 @@ public class Game {
 
 
     void gameOver(){
-        gameService.onGameOver(currentScore);
+        ScoreStatistics scoreStatistics = new ScoreStatistics();
+        scoreStatistics.setFinalScore(currentScore);
+        scoreStatistics.setGameLevel(currentLevel);
+        scoreStatistics.setTimerLength(String.valueOf(gametimer.getInitialRemainingTime()));
+        gameService.onGameOver(scoreStatistics);
         isStarted = false;
         currentScore = 0;
     }

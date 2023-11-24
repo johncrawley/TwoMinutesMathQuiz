@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
 import com.jcrawley.tmmq.service.GameService;
+import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.fragments.GameOverScreenFragment;
 import com.jcrawley.tmmq.view.fragments.GameScreenFragment;
@@ -141,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void onGameOver(int finalScore){
+    public void onGameOver(ScoreStatistics scoreStatistics){
+        int finalScore = scoreStatistics.getFinalScore();
         log("Entered onGameOver() final score: " + finalScore);
          Bundle bundle = new Bundle();
          bundle.putInt(GameOverScreenFragment.FINAL_SCORE_KEY, finalScore);

@@ -22,26 +22,10 @@ public class ScoreRecords {
     }
 
 
-    private void getHighScore(){
-
-    }
-
-
     private String createScorePrefKey(Game game){
         GameLevel gameLevel = game.getCurrentLevel();
         int timerLength = game.getInitialTimer();
         return "scoreFor_" + gameLevel.toString() + "_"  + timerLength;
-    }
-
-
-    private boolean saveHighScore(ScoreStatistics scoreStatistics, int finalScore, RecordType recordType){
-        String allTimeKey = createScorePrefKey(recordType, scoreStatistics);
-        int allTimeScore = scorePrefs.getInt(allTimeKey, 0);
-        if(finalScore > allTimeScore){
-            scorePrefs.edit().putInt(allTimeKey, finalScore).apply();
-            return true;
-        }
-        return false;
     }
 
 
@@ -52,42 +36,45 @@ public class ScoreRecords {
 
 
     public ScoreStatistics getCompleteScoreStatsAndSaveRecords(ScoreStatistics stats){
+        int existingDailyRecord = getDailyHighScoreRecord(stats);
+        int existingAllTimeRecord = getAllTimeHighScoreRecord(stats);
+
+        saveDailyHighScore(stats, stats.getFinalScore(), existingDailyRecord);
+        saveAllTimeHighScore(stats, stats.getFinalScore(), existingAllTimeRecord);
+        return buildFullStatsFrom(stats, existingDailyRecord, existingAllTimeRecord);
+    }
+
+
+    private ScoreStatistics buildFullStatsFrom(ScoreStatistics endGameStats, int currentDailyRecord, int currentAllTimeRecord){
         ScoreStatistics fullStats = new ScoreStatistics();
-
-        int dailyRecord = getDailyHighScoreRecord(stats);
-        int allTimeRecord = getAllTimeHighScoreRecord(stats);
-        int finalScore = stats.getFinalScore();
-
-        fullStats.setDailyHighScore(dailyRecord);
-        fullStats.setAllTimeHighScore(allTimeRecord);
-        fullStats.setFinalScore(finalScore);
-        fullStats.setGameLevel(stats.getGameLevel());
-        fullStats.setTimerLength(stats.getTimerLength());
-
-        if(finalScore > dailyRecord){
-            saveDailyHighScore(stats, finalScore);
-        }
-        if(finalScore > allTimeRecord){
-            saveHighScore(stats, finalScore, RecordType.ALL_TIME);
-        }
+        fullStats.setDailyHighScore(currentDailyRecord);
+        fullStats.setAllTimeHighScore(currentAllTimeRecord);
+        fullStats.setFinalScore(endGameStats.getFinalScore());
+        fullStats.setGameLevel(endGameStats.getGameLevel());
+        fullStats.setTimerLength(endGameStats.getTimerLength());
         return fullStats;
     }
 
 
-    private void processDailyHighScore(ScoreStatistics scoreStatistics, int finalScore){
-        int dailyRecord = getDailyHighScoreRecord(scoreStatistics);
-        if(finalScore > dailyRecord){
-            saveDailyHighScore(scoreStatistics, finalScore);
+    private void saveAllTimeHighScore(ScoreStatistics scoreStatistics, int finalScore, int currentAllTimeRecord){
+        if(finalScore <= currentAllTimeRecord){
+            return;
         }
+        String allTimeKey = createScorePrefKey(RecordType.ALL_TIME, scoreStatistics);
+        scorePrefs.edit().putInt(allTimeKey, finalScore).apply();
     }
 
 
-    private String getDateToday(){
-        LocalDateTime dateToday = LocalDateTime.now();
-        return  dateToday.getDayOfMonth()
-                + "-" + dateToday.getMonthValue()
-                + "-" + dateToday.getYear();
+    private void saveDailyHighScore(ScoreStatistics scoreStatistics, int finalScore, int currentDailyRecord){
+        if(finalScore <= currentDailyRecord){
+            return;
+        }
+        String todayDateStr = getDateToday();
+        String scoreKey = createScorePrefKey(RecordType.DAILY, scoreStatistics);
+        saveDate(scorePrefs, todayDateStr);
+        saveScore(scorePrefs, scoreKey, finalScore);
     }
+
 
 
     private int getDailyHighScoreRecord(ScoreStatistics scoreStatistics){
@@ -101,11 +88,13 @@ public class ScoreRecords {
     }
 
 
-    private void saveDailyHighScore(ScoreStatistics scoreStatistics, int finalScore){
-        String todayDateStr = getDateToday();
-        String scoreKey = createScorePrefKey(RecordType.DAILY, scoreStatistics);
-        saveDate(scorePrefs, todayDateStr);
-        saveScore(scorePrefs, scoreKey, finalScore);
+
+
+    private String getDateToday(){
+        LocalDateTime dateToday = LocalDateTime.now();
+        return  dateToday.getDayOfMonth()
+                + "-" + dateToday.getMonthValue()
+                + "-" + dateToday.getYear();
     }
 
 
