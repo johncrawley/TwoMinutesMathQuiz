@@ -144,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onGameOver(ScoreStatistics scoreStatistics){
         int finalScore = scoreStatistics.getFinalScore();
-        log("Entered onGameOver() final score: " + finalScore);
          Bundle bundle = new Bundle();
          bundle.putInt(GameOverScreenFragment.FINAL_SCORE_KEY, finalScore);
          getSupportFragmentManager().setFragmentResult(GameScreenFragment.NOTIFY_GAME_OVER, bundle);
@@ -178,6 +177,15 @@ public class MainActivity extends AppCompatActivity {
         }
         reassignActivityToService();
         gameService.startGame(getTimerLength());
+    }
+
+
+    public void stopGame(){
+        if(gameService == null){
+            return;
+        }
+        reassignActivityToService();
+        gameService.quitGame();
     }
 
 

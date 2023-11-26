@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ChooseLevelFragment extends Fragment {
 
     public static final String FRAGMENT_TAG = "Choose_level_fragment";
-    private AtomicBoolean isLevelChosen = new AtomicBoolean(false);
+    private final AtomicBoolean isLevelChosen = new AtomicBoolean(false);
 
     public ChooseLevelFragment() {
         // Required empty public constructor

@@ -2,7 +2,6 @@ package com.jcrawley.tmmq.view.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
@@ -22,11 +21,7 @@ import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttr
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WelcomeScreenFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class WelcomeScreenFragment extends Fragment {
 
 

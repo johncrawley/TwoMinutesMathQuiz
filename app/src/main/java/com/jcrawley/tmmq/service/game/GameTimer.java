@@ -26,6 +26,13 @@ public class GameTimer {
     }
 
 
+    public void cancel(){
+        if(!future.isCancelled() && !future.isDone()){
+            future.cancel(false);
+        }
+    }
+
+
     public void setTimerLength(int timerLength){
         initialRemainingTime = timerLength;
         resetTime();

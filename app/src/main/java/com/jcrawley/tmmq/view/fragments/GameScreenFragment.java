@@ -71,6 +71,7 @@ public class GameScreenFragment extends Fragment {
         inputHelper = new InputHelper(mainActivity, parentView, viewModel);
         mainActivity.startGame();
         setupListeners();
+        FragmentUtils.onBackButtonPressed(this, this::stopTimerAndReturnToWelcomeScreen);
         return parentView;
     }
 
@@ -177,8 +178,21 @@ public class GameScreenFragment extends Fragment {
         }
         runOnUiThread(()->inputHelper.clearAnswerText());
         GameOverScreenFragment gameOverScreenFragment = new GameOverScreenFragment();
-        FragmentUtils.loadFragment(this, gameOverScreenFragment, "game_over_screen", bundle);
+        FragmentUtils.loadFragment(this, gameOverScreenFragment, GameOverScreenFragment.FRAGMENT_TAG, bundle);
         resetViewData();
+    }
+
+    private void stopTimerAndReturnToWelcomeScreen(){
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if(mainActivity != null){
+            mainActivity.stopGame();
+        }
+        loadWelcomeScreen();
+    }
+
+    private void loadWelcomeScreen(){
+        WelcomeScreenFragment welcomeScreenFragment = new WelcomeScreenFragment();
+        FragmentUtils.loadFragment(this, welcomeScreenFragment, WelcomeScreenFragment.FRAGMENT_TAG);
     }
 
 

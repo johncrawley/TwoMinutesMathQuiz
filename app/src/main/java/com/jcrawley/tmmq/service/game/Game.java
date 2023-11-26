@@ -49,6 +49,13 @@ public class Game {
     }
 
 
+    public void quit(){
+        gametimer.cancel();
+        isStarted = false;
+        currentScore = 0;
+    }
+
+
     public int getInitialTimer(){
         return gametimer.getInitialRemainingTime();
     }

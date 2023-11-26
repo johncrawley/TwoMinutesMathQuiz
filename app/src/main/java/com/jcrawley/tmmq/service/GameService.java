@@ -47,6 +47,10 @@ public class GameService extends Service {
         mainActivity.setQuestionText(questionText);
     }
 
+    public void quitGame(){
+        game.quit();
+    }
+
 
     public void fadeInQuestionTextOnView(String questionText){
         if(mainActivity == null){

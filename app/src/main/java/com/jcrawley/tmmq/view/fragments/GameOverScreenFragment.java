@@ -16,9 +16,9 @@ import com.jcrawley.tmmq.R;
 public class GameOverScreenFragment extends Fragment {
 
 
-    private int finalScore;
+    public static final String FRAGMENT_TAG = "game_over_screen";
     public static String FINAL_SCORE_KEY = "final_score_key";
-
+    private int finalScore;
 
     public GameOverScreenFragment() {
         // Required empty public constructor
@@ -46,7 +46,14 @@ public class GameOverScreenFragment extends Fragment {
         View parentView = inflater.inflate(R.layout.fragment_game_over_screen, container, false);
         setupFinalScoreText(parentView);
         setupStartNewGameButton(parentView);
+        FragmentUtils.onBackButtonPressed(this, this::loadGetReadyFragment);
         return parentView;
+    }
+
+
+    private void loadGetReadyFragment(){
+        GetReadyScreenFragment getReadyFragment = new GetReadyScreenFragment();
+        FragmentUtils.loadFragment(this, getReadyFragment, GetReadyScreenFragment.FRAGMENT_TAG);
     }
 
 

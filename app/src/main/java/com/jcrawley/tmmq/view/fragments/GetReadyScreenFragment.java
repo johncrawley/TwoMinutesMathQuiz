@@ -2,7 +2,6 @@ package com.jcrawley.tmmq.view.fragments;
 
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -93,7 +92,15 @@ public class GetReadyScreenFragment extends Fragment {
         reductionAnimation.setFillAfter(true);
         reductionAnimation.setDuration(duration);
 
-        reductionAnimation.setAnimationListener(new Animation.AnimationListener() {
+        reductionAnimation.setAnimationListener(createAnimationListenerForCountdown(v, viewModel, animationSet));
+        animationSet.addAnimation(enlargeAnimation);
+        animationSet.addAnimation(reductionAnimation);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> v.startAnimation(animationSet), 500);
+    }
+
+
+    private Animation.AnimationListener createAnimationListenerForCountdown(View v, MainViewModel viewModel, AnimationSet animationSet){
+        return new Animation.AnimationListener() {
             @Override
             public void onAnimationEnd(Animation animation){
                 if(viewModel.gameStartCurrentCountdown > 1){
@@ -106,12 +113,9 @@ public class GetReadyScreenFragment extends Fragment {
                 }
             }
             @Override public void onAnimationStart(Animation animation){ v.setVisibility(View.VISIBLE);}
-            @Override public void onAnimationRepeat(Animation animation){}
-        });
 
-        animationSet.addAnimation(enlargeAnimation);
-        animationSet.addAnimation(reductionAnimation);
-        new Handler(Looper.getMainLooper()).postDelayed(() -> v.startAnimation(animationSet), 500);
+            @Override public void onAnimationRepeat(Animation animation){}
+        };
     }
 
 
