@@ -156,22 +156,12 @@ public class GameScreenFragment extends Fragment {
     }
 
 
-    private void runOnUiThread(Runnable runnable){
-        Activity activity = getActivity();
-        if(activity == null){
-            return;
-        }
-        activity.runOnUiThread(runnable);
-    }
-
-
     private void log(String msg){
         System.out.println("^^^ GameScreenFragment " +  msg);
     }
 
 
     private void onGameOver(Bundle bundle){
-        log("Entered onGameOver()");
         MainActivity mainActivity = (MainActivity)getActivity();
         if(mainActivity != null) {
             mainActivity.notifyServiceThatGameHasFinished();
@@ -182,6 +172,7 @@ public class GameScreenFragment extends Fragment {
         resetViewData();
     }
 
+
     private void stopTimerAndReturnToWelcomeScreen(){
         MainActivity mainActivity = (MainActivity) getActivity();
         if(mainActivity != null){
@@ -189,6 +180,16 @@ public class GameScreenFragment extends Fragment {
         }
         loadWelcomeScreen();
     }
+
+
+    private void runOnUiThread(Runnable runnable){
+        Activity activity = getActivity();
+        if(activity == null){
+            return;
+        }
+        activity.runOnUiThread(runnable);
+    }
+
 
     private void loadWelcomeScreen(){
         WelcomeScreenFragment welcomeScreenFragment = new WelcomeScreenFragment();

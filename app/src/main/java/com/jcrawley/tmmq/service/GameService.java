@@ -8,11 +8,10 @@ import android.os.IBinder;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
-import com.jcrawley.tmmq.service.game.level.GameLevel;
+import com.jcrawley.tmmq.service.game.TimerLength;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 
-import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -40,6 +39,7 @@ public class GameService extends Service {
     }
 
 
+
     public void setQuestionTextOnView(String questionText){
         if(mainActivity == null){
             return;
@@ -47,8 +47,16 @@ public class GameService extends Service {
         mainActivity.setQuestionText(questionText);
     }
 
+
     public void quitGame(){
         game.quit();
+    }
+
+
+    public void resetScore(){
+        if(mainActivity != null) {
+            mainActivity.setScore(0);
+        }
     }
 
 
@@ -100,7 +108,7 @@ public class GameService extends Service {
     }
 
 
-    public void startGame(int timerLength){
+    public void startGame(TimerLength timerLength){
         game.startGame(timerLength);
     }
 

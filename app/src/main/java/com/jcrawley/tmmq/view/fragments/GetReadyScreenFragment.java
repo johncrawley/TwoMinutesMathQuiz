@@ -18,16 +18,10 @@ import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.view.MainViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GetReadyScreenFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class GetReadyScreenFragment extends Fragment {
 
-
     private TextView countdownTextView;
-
     public static final String FRAGMENT_TAG = "get_ready_fragment_tag";
 
 
@@ -53,7 +47,6 @@ public class GetReadyScreenFragment extends Fragment {
                              Bundle savedInstanceState) {
         View parentView = inflater.inflate(R.layout.fragment_get_ready_screen, container, false);
         setupViews(parentView);
-
         return parentView;
     }
 

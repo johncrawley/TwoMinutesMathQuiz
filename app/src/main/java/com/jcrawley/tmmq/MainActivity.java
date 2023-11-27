@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
 import com.jcrawley.tmmq.service.GameService;
+import com.jcrawley.tmmq.service.game.TimerLength;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.fragments.GameOverScreenFragment;
@@ -143,10 +144,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onGameOver(ScoreStatistics scoreStatistics){
-        int finalScore = scoreStatistics.getFinalScore();
-         Bundle bundle = new Bundle();
-         bundle.putInt(GameOverScreenFragment.FINAL_SCORE_KEY, finalScore);
-         getSupportFragmentManager().setFragmentResult(GameScreenFragment.NOTIFY_GAME_OVER, bundle);
+        Bundle bundle = new Bundle();
+        bundle.putInt(GameOverScreenFragment.FINAL_SCORE_KEY, scoreStatistics.getFinalScore());
+        bundle.putInt(GameOverScreenFragment.DAILY_HIGH_SCORE_KEY, scoreStatistics.getDailyHighScore());
+        bundle.putInt(GameOverScreenFragment.ALL_TIME_HIGH_SCORE_KEY, scoreStatistics.getAllTimeHighScore());
+        bundle.putString(GameOverScreenFragment.TIMER_LENGTH_KEY, scoreStatistics.getTimerLength());
+        bundle.putString(GameOverScreenFragment.GAME_LEVEL_KEY, scoreStatistics.getGameLevel().toString());
+
+        getSupportFragmentManager().setFragmentResult(GameScreenFragment.NOTIFY_GAME_OVER, bundle);
     }
 
 
@@ -189,8 +194,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public int getTimerLength(){
-        return Integer.parseInt(getPrefs().getString("timer_length", "120"));
+    public TimerLength getTimerLength(){
+        int selectedTime = Integer.parseInt(getPrefs().getString("timer_length", "120"));
+        int displayStrIndex = getTimerIndexValueFor(selectedTime);
+
+        String[] displayStrings = getResources().getStringArray(R.array.time_limit_entries);
+        String selectedTimeDisplayStr = displayStrIndex == -1 ? "" :  displayStrings[displayStrIndex];
+        return new TimerLength(selectedTime, selectedTimeDisplayStr);
+    }
+
+
+    private int getTimerIndexValueFor(int selectedTime){
+        String[] timerValues = getResources().getStringArray(R.array.time_limit_values);
+        for (int i =0; i< timerValues.length; i++){
+            int timerValue = Integer.parseInt(timerValues[i]);
+            if( timerValue == selectedTime){
+                return i;
+            }
+        }
+        return -1;
     }
 
 

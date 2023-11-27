@@ -19,6 +19,7 @@ public class Game {
     private boolean isStarted;
     private int difficulty = 5;
     private int questionCount;
+    private String timerLengthDisplayStr;
     private final Map<Integer, GameLevel> levels;
     private GameLevel currentLevel;
 
@@ -36,11 +37,13 @@ public class Game {
     }
 
 
-    public void startGame(int timerLength){
+    public void startGame(TimerLength timerLength){
         if(isStarted){
             return;
         }
-        gametimer.setTimerLength(timerLength);
+
+        gametimer.setTimerLength(timerLength.getValue());
+        timerLengthDisplayStr = timerLength.getDisplayStr();
 
         isStarted = true;
         currentQuestion = questionGenerator.generate();
@@ -53,6 +56,7 @@ public class Game {
         gametimer.cancel();
         isStarted = false;
         currentScore = 0;
+        gameService.resetScore();
     }
 
 
@@ -103,7 +107,7 @@ public class Game {
         ScoreStatistics scoreStatistics = new ScoreStatistics();
         scoreStatistics.setFinalScore(currentScore);
         scoreStatistics.setGameLevel(currentLevel);
-        scoreStatistics.setTimerLength(String.valueOf(gametimer.getInitialRemainingTime()));
+        scoreStatistics.setTimerLength(timerLengthDisplayStr);
         gameService.onGameOver(scoreStatistics);
         isStarted = false;
         currentScore = 0;

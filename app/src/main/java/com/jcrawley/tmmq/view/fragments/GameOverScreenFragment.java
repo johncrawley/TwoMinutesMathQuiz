@@ -18,26 +18,39 @@ public class GameOverScreenFragment extends Fragment {
 
     public static final String FRAGMENT_TAG = "game_over_screen";
     public static String FINAL_SCORE_KEY = "final_score_key";
-    private int finalScore;
+    public static String TIMER_LENGTH_KEY = "timer_length_key";
+    public static String DAILY_HIGH_SCORE_KEY = "daily_high_score_key";
+    public static String ALL_TIME_HIGH_SCORE_KEY = "all_time_high_score_key";
+    public static String GAME_LEVEL_KEY = "game_level_key";
+
+    private int finalScore, dailyHighScore, allTimeHighScore;
+    private String timerLength, gameLevel;
 
     public GameOverScreenFragment() {
         // Required empty public constructor
     }
 
 
-    public static GameOverScreenFragment newInstance(String param1, String param2) {
-        GameOverScreenFragment fragment = new GameOverScreenFragment();
-        return fragment;
+    public static GameOverScreenFragment newInstance() {
+       return new GameOverScreenFragment();
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            finalScore = getArguments().getInt(FINAL_SCORE_KEY);
+        Bundle bundle = getArguments();
+        if (bundle == null){
+            return;
         }
+
+        finalScore = bundle.getInt(FINAL_SCORE_KEY);
+        dailyHighScore = bundle.getInt(DAILY_HIGH_SCORE_KEY);
+        allTimeHighScore = bundle.getInt(ALL_TIME_HIGH_SCORE_KEY);
+        timerLength = bundle.getString(TIMER_LENGTH_KEY);
+        gameLevel = bundle.getString(GAME_LEVEL_KEY);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
