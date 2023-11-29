@@ -14,4 +14,8 @@
     <attr name="input_view_normal_color" format="reference" />
     <attr name="input_view_pressed_color" format="reference" />
     <attr name="input_button_style" format="reference" />
+
+
+    <attr name="input_text_background_color" format="reference" />
+    <attr name="input_text_background_outline_color" format="reference" />
 </resources>

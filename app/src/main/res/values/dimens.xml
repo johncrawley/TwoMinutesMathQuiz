@@ -21,6 +21,7 @@
 
 
     <dimen name="time_remaining_margin">18dp</dimen>
+    <dimen name="input_text_margin">4dp</dimen>
     <dimen name="score_margin">18dp</dimen>
     <dimen name="question_text_margin">22dp</dimen>
     <dimen name="input_buttons_include_margin">18dp</dimen>
