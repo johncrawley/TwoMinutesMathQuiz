@@ -13,9 +13,12 @@
         <item name="title_text_color_5">@color/title_text_5</item>
         <item name="input_view_normal_color">@color/input_view_normal</item>
         <item name="input_view_pressed_color">@color/input_view_pressed</item>
-        <item name="input_button_style">@style/customButtonStyle2</item>
+        <item name="input_button_style">@style/inputButtonStyle</item>
+        <item name="input_enter_button_style">@style/enterButtonStyle</item>
         <item name="input_text_background_color">@color/input_text_background</item>
         <item name="input_text_background_outline_color">@color/input_text_background_outline</item>
+        <item name="text_shadow_layer_color">@color/text_shadow_layer</item>
+        <item name="enter_input_button_background_tint">@color/enter_input_button_background_tint</item>
 
     </style>
 
@@ -29,7 +32,7 @@
     </style>
 
 
-    <style name="customButtonStyle2" parent="ShapeAppearanceOverlay.Material3.Button">
+    <style name="inputButtonStyle" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/input_button_text</item>
         <item name="cornerRadius">15dp</item>
         <item name="strokeWidth">1dp</item>
@@ -40,7 +43,13 @@
         <item name="android:layout_marginHorizontal">4dp</item>
         <item name="android:layout_marginVertical">4dp</item>
         <item name="android:textAlignment">center</item>
+    </style>
 
+    <style name="enterButtonStyle" parent="@style/inputButtonStyle">
+        <item name="backgroundTint">?attr/enter_input_button_background_tint</item>
+        <item name="android:layout_marginHorizontal">4dp</item>
+        <item name="android:layout_marginVertical">4dp</item>
+        <item name="android:textAlignment">center</item>
     </style>
 
 

@@ -21,6 +21,10 @@
             android:text="@string/game_over_text"
             android:textAlignment="center"
             android:textSize="@dimen/game_over_heading_text_size"
+            android:shadowRadius="@integer/text_shadow_radius"
+            android:shadowDx="@integer/text_shadow_dx"
+            android:shadowDy="@integer/text_shadow_dy"
+            android:shadowColor="?attr/text_shadow_layer_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,6 +47,10 @@
                 android:textAlignment="center"
                 android:layout_margin="@dimen/game_over_your_score_heading_margin"
                 android:textSize="@dimen/ending_score_label_text_size"
+                android:shadowRadius="@integer/text_shadow_radius"
+                android:shadowDx="@integer/text_shadow_dx"
+                android:shadowDy="@integer/text_shadow_dy"
+                android:shadowColor="?attr/text_shadow_layer_color"
                 android:text="@string/ending_score_label_text"/>
 
             <TextView
@@ -50,6 +58,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:shadowRadius="@integer/text_shadow_radius"
+                android:shadowDx="@integer/text_shadow_dx"
+                android:shadowDy="@integer/text_shadow_dy"
+                android:shadowColor="?attr/text_shadow_layer_color"
                 android:textSize="@dimen/ending_score_text_size"/>
 
         </LinearLayout>

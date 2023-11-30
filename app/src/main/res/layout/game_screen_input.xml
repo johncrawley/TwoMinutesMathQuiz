@@ -158,7 +158,7 @@
                 app:layout_constraintStart_toEndOf="@id/button0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                style="?attr/input_button_style"
+                style="?attr/input_enter_button_style"
                 />
 
 

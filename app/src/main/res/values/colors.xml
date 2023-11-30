@@ -21,6 +21,7 @@
 
     <color name="input_view_normal">#005C5743</color>
     <color name="input_view_pressed">#6ABE24E6</color>
+    <color name="enter_input_button_background_tint">#1B5E20</color>
 
     <color name="input_button_accent">#B39DDB</color>
     <color name="input_button_outline">#00716843</color>
@@ -29,6 +30,9 @@
 
     <color name="input_text_background">#19160C</color>
     <color name="input_text_background_outline">#75688E</color>
+
+
+    <color name="text_shadow_layer">#040404</color>
 
 
 </resources>
