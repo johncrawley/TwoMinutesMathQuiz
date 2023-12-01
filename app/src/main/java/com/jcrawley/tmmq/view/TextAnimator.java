@@ -11,7 +11,7 @@ public class TextAnimator {
 
     private String nextText = "";
 
-    public TextAnimator(TextView itemTextView){
+    public TextAnimator(TextView itemTextView, int defaultColor){
 
         fadeOutAnimation.setDuration(200);
         fadeInAnimation.setDuration(200);
@@ -19,6 +19,7 @@ public class TextAnimator {
             @Override
             public void onAnimationEnd(Animation animation) {
                 itemTextView.setText(nextText);
+                itemTextView.setTextColor(defaultColor);
                 itemTextView.startAnimation(fadeInAnimation);
             }
             @Override public void onAnimationStart(Animation animation){/*do nothing */}

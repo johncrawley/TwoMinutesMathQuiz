@@ -32,6 +32,7 @@
         android:textSize="@dimen/question_text_size"
         android:layout_marginTop="@dimen/question_text_margin"
         android:layout_marginBottom="12dp"
+        android:textColor="?attr/default_question_text_color"
         app:layout_constraintBottom_toTopOf="@+id/inputTextLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

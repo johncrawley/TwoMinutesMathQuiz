@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <integer name="countdown_warning_time">10</integer>
     <integer name="get_ready_countdown_shadow_radius">8</integer>
     <integer name="text_shadow_radius">8</integer>
     <integer name="text_shadow_dy">12</integer>

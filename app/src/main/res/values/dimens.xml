@@ -19,11 +19,12 @@
     <dimen name="button_paddingVertical_landscape">12dp</dimen>
 
 
-    <dimen name="time_remaining_margin">18dp</dimen>
+    <dimen name="time_remaining_margin">8dp</dimen>
     <dimen name="input_text_margin">4dp</dimen>
-    <dimen name="score_margin">18dp</dimen>
+    <dimen name="score_margin">8dp</dimen>
     <dimen name="question_text_margin">22dp</dimen>
     <dimen name="input_buttons_include_margin">18dp</dimen>
+    <dimen name="input_panel_margin">8dp</dimen>
 
 
     <dimen name="welcome_screen_button_layout_margin_top">18dp</dimen>

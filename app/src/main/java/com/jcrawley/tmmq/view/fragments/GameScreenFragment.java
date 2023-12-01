@@ -2,7 +2,10 @@ package com.jcrawley.tmmq.view.fragments;
 
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -30,6 +33,8 @@ public class GameScreenFragment extends Fragment {
     public static final String SECONDS_REMAINING_TAG = "seconds_remaining_tag";
     public static final String SCORE_TAG = "score_tag";
     public static final String QUESTION_TAG = "question_tag";
+    public static final String WAS_ANSWER_CORRECT_TAG = "was_answer_correct_tag";
+    public static final String WAS_ANSWER_INCORRECT_TAG = "was_answer_incorrect_tag";
     private TextView timeRemainingTextView, scoreTextView, questionTextView;
     private int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
     private TextAnimator textAnimator;
@@ -93,7 +98,7 @@ public class GameScreenFragment extends Fragment {
         timeRemainingTextView = setupTextView(parentView, R.id.timeRemainingText, viewModel.timeRemaining);
         scoreTextView = setupTextView(parentView, R.id.scoreText, createScoreString(viewModel.scoreValue));
         questionTextView = setupTextView(parentView, R.id.questionText, viewModel.questionText);
-        textAnimator = new TextAnimator(questionTextView);
+        textAnimator = new TextAnimator(questionTextView, getColorFromAttribute(R.attr.default_question_text_color, getContext()));
     }
 
 
@@ -128,9 +133,23 @@ public class GameScreenFragment extends Fragment {
 
 
     private void setTimeRemainingTextColor(int minutesRemaining, int secondsRemaining){
-        int textColor = minutesRemaining == 0 && secondsRemaining < 10 ?
-                timeRemainingTextWarningColor : timeRemainingTextNormalColor;
-        timeRemainingTextView.setTextColor(textColor);
+        int warningTime = getResources().getInteger(R.integer.countdown_warning_time);
+        int totalSecondsRemaining = (minutesRemaining * 60) + secondsRemaining;
+        timeRemainingTextView.setTextColor(totalSecondsRemaining <= warningTime ?
+                timeRemainingTextWarningColor : timeRemainingTextNormalColor);
+
+        if(totalSecondsRemaining == warningTime){
+            animateTextViewForWarning();
+        }
+    }
+
+
+    private void animateTextViewForWarning(){
+        ObjectAnimator colorAnim = ObjectAnimator.ofInt(timeRemainingTextView, "backgroundColor",
+                Color.RED, Color.TRANSPARENT);
+        colorAnim.setEvaluator(new ArgbEvaluator());
+        colorAnim.setDuration(300);
+        colorAnim.start();
     }
 
 
@@ -146,8 +165,17 @@ public class GameScreenFragment extends Fragment {
 
 
     private void setQuestion(Bundle bundle){
+        if(bundle.getBoolean(WAS_ANSWER_CORRECT_TAG, false)){
+
+        }
+        else if(bundle.getBoolean(WAS_ANSWER_INCORRECT_TAG, false)){
+
+        }
+       fadeInNewQuestionText(bundle);
+    }
+
+    private void fadeInNewQuestionText(Bundle bundle){
         String text = bundle.getString(QUESTION_TAG);
-        System.out.println("^^^ GameScreenFragment entered setQuestion(), text = " + text);
         runOnUiThread(()-> {
             textAnimator.setNextText(text);
             viewModel.questionText = text;

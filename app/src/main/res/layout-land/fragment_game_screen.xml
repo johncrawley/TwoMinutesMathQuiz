@@ -8,13 +8,13 @@
     android:baselineAligned="false"
     android:id="@+id/gameLayout"
     tools:context=".view.fragments.GameScreenFragment"
-    android:background="@drawable/layout_background"
-    >
+    android:background="@drawable/layout_background">
     <include
         android:id="@+id/panelInclude"
         layout="@layout/game_screen_panel"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/input_panel_margin"
         android:layout_weight="1" />
 
     <include
