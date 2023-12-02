@@ -58,9 +58,23 @@ public class GameOverScreenFragment extends Fragment {
         // Inflate the layout for this fragment
         View parentView = inflater.inflate(R.layout.fragment_game_over_screen, container, false);
         setupFinalScoreText(parentView);
+        setupDetailsView(parentView);
         setupStartNewGameButton(parentView);
         FragmentUtils.onBackButtonPressed(this, this::loadGetReadyFragment);
         return parentView;
+    }
+
+
+    private void setupDetailsView(View parentView){
+        TextView gameDetails = parentView.findViewById(R.id.gameDetailsText);
+
+        String gameDetailsStr= getString(R.string.game_over_details, gameLevel, timerLength);
+        gameDetails.setText(gameDetailsStr);
+    }
+
+
+    private void log(String msg){
+        System.out.println("^^^ GameOverScreenFragment: " + msg);
     }
 
 

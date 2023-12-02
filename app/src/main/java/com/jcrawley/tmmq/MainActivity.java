@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putInt(GameOverScreenFragment.DAILY_HIGH_SCORE_KEY, scoreStatistics.getDailyHighScore());
         bundle.putInt(GameOverScreenFragment.ALL_TIME_HIGH_SCORE_KEY, scoreStatistics.getAllTimeHighScore());
         bundle.putString(GameOverScreenFragment.TIMER_LENGTH_KEY, scoreStatistics.getTimerLength());
-        bundle.putString(GameOverScreenFragment.GAME_LEVEL_KEY, scoreStatistics.getGameLevel().toString());
+        bundle.putString(GameOverScreenFragment.GAME_LEVEL_KEY, scoreStatistics.getGameLevel().getDifficulty());
 
         getSupportFragmentManager().setFragmentResult(GameScreenFragment.NOTIFY_GAME_OVER, bundle);
     }

@@ -10,9 +10,11 @@ import java.util.Set;
 public class GameLevel {
 
     private final Map<MathOperation, OperationLimits> operationLimitsMap;
-    private Set<MathOperation> mathOperations;
+    private final Set<MathOperation> mathOperations;
+    private final int difficulty;
 
-    public GameLevel(){
+    public GameLevel(int difficulty){
+        this.difficulty = difficulty;
         operationLimitsMap = new HashMap<>(4);
         mathOperations = new HashSet<>();
     }
@@ -22,12 +24,19 @@ public class GameLevel {
         mathOperations.add(mathOperation);
     }
 
+
     public boolean containsMathOperation(MathOperation mathOperation){
         return mathOperations.contains(mathOperation);
     }
 
+
     public OperationLimits getOperationLimitsFor(MathOperation mathOperation){
         return operationLimitsMap.getOrDefault(mathOperation, new OperationLimits());
+    }
+
+
+    public String getDifficulty(){
+        return String.valueOf(difficulty);
     }
 
 

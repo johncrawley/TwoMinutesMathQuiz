@@ -1,9 +1,5 @@
 package com.jcrawley.tmmq.view;
 
-import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
-
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.view.View;
 import android.widget.TextView;
 
@@ -59,17 +55,6 @@ public class InputHelper {
             addDigitToAnswer(digit);
             activity.vibrateOnPress();
         });
-    }
-
-
-
-    private void animateViewBrightness(View view, int startColorAttributeId, int endColorAttributeId){
-        int colorFrom = getColorFromAttribute(startColorAttributeId, activity);
-        int colorTo = getColorFromAttribute(endColorAttributeId, activity);
-        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-        colorAnimation.setDuration(300);
-        colorAnimation.addUpdateListener(animator -> view.setBackgroundColor((int) animator.getAnimatedValue()));
-        colorAnimation.start();
     }
 
 
