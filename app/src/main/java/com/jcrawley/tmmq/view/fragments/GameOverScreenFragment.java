@@ -58,10 +58,28 @@ public class GameOverScreenFragment extends Fragment {
         // Inflate the layout for this fragment
         View parentView = inflater.inflate(R.layout.fragment_game_over_screen, container, false);
         setupFinalScoreText(parentView);
+        setupNewRecordView(parentView);
         setupDetailsView(parentView);
         setupStartNewGameButton(parentView);
         FragmentUtils.onBackButtonPressed(this, this::loadGetReadyFragment);
         return parentView;
+    }
+
+
+    private void setupNewRecordView(View parentView){
+        TextView newRecordText = parentView.findViewById(R.id.newRecordText);
+
+        if(finalScore > allTimeHighScore){
+            newRecordText.setText(getResources().getString(R.string.new_all_time_record));
+            newRecordText.setVisibility(View.VISIBLE);
+        }
+        else if(finalScore > dailyHighScore){
+            newRecordText.setText(getResources().getString(R.string.new_daily_record));
+            newRecordText.setVisibility(View.VISIBLE);
+        }
+        else{
+            newRecordText.setVisibility(View.GONE);
+        }
     }
 
 
