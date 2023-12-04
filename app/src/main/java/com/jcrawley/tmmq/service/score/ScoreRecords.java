@@ -22,19 +22,6 @@ public class ScoreRecords {
     }
 
 
-    private String createScorePrefKey(Game game){
-        GameLevel gameLevel = game.getCurrentLevel();
-        int timerLength = game.getInitialTimer();
-        return "scoreFor_" + gameLevel.toString() + "_"  + timerLength;
-    }
-
-
-    private int getAllTimeHighScoreRecord(ScoreStatistics scoreStatistics){
-        String allTimeKey = createScorePrefKey(RecordType.ALL_TIME, scoreStatistics);
-        return scorePrefs.getInt(allTimeKey, 0);
-    }
-
-
     public ScoreStatistics getCompleteScoreStatsAndSaveRecords(ScoreStatistics stats){
         int existingDailyRecord = getDailyHighScoreRecord(stats);
         int existingAllTimeRecord = getAllTimeHighScoreRecord(stats);
@@ -42,6 +29,14 @@ public class ScoreRecords {
         saveDailyHighScore(stats, stats.getFinalScore(), existingDailyRecord);
         saveAllTimeHighScore(stats, stats.getFinalScore(), existingAllTimeRecord);
         return buildFullStatsFrom(stats, existingDailyRecord, existingAllTimeRecord);
+    }
+
+
+    private int getAllTimeHighScoreRecord(ScoreStatistics scoreStatistics){
+        String allTimeKey = createScorePrefKey(RecordType.ALL_TIME, scoreStatistics);
+        int tempHighScore = scorePrefs.getInt(allTimeKey, 0);
+        log("entered getAllTimeHighScoreRecord() record is " + tempHighScore);
+        return scorePrefs.getInt(allTimeKey, 0);
     }
 
 
@@ -55,11 +50,15 @@ public class ScoreRecords {
         return fullStats;
     }
 
+    private void log(String msg){
+        System.out.println("^^^ ScoreRecords: " + msg);
+    }
 
     private void saveAllTimeHighScore(ScoreStatistics scoreStatistics, int finalScore, int currentAllTimeRecord){
         if(finalScore <= currentAllTimeRecord){
             return;
         }
+        log("saveAllTimeHighScore() about to save : " + finalScore);
         String allTimeKey = createScorePrefKey(RecordType.ALL_TIME, scoreStatistics);
         scorePrefs.edit().putInt(allTimeKey, finalScore).apply();
     }
@@ -89,7 +88,6 @@ public class ScoreRecords {
 
 
 
-
     private String getDateToday(){
         LocalDateTime dateToday = LocalDateTime.now();
         return  dateToday.getDayOfMonth()
@@ -101,7 +99,7 @@ public class ScoreRecords {
 
     private String createScorePrefKey(RecordType recordType, ScoreStatistics scoreStatistics){
         return "scoreFor_" + recordType.toString()
-                + "_" + scoreStatistics.getGameLevel().toString()
+                + "_" + scoreStatistics.getGameLevel().getDifficulty()
                 + "_"  + scoreStatistics.getTimerLength();
     }
 

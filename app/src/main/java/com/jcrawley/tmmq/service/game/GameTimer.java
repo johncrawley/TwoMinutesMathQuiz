@@ -27,7 +27,7 @@ public class GameTimer {
 
 
     public void cancel(){
-        if(!future.isCancelled() && !future.isDone()){
+        if(future != null && !future.isCancelled() && !future.isDone()){
             future.cancel(false);
         }
     }
