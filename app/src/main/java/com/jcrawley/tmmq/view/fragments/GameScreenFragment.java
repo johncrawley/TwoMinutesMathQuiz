@@ -153,6 +153,25 @@ public class GameScreenFragment extends Fragment {
     }
 
 
+    private void animateScoreOnUpdate(){
+        int normalColor = getColorFromAttribute(R.attr.score_normal_color, getContext());
+        int flashColor = getColorFromAttribute(R.attr.score_flash_color, getContext());
+        ObjectAnimator animateToFlash = ObjectAnimator.ofInt(timeRemainingTextView, "backgroundColor", normalColor
+                , flashColor);
+        animateToFlash.setEvaluator(new ArgbEvaluator());
+        animateToFlash.setDuration(300);
+        animateToFlash.start();
+
+        ObjectAnimator animateBack = ObjectAnimator.ofInt(timeRemainingTextView, "backgroundColor", normalColor
+                , flashColor);
+        animateBack.setEvaluator(new ArgbEvaluator());
+        animateBack.setDuration(300);
+        animateBack.setStartDelay(340);
+        animateBack.start();
+
+    }
+
+
     private void setScore(Bundle bundle){
         viewModel.scoreValue = bundle.getInt(SCORE_TAG);;
         runOnUiThread(()-> scoreTextView.setText(createScoreString(viewModel.scoreValue)));

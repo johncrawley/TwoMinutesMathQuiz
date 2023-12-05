@@ -21,6 +21,8 @@
         <item name="input_text_background_outline_color">@color/input_text_background_outline</item>
         <item name="text_shadow_layer_color">@color/text_shadow_layer</item>
         <item name="enter_input_button_background_tint">@color/enter_input_button_background_tint</item>
+        <item name="score_normal_color">@color/score_normal</item>
+        <item name="score_flash_color">@color/score_flash</item>
 
     </style>
 

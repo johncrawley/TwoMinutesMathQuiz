@@ -2,9 +2,6 @@ package com.jcrawley.tmmq.service.score;
 
 import android.content.SharedPreferences;
 
-import com.jcrawley.tmmq.service.game.Game;
-import com.jcrawley.tmmq.service.game.level.GameLevel;
-
 import java.time.LocalDateTime;
 
 
@@ -94,7 +91,6 @@ public class ScoreRecords {
                 + "-" + dateToday.getMonthValue()
                 + "-" + dateToday.getYear();
     }
-
 
 
     private String createScorePrefKey(RecordType recordType, ScoreStatistics scoreStatistics){
