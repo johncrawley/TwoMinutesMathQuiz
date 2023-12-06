@@ -156,25 +156,29 @@ public class GameScreenFragment extends Fragment {
     private void animateScoreOnUpdate(){
         int normalColor = getColorFromAttribute(R.attr.score_normal_color, getContext());
         int flashColor = getColorFromAttribute(R.attr.score_flash_color, getContext());
-        ObjectAnimator animateToFlash = ObjectAnimator.ofInt(timeRemainingTextView, "backgroundColor", normalColor
-                , flashColor);
-        animateToFlash.setEvaluator(new ArgbEvaluator());
-        animateToFlash.setDuration(300);
-        animateToFlash.start();
+        animateScoreText(normalColor, flashColor, 10, 80);
+        animateScoreText(flashColor, normalColor, 200, 150);
+    }
 
-        ObjectAnimator animateBack = ObjectAnimator.ofInt(timeRemainingTextView, "backgroundColor", normalColor
-                , flashColor);
+
+    private void animateScoreText(int startColor, int endColor,  int startDelay, int duration){
+        ObjectAnimator animateBack = ObjectAnimator.ofInt(scoreTextView,
+                "textColor",
+                startColor,
+                endColor);
         animateBack.setEvaluator(new ArgbEvaluator());
-        animateBack.setDuration(300);
-        animateBack.setStartDelay(340);
+        animateBack.setDuration(duration);
+        animateBack.setStartDelay(startDelay);
         animateBack.start();
-
     }
 
 
     private void setScore(Bundle bundle){
         viewModel.scoreValue = bundle.getInt(SCORE_TAG);;
-        runOnUiThread(()-> scoreTextView.setText(createScoreString(viewModel.scoreValue)));
+        runOnUiThread(()-> {
+            scoreTextView.setText(createScoreString(viewModel.scoreValue));
+            animateScoreOnUpdate();
+        });
     }
 
 
@@ -192,6 +196,7 @@ public class GameScreenFragment extends Fragment {
         }
        fadeInNewQuestionText(bundle);
     }
+
 
     private void fadeInNewQuestionText(Bundle bundle){
         String text = bundle.getString(QUESTION_TAG);
