@@ -1,5 +1,7 @@
 package com.jcrawley.tmmq.view.fragments;
 
+import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Message.NOTIFY_GAME_OVER;
+import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Message.SET_TIME_REMAINING;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
 
 import android.animation.ArgbEvaluator;
@@ -23,16 +25,8 @@ import com.jcrawley.tmmq.view.TextAnimator;
 
 public class GameScreenFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    public static final String SET_TIME_REMAINING = "send_time_remaining";
-    public static final String NOTIFY_GAME_OVER = "notify_game_over";
-    public static final String SET_SCORE = "set_score";
-    public static final String SET_QUESTION = "set_question";
-    public static final String MINUTES_REMAINING_TAG = "minutes_remaining_tag";
-    public static final String SECONDS_REMAINING_TAG = "seconds_remaining_tag";
-    public static final String SCORE_TAG = "score_tag";
-    public static final String QUESTION_TAG = "question_tag";
+    public enum Message {SET_TIME_REMAINING, NOTIFY_GAME_OVER, NOTIFY_INCORRECT_ANSWER, SET_SCORE, SET_QUESTION  }
+    public enum Tag { MINUTES_REMAINING, SECONDS_REMAINING, SCORE, QUESTION}
     public static final String WAS_ANSWER_CORRECT_TAG = "was_answer_correct_tag";
     public static final String WAS_ANSWER_INCORRECT_TAG = "was_answer_incorrect_tag";
     private TextView timeRemainingTextView, scoreTextView, questionTextView;
@@ -46,13 +40,8 @@ public class GameScreenFragment extends Fragment {
     }
 
 
-    public static GameScreenFragment newInstance(String param1, String param2) {
-        GameScreenFragment fragment = new GameScreenFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static GameScreenFragment newInstance() {
+        return new GameScreenFragment();
     }
 
 
@@ -87,10 +76,10 @@ public class GameScreenFragment extends Fragment {
 
 
     private void setupListeners(){
-        FragmentUtils.setListener(this, SET_TIME_REMAINING, this::updateTimeRemaining);
-        FragmentUtils.setListener(this, SET_SCORE, this::setScore);
-        FragmentUtils.setListener(this, SET_QUESTION, this::setQuestion);
-        FragmentUtils.setListener(this, NOTIFY_GAME_OVER, this::onGameOver);
+        FragmentUtils.setListener(this, SET_TIME_REMAINING.toString(), this::updateTimeRemaining);
+        FragmentUtils.setListener(this, Message.SET_SCORE.toString(), this::setScore);
+        FragmentUtils.setListener(this, Message.SET_QUESTION.toString(), this::setQuestion);
+        FragmentUtils.setListener(this, NOTIFY_GAME_OVER.toString(), this::onGameOver);
     }
 
 
@@ -113,8 +102,8 @@ public class GameScreenFragment extends Fragment {
         if(timeRemainingTextView == null){
             return;
         }
-        int minutesRemaining = bundle.getInt(MINUTES_REMAINING_TAG);
-        int secondsRemaining = bundle.getInt(SECONDS_REMAINING_TAG);
+        int minutesRemaining = bundle.getInt(Tag.MINUTES_REMAINING.toString());
+        int secondsRemaining = bundle.getInt(Tag.SECONDS_REMAINING.toString());
         log("Entered updateTimeRemaining()");
         runOnUiThread(()->{
             timeRemainingTextView.setVisibility(View.VISIBLE);
@@ -174,7 +163,7 @@ public class GameScreenFragment extends Fragment {
 
 
     private void setScore(Bundle bundle){
-        viewModel.scoreValue = bundle.getInt(SCORE_TAG);;
+        viewModel.scoreValue = bundle.getInt(Tag.SCORE.toString());;
         runOnUiThread(()-> {
             scoreTextView.setText(createScoreString(viewModel.scoreValue));
             animateScoreOnUpdate();
@@ -199,7 +188,7 @@ public class GameScreenFragment extends Fragment {
 
 
     private void fadeInNewQuestionText(Bundle bundle){
-        String text = bundle.getString(QUESTION_TAG);
+        String text = bundle.getString(Tag.QUESTION.toString());
         runOnUiThread(()-> {
             textAnimator.setNextText(text);
             viewModel.questionText = text;

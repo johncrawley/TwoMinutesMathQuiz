@@ -38,13 +38,15 @@ public class Game {
 
 
     public void startGame(TimerLength timerLength){
-        if(isStarted){
-            return;
+        if(!isStarted){
+            initiateTimersAndGenerateFirstQuestion(timerLength);
         }
+    }
 
+
+    private void initiateTimersAndGenerateFirstQuestion(TimerLength timerLength){
         gametimer.setTimerLength(timerLength.getValue());
         timerLengthDisplayStr = timerLength.getDisplayStr();
-
         isStarted = true;
         currentQuestion = questionGenerator.generate();
         setQuestionTextOnView();

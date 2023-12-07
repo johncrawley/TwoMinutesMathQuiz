@@ -69,7 +69,7 @@ public class GameService extends Service {
 
 
     public void notifyIncorrectAnswer(){
-
+        mainActivity.notifyIncorrectAnswer();
     }
 
 

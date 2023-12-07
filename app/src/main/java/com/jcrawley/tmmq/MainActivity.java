@@ -136,10 +136,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setTimeRemaining(int minutesRemaining, int secondsRemaining){
         Bundle bundle = new Bundle();
-        bundle.putInt(GameScreenFragment.MINUTES_REMAINING_TAG, minutesRemaining);
-        bundle.putInt(GameScreenFragment.SECONDS_REMAINING_TAG, secondsRemaining);
+        bundle.putInt(GameScreenFragment.Tag.MINUTES_REMAINING.toString(), minutesRemaining);
+        bundle.putInt(GameScreenFragment.Tag.SECONDS_REMAINING.toString(), secondsRemaining);
         log("Entered setTimeRemaining() mins: secs: " + minutesRemaining + ":" + secondsRemaining);
-        getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_TIME_REMAINING, bundle);
+        getSupportFragmentManager().setFragmentResult(GameScreenFragment.Message.SET_TIME_REMAINING.toString(), bundle);
     }
 
 
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString(GameOverScreenFragment.TIMER_LENGTH_KEY, scoreStatistics.getTimerLength());
         bundle.putString(GameOverScreenFragment.GAME_LEVEL_KEY, scoreStatistics.getGameLevel().getDifficulty());
 
-        getSupportFragmentManager().setFragmentResult(GameScreenFragment.NOTIFY_GAME_OVER, bundle);
+        getSupportFragmentManager().setFragmentResult(GameScreenFragment.Message.NOTIFY_GAME_OVER.toString(), bundle);
     }
 
 
@@ -163,8 +163,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void setScore(int score){
          Bundle bundle = new Bundle();
-         bundle.putInt(GameScreenFragment.SCORE_TAG, score);
-         getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_SCORE, bundle);
+         bundle.putInt(GameScreenFragment.Tag.SCORE.toString(), score);
+         getSupportFragmentManager().setFragmentResult(GameScreenFragment.Message.SET_SCORE.toString(), bundle);
+    }
+
+
+    public void notifyIncorrectAnswer(){
+        Bundle bundle = new Bundle();
+        bundle.putInt(GameScreenFragment.SCORE_TAG, score);
+        getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_SCORE, bundle);
     }
 
 
