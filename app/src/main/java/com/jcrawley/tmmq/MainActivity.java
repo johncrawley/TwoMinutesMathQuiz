@@ -1,5 +1,9 @@
 package com.jcrawley.tmmq;
 
+import static com.jcrawley.tmmq.view.fragments.GameOverScreenFragment.*;
+import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Message.*;
+import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Tag.*;
+
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -20,8 +24,6 @@ import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.game.TimerLength;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.view.MainViewModel;
-import com.jcrawley.tmmq.view.fragments.GameOverScreenFragment;
-import com.jcrawley.tmmq.view.fragments.GameScreenFragment;
 import com.jcrawley.tmmq.view.fragments.WelcomeScreenFragment;
 
 
@@ -115,15 +117,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void fadeInQuestionText(String questionText){
         Bundle bundle = new Bundle();
-        bundle.putString(GameScreenFragment.QUESTION_TAG, questionText);
-        getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_QUESTION, bundle );
+        bundle.putString(QUESTION.toString(), questionText);
+        sendMessage(SET_QUESTION, bundle);
     }
 
 
     public void setQuestionText(String questionText){
-         Bundle bundle = new Bundle();
-        bundle.putString(GameScreenFragment.QUESTION_TAG, questionText);
-        getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_QUESTION, bundle );
+        Bundle bundle = new Bundle();
+        bundle.putString(QUESTION.toString(), questionText);
+        sendMessage(SET_QUESTION, bundle );
     }
 
 
@@ -136,22 +138,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void setTimeRemaining(int minutesRemaining, int secondsRemaining){
         Bundle bundle = new Bundle();
-        bundle.putInt(GameScreenFragment.Tag.MINUTES_REMAINING.toString(), minutesRemaining);
-        bundle.putInt(GameScreenFragment.Tag.SECONDS_REMAINING.toString(), secondsRemaining);
-        log("Entered setTimeRemaining() mins: secs: " + minutesRemaining + ":" + secondsRemaining);
-        getSupportFragmentManager().setFragmentResult(GameScreenFragment.Message.SET_TIME_REMAINING.toString(), bundle);
+        bundle.putInt(MINUTES_REMAINING.toString(), minutesRemaining);
+        bundle.putInt(SECONDS_REMAINING.toString(), secondsRemaining);
+        sendMessage(SET_TIME_REMAINING, bundle);
     }
 
 
     public void onGameOver(ScoreStatistics scoreStatistics){
         Bundle bundle = new Bundle();
-        bundle.putInt(GameOverScreenFragment.FINAL_SCORE_KEY, scoreStatistics.getFinalScore());
-        bundle.putInt(GameOverScreenFragment.DAILY_HIGH_SCORE_KEY, scoreStatistics.getDailyHighScore());
-        bundle.putInt(GameOverScreenFragment.ALL_TIME_HIGH_SCORE_KEY, scoreStatistics.getAllTimeHighScore());
-        bundle.putString(GameOverScreenFragment.TIMER_LENGTH_KEY, scoreStatistics.getTimerLength());
-        bundle.putString(GameOverScreenFragment.GAME_LEVEL_KEY, scoreStatistics.getGameLevel().getDifficulty());
-
-        getSupportFragmentManager().setFragmentResult(GameScreenFragment.Message.NOTIFY_GAME_OVER.toString(), bundle);
+        bundle.putInt(FINAL_SCORE_KEY, scoreStatistics.getFinalScore());
+        bundle.putInt(DAILY_HIGH_SCORE_KEY, scoreStatistics.getDailyHighScore());
+        bundle.putInt(ALL_TIME_HIGH_SCORE_KEY, scoreStatistics.getAllTimeHighScore());
+        bundle.putString(TIMER_LENGTH_KEY, scoreStatistics.getTimerLength());
+        bundle.putString(GAME_LEVEL_KEY, scoreStatistics.getGameLevel().getDifficulty());
+        sendMessage(NOTIFY_GAME_OVER, bundle);
     }
 
 
@@ -163,15 +163,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void setScore(int score){
          Bundle bundle = new Bundle();
-         bundle.putInt(GameScreenFragment.Tag.SCORE.toString(), score);
-         getSupportFragmentManager().setFragmentResult(GameScreenFragment.Message.SET_SCORE.toString(), bundle);
+         bundle.putInt(SCORE.toString(), score);
+         sendMessage(SET_SCORE, bundle);
     }
 
 
     public void notifyIncorrectAnswer(){
-        Bundle bundle = new Bundle();
-        bundle.putInt(GameScreenFragment.SCORE_TAG, score);
-        getSupportFragmentManager().setFragmentResult(GameScreenFragment.SET_SCORE, bundle);
+        sendMessage(NOTIFY_INCORRECT_ANSWER, new Bundle());
     }
 
 
@@ -182,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void startGame(){
-        log("Entered startGame()");
         assignVibrationSettings();
         if(gameService == null){
             return;
@@ -237,5 +234,11 @@ public class MainActivity extends AppCompatActivity {
             gameService.setActivity(MainActivity.this);
         }
     }
+
+
+    public <E extends Enum<E>> void sendMessage(E operationName, Bundle bundle){
+        getSupportFragmentManager().setFragmentResult(operationName.toString(), bundle );
+    }
+
 
 }
