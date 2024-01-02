@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putInt(DAILY_HIGH_SCORE_KEY, scoreStatistics.getDailyHighScore());
         bundle.putInt(ALL_TIME_HIGH_SCORE_KEY, scoreStatistics.getAllTimeHighScore());
         bundle.putString(TIMER_LENGTH_KEY, scoreStatistics.getTimerLength());
-        bundle.putString(GAME_LEVEL_KEY, scoreStatistics.getGameLevel().getDifficulty());
+        bundle.putString(GAME_LEVEL_KEY, scoreStatistics.getGameLevel().getDifficultyStr());
         sendMessage(NOTIFY_GAME_OVER, bundle);
     }
 

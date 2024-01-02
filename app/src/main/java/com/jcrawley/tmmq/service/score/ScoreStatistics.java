@@ -13,7 +13,7 @@ public class ScoreStatistics {
 
 
     public String getGameLevelDifficulty() {
-        return gameLevel.getDifficulty();
+        return gameLevel.getDifficultyStr();
     }
 
     public GameLevel getGameLevel(){

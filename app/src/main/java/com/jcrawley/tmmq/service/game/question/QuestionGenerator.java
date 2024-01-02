@@ -16,7 +16,7 @@ public class QuestionGenerator {
         random = new Random(System.currentTimeMillis());
         questionCreators = new ArrayList<>();
         questionCreators.add(new QuestionCreator(MathOperation.ADDITION, "+", Integer::sum));
-        questionCreators.add(new QuestionCreator(MathOperation.SUBTRACTION, "-", true, (x,y) -> x-y));
+        questionCreators.add(new QuestionCreator(MathOperation.SUBTRACTION, "-", true, (x,y) -> Math.max(x,y) - Math.min(x,y)));
         questionCreators.add(new QuestionCreator(MathOperation.MULTIPLICATION, "×", (x,y) -> x * y));
         questionCreators.add(new DivisionQuestionCreator());
 

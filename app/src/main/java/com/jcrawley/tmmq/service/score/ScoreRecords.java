@@ -95,7 +95,7 @@ public class ScoreRecords {
 
     private String createScorePrefKey(RecordType recordType, ScoreStatistics scoreStatistics){
         return "scoreFor_" + recordType.toString()
-                + "_" + scoreStatistics.getGameLevel().getDifficulty()
+                + "_" + scoreStatistics.getGameLevel().getDifficultyStr()
                 + "_"  + scoreStatistics.getTimerLength();
     }
 

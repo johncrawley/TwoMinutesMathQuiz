@@ -25,6 +25,13 @@ public class GameLevel {
     }
 
 
+    public void addOperationLimits(OperationLimits operationLimits){
+        MathOperation mathOperation = operationLimits.getMathOperation();
+        operationLimitsMap.put(mathOperation, operationLimits);
+        mathOperations.add(mathOperation);
+    }
+
+
     public boolean containsMathOperation(MathOperation mathOperation){
         return mathOperations.contains(mathOperation);
     }
@@ -34,8 +41,11 @@ public class GameLevel {
         return operationLimitsMap.getOrDefault(mathOperation, new OperationLimits());
     }
 
+    public int getDifficulty(){
+        return difficulty;
+    }
 
-    public String getDifficulty(){
+    public String getDifficultyStr(){
         return String.valueOf(difficulty);
     }
 
