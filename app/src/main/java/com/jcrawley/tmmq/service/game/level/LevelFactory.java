@@ -5,97 +5,85 @@ import static com.jcrawley.tmmq.service.game.question.MathOperation.DIVISION;
 import static com.jcrawley.tmmq.service.game.question.MathOperation.MULTIPLICATION;
 import static com.jcrawley.tmmq.service.game.question.MathOperation.SUBTRACTION;
 
-import com.jcrawley.tmmq.service.game.question.MathOperation;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LevelFactory {
 
+    private static Map<Integer, GameLevel> levels;
 
-    public static Map<Integer, GameLevel> createAndAddLevels(){
 
-        Map<Integer, GameLevel> levels = new HashMap<>(10);
-
-        addTo(levels,1,
-                new OperationLimits(ADDITION, 1,5,1,5),
-                new OperationLimits(SUBTRACTION, 1, 10, 1,2));
-
-        addTo(levels,2,
-                new OperationLimits(ADDITION, 2,10,3,10),
-                new OperationLimits(SUBTRACTION, 5, 12, 2,7));
-
-        addTo(levels,3,
-                new OperationLimits(ADDITION, 4,12,5,12),
-                new OperationLimits(SUBTRACTION, 15, 20, 5,12));
-
-        addTo(levels,4,
-                new OperationLimits(ADDITION, 10,20,8,20),
-                new OperationLimits(SUBTRACTION, 20, 50, 12,35),
-                new OperationLimits(MULTIPLICATION, 2,10,2,5));
-
-        addTo(levels,5,
-                new OperationLimits(ADDITION, 12,35,12,35),
-                new OperationLimits(SUBTRACTION, 30, 70, 15,39),
-                new OperationLimits(MULTIPLICATION, 3,12,5,12),
-                new OperationLimits(DIVISION, 2,12,2,12));
-
-        addTo(levels,6,
-                new OperationLimits(ADDITION, 12,35,12,35),
-                new OperationLimits(SUBTRACTION, 30, 70, 15,39),
-                new OperationLimits(MULTIPLICATION, 3,12,5,12),
-                new OperationLimits(DIVISION, 2,12,2,12));
-
-        addTo(levels,7,
-                new OperationLimits(ADDITION, 12,35,12,35),
-                new OperationLimits(SUBTRACTION, 30, 70, 15,39),
-                new OperationLimits(MULTIPLICATION, 3,12,5,12),
-                new OperationLimits(DIVISION, 2,12,2,12));
-
-        addTo(levels,8,
-                new OperationLimits(ADDITION, 12,35,12,35),
-                new OperationLimits(SUBTRACTION, 30, 70, 15,39),
-                new OperationLimits(MULTIPLICATION, 3,12,5,12),
-                new OperationLimits(DIVISION, 2,12,2,12));
-
-        addTo(levels,9,
-                new OperationLimits(ADDITION, 500,1500,300,1450),
-                new OperationLimits(SUBTRACTION, 550, 1200, 203,500),
-                new OperationLimits(MULTIPLICATION, 15,30,12,20),
-                new OperationLimits(DIVISION, 20,40,5,15));
-
-        addTo(levels,10,
-                new OperationLimits(ADDITION, 10_000,20_000,8_000,18_000),
-                new OperationLimits(SUBTRACTION, 10_000, 15_000, 3000,9000),
-                new OperationLimits(MULTIPLICATION, 25,50,15,35),
-                new OperationLimits(DIVISION, 25,50,25,99));
-
+    public static Map<Integer, GameLevel> createLevels(){
+        levels = new HashMap<>();
+        addLevel(1,
+                addition(1,5,1,5),
+                subtraction(1, 4, 1,6));
+        addLevel(2,
+                addition(2,10,3,10),
+                subtraction(2, 6, 1,6));
+        addLevel(3,
+                addition(4,12,5,12),
+                subtraction(5, 9, 3,10));
+        addLevel(4,
+                addition(10,20,8,20),
+                subtraction(6, 12, 8,15),
+                multiplication(2,10,2,5));
+        addLevel(5,
+                addition(12,35,12,35),
+                subtraction(6, 15, 15,30),
+                multiplication(3,12,5,12),
+                division(2,6,2,10));
+        addLevel(6,
+                addition(12,35,12,35),
+                subtraction(12, 20, 21,45),
+                multiplication(5,13,5,13),
+                division(3,8,2,12));
+        addLevel(7,
+                addition(12,35,12,35),
+                subtraction(20, 50, 35,70),
+                multiplication(7,14,8,14),
+                division(5,12,3,12));
+        addLevel(8,
+                addition(12,35,12,35),
+                subtraction(50, 150, 150,220),
+                multiplication(9,15,9,15),
+                division(7,13,4,13));
+        addLevel(9,
+                addition(500,1500,300,1450),
+                subtraction(150, 800, 200,900),
+                multiplication(11,16,11,16),
+                division(9,18,5,18));
+        addLevel(10,
+                addition(10_000,20_000,8_000,18_000),
+                subtraction(10_000, 15_000, 3000,9000),
+                multiplication(12,20,15,35),
+                division(12,20,12,20));
         return levels;
     }
 
 
-    public static void createAndAddLevelsOLD(){
-        GameLevel level6 = new GameLevel(6);
-        addTo(level6, ADDITION, 8,40,10,50);
-        addTo(level6, SUBTRACTION, 40,80,21,61);
-        addTo(level6, MULTIPLICATION, 2,12,12,15);
-        addTo(level6, DIVISION, 2,15,7,15);
-
-        GameLevel level7 = new GameLevel(7);
-        addTo(level7, ADDITION, 100,150,80,170);
-        addTo(level7, SUBTRACTION, 100,150,38,121);
-        addTo(level7, MULTIPLICATION, 5,15,12,20);
-        addTo(level7, DIVISION, 5,12,10,20);
-
-        GameLevel level8 = new GameLevel(8);
-        addTo(level8, ADDITION, 150,250,125,300);
-        addTo(level8, SUBTRACTION, 200,400,130,301);
-        addTo(level8, MULTIPLICATION, 2,12,2,12);
-        addTo(level8, DIVISION, 8,15,2,40);
+    private static OperationLimits addition(int min1, int max1, int min2, int max2){
+        return new OperationLimits(ADDITION, min1, max1, min2, max2);
     }
 
 
-    private static void addTo(Map<Integer, GameLevel> levels, int difficulty, OperationLimits ... operationLimitsArray){
+    private static OperationLimits subtraction(int subtractionMin, int subtractionMax, int ansMin, int ansMax){
+        return new OperationLimits(SUBTRACTION, subtractionMin, subtractionMax, ansMin, ansMax);
+    }
+
+
+    private static OperationLimits multiplication(int min1, int max1, int min2, int max2){
+        return new OperationLimits(MULTIPLICATION, min1, max1, min2, max2);
+    }
+
+
+    private static OperationLimits division(int divisorMin, int divisorMax, int ansMin, int ansMax){
+        return new OperationLimits(DIVISION, divisorMin, divisorMax, ansMin, ansMax);
+    }
+
+
+    private static void addLevel(int difficulty, OperationLimits ... operationLimitsArray){
         GameLevel gameLevel = new GameLevel(difficulty);
         for(OperationLimits operationLimits : operationLimitsArray){
             gameLevel.addOperationLimits(operationLimits);
@@ -104,12 +92,6 @@ public class LevelFactory {
             throw new RuntimeException("Difficulty level already added!");
         }
         levels.put(difficulty, gameLevel);
-    }
-
-
-    private static void addTo(GameLevel gameLevel, MathOperation mathOperation, int number1Min,
-                              int number1Max, int number2Min, int number2Max){
-        gameLevel.addOperationLimits(mathOperation, new OperationLimits(number1Min, number1Max, number2Min, number2Max));
     }
 
 }

@@ -25,7 +25,7 @@ public class Game {
 
 
     public Game(){
-        levels = LevelFactory.createAndAddLevels();
+        levels = LevelFactory.createLevels();
         questionGenerator = new QuestionGenerator();
         setDifficulty(difficulty);
     }

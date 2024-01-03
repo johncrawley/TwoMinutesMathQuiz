@@ -52,12 +52,12 @@ public class QuestionCreator {
     }
 
 
-    MathQuestion createFreshQuestion(String text, int result){
+    MathQuestion createFreshQuestion(String text, int correctAnswer){
         if(text.equals(previousQuestionStr)){
             return createQuestion();
         }
         previousQuestionStr = text;
-        return  new MathQuestion(text, result);
+        return  new MathQuestion(text, correctAnswer);
     }
 
 
