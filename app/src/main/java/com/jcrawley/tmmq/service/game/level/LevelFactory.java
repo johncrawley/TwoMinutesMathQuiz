@@ -6,12 +6,20 @@ import static com.jcrawley.tmmq.service.game.question.MathOperation.MULTIPLICATI
 import static com.jcrawley.tmmq.service.game.question.MathOperation.SUBTRACTION;
 
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LevelFactory {
 
     private static Map<Integer, GameLevel> levels;
+
+    public void foo(){
+        int[] array = new int[]{1,2,3};
+        Arrays.stream(array).max().getAsInt();
+        Integer x = 1;
+        x++;
+    }
 
 
     public static Map<Integer, GameLevel> createLevels(){

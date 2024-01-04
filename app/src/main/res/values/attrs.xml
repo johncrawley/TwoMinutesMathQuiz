@@ -24,4 +24,5 @@
     <attr name="enter_input_button_background_tint" format="reference" />
     <attr name="score_normal_color" format="reference" />
     <attr name="score_flash_color" format="reference" />
+    <attr name="status_bar_background" format="reference" />
 </resources>

@@ -23,6 +23,7 @@
         <item name="enter_input_button_background_tint">@color/enter_input_button_background_tint</item>
         <item name="score_normal_color">@color/score_normal</item>
         <item name="score_flash_color">@color/score_flash</item>
+        <item name="status_bar_background">@color/status_bar_background</item>
 
     </style>
 

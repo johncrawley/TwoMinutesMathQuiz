@@ -4,26 +4,36 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/timeRemainingText"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/statusLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:textSize="@dimen/time_remaining_text_size"
-        android:text="@string/default_time_remaining"
-        android:layout_margin="@dimen/time_remaining_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/status_panel_layout_background"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/scoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/score_text_size"
-        android:text="@string/default_score_text"
-        android:layout_margin="@dimen/score_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/score_text_size"
+            android:text="@string/default_score_text"
+            android:layout_margin="@dimen/score_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/timeRemainingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:textSize="@dimen/time_remaining_text_size"
+            android:text="@string/default_time_remaining"
+            android:layout_margin="@dimen/time_remaining_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/questionText"
@@ -41,7 +51,7 @@
         app:layout_constraintBottom_toTopOf="@+id/inputTextLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeRemainingText" />
+        app:layout_constraintTop_toBottomOf="@+id/statusLayout" />
 
     <LinearLayout
         android:id="@+id/inputTextLayout"
