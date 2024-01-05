@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/status_panel_layout_background"
+        android:layout_margin="@dimen/score_margin"
         app:layout_constraintTop_toTopOf="parent">
 
 
@@ -18,7 +19,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/score_text_size"
             android:text="@string/default_score_text"
-            android:layout_margin="@dimen/score_margin"
+            android:gravity="center"
+            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -27,9 +29,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
+            android:gravity="center"
+            android:textAlignment="center"
             android:textSize="@dimen/time_remaining_text_size"
             android:text="@string/default_time_remaining"
-            android:layout_margin="@dimen/time_remaining_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 

@@ -68,17 +68,22 @@ public class GameOverScreenFragment extends Fragment {
 
     private void setupNewRecordView(View parentView){
         TextView newRecordText = parentView.findViewById(R.id.newRecordText);
+        TextView gameOverText = parentView.findViewById(R.id.gameOverText);
 
         if(finalScore > allTimeHighScore){
             newRecordText.setText(getResources().getString(R.string.new_all_time_record));
             newRecordText.setVisibility(View.VISIBLE);
+            gameOverText.setVisibility(View.GONE);
         }
         else if(finalScore > dailyHighScore){
             newRecordText.setText(getResources().getString(R.string.new_daily_record));
             newRecordText.setVisibility(View.VISIBLE);
+            gameOverText.setVisibility(View.GONE);
         }
         else{
             newRecordText.setVisibility(View.GONE);
+            gameOverText.setVisibility(View.VISIBLE);
+
         }
     }
 
