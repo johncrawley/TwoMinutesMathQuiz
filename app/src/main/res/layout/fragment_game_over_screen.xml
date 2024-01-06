@@ -100,15 +100,30 @@
                 android:textSize="@dimen/ending_score_text_size"/>
 
         </LinearLayout>
-        <Button
-            android:id="@+id/mainMenuButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/game_over_buttons_margin"
-            android:text="@string/game_over_to_main_menu_button_text"
+            android:id="@+id/endGameButtonLayout"
+            android:orientation="horizontal"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+            <Button
+                android:id="@+id/retryMenuButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/game_over_buttons_margin"
+                android:text="@string/game_over_retry_button_text"/>
+            <Button
+                android:id="@+id/mainMenuButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/game_over_buttons_margin"
+                android:text="@string/game_over_to_main_menu_button_text"/>
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
