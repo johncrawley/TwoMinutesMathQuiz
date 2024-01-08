@@ -5,8 +5,10 @@
     <string name="game_over_to_main_menu_button_text">Main Menu</string>
     <string name="game_over_retry_button_text">Retry</string>
     <string name="options_button_text">Options</string>
+    <string name="time_remaining_label">Timer</string>
     <string name="default_time_remaining">2:00</string>
-    <string name="default_score_text">Score:0</string>
+    <string name="score_label_text">Score</string>
+    <string name="default_score_text">0</string>
 
     <string name="symbol_0">&#160;&#160;0&#160;&#160;</string>
     <string name="symbol_1">&#160;&#160;1&#160;&#160;</string>
@@ -21,7 +23,6 @@
     <string name="symbol_backspace">⌫</string>
     <string name="symbol_enter">&#160;→&#160;</string>
 
-    <string name="score_label">Score:</string>
     <string name="game_over_text">Game\nOver</string>
     <string name="game_over_details">Level&#160;%1$s,&#160;%2$s</string>
     <string name="start_game_get_ready">GET READY</string>

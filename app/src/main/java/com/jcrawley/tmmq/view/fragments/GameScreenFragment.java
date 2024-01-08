@@ -172,7 +172,7 @@ public class GameScreenFragment extends Fragment {
 
 
     private String createScoreString(int score){
-        return getString(R.string.score_label) + score;
+        return String.valueOf(score);
     }
 
 

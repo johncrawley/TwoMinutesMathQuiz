@@ -61,6 +61,7 @@ public class GameOverScreenFragment extends Fragment {
         setupNewRecordView(parentView);
         setupDetailsView(parentView);
         setupStartNewGameButton(parentView);
+        setupRetryButton(parentView);
         FragmentUtils.onBackButtonPressed(this, this::loadGetReadyFragment);
         return parentView;
     }
@@ -116,6 +117,12 @@ public class GameOverScreenFragment extends Fragment {
     private void setupStartNewGameButton(View parentView){
         Button button = parentView.findViewById(R.id.mainMenuButton);
         button.setOnClickListener(v -> startWelcomeScreenFragment());
+    }
+
+
+    private void setupRetryButton(View parentView){
+        Button button = parentView.findViewById(R.id.retryMenuButton);
+        button.setOnClickListener(v -> loadGetReadyFragment());
     }
 
 

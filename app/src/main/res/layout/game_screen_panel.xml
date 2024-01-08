@@ -8,33 +8,74 @@
         android:id="@+id/statusLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/status_panel_layout_background"
-        android:layout_margin="@dimen/score_margin"
+        android:layout_margin="@dimen/game_stats_layout_margin"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <TextView
-            android:id="@+id/scoreText"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/score_text_size"
-            android:text="@string/default_score_text"
+            android:orientation="vertical"
             android:gravity="center"
-            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:background="@drawable/status_panel_layout_background"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/timeRemainingText"
+
+            <TextView
+                android:id="@+id/scoreTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:minWidth="50dp"
+                android:textSize="@dimen/game_stats_label_text_size"
+                android:text="@string/score_label_text"/>
+
+            <TextView
+                android:id="@+id/scoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/score_text_size"
+                android:text="@string/default_score_text"
+                android:gravity="center"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:orientation="vertical"
             android:gravity="center"
-            android:textAlignment="center"
-            android:textSize="@dimen/time_remaining_text_size"
-            android:text="@string/default_time_remaining"
+            android:background="@drawable/status_panel_layout_background"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/timeRemainingTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="@dimen/game_stats_label_text_size"
+                android:text="@string/time_remaining_label"/>
+
+            <TextView
+                android:id="@+id/timeRemainingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="@dimen/time_remaining_text_size"
+                android:text="@string/default_time_remaining"/>
+
+        </LinearLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -48,6 +89,10 @@
         android:autoSizeMaxTextSize="@dimen/question_text_size"
         android:autoSizeStepGranularity="2sp"
         android:layout_marginTop="@dimen/question_text_margin"
+        android:shadowRadius="@integer/question_text_shadow_radius"
+        android:shadowDx="@integer/question_text_shadow_dx"
+        android:shadowDy="@integer/question_text_shadow_dy"
+        android:shadowColor="?attr/text_shadow_layer_color"
         android:maxLines="1"
         android:layout_marginBottom="12dp"
         android:textColor="?attr/default_question_text_color"
