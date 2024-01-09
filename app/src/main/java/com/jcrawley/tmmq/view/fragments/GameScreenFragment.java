@@ -1,6 +1,7 @@
 package com.jcrawley.tmmq.view.fragments;
 
 import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Message.NOTIFY_GAME_OVER;
+import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Message.NOTIFY_INCORRECT_ANSWER;
 import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Message.SET_TIME_REMAINING;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
 
@@ -12,6 +13,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +33,13 @@ public class GameScreenFragment extends Fragment {
     public enum Tag { MINUTES_REMAINING, SECONDS_REMAINING, SCORE, QUESTION}
     public static final String WAS_ANSWER_CORRECT_TAG = "was_answer_correct_tag";
     public static final String WAS_ANSWER_INCORRECT_TAG = "was_answer_incorrect_tag";
-    private TextView timeRemainingTextView, scoreTextView, questionTextView;
+    private TextView timeRemainingTextView, scoreTextView, questionTextView, inputTextView;
     private int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
+    private int defaultAnswerTextColor;
     private TextAnimator textAnimator;
     private GameScreenViewModel viewModel;
     private InputHelper inputHelper;
+
 
     public GameScreenFragment() {
         // Required empty public constructor
@@ -80,6 +86,25 @@ public class GameScreenFragment extends Fragment {
         FragmentUtils.setListener(this, Message.SET_SCORE.toString(), this::setScore);
         FragmentUtils.setListener(this, Message.SET_QUESTION.toString(), this::setQuestion);
         FragmentUtils.setListener(this, NOTIFY_GAME_OVER.toString(), this::onGameOver);
+        FragmentUtils.setListener(this, NOTIFY_INCORRECT_ANSWER.toString(), this::onIncorrectAnswer);
+    }
+
+
+    private void onIncorrectAnswer(Bundle bundle){
+        int incorrectColor = getColorFromAttribute(R.attr.incorrect_answer_text_color, getContext());
+        int initialDelay = 0;
+        int duration = 150;
+        animateTextColor(inputTextView, defaultAnswerTextColor, incorrectColor, initialDelay, duration);
+        clearAnswerTextAfterDelay(initialDelay + duration + 100);
+    }
+
+
+    public void clearAnswerTextAfterDelay(int delay){
+        new Handler(Looper.getMainLooper()).postDelayed(()->{
+                    viewModel.inputText = "";
+                    inputTextView.setText(viewModel.inputText);
+                    inputTextView.setTextColor(defaultAnswerTextColor);
+                },delay);
     }
 
 
@@ -87,6 +112,7 @@ public class GameScreenFragment extends Fragment {
         timeRemainingTextView = setupTextView(parentView, R.id.timeRemainingText, viewModel.timeRemaining);
         scoreTextView = setupTextView(parentView, R.id.scoreText, createScoreString(viewModel.scoreValue));
         questionTextView = setupTextView(parentView, R.id.questionText, viewModel.questionText);
+        inputTextView = setupTextView(parentView, R.id.inputText, viewModel.questionText);
         textAnimator = new TextAnimator(questionTextView, getColorFromAttribute(R.attr.default_question_text_color, getContext()));
     }
 
@@ -145,13 +171,13 @@ public class GameScreenFragment extends Fragment {
     private void animateScoreOnUpdate(){
         int normalColor = getColorFromAttribute(R.attr.score_normal_color, getContext());
         int flashColor = getColorFromAttribute(R.attr.score_flash_color, getContext());
-        animateScoreText(normalColor, flashColor, 10, 80);
-        animateScoreText(flashColor, normalColor, 200, 150);
+        animateTextColor(scoreTextView, normalColor, flashColor, 10, 80);
+        animateTextColor(scoreTextView, flashColor, normalColor, 200, 150);
+        clearAnswerTextAfterDelay(150);
     }
 
-
-    private void animateScoreText(int startColor, int endColor,  int startDelay, int duration){
-        ObjectAnimator animateBack = ObjectAnimator.ofInt(scoreTextView,
+    private void animateTextColor(TextView textView, int startColor, int endColor, int startDelay, int duration){
+        ObjectAnimator animateBack = ObjectAnimator.ofInt(textView,
                 "textColor",
                 startColor,
                 endColor);
@@ -192,7 +218,7 @@ public class GameScreenFragment extends Fragment {
         runOnUiThread(()-> {
             textAnimator.setNextText(text);
             viewModel.questionText = text;
-            questionTextView.startAnimation(textAnimator.getFadeOutAnimation());
+            questionTextView.startAnimation(textAnimator.getFadeAnimation());
         });
     }
 
@@ -249,6 +275,7 @@ public class GameScreenFragment extends Fragment {
     private void setupColors(){
         timeRemainingTextNormalColor = getColorFromAttribute(R.attr.time_remaining_text_normal_color, getContext());
         timeRemainingTextWarningColor = getColorFromAttribute(R.attr.time_remaining_text_warning_color, getContext());
+        defaultAnswerTextColor = getColorFromAttribute(R.attr.default_answer_text_color, getContext());
     }
 
 

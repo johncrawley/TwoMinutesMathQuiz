@@ -84,7 +84,6 @@ public class GameOverScreenFragment extends Fragment {
         else{
             newRecordText.setVisibility(View.GONE);
             gameOverText.setVisibility(View.VISIBLE);
-
         }
     }
 

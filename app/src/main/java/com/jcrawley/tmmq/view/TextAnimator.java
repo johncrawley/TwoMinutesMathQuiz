@@ -13,7 +13,7 @@ public class TextAnimator {
 
     public TextAnimator(TextView itemTextView, int defaultColor){
 
-        fadeOutAnimation.setDuration(200);
+        fadeOutAnimation.setDuration(250);
         fadeInAnimation.setDuration(200);
         fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -38,7 +38,7 @@ public class TextAnimator {
     }
 
 
-    public Animation getFadeOutAnimation(){
+    public Animation getFadeAnimation(){
         return fadeOutAnimation;
     }
 

@@ -67,7 +67,6 @@ public class InputHelper {
             return;
         }
         activity.submitAnswer(answer);
-        clearAnswerText();
     }
 
 

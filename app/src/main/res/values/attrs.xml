@@ -25,4 +25,9 @@
     <attr name="score_normal_color" format="reference" />
     <attr name="score_flash_color" format="reference" />
     <attr name="status_bar_background" format="reference" />
+
+
+    <attr name="default_answer_text_color" format="reference" />
+    <attr name="incorrect_answer_text_color" format="reference" />
+    <attr name="correct_answer_text_color" format="reference" />
 </resources>
