@@ -173,7 +173,7 @@ public class GameScreenFragment extends Fragment {
         int flashColor = getColorFromAttribute(R.attr.score_flash_color, getContext());
         animateTextColor(scoreTextView, normalColor, flashColor, 10, 80);
         animateTextColor(scoreTextView, flashColor, normalColor, 200, 150);
-        clearAnswerTextAfterDelay(150);
+
     }
 
     private void animateTextColor(TextView textView, int startColor, int endColor, int startDelay, int duration){
@@ -193,6 +193,10 @@ public class GameScreenFragment extends Fragment {
         runOnUiThread(()-> {
             scoreTextView.setText(createScoreString(viewModel.scoreValue));
             animateScoreOnUpdate();
+            int correctAnswerTextColor = getColorFromAttribute(R.attr.correct_answer_text_color, getContext());
+            int colorChangeDuration = 150;
+            animateTextColor(inputTextView, defaultAnswerTextColor, correctAnswerTextColor, 0, colorChangeDuration);
+            clearAnswerTextAfterDelay(colorChangeDuration + 200);
         });
     }
 
