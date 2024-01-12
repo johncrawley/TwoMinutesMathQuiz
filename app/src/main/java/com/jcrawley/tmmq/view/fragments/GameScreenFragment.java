@@ -31,8 +31,6 @@ public class GameScreenFragment extends Fragment {
 
     public enum Message {SET_TIME_REMAINING, NOTIFY_GAME_OVER, NOTIFY_INCORRECT_ANSWER, SET_SCORE, SET_QUESTION  }
     public enum Tag { MINUTES_REMAINING, SECONDS_REMAINING, SCORE, QUESTION}
-    public static final String WAS_ANSWER_CORRECT_TAG = "was_answer_correct_tag";
-    public static final String WAS_ANSWER_INCORRECT_TAG = "was_answer_incorrect_tag";
     private TextView timeRemainingTextView, scoreTextView, questionTextView, inputTextView;
     private int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
     private int defaultAnswerTextColor;
@@ -130,13 +128,15 @@ public class GameScreenFragment extends Fragment {
         }
         int minutesRemaining = bundle.getInt(Tag.MINUTES_REMAINING.toString());
         int secondsRemaining = bundle.getInt(Tag.SECONDS_REMAINING.toString());
-        log("Entered updateTimeRemaining()");
-        runOnUiThread(()->{
-            timeRemainingTextView.setVisibility(View.VISIBLE);
-            setTimeRemainingTextColor(minutesRemaining, secondsRemaining);
-            viewModel.timeRemaining = createTimeRemainingString(minutesRemaining, secondsRemaining);;
-            timeRemainingTextView.setText(viewModel.timeRemaining);
-        });
+        runOnUiThread(()-> updateTimeTextView(minutesRemaining, secondsRemaining));
+    }
+
+
+    private void updateTimeTextView(int minutesRemaining, int secondsRemaining){
+        timeRemainingTextView.setVisibility(View.VISIBLE);
+        setTimeRemainingTextColor(minutesRemaining, secondsRemaining);
+        viewModel.timeRemaining = createTimeRemainingString(minutesRemaining, secondsRemaining);;
+        timeRemainingTextView.setText(viewModel.timeRemaining);
     }
 
 
@@ -173,8 +173,8 @@ public class GameScreenFragment extends Fragment {
         int flashColor = getColorFromAttribute(R.attr.score_flash_color, getContext());
         animateTextColor(scoreTextView, normalColor, flashColor, 10, 80);
         animateTextColor(scoreTextView, flashColor, normalColor, 200, 150);
-
     }
+
 
     private void animateTextColor(TextView textView, int startColor, int endColor, int startDelay, int duration){
         ObjectAnimator animateBack = ObjectAnimator.ofInt(textView,
@@ -207,12 +207,6 @@ public class GameScreenFragment extends Fragment {
 
 
     private void setQuestion(Bundle bundle){
-        if(bundle.getBoolean(WAS_ANSWER_CORRECT_TAG, false)){
-
-        }
-        else if(bundle.getBoolean(WAS_ANSWER_INCORRECT_TAG, false)){
-
-        }
        fadeInNewQuestionText(bundle);
     }
 
@@ -224,11 +218,6 @@ public class GameScreenFragment extends Fragment {
             viewModel.questionText = text;
             questionTextView.startAnimation(textAnimator.getFadeAnimation());
         });
-    }
-
-
-    private void log(String msg){
-        System.out.println("^^^ GameScreenFragment " +  msg);
     }
 
 

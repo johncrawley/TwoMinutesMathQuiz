@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Quick Maths Quiz</string>
 
-    <string name="main_menu_screen_start_game_button_text">New Game</string>
-    <string name="game_over_to_main_menu_button_text">Main Menu</string>
-    <string name="game_over_retry_button_text">Retry</string>
-    <string name="options_button_text">Options</string>
+    <string name="main_menu_screen_start_game_button_text">NEW GAME</string>
+    <string name="game_over_to_main_menu_button_text">MENU</string>
+    <string name="game_over_retry_button_text">RETRY</string>
+    <string name="options_button_text">OPTIONS</string>
     <string name="time_remaining_label">Timer</string>
     <string name="default_time_remaining">2:00</string>
     <string name="score_label_text">Score</string>

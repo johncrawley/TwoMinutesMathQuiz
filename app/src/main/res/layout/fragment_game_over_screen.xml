@@ -114,14 +114,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/game_over_buttons_margin"
-                android:text="@string/game_over_retry_button_text"/>
+                android:text="@string/game_over_retry_button_text"
+                style="@style/menuButtonStyle"/>
             <Button
                 android:id="@+id/mainMenuButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/game_over_buttons_margin"
-                android:text="@string/game_over_to_main_menu_button_text"/>
-
+                android:text="@string/game_over_to_main_menu_button_text"
+                style="@style/menuButtonStyle"/>
         </LinearLayout>
 
 

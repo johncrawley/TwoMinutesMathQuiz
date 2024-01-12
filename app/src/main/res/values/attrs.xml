@@ -30,4 +30,7 @@
     <attr name="default_answer_text_color" format="reference" />
     <attr name="incorrect_answer_text_color" format="reference" />
     <attr name="correct_answer_text_color" format="reference" />
+
+
+    <attr name="menu_button_style" format="reference" />
 </resources>

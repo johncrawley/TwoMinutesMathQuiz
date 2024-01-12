@@ -6,6 +6,7 @@
     <dimen name="button_table_margin_bottom_portrait">18dp</dimen>
 
     <dimen name="button_margin">6dp</dimen>
+    <dimen name="menu_button_margin">8dp</dimen>
     <dimen name="button_minHeight">20dp</dimen>
     <dimen name="button_minWidth">20dp</dimen>
     <dimen name="button_paddingHorizontal">20dp</dimen>
@@ -30,7 +31,7 @@
 
     <dimen name="welcome_screen_button_layout_margin_top">18dp</dimen>
     <dimen name="welcome_screen_button_layout_margin_bottom">2dp</dimen>
-    <dimen name="welcome_screen_button_layout_max_width">200dp</dimen>
+    <dimen name="welcome_screen_button_layout_max_width">240dp</dimen>
     <dimen name="welcome_screen_button_layout_margin_horizontal">18dp</dimen>
 
     <dimen name="title_text_size">62sp</dimen>
