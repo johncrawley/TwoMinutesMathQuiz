@@ -24,14 +24,15 @@
     <string name="symbol_enter">&#160;→&#160;</string>
 
     <string name="game_over_text">Game\nOver</string>
+    <string name="game_over_text_landscape">Game Over</string>
     <string name="game_over_details">Level&#160;%1$s,&#160;%2$s</string>
     <string name="start_game_get_ready">GET READY</string>
-    <string name="ending_score_label_text">Your Score:</string>
+    <string name="ending_score_label_text">Your Score</string>
     <string name="congratulations">CONGRATULATIONS!</string>
     <string name="new_daily_record">NEW DAILY RECORD!</string>
     <string name="new_all_time_record">NEW ALL TIME RECORD!</string>
 
-    <string name="choose_level_heading">Select Difficulty</string>
+    <string name="choose_level_heading">Select Level</string>
     <string name="button_text_level_1">1</string>
     <string name="button_text_level_2">2</string>
     <string name="button_text_level_3">3</string>
