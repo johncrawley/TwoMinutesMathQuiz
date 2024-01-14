@@ -1,8 +1,8 @@
 package com.jcrawley.tmmq;
 
-import static com.jcrawley.tmmq.view.fragments.GameOverScreenFragment.*;
-import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Message.*;
-import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Tag.*;
+import static com.jcrawley.tmmq.view.fragments.GameOverFragment.*;
+import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.*;
+import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Tag.*;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -24,7 +24,7 @@ import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.game.TimerLength;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.view.MainViewModel;
-import com.jcrawley.tmmq.view.fragments.WelcomeScreenFragment;
+import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupFragments(){
         fragmentContainerView = findViewById(R.id.fragment_container);
 
-        Fragment welcomeScreenFragment = new WelcomeScreenFragment();
+        Fragment welcomeScreenFragment = new MainMenuFragment();
         getSupportFragmentManager().beginTransaction()
         .add(R.id.fragment_container, welcomeScreenFragment)
         .commit();

@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -73,7 +74,7 @@ public class ChooseLevelFragment extends Fragment {
             }
             isLevelChosen.set(true);
             mainActivity.setDifficulty(difficulty);
-            FragmentUtils.loadFragment(this, new GetReadyScreenFragment(), GetReadyScreenFragment.FRAGMENT_TAG);
+            FragmentUtils.loadFragment(this, new GetReadyFragment(), GetReadyFragment.FRAGMENT_TAG);
         });
     }
 }

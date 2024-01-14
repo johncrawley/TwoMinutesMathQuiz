@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
-import com.jcrawley.tmmq.view.fragments.GameScreenViewModel;
+import com.jcrawley.tmmq.view.fragments.game.GameScreenViewModel;
 
 public class InputHelper {
 

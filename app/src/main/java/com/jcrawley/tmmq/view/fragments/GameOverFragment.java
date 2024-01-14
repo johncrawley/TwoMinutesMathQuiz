@@ -11,9 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 
-public class GameOverScreenFragment extends Fragment {
+public class GameOverFragment extends Fragment {
 
 
     public static final String FRAGMENT_TAG = "game_over_screen";
@@ -26,13 +27,13 @@ public class GameOverScreenFragment extends Fragment {
     private int finalScore, dailyHighScore, allTimeHighScore;
     private String timerLength, gameLevel;
 
-    public GameOverScreenFragment() {
+    public GameOverFragment() {
         // Required empty public constructor
     }
 
 
-    public static GameOverScreenFragment newInstance() {
-       return new GameOverScreenFragment();
+    public static GameOverFragment newInstance() {
+       return new GameOverFragment();
     }
 
 
@@ -68,22 +69,12 @@ public class GameOverScreenFragment extends Fragment {
 
 
     private void setupNewRecordView(View parentView){
-        TextView newRecordText = parentView.findViewById(R.id.newRecordText);
         TextView gameOverText = parentView.findViewById(R.id.gameOverText);
-
         if(finalScore > allTimeHighScore){
-            newRecordText.setText(getResources().getString(R.string.new_all_time_record));
-            newRecordText.setVisibility(View.VISIBLE);
-            gameOverText.setVisibility(View.GONE);
+            gameOverText.setText(getResources().getString(R.string.new_all_time_record));
         }
         else if(finalScore > dailyHighScore){
-            newRecordText.setText(getResources().getString(R.string.new_daily_record));
-            newRecordText.setVisibility(View.VISIBLE);
-            gameOverText.setVisibility(View.GONE);
-        }
-        else{
-            newRecordText.setVisibility(View.GONE);
-            gameOverText.setVisibility(View.VISIBLE);
+            gameOverText.setText(getResources().getString(R.string.new_daily_record));
         }
     }
 
@@ -96,14 +87,9 @@ public class GameOverScreenFragment extends Fragment {
     }
 
 
-    private void log(String msg){
-        System.out.println("^^^ GameOverScreenFragment: " + msg);
-    }
-
-
     private void loadGetReadyFragment(){
-        GetReadyScreenFragment getReadyFragment = new GetReadyScreenFragment();
-        FragmentUtils.loadFragment(this, getReadyFragment, GetReadyScreenFragment.FRAGMENT_TAG);
+        GetReadyFragment getReadyFragment = new GetReadyFragment();
+        FragmentUtils.loadFragment(this, getReadyFragment, GetReadyFragment.FRAGMENT_TAG);
     }
 
 
@@ -126,6 +112,6 @@ public class GameOverScreenFragment extends Fragment {
 
 
     private void startWelcomeScreenFragment(){
-        FragmentUtils.loadFragment(this, new WelcomeScreenFragment(), WelcomeScreenFragment.FRAGMENT_TAG);
+        FragmentUtils.loadFragment(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
     }
 }

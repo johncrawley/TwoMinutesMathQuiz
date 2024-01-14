@@ -17,21 +17,23 @@ import android.widget.TextView;
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.view.MainViewModel;
+import com.jcrawley.tmmq.view.fragments.game.GameFragment;
+import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 
-public class GetReadyScreenFragment extends Fragment {
+public class GetReadyFragment extends Fragment {
 
     private TextView countdownTextView;
     public static final String FRAGMENT_TAG = "get_ready_fragment_tag";
 
 
-    public GetReadyScreenFragment() {
+    public GetReadyFragment() {
         // Required empty public constructor
     }
 
 
-    public static GetReadyScreenFragment newInstance(String param1, String param2) {
-        return new GetReadyScreenFragment();
+    public static GetReadyFragment newInstance(String param1, String param2) {
+        return new GetReadyFragment();
     }
 
 
@@ -116,7 +118,7 @@ public class GetReadyScreenFragment extends Fragment {
         if(getActivity() == null){
             return;
         }
-        FragmentUtils.loadFragment(this, new GameScreenFragment(), "gameScreenFragment");
+        FragmentUtils.loadFragment(this, new GameFragment(), "gameScreenFragment");
     }
 
 

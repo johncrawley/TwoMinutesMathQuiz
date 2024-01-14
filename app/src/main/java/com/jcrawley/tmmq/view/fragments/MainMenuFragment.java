@@ -17,12 +17,14 @@ import android.widget.TextView;
 
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.view.SettingsActivity;
+import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
+
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class WelcomeScreenFragment extends Fragment {
+public class MainMenuFragment extends Fragment {
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -32,13 +34,13 @@ public class WelcomeScreenFragment extends Fragment {
     private final AtomicBoolean isGameStartInitiated = new AtomicBoolean(false);
 
 
-    public WelcomeScreenFragment() {
+    public MainMenuFragment() {
         // Required empty public constructor
     }
 
 
-    public static WelcomeScreenFragment newInstance(String param1, String param2) {
-        WelcomeScreenFragment fragment = new WelcomeScreenFragment();
+    public static MainMenuFragment newInstance(String param1, String param2) {
+        MainMenuFragment fragment = new MainMenuFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

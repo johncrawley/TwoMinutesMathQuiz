@@ -4,7 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary_dark">#221E35</color>
     <color name="start_game_background">#454545</color>
-    <color name="layout_background_top">#584F6B</color>
+    <color name="layout_background_top">#311B92</color>
     <color name="layout_background_bottom">#232323</color>
     <color name="game_over_layout_background">#201F1F</color>
     <color name="default_time_remaining_text_normal">#C8C8C8</color>

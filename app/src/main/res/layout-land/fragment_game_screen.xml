@@ -7,7 +7,7 @@
     android:weightSum="2"
     android:baselineAligned="false"
     android:id="@+id/gameLayout"
-    tools:context=".view.fragments.GameScreenFragment"
+    tools:context=".view.fragments.game.GameFragment"
     android:background="@drawable/layout_background">
     <include
         android:id="@+id/panelInclude"

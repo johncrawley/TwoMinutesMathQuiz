@@ -1,8 +1,8 @@
-package com.jcrawley.tmmq.view.fragments;
+package com.jcrawley.tmmq.view.fragments.game;
 
-import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Message.NOTIFY_GAME_OVER;
-import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Message.NOTIFY_INCORRECT_ANSWER;
-import static com.jcrawley.tmmq.view.fragments.GameScreenFragment.Message.SET_TIME_REMAINING;
+import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.NOTIFY_GAME_OVER;
+import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.NOTIFY_INCORRECT_ANSWER;
+import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.SET_TIME_REMAINING;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
 
 import android.animation.ArgbEvaluator;
@@ -25,9 +25,12 @@ import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.view.InputHelper;
 import com.jcrawley.tmmq.view.TextAnimator;
+import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
+import com.jcrawley.tmmq.view.fragments.GameOverFragment;
+import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
 
 
-public class GameScreenFragment extends Fragment {
+public class GameFragment extends Fragment {
 
     public enum Message {SET_TIME_REMAINING, NOTIFY_GAME_OVER, NOTIFY_INCORRECT_ANSWER, SET_SCORE, SET_QUESTION  }
     public enum Tag { MINUTES_REMAINING, SECONDS_REMAINING, SCORE, QUESTION}
@@ -39,13 +42,13 @@ public class GameScreenFragment extends Fragment {
     private InputHelper inputHelper;
 
 
-    public GameScreenFragment() {
+    public GameFragment() {
         // Required empty public constructor
     }
 
 
-    public static GameScreenFragment newInstance() {
-        return new GameScreenFragment();
+    public static GameFragment newInstance() {
+        return new GameFragment();
     }
 
 
@@ -227,8 +230,8 @@ public class GameScreenFragment extends Fragment {
             mainActivity.notifyServiceThatGameHasFinished();
         }
         runOnUiThread(()->inputHelper.clearAnswerText());
-        GameOverScreenFragment gameOverScreenFragment = new GameOverScreenFragment();
-        FragmentUtils.loadFragment(this, gameOverScreenFragment, GameOverScreenFragment.FRAGMENT_TAG, bundle);
+        GameOverFragment gameOverFragment = new GameOverFragment();
+        FragmentUtils.loadFragment(this, gameOverFragment, GameOverFragment.FRAGMENT_TAG, bundle);
         resetViewData();
     }
 
@@ -252,8 +255,8 @@ public class GameScreenFragment extends Fragment {
 
 
     private void loadWelcomeScreen(){
-        WelcomeScreenFragment welcomeScreenFragment = new WelcomeScreenFragment();
-        FragmentUtils.loadFragment(this, welcomeScreenFragment, WelcomeScreenFragment.FRAGMENT_TAG);
+        MainMenuFragment mainMenuFragment = new MainMenuFragment();
+        FragmentUtils.loadFragment(this, mainMenuFragment, MainMenuFragment.FRAGMENT_TAG);
     }
 
 

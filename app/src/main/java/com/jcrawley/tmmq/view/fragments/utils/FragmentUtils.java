@@ -1,4 +1,4 @@
-package com.jcrawley.tmmq.view.fragments;
+package com.jcrawley.tmmq.view.fragments.utils;
 
 import android.os.Bundle;
 
