@@ -3,7 +3,10 @@ package com.jcrawley.tmmq.view.fragments.game;
 import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.NOTIFY_GAME_OVER;
 import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.NOTIFY_INCORRECT_ANSWER;
 import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.SET_TIME_REMAINING;
+import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.animateTextColor;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getInt;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getStr;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
@@ -129,8 +132,8 @@ public class GameFragment extends Fragment {
         if(timeRemainingTextView == null){
             return;
         }
-        int minutesRemaining = bundle.getInt(Tag.MINUTES_REMAINING.toString());
-        int secondsRemaining = bundle.getInt(Tag.SECONDS_REMAINING.toString());
+        int minutesRemaining = getInt(bundle, Tag.MINUTES_REMAINING);
+        int secondsRemaining = getInt(bundle, Tag.SECONDS_REMAINING);
         runOnUiThread(()-> updateTimeTextView(minutesRemaining, secondsRemaining));
     }
 
@@ -179,20 +182,8 @@ public class GameFragment extends Fragment {
     }
 
 
-    private void animateTextColor(TextView textView, int startColor, int endColor, int startDelay, int duration){
-        ObjectAnimator animateBack = ObjectAnimator.ofInt(textView,
-                "textColor",
-                startColor,
-                endColor);
-        animateBack.setEvaluator(new ArgbEvaluator());
-        animateBack.setDuration(duration);
-        animateBack.setStartDelay(startDelay);
-        animateBack.start();
-    }
-
-
     private void setScore(Bundle bundle){
-        viewModel.scoreValue = bundle.getInt(Tag.SCORE.toString());;
+        viewModel.scoreValue = getInt(bundle, Tag.SCORE);;
         runOnUiThread(()-> {
             scoreTextView.setText(createScoreString(viewModel.scoreValue));
             animateScoreOnUpdate();
@@ -215,7 +206,7 @@ public class GameFragment extends Fragment {
 
 
     private void fadeInNewQuestionText(Bundle bundle){
-        String text = bundle.getString(Tag.QUESTION.toString());
+        String text = getStr(bundle, Tag.QUESTION);
         runOnUiThread(()-> {
             textAnimator.setNextText(text);
             viewModel.questionText = text;

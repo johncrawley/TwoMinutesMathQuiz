@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.view.fragments.game.GameFragment;
 
 import java.util.function.Consumer;
 
@@ -82,6 +83,14 @@ public class FragmentUtils {
     }
 
 
+    public static int getInt(Bundle bundle, GameFragment.Tag tag){
+        return bundle.getInt(tag.toString());
+    }
+
+
+    public static String getStr(Bundle bundle, GameFragment.Tag tag){
+        return bundle.getString(tag.toString());
+    }
 
 
 }
