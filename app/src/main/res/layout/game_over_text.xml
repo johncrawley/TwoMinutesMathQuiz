@@ -11,6 +11,7 @@
         android:layout_margin="@dimen/game_over_heading_margin"
         android:gravity="center"
         android:text="@string/game_over_text"
+        style="?attr/heading_text_style"
         android:textAlignment="center"
         android:textSize="@dimen/game_over_heading_text_size"
         android:shadowRadius="@integer/text_shadow_radius"

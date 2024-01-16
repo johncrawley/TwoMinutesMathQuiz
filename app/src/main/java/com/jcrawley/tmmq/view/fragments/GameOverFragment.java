@@ -50,6 +50,18 @@ public class GameOverFragment extends Fragment {
         allTimeHighScore = bundle.getInt(ALL_TIME_HIGH_SCORE_KEY);
         timerLength = bundle.getString(TIMER_LENGTH_KEY);
         gameLevel = bundle.getString(GAME_LEVEL_KEY);
+        printInfo();
+    }
+
+    private void log(String msg){
+        System.out.println("^^^ " + msg);
+    }
+
+    private void printInfo(){
+        log("finalScore: " + finalScore);
+        log(" dailyHighScore: " + dailyHighScore);
+        log("all time highScore: " + allTimeHighScore);
+
     }
 
 
