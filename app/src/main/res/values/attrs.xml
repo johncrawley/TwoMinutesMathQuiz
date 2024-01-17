@@ -15,7 +15,8 @@
     <attr name="background_color_2" format="reference"/>
 
 
-    <attr name="heading_text_style" format="reference"/>
+    <attr name="heading_text_color" format="reference"/>
+    <attr name="medium_text_color" format="reference"/>
 
     <attr name="input_view_normal_color" format="reference" />
     <attr name="input_view_pressed_color" format="reference" />

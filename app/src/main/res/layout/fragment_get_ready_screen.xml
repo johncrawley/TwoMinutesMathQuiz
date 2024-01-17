@@ -15,25 +15,30 @@
             android:id="@+id/getReadyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:shadowRadius="@integer/text_shadow_radius"
+            android:layout_margin="@dimen/game_start_get_ready_text_margin"
+            android:textColor="?attr/heading_text_color"
+            android:shadowColor="?attr/text_shadow_layer_color"
             android:shadowDx="@integer/text_shadow_dx"
             android:shadowDy="@integer/text_shadow_dy"
-            android:shadowColor="?attr/text_shadow_layer_color"
-            android:textSize="@dimen/game_start_get_ready_text"
-            style="?attr/heading_text_style"
-            android:layout_margin="@dimen/game_start_get_ready_text_margin"
+            android:shadowRadius="@integer/text_shadow_radius"
             android:text="@string/start_game_get_ready"
+            android:textAlignment="center"
+            android:textSize="@dimen/game_start_get_ready_text"
+            android:autoSizeMaxTextSize="@dimen/game_start_get_ready_text"
+            android:autoSizeMinTextSize="@dimen/game_start_get_ready_text_min"
+            android:autoSizeTextType="uniform"
+            android:maxLines="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/gameStartCountdownText" />
 
         <TextView
             android:id="@+id/gameStartCountdownText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            style="?attr/heading_text_style"
+            android:textColor="?attr/heading_text_color"
             android:textSize="@dimen/game_start_countdown_text"
             android:shadowRadius="@integer/text_shadow_radius"
             android:shadowDx="@integer/text_shadow_dx"
@@ -42,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/getReadyText" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

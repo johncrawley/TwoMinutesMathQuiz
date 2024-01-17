@@ -7,26 +7,32 @@
     tools:context=".view.fragments.MainMenuFragment"
     android:background="@drawable/layout_background">
 
-
-
+    <!-- the title text has multiple shades. Even if you specify a shadow color,
+            these shades will be the shadow, creating a luminescent effect. Instead,
+            we want a black shadow, so an identical text view behind it, and a shadow is assigned to that
+            -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/titleTextShadow"
         android:layout_margin="@dimen/title_text_margin"
         android:text="@string/app_name"
-        android:textColor="@color/black"
+        android:textColor="?attr/title_text_shadow_color"
         android:textSize="@dimen/title_text_size"
+        android:autoSizeMaxTextSize="@dimen/title_text_size"
+        android:autoSizeMinTextSize="@dimen/title_text_size_min"
+        android:autoSizeTextType="uniform"
+        android:maxLines="2"
         android:shadowColor="?attr/title_text_shadow_color"
-        android:shadowDx="-1"
-        android:shadowDy="-1"
-        android:shadowRadius="27"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="20"
         android:gravity="center"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textAlignment="center"/>
-
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,10 +41,10 @@
         android:layout_margin="@dimen/title_text_margin"
         android:text="@string/app_name"
         android:textSize="@dimen/title_text_size"
-        android:shadowColor="?attr/title_text_shadow_color"
-        android:shadowDx="-1"
-        android:shadowDy="-1"
-        android:shadowRadius="3"
+        android:autoSizeMaxTextSize="@dimen/title_text_size"
+        android:autoSizeMinTextSize="@dimen/title_text_size_min"
+        android:autoSizeTextType="uniform"
+        android:maxLines="2"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
