@@ -70,6 +70,7 @@
                 android:shadowRadius="@integer/text_shadow_radius"
                 android:shadowDx="@integer/text_shadow_dx"
                 android:shadowDy="@integer/text_shadow_dy"
+                android:textColor="?attr/medium_text_color"
                 android:shadowColor="?attr/text_shadow_layer_color"
                 android:text="@string/ending_score_label_text"/>
 
@@ -77,12 +78,18 @@
                 android:id="@+id/endingScoreText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:shadowRadius="@integer/text_shadow_radius"
+                android:background="@drawable/final_score_background"
+                android:gravity="center"
+                android:minWidth="120dp"
+                android:minHeight="120dp"
+                android:shadowColor="?attr/text_shadow_layer_color"
                 android:shadowDx="@integer/text_shadow_dx"
                 android:shadowDy="@integer/text_shadow_dy"
-                android:shadowColor="?attr/text_shadow_layer_color"
-                android:textSize="@dimen/ending_score_text_size"/>
+                android:shadowRadius="@integer/text_shadow_radius"
+                android:text="569"
+                android:textColor="?attr/heading_text_color"
+                android:textAlignment="center"
+                android:textSize="@dimen/ending_score_text_size" />
 
         </LinearLayout>
         <LinearLayout
