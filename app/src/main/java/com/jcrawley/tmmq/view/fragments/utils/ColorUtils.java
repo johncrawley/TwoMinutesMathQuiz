@@ -4,8 +4,12 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.util.TypedValue;
 import android.widget.TextView;
+
+import com.jcrawley.tmmq.R;
 
 public class ColorUtils {
 
@@ -31,5 +35,15 @@ public class ColorUtils {
         animateBack.start();
     }
 
+
+    public static void addGradientTo(TextView textView, Context context){
+        Shader textShader = new LinearGradient(0, 0, 0, textView.getTextSize(),
+                new int[]{
+                        getColorFromAttribute(R.attr.title_text_color_1, context),
+                        getColorFromAttribute(R.attr.title_text_color_2, context),
+                        getColorFromAttribute(R.attr.title_text_color_3, context)
+                }, null, Shader.TileMode.CLAMP);
+        textView.getPaint().setShader(textShader);
+    }
 
 }

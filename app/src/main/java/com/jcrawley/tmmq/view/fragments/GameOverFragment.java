@@ -1,5 +1,7 @@
 package com.jcrawley.tmmq.view.fragments;
 
+import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -71,7 +73,7 @@ public class GameOverFragment extends Fragment {
         // Inflate the layout for this fragment
         View parentView = inflater.inflate(R.layout.fragment_game_over_screen, container, false);
         setupFinalScoreText(parentView);
-        setupNewRecordView(parentView);
+        setupGameOverText(parentView);
         setupDetailsView(parentView);
         setupStartNewGameButton(parentView);
         setupRetryButton(parentView);
@@ -80,7 +82,7 @@ public class GameOverFragment extends Fragment {
     }
 
 
-    private void setupNewRecordView(View parentView){
+    private void setupGameOverText(View parentView){
         TextView gameOverText = parentView.findViewById(R.id.gameOverText);
         if(finalScore > allTimeHighScore){
             gameOverText.setText(getResources().getString(R.string.new_all_time_record));
@@ -88,6 +90,8 @@ public class GameOverFragment extends Fragment {
         else if(finalScore > dailyHighScore){
             gameOverText.setText(getResources().getString(R.string.new_daily_record));
         }
+        //TODO: need to create a shadow text view to stop gradient bleeding into the shadow
+      //  addGradientTo(gameOverText, getContext());
     }
 
 

@@ -19,6 +19,7 @@ import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.view.SettingsActivity;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
+import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -94,19 +95,7 @@ public class MainMenuFragment extends Fragment {
 
     private void setupTitleText(View parentView){
         TextView titleText = parentView.findViewById(R.id.titleText);
-        TextPaint paint = titleText.getPaint();
-        float width = paint.measureText(titleText.getText().toString());
-        Context context = getContext();
-
-        Shader textShader = new LinearGradient(0, 0, width, titleText.getTextSize(),
-                new int[]{
-                        getColorFromAttribute(R.attr.title_text_color_1, context),
-                        getColorFromAttribute(R.attr.title_text_color_2, context),
-                        getColorFromAttribute(R.attr.title_text_color_3, context),
-                        getColorFromAttribute(R.attr.title_text_color_4, context),
-                        getColorFromAttribute(R.attr.title_text_color_5, context)
-                }, null, Shader.TileMode.CLAMP);
-        titleText.getPaint().setShader(textShader);
+        addGradientTo(titleText, getContext());
     }
 
 }

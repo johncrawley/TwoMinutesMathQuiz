@@ -86,7 +86,6 @@
                 android:shadowDx="@integer/text_shadow_dx"
                 android:shadowDy="@integer/text_shadow_dy"
                 android:shadowRadius="@integer/text_shadow_radius"
-                android:text="569"
                 android:textColor="?attr/heading_text_color"
                 android:textAlignment="center"
                 android:textSize="@dimen/ending_score_text_size" />
