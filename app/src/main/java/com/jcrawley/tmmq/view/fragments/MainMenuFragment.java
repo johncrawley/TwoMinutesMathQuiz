@@ -1,14 +1,10 @@
 package com.jcrawley.tmmq.view.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +16,6 @@ import com.jcrawley.tmmq.view.SettingsActivity;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
-import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -61,7 +56,7 @@ public class MainMenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View parent = inflater.inflate(R.layout.fragment_welcome_screen, container, false);
+        View parent = inflater.inflate(R.layout.fragment_welcome, container, false);
         isGameStartInitiated.set(false);
         setupButtons(parent);
         setupTitleText(parent);

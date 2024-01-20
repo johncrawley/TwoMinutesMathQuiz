@@ -16,4 +16,6 @@
     <integer name="question_text_shadow_radius">4</integer>
     <integer name="question_text_shadow_dy">6</integer>
     <integer name="question_text_shadow_dx">0</integer>
+
+    <integer name="game_over_buttons_enable_delay">1500</integer>
 </resources>

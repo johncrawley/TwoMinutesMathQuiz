@@ -64,7 +64,7 @@ public class GameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View parentView = inflater.inflate(R.layout.fragment_game_screen, container, false);
+        View parentView = inflater.inflate(R.layout.fragment_game, container, false);
         MainActivity mainActivity = (MainActivity) getActivity();
         if(mainActivity == null){
             return parentView;

@@ -47,7 +47,7 @@ public class GetReadyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View parentView = inflater.inflate(R.layout.fragment_get_ready_screen, container, false);
+        View parentView = inflater.inflate(R.layout.fragment_get_ready, container, false);
         setupViews(parentView);
         return parentView;
     }

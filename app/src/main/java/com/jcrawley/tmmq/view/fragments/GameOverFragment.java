@@ -2,13 +2,17 @@ package com.jcrawley.tmmq.view.fragments;
 
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,6 +32,7 @@ public class GameOverFragment extends Fragment {
 
     private int finalScore, dailyHighScore, allTimeHighScore;
     private String timerLength, gameLevel;
+    private Button mainMenuButton, retryButton;
 
     public GameOverFragment() {
         // Required empty public constructor
@@ -71,28 +76,63 @@ public class GameOverFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View parentView = inflater.inflate(R.layout.fragment_game_over_screen, container, false);
+        View parentView = inflater.inflate(R.layout.fragment_game_over, container, false);
         setupFinalScoreText(parentView);
         setupGameOverText(parentView);
         setupDetailsView(parentView);
         setupStartNewGameButton(parentView);
         setupRetryButton(parentView);
         FragmentUtils.onBackButtonPressed(this, this::loadGetReadyFragment);
+        animateButtons(parentView);
+        enableButtonsAfterDelay();
         return parentView;
     }
 
 
     private void setupGameOverText(View parentView){
         TextView gameOverText = parentView.findViewById(R.id.gameOverText);
+        TextView gameOverTextShadow = parentView.findViewById(R.id.gameOverTextShadow);
+        setLandscapePropsOn(gameOverText, gameOverTextShadow);
         if(finalScore > allTimeHighScore){
             gameOverText.setText(getResources().getString(R.string.new_all_time_record));
         }
         else if(finalScore > dailyHighScore){
             gameOverText.setText(getResources().getString(R.string.new_daily_record));
         }
-        //TODO: need to create a shadow text view to stop gradient bleeding into the shadow
-      //  addGradientTo(gameOverText, getContext());
+        addGradientTo(gameOverText, getContext());
     }
+
+
+    private void animateButtons(View parentView){
+        ViewGroup endGameButtonLayout = parentView.findViewById(R.id.endGameButtonLayout);
+        endGameButtonLayout.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.pop_up));
+    }
+
+
+    private void enableButtonsAfterDelay(){
+        int delay = getResources().getInteger(R.integer.game_over_buttons_enable_delay);
+        new Handler(Looper.getMainLooper()).postDelayed(()->{
+            mainMenuButton.setEnabled(true);
+            retryButton.setEnabled(true);
+            }, delay);
+    }
+
+
+    private void setLandscapePropsOn(TextView... textViews){
+        if(!isInLandscapeMode()){
+            return;
+        }
+        for(TextView textView : textViews){
+            textView.setMaxLines(1);
+            textView.setText(getString(R.string.game_over_text_landscape));
+        }
+    }
+
+
+    private boolean isInLandscapeMode(){
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
 
 
     private void setupDetailsView(View parentView){
@@ -116,14 +156,14 @@ public class GameOverFragment extends Fragment {
 
 
     private void setupStartNewGameButton(View parentView){
-        Button button = parentView.findViewById(R.id.mainMenuButton);
-        button.setOnClickListener(v -> startWelcomeScreenFragment());
+        mainMenuButton = parentView.findViewById(R.id.mainMenuButton);
+        mainMenuButton.setOnClickListener(v -> startWelcomeScreenFragment());
     }
 
 
     private void setupRetryButton(View parentView){
-        Button button = parentView.findViewById(R.id.retryMenuButton);
-        button.setOnClickListener(v -> loadGetReadyFragment());
+        retryButton = parentView.findViewById(R.id.retryMenuButton);
+        retryButton.setOnClickListener(v -> loadGetReadyFragment());
     }
 
 
