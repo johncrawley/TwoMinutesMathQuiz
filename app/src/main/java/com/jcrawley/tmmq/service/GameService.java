@@ -32,12 +32,9 @@ public class GameService extends Service {
     }
 
 
-
     public SharedPreferences getScorePrefs(){
-        final String SCORE_PREFERENCES = "score_preferences";
-        return getSharedPreferences(SCORE_PREFERENCES, MODE_PRIVATE);
+        return getSharedPreferences("score_preferences", MODE_PRIVATE);
     }
-
 
 
     public void setQuestionTextOnView(String questionText){
@@ -71,13 +68,6 @@ public class GameService extends Service {
     public void notifyIncorrectAnswer(){
         mainActivity.notifyIncorrectAnswer();
     }
-
-
-    public void setupPrefs(){
-        SharedPreferences sharedPreferences = getSharedPreferences("ScorePreferences", MODE_PRIVATE);
-    }
-
-
 
 
     public void updateScore(int score){
@@ -154,7 +144,6 @@ public class GameService extends Service {
 
     @Override
     public void onDestroy() {
-        log("Entered onDestroy() setting activity ref to null");
         mainActivity = null;
     }
 
@@ -165,13 +154,11 @@ public class GameService extends Service {
 
 
     public void submitAnswer(String answerText){
-        log("entered submitAnswer() answer: " + answerText);
         game.checkAnswer(answerText);
     }
 
 
     public void setActivity(MainActivity mainActivity){
-        log("Entered setActivity()");
         this.mainActivity = mainActivity;
     }
 

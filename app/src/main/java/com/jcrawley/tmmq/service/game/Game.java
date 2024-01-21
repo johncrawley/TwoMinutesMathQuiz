@@ -120,6 +120,4 @@ public class Game {
         gameService.updateTimer(minutesRemaining, secondsRemaining);
     }
 
-
-
 }
