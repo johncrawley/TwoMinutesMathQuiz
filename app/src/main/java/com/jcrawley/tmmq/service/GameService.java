@@ -11,6 +11,8 @@ import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.game.TimerLength;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
+import com.jcrawley.tmmq.service.sound.Sound;
+import com.jcrawley.tmmq.service.sound.SoundPlayer;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,11 +26,17 @@ public class GameService extends Service {
     private final Game game;
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> notifyGameOverFuture;
+    private SoundPlayer soundPlayer;
 
 
     public GameService() {
         super();
         game = new Game();
+    }
+
+
+    public void playSound(Sound sound){
+        soundPlayer.playSound(sound);
     }
 
 
@@ -112,6 +120,7 @@ public class GameService extends Service {
     public void onCreate() {
         log("entered onCreate()");
         game.init(this);
+        soundPlayer = new SoundPlayer(getApplicationContext());
     }
 
 

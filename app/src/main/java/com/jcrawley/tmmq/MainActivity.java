@@ -23,6 +23,7 @@ import androidx.preference.PreferenceManager;
 import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.game.TimerLength;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
+import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
 
@@ -82,11 +83,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupFragments(){
         fragmentContainerView = findViewById(R.id.fragment_container);
-
         Fragment welcomeScreenFragment = new MainMenuFragment();
         getSupportFragmentManager().beginTransaction()
         .add(R.id.fragment_container, welcomeScreenFragment)
         .commit();
+     }
+
+
+     public void playSound(Sound sound){
+        reassignActivityToService();
+        gameService.playSound(sound);
      }
 
 

@@ -1,5 +1,7 @@
 package com.jcrawley.tmmq.service.sound;
 
+import com.jcrawley.tmmq.R;
+
 public enum Sound {
 
     KEYPAD_BUTTON(SoundType.KEYPAD),

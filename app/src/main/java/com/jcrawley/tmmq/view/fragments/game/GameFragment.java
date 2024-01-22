@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.InputHelper;
 import com.jcrawley.tmmq.view.TextAnimator;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
@@ -43,6 +44,7 @@ public class GameFragment extends Fragment {
     private TextAnimator textAnimator;
     private GameScreenViewModel viewModel;
     private InputHelper inputHelper;
+    private MainActivity mainActivity;
 
 
     public GameFragment() {
@@ -65,7 +67,7 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View parentView = inflater.inflate(R.layout.fragment_game, container, false);
-        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();
         if(mainActivity == null){
             return parentView;
         }
@@ -128,6 +130,13 @@ public class GameFragment extends Fragment {
     }
 
 
+    private void playSound(Sound sound){
+        if(mainActivity!= null){
+            mainActivity.playSound(sound);
+        }
+    }
+
+
     private void updateTimeRemaining(Bundle bundle){
         if(timeRemainingTextView == null){
             return;
@@ -183,7 +192,7 @@ public class GameFragment extends Fragment {
 
 
     private void setScore(Bundle bundle){
-        viewModel.scoreValue = getInt(bundle, Tag.SCORE);;
+        viewModel.scoreValue = getInt(bundle, Tag.SCORE);
         runOnUiThread(()-> {
             scoreTextView.setText(createScoreString(viewModel.scoreValue));
             animateScoreOnUpdate();
@@ -192,6 +201,7 @@ public class GameFragment extends Fragment {
             animateTextColor(inputTextView, defaultAnswerTextColor, correctAnswerTextColor, 0, colorChangeDuration);
             clearAnswerTextAfterDelay(colorChangeDuration + 200);
         });
+        playSound(Sound.CORRECT_ANSWER);
     }
 
 
