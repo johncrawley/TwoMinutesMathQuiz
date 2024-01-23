@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.fragments.game.GameFragment;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
@@ -69,32 +70,31 @@ public class GetReadyFragment extends Fragment {
 
     public void startTextAnimation(final TextView v, MainViewModel viewModel){
         updateGameStartCountdownText(viewModel.gameStartCurrentCountdown);
-        viewModel.gameStartCurrentCountdown = viewModel.gameStartInitialCountdown;
 
         final AnimationSet animationSet = new AnimationSet(true);
-        int duration = 800;
-        float pivotX = 0.5f;
-        float pivotY = 0.5f;
-        Animation enlargeAnimation = new ScaleAnimation(1.0f,2f,1.0f,2f,
-                Animation.RELATIVE_TO_SELF,pivotX,
-                Animation.RELATIVE_TO_SELF,pivotY);
-        enlargeAnimation.setFillAfter(true);
-        enlargeAnimation.setDuration(duration);
 
-        Animation reductionAnimation = new ScaleAnimation(1.0f,0.5f,1.0f,0.5f,
-                Animation.RELATIVE_TO_SELF,pivotX,
-                Animation.RELATIVE_TO_SELF,pivotY);
-        reductionAnimation.setFillAfter(true);
-        reductionAnimation.setDuration(duration);
+        addScaleAnimationTo(animationSet, 2f,2f, null);
+        addScaleAnimationTo(animationSet, 0.5f,0.5f, createListenerForCountdown(v, viewModel, animationSet));
 
-        reductionAnimation.setAnimationListener(createAnimationListenerForCountdown(v, viewModel, animationSet));
-        animationSet.addAnimation(enlargeAnimation);
-        animationSet.addAnimation(reductionAnimation);
         new Handler(Looper.getMainLooper()).postDelayed(() -> v.startAnimation(animationSet), 500);
     }
 
 
-    private Animation.AnimationListener createAnimationListenerForCountdown(View v, MainViewModel viewModel, AnimationSet animationSet){
+    private void addScaleAnimationTo(AnimationSet animationSet, float toX, float toY, Animation.AnimationListener animationListener){
+        int duration = 800;
+        float pivotX = 0.5f;
+        float pivotY = 0.5f;
+        Animation animation = new ScaleAnimation(1f, toX, 1f, toY,
+                Animation.RELATIVE_TO_SELF, pivotX,
+                Animation.RELATIVE_TO_SELF, pivotY);
+        animation.setFillAfter(true);
+        animation.setDuration(duration);
+        animation.setAnimationListener(animationListener);
+        animationSet.addAnimation(animation);
+    }
+
+
+    private Animation.AnimationListener createListenerForCountdown(View v, MainViewModel viewModel, AnimationSet animationSet){
         return new Animation.AnimationListener() {
             @Override
             public void onAnimationEnd(Animation animation){
@@ -104,10 +104,13 @@ public class GetReadyFragment extends Fragment {
                     v.startAnimation(animationSet);
                 }
                 else{
+                    getMainActivity().playSound(Sound.GET_READY_COMPLETE);
                     navigateToGameFragment();
                 }
             }
-            @Override public void onAnimationStart(Animation animation){ v.setVisibility(View.VISIBLE);}
+            @Override public void onAnimationStart(Animation animation){
+                getMainActivity().playSound(Sound.GET_READY_COUNTDOWN);
+                v.setVisibility(View.VISIBLE);}
 
             @Override public void onAnimationRepeat(Animation animation){}
         };
@@ -133,8 +136,8 @@ public class GetReadyFragment extends Fragment {
 
 
     private MainViewModel getMainViewModel(){
-       MainActivity mainActivity =  (MainActivity)getActivity();
-       return mainActivity.getViewModel();
+        MainActivity mainActivity = getMainActivity();
+        return mainActivity.getViewModel();
     }
 
 }

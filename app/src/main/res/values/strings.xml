@@ -50,8 +50,14 @@
     <!-- Preference Titles -->
     <string name="preferences_general_header">General</string>
     <string name="preferences_vibration">Vibration</string>
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="sound_header">Sound</string>
+
+
+    <string name="preference_sound_button_press">Button Clicks</string>
+    <string name="preference_sound_get_ready">Get Ready Beeps</string>
+    <string name="preference_sound_game">Game Sounds</string>
+    <string name="preference_sound_keypad">Keypad Clicks</string>
+
 
     <string name="preference_timer_length">Timer Length</string>
     <string name="time_limit_twelve_seconds">12 Seconds</string>

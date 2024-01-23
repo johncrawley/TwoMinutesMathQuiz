@@ -44,7 +44,7 @@ public class InputHelper {
         View view = parentView.findViewById(viewId);
         view.setOnClickListener(v -> {
             runnable.run();
-            activity.vibrateOnPress();
+            activity.onKeypadButtonClicked();
         });
     }
 
@@ -53,7 +53,7 @@ public class InputHelper {
         View view = parentView.findViewById(viewId);
         view.setOnClickListener(v -> {
             addDigitToAnswer(digit);
-            activity.vibrateOnPress();
+            activity.onKeypadButtonClicked();
         });
     }
 

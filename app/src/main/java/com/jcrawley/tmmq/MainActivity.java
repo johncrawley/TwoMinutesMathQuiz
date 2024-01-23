@@ -102,7 +102,13 @@ public class MainActivity extends AppCompatActivity {
      }
 
 
-     public void vibrateOnPress(){
+     public void onKeypadButtonClicked(){
+        vibrate();
+        playSound(Sound.KEYPAD_BUTTON);
+     }
+
+
+     private void vibrate(){
          if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
              if(isVibrationEnabled) {
                  vibrator.vibrate(VibrationEffect.createOneShot(55, 1));

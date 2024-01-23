@@ -5,6 +5,7 @@ import com.jcrawley.tmmq.R;
 public enum Sound {
 
     KEYPAD_BUTTON(SoundType.KEYPAD),
+    MENU_BUTTON(SoundType.BUTTON_PRESS),
     GET_READY_COUNTDOWN(SoundType.GET_READY),
     GET_READY_COMPLETE(SoundType.GET_READY),
     CORRECT_ANSWER(SoundType.GAME_EFFECT),

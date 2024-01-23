@@ -1,24 +1,7 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
-
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
-
-    </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/preferences_general_header">
-
         <ListPreference
             app:entries="@array/time_limit_entries"
             app:entryValues="@array/time_limit_values"
@@ -26,13 +9,35 @@
             app:defaultValue="120"
             app:title="@string/preference_timer_length"
             app:useSimpleSummaryProvider="true" />
-
         <SwitchPreference
             app:key="vibration_enabled"
             app:title="@string/preferences_vibration"
             app:enabled="true"
             />
-</PreferenceCategory>
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/sound_header">
+        <SwitchPreference
+            app:key="keypad_sounds"
+            app:title="@string/preference_sound_keypad"
+            app:enabled="true"
+            />
+        <SwitchPreference
+            app:key="button_sounds"
+            app:title="@string/preference_sound_button_press"
+            app:enabled="true"
+            />
+        <SwitchPreference
+            app:key="game_sounds"
+            app:title="@string/preference_sound_game"
+            app:enabled="true"
+            />
+        <SwitchPreference
+            app:key="get_ready_sounds"
+            app:title="@string/preference_sound_get_ready"
+            app:enabled="true"
+            />
+    </PreferenceCategory>
 
 
 </PreferenceScreen>

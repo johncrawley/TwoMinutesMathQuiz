@@ -102,6 +102,7 @@ public class GameFragment extends Fragment {
         int duration = 150;
         animateTextColor(inputTextView, defaultAnswerTextColor, incorrectColor, initialDelay, duration);
         clearAnswerTextAfterDelay(initialDelay + duration + 100);
+        playSound(Sound.INCORRECT_ANSWER);
     }
 
 
@@ -148,8 +149,12 @@ public class GameFragment extends Fragment {
 
 
     private void updateTimeTextView(int minutesRemaining, int secondsRemaining){
+
+        int totalSecondsRemaining = (minutesRemaining * 60) + secondsRemaining;
+        int warningTime = getResources().getInteger(R.integer.countdown_warning_time);
         timeRemainingTextView.setVisibility(View.VISIBLE);
-        setTimeRemainingTextColor(minutesRemaining, secondsRemaining);
+        setTimeRemainingTextColor(totalSecondsRemaining, warningTime);
+        handleWarningOnLowTime(totalSecondsRemaining, warningTime);
         viewModel.timeRemaining = createTimeRemainingString(minutesRemaining, secondsRemaining);;
         timeRemainingTextView.setText(viewModel.timeRemaining);
     }
@@ -162,14 +167,16 @@ public class GameFragment extends Fragment {
     }
 
 
-    private void setTimeRemainingTextColor(int minutesRemaining, int secondsRemaining){
-        int warningTime = getResources().getInteger(R.integer.countdown_warning_time);
-        int totalSecondsRemaining = (minutesRemaining * 60) + secondsRemaining;
+    private void setTimeRemainingTextColor(int totalSecondsRemaining, int warningTime){
         timeRemainingTextView.setTextColor(totalSecondsRemaining <= warningTime ?
                 timeRemainingTextWarningColor : timeRemainingTextNormalColor);
+    }
 
+
+    private void handleWarningOnLowTime(int totalSecondsRemaining, int warningTime){
         if(totalSecondsRemaining == warningTime){
             animateTextViewForWarning();
+            playSound(Sound.LOW_TIME);
         }
     }
 
