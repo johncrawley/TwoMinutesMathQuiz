@@ -1,6 +1,8 @@
 package com.jcrawley.tmmq.view.fragments;
 
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragment;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.playSound;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,11 +19,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 
 public class GameOverFragment extends Fragment {
-
 
     public static final String FRAGMENT_TAG = "game_over_screen";
     public static String FINAL_SCORE_KEY = "final_score_key";
@@ -33,6 +35,7 @@ public class GameOverFragment extends Fragment {
     private int finalScore, dailyHighScore, allTimeHighScore;
     private String timerLength, gameLevel;
     private Button mainMenuButton, retryButton;
+    private TextView gameOverText, gameOverTextShadow;
 
     public GameOverFragment() {
         // Required empty public constructor
@@ -47,35 +50,35 @@ public class GameOverFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        if (bundle == null){
-            return;
+        if (getArguments() != null) {
+            assignDataFrom(getArguments());
         }
+    }
 
+
+    private void assignDataFrom(Bundle bundle){
         finalScore = bundle.getInt(FINAL_SCORE_KEY);
         dailyHighScore = bundle.getInt(DAILY_HIGH_SCORE_KEY);
         allTimeHighScore = bundle.getInt(ALL_TIME_HIGH_SCORE_KEY);
         timerLength = bundle.getString(TIMER_LENGTH_KEY);
         gameLevel = bundle.getString(GAME_LEVEL_KEY);
-        printInfo();
     }
+
 
     private void log(String msg){
         System.out.println("^^^ " + msg);
     }
 
+
     private void printInfo(){
         log("finalScore: " + finalScore);
         log(" dailyHighScore: " + dailyHighScore);
         log("all time highScore: " + allTimeHighScore);
-
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View parentView = inflater.inflate(R.layout.fragment_game_over, container, false);
         setupFinalScoreText(parentView);
         setupGameOverText(parentView);
@@ -90,16 +93,27 @@ public class GameOverFragment extends Fragment {
 
 
     private void setupGameOverText(View parentView){
-        TextView gameOverText = parentView.findViewById(R.id.gameOverText);
-        TextView gameOverTextShadow = parentView.findViewById(R.id.gameOverTextShadow);
+        gameOverText = parentView.findViewById(R.id.gameOverText);
+        gameOverTextShadow = parentView.findViewById(R.id.gameOverTextShadow);
         setLandscapePropsOn(gameOverText, gameOverTextShadow);
+        assignGameOverMessage();
+        addGradientTo(gameOverText, getContext());
+    }
+
+
+    private void assignGameOverMessage(){
         if(finalScore > allTimeHighScore){
-            gameOverText.setText(getResources().getString(R.string.new_all_time_record));
+            setGameOverText(getResources().getString(R.string.new_all_time_record));
         }
         else if(finalScore > dailyHighScore){
-            gameOverText.setText(getResources().getString(R.string.new_daily_record));
+            setGameOverText(getResources().getString(R.string.new_daily_record));
         }
-        addGradientTo(gameOverText, getContext());
+    }
+
+
+    private void setGameOverText(String text){
+        gameOverText.setText(text);
+        gameOverTextShadow.setText(text);
     }
 
 
@@ -134,7 +148,6 @@ public class GameOverFragment extends Fragment {
     }
 
 
-
     private void setupDetailsView(View parentView){
         TextView gameDetails = parentView.findViewById(R.id.gameDetailsText);
 
@@ -145,7 +158,7 @@ public class GameOverFragment extends Fragment {
 
     private void loadGetReadyFragment(){
         GetReadyFragment getReadyFragment = new GetReadyFragment();
-        FragmentUtils.loadFragment(this, getReadyFragment, GetReadyFragment.FRAGMENT_TAG);
+        loadFragment(this, getReadyFragment, GetReadyFragment.FRAGMENT_TAG);
     }
 
 
@@ -157,17 +170,23 @@ public class GameOverFragment extends Fragment {
 
     private void setupStartNewGameButton(View parentView){
         mainMenuButton = parentView.findViewById(R.id.mainMenuButton);
-        mainMenuButton.setOnClickListener(v -> startWelcomeScreenFragment());
+        mainMenuButton.setOnClickListener(v -> {
+            playSound(this, Sound.MENU_BUTTON);
+            startWelcomeScreenFragment();
+        });
     }
 
 
     private void setupRetryButton(View parentView){
         retryButton = parentView.findViewById(R.id.retryMenuButton);
-        retryButton.setOnClickListener(v -> loadGetReadyFragment());
+        retryButton.setOnClickListener(v ->{
+            playSound(this, Sound.MENU_BUTTON);
+            loadGetReadyFragment();
+        });
     }
 
 
     private void startWelcomeScreenFragment(){
-        FragmentUtils.loadFragment(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
+        loadFragment(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
     }
 }

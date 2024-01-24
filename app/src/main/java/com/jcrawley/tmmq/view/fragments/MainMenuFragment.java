@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.SettingsActivity;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
@@ -66,10 +68,14 @@ public class MainMenuFragment extends Fragment {
 
     private void setupButtons(View parent){
         Button button = parent.findViewById(R.id.startGameButton);
-        button.setOnClickListener(v -> startGame());
+        button.setOnClickListener(v -> {
+            playMenuButtonSound();
+            startGame();
+        });
 
         Button settingsButton = parent.findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(v -> {
+            playMenuButtonSound();
             Intent intent = new Intent(getContext(), SettingsActivity.class);
             startActivity(intent);
         });
@@ -85,6 +91,14 @@ public class MainMenuFragment extends Fragment {
             return;
         }
         FragmentUtils.loadFragment(this, new ChooseLevelFragment(), ChooseLevelFragment.FRAGMENT_TAG);
+    }
+
+
+    private void playMenuButtonSound(){
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if(mainActivity != null){
+            mainActivity.playSound(Sound.MENU_BUTTON);
+        }
     }
 
 

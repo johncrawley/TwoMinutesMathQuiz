@@ -10,7 +10,9 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
@@ -90,10 +92,15 @@ public class MainActivity extends AppCompatActivity {
      }
 
 
-     public void playSound(Sound sound){
+    public void playSound(Sound sound){
         reassignActivityToService();
         gameService.playSound(sound);
-     }
+    }
+
+
+    public void playSound(Sound sound, int delay){
+        new Handler(Looper.getMainLooper()).postDelayed(()->playSound(sound), delay);
+    }
 
 
      private void setupVibe(){

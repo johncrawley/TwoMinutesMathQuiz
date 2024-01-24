@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.fragments.game.GameFragment;
 
 import java.util.function.Consumer;
@@ -92,5 +94,12 @@ public class FragmentUtils {
         return bundle.getString(tag.toString());
     }
 
+
+    public static void playSound(Fragment fragment, Sound sound){
+        MainActivity mainActivity = (MainActivity) fragment.getActivity();
+        if(mainActivity != null){
+            mainActivity.playSound(sound);
+        }
+    }
 
 }

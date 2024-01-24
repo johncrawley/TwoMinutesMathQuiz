@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 import java.util.Map;
@@ -74,7 +75,9 @@ public class ChooseLevelFragment extends Fragment {
             }
             isLevelChosen.set(true);
             mainActivity.setDifficulty(difficulty);
+            mainActivity.playSound(Sound.MENU_BUTTON);
             FragmentUtils.loadFragment(this, new GetReadyFragment(), GetReadyFragment.FRAGMENT_TAG);
         });
     }
+
 }

@@ -102,7 +102,7 @@ public class GameFragment extends Fragment {
         int duration = 150;
         animateTextColor(inputTextView, defaultAnswerTextColor, incorrectColor, initialDelay, duration);
         clearAnswerTextAfterDelay(initialDelay + duration + 100);
-        playSound(Sound.INCORRECT_ANSWER);
+        playSoundWithDelay(Sound.INCORRECT_ANSWER);
     }
 
 
@@ -134,6 +134,13 @@ public class GameFragment extends Fragment {
     private void playSound(Sound sound){
         if(mainActivity!= null){
             mainActivity.playSound(sound);
+        }
+    }
+
+
+    private void playSoundWithDelay(Sound sound){
+        if(mainActivity!= null){
+            mainActivity.playSound(sound, 200);
         }
     }
 
@@ -208,7 +215,7 @@ public class GameFragment extends Fragment {
             animateTextColor(inputTextView, defaultAnswerTextColor, correctAnswerTextColor, 0, colorChangeDuration);
             clearAnswerTextAfterDelay(colorChangeDuration + 200);
         });
-        playSound(Sound.CORRECT_ANSWER);
+        playSoundWithDelay(Sound.CORRECT_ANSWER);
     }
 
 
@@ -233,14 +240,26 @@ public class GameFragment extends Fragment {
 
 
     private void onGameOver(Bundle bundle){
+        notifyGameOverAndPlaySound();
+        runOnUiThread(()->inputHelper.clearAnswerText());
+        resetViewDataAndLoadGameOver(bundle);
+    }
+
+
+    private void notifyGameOverAndPlaySound(){
         MainActivity mainActivity = (MainActivity)getActivity();
         if(mainActivity != null) {
             mainActivity.notifyServiceThatGameHasFinished();
+            mainActivity.playSound(Sound.GAME_OVER);
         }
-        runOnUiThread(()->inputHelper.clearAnswerText());
-        GameOverFragment gameOverFragment = new GameOverFragment();
-        FragmentUtils.loadFragment(this, gameOverFragment, GameOverFragment.FRAGMENT_TAG, bundle);
-        resetViewData();
+    }
+
+
+    private void resetViewDataAndLoadGameOver(Bundle bundle){
+        new Handler(Looper.getMainLooper()).postDelayed(()->{
+            FragmentUtils.loadFragment(this, new GameOverFragment(), GameOverFragment.FRAGMENT_TAG, bundle);
+            resetViewData();
+        }, 400);
     }
 
 
