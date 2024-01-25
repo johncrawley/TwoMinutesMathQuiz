@@ -4,6 +4,9 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="colorPrimaryDark">@color/primary_dark</item> <!-- Notification Bar -->
+
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="default_question_text_color">@color/default_question_text_color</item>
         <item name="default_answer_text_color">@color/default_answer_text</item>
         <item name="correct_answer_text_color">@color/correct_answer_text</item>

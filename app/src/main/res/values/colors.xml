@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary_dark">#221E35</color>
+    <color name="primary">#D37600</color>
+    <color name="accent">#FB8C00</color>
     <color name="start_game_background">#454545</color>
     <color name="layout_background_top">#311B92</color>
     <color name="layout_background_bottom">#080418</color>
