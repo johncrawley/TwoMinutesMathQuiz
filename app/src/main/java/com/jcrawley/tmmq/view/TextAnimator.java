@@ -9,27 +9,18 @@ public class TextAnimator {
     final Animation fadeInAnimation = new AlphaAnimation(0.0f, 1.0f);
     final Animation fadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);
 
-    private String nextText = "";
 
     public TextAnimator(TextView itemTextView, int defaultColor){
-
         fadeOutAnimation.setDuration(250);
         fadeInAnimation.setDuration(200);
         fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
-                itemTextView.setText(nextText);
                 itemTextView.setTextColor(defaultColor);
-                itemTextView.startAnimation(fadeInAnimation);
             }
             @Override public void onAnimationStart(Animation animation){/*do nothing */}
             @Override public void onAnimationRepeat(Animation animation) { /* do nothing */}
         });
-    }
-
-
-    public void setNextText(String text){
-        nextText = text;
     }
 
 
@@ -38,7 +29,7 @@ public class TextAnimator {
     }
 
 
-    public Animation getFadeAnimation(){
+    public Animation getFadeOutAnimation(){
         return fadeOutAnimation;
     }
 

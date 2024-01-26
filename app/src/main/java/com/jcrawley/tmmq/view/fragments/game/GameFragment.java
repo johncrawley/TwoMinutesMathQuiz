@@ -11,9 +11,12 @@ import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getStr;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -33,10 +36,13 @@ import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 import com.jcrawley.tmmq.view.fragments.GameOverFragment;
 import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
+
 
 public class GameFragment extends Fragment {
 
-    public enum Message {SET_TIME_REMAINING, NOTIFY_GAME_OVER, NOTIFY_INCORRECT_ANSWER, SET_SCORE, SET_QUESTION  }
+    public enum Message {SET_TIME_REMAINING, NOTIFY_GAME_OVER, NOTIFY_INCORRECT_ANSWER, SET_SCORE, SET_QUESTION, SHOW_QUESTION  }
     public enum Tag { MINUTES_REMAINING, SECONDS_REMAINING, SCORE, QUESTION}
     private TextView timeRemainingTextView, scoreTextView, questionTextView, inputTextView;
     private int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
@@ -45,7 +51,7 @@ public class GameFragment extends Fragment {
     private GameScreenViewModel viewModel;
     private InputHelper inputHelper;
     private MainActivity mainActivity;
-
+    private final AtomicBoolean isCreated = new AtomicBoolean(false);
 
     public GameFragment() {
         // Required empty public constructor
@@ -78,7 +84,14 @@ public class GameFragment extends Fragment {
         mainActivity.startGame();
         setupListeners();
         FragmentUtils.onBackButtonPressed(this, this::stopTimerAndReturnToWelcomeScreen);
+        isCreated.set(true);
         return parentView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //isCreated.set(true);
     }
 
 
@@ -86,23 +99,37 @@ public class GameFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(GameScreenViewModel.class);
     }
 
-
-    private void setupListeners(){
-        FragmentUtils.setListener(this, SET_TIME_REMAINING.toString(), this::updateTimeRemaining);
-        FragmentUtils.setListener(this, Message.SET_SCORE.toString(), this::setScore);
-        FragmentUtils.setListener(this, Message.SET_QUESTION.toString(), this::setQuestion);
-        FragmentUtils.setListener(this, NOTIFY_GAME_OVER.toString(), this::onGameOver);
-        FragmentUtils.setListener(this, NOTIFY_INCORRECT_ANSWER.toString(), this::onIncorrectAnswer);
+    @Override
+    public void onAttach(@NonNull Context context){
+        super.onAttach(context);
+        isCreated.set(true);
     }
 
+
+    private void setupListeners(){
+        FragmentUtils.setListener(this, SET_TIME_REMAINING.toString(), b -> process(this::updateTimeRemaining, b));
+        FragmentUtils.setListener(this, Message.SET_SCORE.toString(), b -> process(this::setScore, b));
+        FragmentUtils.setListener(this, Message.SET_QUESTION.toString(), b -> process(this::setQuestion, b));
+        FragmentUtils.setListener(this, NOTIFY_GAME_OVER.toString(), b -> process(this::onGameOver, b));
+        FragmentUtils.setListener(this, NOTIFY_INCORRECT_ANSWER.toString(), b-> process(this::onIncorrectAnswer, b));
+    }
+
+
+    private void process(Consumer<Bundle> consumer, Bundle bundle){
+        if(isCreated.get()){
+            consumer.accept(bundle);
+        }
+    }
 
     private void onIncorrectAnswer(Bundle bundle){
         int incorrectColor = getColorFromAttribute(R.attr.incorrect_answer_text_color, getContext());
         int initialDelay = 0;
         int duration = 150;
+        fadeOutQuestionText();
         animateTextColor(inputTextView, defaultAnswerTextColor, incorrectColor, initialDelay, duration);
-        clearAnswerTextAfterDelay(initialDelay + duration + 100);
+        clearAnswerTextAfterDelay(initialDelay + duration + 300);
         playSoundWithDelay(Sound.INCORRECT_ANSWER);
+        fadeInQuestionText(1000);
     }
 
 
@@ -156,7 +183,6 @@ public class GameFragment extends Fragment {
 
 
     private void updateTimeTextView(int minutesRemaining, int secondsRemaining){
-
         int totalSecondsRemaining = (minutesRemaining * 60) + secondsRemaining;
         int warningTime = getResources().getInteger(R.integer.countdown_warning_time);
         timeRemainingTextView.setVisibility(View.VISIBLE);
@@ -206,16 +232,28 @@ public class GameFragment extends Fragment {
 
 
     private void setScore(Bundle bundle){
-        viewModel.scoreValue = getInt(bundle, Tag.SCORE);
         runOnUiThread(()-> {
-            scoreTextView.setText(createScoreString(viewModel.scoreValue));
-            animateScoreOnUpdate();
-            int correctAnswerTextColor = getColorFromAttribute(R.attr.correct_answer_text_color, getContext());
+            fadeOutQuestionText();
+            updateScoreView(bundle);
             int colorChangeDuration = 150;
-            animateTextColor(inputTextView, defaultAnswerTextColor, correctAnswerTextColor, 0, colorChangeDuration);
+            changeInputTextColorForCorrectAnswer(colorChangeDuration);
+            animateScoreOnUpdate();
             clearAnswerTextAfterDelay(colorChangeDuration + 200);
         });
         playSoundWithDelay(Sound.CORRECT_ANSWER);
+        fadeInQuestionText(1500);
+    }
+
+
+    private void updateScoreView(Bundle bundle){
+        viewModel.scoreValue = getInt(bundle, Tag.SCORE);
+        scoreTextView.setText(createScoreString(viewModel.scoreValue));
+    }
+
+
+    private void changeInputTextColorForCorrectAnswer(int colorChangeDuration){
+        int correctAnswerTextColor = getColorFromAttribute(R.attr.correct_answer_text_color, getContext());
+        animateTextColor(inputTextView, defaultAnswerTextColor, correctAnswerTextColor, 0, colorChangeDuration);
     }
 
 
@@ -225,17 +263,25 @@ public class GameFragment extends Fragment {
 
 
     private void setQuestion(Bundle bundle){
-       fadeInNewQuestionText(bundle);
+        boolean wasQuestionTextEmpty = viewModel.questionText.isEmpty();
+        viewModel.questionText = getStr(bundle, Tag.QUESTION);
+        if(questionTextView.getVisibility() != View.VISIBLE || wasQuestionTextEmpty){
+            fadeInQuestionText(500);
+        }
+
     }
 
 
-    private void fadeInNewQuestionText(Bundle bundle){
-        String text = getStr(bundle, Tag.QUESTION);
-        runOnUiThread(()-> {
-            textAnimator.setNextText(text);
-            viewModel.questionText = text;
-            questionTextView.startAnimation(textAnimator.getFadeAnimation());
-        });
+    private void fadeOutQuestionText(){
+        runOnUiThread(()-> questionTextView.startAnimation(textAnimator.getFadeOutAnimation()));
+    }
+
+
+    private void fadeInQuestionText(int delay){
+        new Handler(Looper.getMainLooper()).postDelayed( ()-> {
+            questionTextView.setText(viewModel.questionText);
+            questionTextView.startAnimation(textAnimator.getFadeInAnimation());
+        },delay);
     }
 
 

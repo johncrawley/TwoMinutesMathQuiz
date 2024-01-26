@@ -96,7 +96,7 @@ public class Game {
             gameService.notifyIncorrectAnswer();
         }
         currentQuestion = questionGenerator.generate();
-        gameService.fadeInQuestionTextOnView(currentQuestion.getQuestionText());
+        gameService.setQuestionTextOnView(currentQuestion.getQuestionText());
     }
 
 
