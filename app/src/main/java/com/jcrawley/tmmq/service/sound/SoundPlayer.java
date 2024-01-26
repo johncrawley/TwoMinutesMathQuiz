@@ -80,14 +80,14 @@ public class SoundPlayer {
 
     private void loadSounds(){
         soundMap = new HashMap<>();
-        load(Sound.CORRECT_ANSWER, R.raw.high_tom_1);
-        load(Sound.GET_READY_COUNTDOWN, R.raw.get_ready_beep);
-        load(Sound.GET_READY_COMPLETE, R.raw.get_ready_complete);
-        load(Sound.KEYPAD_BUTTON, R.raw.keypad_click);
-        load(Sound.INCORRECT_ANSWER, R.raw.high_tom_1);
-        load(Sound.GAME_OVER, R.raw.high_tom_1);
+        load(Sound.CORRECT_ANSWER, R.raw.fx_correct_answer);
+        load(Sound.GET_READY_COUNTDOWN, R.raw.fx_get_ready_beep);
+        load(Sound.GET_READY_COMPLETE, R.raw.fx_get_ready_complete);
+        load(Sound.KEYPAD_BUTTON, R.raw.fx_keypad_click);
+        load(Sound.INCORRECT_ANSWER, R.raw.fx_incorrect_answer);
+        load(Sound.GAME_OVER, R.raw.fx_game_over);
         load(Sound.MENU_BUTTON, R.raw.high_tom_1);
-        load(Sound.LOW_TIME, R.raw.high_tom_1);
+        load(Sound.LOW_TIME, R.raw.fx_low_time);
     }
 
 
