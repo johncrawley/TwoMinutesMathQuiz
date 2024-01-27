@@ -18,32 +18,19 @@ import com.jcrawley.tmmq.view.SettingsActivity;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
+import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.setTextForLandscape;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class MainMenuFragment extends Fragment {
 
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     public static final String FRAGMENT_TAG = "welcome_screen_fragment";
-
     private final AtomicBoolean isGameStartInitiated = new AtomicBoolean(false);
 
 
     public MainMenuFragment() {
         // Required empty public constructor
-    }
-
-
-    public static MainMenuFragment newInstance(String param1, String param2) {
-        MainMenuFragment fragment = new MainMenuFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
 
@@ -57,7 +44,6 @@ public class MainMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View parent = inflater.inflate(R.layout.fragment_welcome, container, false);
         isGameStartInitiated.set(false);
         setupButtons(parent);
@@ -67,30 +53,32 @@ public class MainMenuFragment extends Fragment {
 
 
     private void setupButtons(View parent){
-        Button button = parent.findViewById(R.id.startGameButton);
+        setupButton(parent, R.id.startGameButton, this::startGame);
+        setupButton(parent, R.id.settingsButton, this::startSettingsActivity);
+    }
+
+
+    private void setupButton(View parent, int buttonId, Runnable onClick){
+        Button button = parent.findViewById(buttonId);
         button.setOnClickListener(v -> {
             playMenuButtonSound();
-            startGame();
-        });
-
-        Button settingsButton = parent.findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(v -> {
-            playMenuButtonSound();
-            Intent intent = new Intent(getContext(), SettingsActivity.class);
-            startActivity(intent);
+            onClick.run();
         });
     }
 
 
     private void startGame(){
-        if(isGameStartInitiated.get()){
+        if(isGameStartInitiated.get() || getActivity() == null){
             return;
         }
         isGameStartInitiated.set(true);
-        if(getActivity() == null){
-            return;
-        }
         FragmentUtils.loadFragment(this, new ChooseLevelFragment(), ChooseLevelFragment.FRAGMENT_TAG);
+    }
+
+
+    private void startSettingsActivity(){
+        Intent intent = new Intent(getContext(), SettingsActivity.class);
+        startActivity(intent);
     }
 
 
@@ -104,6 +92,8 @@ public class MainMenuFragment extends Fragment {
 
     private void setupTitleText(View parentView){
         TextView titleText = parentView.findViewById(R.id.titleText);
+        TextView titleTextShadow = parentView.findViewById(R.id.titleTextShadow);
+        setTextForLandscape(this, R.string.title_text_landscape, titleText, titleTextShadow);
         addGradientTo(titleText, getContext());
     }
 

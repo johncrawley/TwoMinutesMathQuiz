@@ -1,8 +1,10 @@
 package com.jcrawley.tmmq.view.fragments;
 
+import static com.jcrawley.tmmq.view.fragments.utils.ActivityUtils.playSound;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragment;
-import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.playSound;
+import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.isInLandscapeMode;
+import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.setTextForLandscape;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -95,7 +97,7 @@ public class GameOverFragment extends Fragment {
     private void setupGameOverText(View parentView){
         gameOverText = parentView.findViewById(R.id.gameOverText);
         gameOverTextShadow = parentView.findViewById(R.id.gameOverTextShadow);
-        setLandscapePropsOn(gameOverText, gameOverTextShadow);
+        setTextForLandscape(this, R.string.game_over_text_landscape, gameOverText, gameOverTextShadow);
         assignGameOverMessage();
         addGradientTo(gameOverText, getContext());
     }
@@ -129,22 +131,6 @@ public class GameOverFragment extends Fragment {
             mainMenuButton.setEnabled(true);
             retryButton.setEnabled(true);
             }, delay);
-    }
-
-
-    private void setLandscapePropsOn(TextView... textViews){
-        if(!isInLandscapeMode()){
-            return;
-        }
-        for(TextView textView : textViews){
-            textView.setMaxLines(1);
-            textView.setText(getString(R.string.game_over_text_landscape));
-        }
-    }
-
-
-    private boolean isInLandscapeMode(){
-        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
 

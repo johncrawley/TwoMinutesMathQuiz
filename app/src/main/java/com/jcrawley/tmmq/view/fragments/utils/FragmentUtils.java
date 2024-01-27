@@ -95,11 +95,4 @@ public class FragmentUtils {
     }
 
 
-    public static void playSound(Fragment fragment, Sound sound){
-        MainActivity mainActivity = (MainActivity) fragment.getActivity();
-        if(mainActivity != null){
-            mainActivity.playSound(sound);
-        }
-    }
-
 }
