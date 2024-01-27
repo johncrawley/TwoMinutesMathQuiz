@@ -18,7 +18,6 @@ public class Game {
     private GameTimer gametimer;
     private boolean isStarted;
     private int difficulty = 5;
-    private int questionCount;
     private String timerLengthDisplayStr;
     private final Map<Integer, GameLevel> levels;
     private GameLevel currentLevel;
@@ -62,11 +61,6 @@ public class Game {
     }
 
 
-    public int getInitialTimer(){
-        return gametimer.getInitialRemainingTime();
-    }
-
-
     public void setDifficulty(int difficulty){
         this.difficulty = difficulty;
         currentLevel = levels.containsKey(difficulty) ? levels.get(difficulty) : levels.get(5);
@@ -74,20 +68,13 @@ public class Game {
     }
 
 
-    public GameLevel getCurrentLevel(){
-        return currentLevel;
-    }
-
-
-    public boolean isStarted(){
-        return isStarted;
-    }
-
-
     public void checkAnswer(String answerStr){
         if(currentQuestion == null){
             return;
         }
+        MathQuestion nextQuestion = questionGenerator.generate();
+        gameService.setQuestionTextOnView(nextQuestion.getQuestionText());
+
         if(currentQuestion.isGivenAnswerCorrect(answerStr)){
             currentScore++;
             gameService.updateScore(currentScore);
@@ -95,8 +82,7 @@ public class Game {
         else{
             gameService.notifyIncorrectAnswer();
         }
-        currentQuestion = questionGenerator.generate();
-        gameService.setQuestionTextOnView(currentQuestion.getQuestionText());
+        currentQuestion = nextQuestion;
     }
 
 

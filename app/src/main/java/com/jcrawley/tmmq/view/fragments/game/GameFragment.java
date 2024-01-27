@@ -16,7 +16,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -58,11 +57,6 @@ public class GameFragment extends Fragment {
     }
 
 
-    public static GameFragment newInstance() {
-        return new GameFragment();
-    }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,16 +82,11 @@ public class GameFragment extends Fragment {
         return parentView;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //isCreated.set(true);
-    }
-
 
     private void setupViewModel(){
         viewModel = new ViewModelProvider(requireActivity()).get(GameScreenViewModel.class);
     }
+
 
     @Override
     public void onAttach(@NonNull Context context){
@@ -121,33 +110,13 @@ public class GameFragment extends Fragment {
         }
     }
 
-    private void onIncorrectAnswer(Bundle bundle){
-        int incorrectColor = getColorFromAttribute(R.attr.incorrect_answer_text_color, getContext());
-        int initialDelay = 0;
-        int duration = 150;
-        fadeOutQuestionText();
-        animateTextColor(inputTextView, defaultAnswerTextColor, incorrectColor, initialDelay, duration);
-        clearAnswerTextAfterDelay(initialDelay + duration + 300);
-        playSoundWithDelay(Sound.INCORRECT_ANSWER);
-        fadeInQuestionText(1000);
-    }
-
-
-    public void clearAnswerTextAfterDelay(int delay){
-        new Handler(Looper.getMainLooper()).postDelayed(()->{
-                    viewModel.inputText = "";
-                    inputTextView.setText(viewModel.inputText);
-                    inputTextView.setTextColor(defaultAnswerTextColor);
-                },delay);
-    }
-
 
     private void setupViews(View parentView){
         timeRemainingTextView = setupTextView(parentView, R.id.timeRemainingText, viewModel.timeRemaining);
         scoreTextView = setupTextView(parentView, R.id.scoreText, createScoreString(viewModel.scoreValue));
         questionTextView = setupTextView(parentView, R.id.questionText, viewModel.questionText);
         inputTextView = setupTextView(parentView, R.id.inputText, viewModel.questionText);
-        textAnimator = new TextAnimator(questionTextView, getColorFromAttribute(R.attr.default_question_text_color, getContext()));
+        textAnimator = new TextAnimator(questionTextView);
     }
 
 
@@ -159,13 +128,6 @@ public class GameFragment extends Fragment {
 
 
     private void playSound(Sound sound){
-        if(mainActivity!= null){
-            mainActivity.playSound(sound);
-        }
-    }
-
-
-    private void playSoundWithDelay(Sound sound){
         if(mainActivity!= null){
             mainActivity.playSound(sound, 200);
         }
@@ -223,6 +185,37 @@ public class GameFragment extends Fragment {
     }
 
 
+    private void onIncorrectAnswer(Bundle bundle){
+        int incorrectColor = getColorFromAttribute(R.attr.incorrect_answer_text_color, getContext());
+        int initialDelay = 0;
+        int colorChangeDuration = 150;
+        animateTextColor(inputTextView, defaultAnswerTextColor, incorrectColor, initialDelay, colorChangeDuration);
+        clearInputTextAfterDelay(initialDelay + colorChangeDuration + 300);
+        animateQuestionTextChange(colorChangeDuration + 600);
+        playSound(Sound.INCORRECT_ANSWER);
+    }
+
+
+    private void setScore(Bundle bundle){
+        runOnUiThread(()-> {
+            updateScoreView(bundle);
+            int colorChangeDuration = 150;
+            changeInputTextColorForCorrectAnswer(colorChangeDuration);
+            animateScoreOnUpdate();
+            clearInputTextAfterDelay(colorChangeDuration + 100);
+            animateQuestionTextChange(colorChangeDuration + 100);
+        });
+        playSound(Sound.CORRECT_ANSWER);
+    }
+
+
+    private void animateQuestionTextChange(int delay){
+        new Handler(Looper.getMainLooper())
+                .postDelayed(()-> textAnimator.animateTextChange(viewModel.questionText)
+                        , delay);
+    }
+
+
     private void animateScoreOnUpdate(){
         int normalColor = getColorFromAttribute(R.attr.score_normal_color, getContext());
         int flashColor = getColorFromAttribute(R.attr.score_flash_color, getContext());
@@ -231,17 +224,12 @@ public class GameFragment extends Fragment {
     }
 
 
-    private void setScore(Bundle bundle){
-        runOnUiThread(()-> {
-            fadeOutQuestionText();
-            updateScoreView(bundle);
-            int colorChangeDuration = 150;
-            changeInputTextColorForCorrectAnswer(colorChangeDuration);
-            animateScoreOnUpdate();
-            clearAnswerTextAfterDelay(colorChangeDuration + 200);
-        });
-        playSoundWithDelay(Sound.CORRECT_ANSWER);
-        fadeInQuestionText(1500);
+    public void clearInputTextAfterDelay(int delay){
+        new Handler(Looper.getMainLooper()).postDelayed(()->{
+            viewModel.inputText = "";
+            inputTextView.setText(viewModel.inputText);
+            inputTextView.setTextColor(defaultAnswerTextColor);
+        },delay);
     }
 
 
@@ -268,12 +256,6 @@ public class GameFragment extends Fragment {
         if(questionTextView.getVisibility() != View.VISIBLE || wasQuestionTextEmpty){
             fadeInQuestionText(500);
         }
-
-    }
-
-
-    private void fadeOutQuestionText(){
-        runOnUiThread(()-> questionTextView.startAnimation(textAnimator.getFadeOutAnimation()));
     }
 
 
@@ -346,7 +328,6 @@ public class GameFragment extends Fragment {
         timeRemainingTextWarningColor = getColorFromAttribute(R.attr.time_remaining_text_warning_color, getContext());
         defaultAnswerTextColor = getColorFromAttribute(R.attr.default_answer_text_color, getContext());
     }
-
 
 
 }
