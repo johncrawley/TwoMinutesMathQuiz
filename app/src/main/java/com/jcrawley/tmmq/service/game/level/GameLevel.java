@@ -1,49 +1,33 @@
 package com.jcrawley.tmmq.service.game.level;
 
-import com.jcrawley.tmmq.service.game.question.MathOperation;
+import com.jcrawley.tmmq.service.game.question.QuestionCreator;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class GameLevel {
 
-    private final Map<MathOperation, OperationLimits> operationLimitsMap;
-    private final Set<MathOperation> mathOperations;
+    private final List<QuestionCreator> questionCreators;
     private final int difficulty;
+    private final Random random;
 
     public GameLevel(int difficulty){
         this.difficulty = difficulty;
-        operationLimitsMap = new HashMap<>(4);
-        mathOperations = new HashSet<>();
-    }
-
-    public void addOperationLimits(MathOperation mathOperation, OperationLimits operationLimits){
-        operationLimitsMap.put(mathOperation, operationLimits);
-        mathOperations.add(mathOperation);
+        questionCreators = new ArrayList<>();
+        random = new Random(System.currentTimeMillis());
     }
 
 
-    public void addOperationLimits(OperationLimits operationLimits){
-        MathOperation mathOperation = operationLimits.getMathOperation();
-        operationLimitsMap.put(mathOperation, operationLimits);
-        mathOperations.add(mathOperation);
+    public QuestionCreator getRandomQuestionCreator(){
+        return questionCreators.get(random.nextInt(questionCreators.size()));
     }
 
 
-    public boolean containsMathOperation(MathOperation mathOperation){
-        return mathOperations.contains(mathOperation);
+    public void addQuestionCreator(QuestionCreator questionCreator){
+        questionCreators.add(questionCreator);
     }
 
-
-    public OperationLimits getOperationLimitsFor(MathOperation mathOperation){
-        return operationLimitsMap.getOrDefault(mathOperation, new OperationLimits());
-    }
-
-    public int getDifficulty(){
-        return difficulty;
-    }
 
     public String getDifficultyStr(){
         return String.valueOf(difficulty);

@@ -13,11 +13,6 @@ public class MathQuestion {
     }
 
 
-    public MathQuestion(String questionText, int correctAnswer){
-        this(questionText, correctAnswer, false);
-    }
-
-
     public String getQuestionText(){
         return questionText;
     }

@@ -4,7 +4,6 @@ import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.game.level.GameLevel;
 import com.jcrawley.tmmq.service.game.level.LevelFactory;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
-import com.jcrawley.tmmq.service.game.question.QuestionGenerator;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 
 import java.util.Map;
@@ -13,7 +12,6 @@ public class Game {
 
     private int currentScore;
     private MathQuestion currentQuestion;
-    private final QuestionGenerator questionGenerator;
     private GameService gameService;
     private GameTimer gametimer;
     private boolean isStarted;
@@ -25,7 +23,6 @@ public class Game {
 
     public Game(){
         levels = LevelFactory.createLevels();
-        questionGenerator = new QuestionGenerator();
         setDifficulty(difficulty);
     }
 
@@ -47,7 +44,7 @@ public class Game {
         gametimer.setTimerLength(timerLength.getValue());
         timerLengthDisplayStr = timerLength.getDisplayStr();
         isStarted = true;
-        currentQuestion = questionGenerator.generate();
+        currentQuestion = generateQuestion();
         setQuestionTextOnView();
         gametimer.startTimer();
     }
@@ -61,10 +58,14 @@ public class Game {
     }
 
 
+    private MathQuestion generateQuestion(){
+        return currentLevel.getRandomQuestionCreator().createQuestion();
+    }
+
+
     public void setDifficulty(int difficulty){
         this.difficulty = difficulty;
         currentLevel = levels.containsKey(difficulty) ? levels.get(difficulty) : levels.get(5);
-        questionGenerator.setGameLevel(currentLevel);
     }
 
 
@@ -72,7 +73,7 @@ public class Game {
         if(currentQuestion == null){
             return;
         }
-        MathQuestion nextQuestion = questionGenerator.generate();
+        MathQuestion nextQuestion = generateQuestion();
         gameService.setQuestionOnView(nextQuestion);
 
         if(currentQuestion.isGivenAnswerCorrect(answerStr)){

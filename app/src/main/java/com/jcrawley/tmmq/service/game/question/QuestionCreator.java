@@ -31,8 +31,8 @@ public class QuestionCreator {
     }
 
 
-    public void setGameLevel(GameLevel gameLevel){
-        operationLimits = gameLevel.getOperationLimitsFor(mathOperation);
+    public void setOperationLimits(OperationLimits operationLimits){
+        this.operationLimits = operationLimits;
     }
 
 

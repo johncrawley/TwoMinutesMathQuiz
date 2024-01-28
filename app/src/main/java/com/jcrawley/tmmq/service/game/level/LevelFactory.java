@@ -6,6 +6,11 @@ import static com.jcrawley.tmmq.service.game.question.MathOperation.MULTIPLICATI
 import static com.jcrawley.tmmq.service.game.question.MathOperation.POWER_OF;
 import static com.jcrawley.tmmq.service.game.question.MathOperation.SUBTRACTION;
 
+import com.jcrawley.tmmq.service.game.question.MathOperation;
+import com.jcrawley.tmmq.service.game.question.QuestionCreator;
+import com.jcrawley.tmmq.service.game.question.QuestionCreatorForDivision;
+import com.jcrawley.tmmq.service.game.question.QuestionCreatorForSubtraction;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,15 +96,26 @@ public class LevelFactory {
     }
 
 
-    private static void addLevel(int difficulty, OperationLimits ... operationLimitsArray){
+    private static void addLevel(int difficulty, OperationLimits ... operationLimits){
         GameLevel gameLevel = new GameLevel(difficulty);
-        for(OperationLimits operationLimits : operationLimitsArray){
-            gameLevel.addOperationLimits(operationLimits);
+        for(OperationLimits limits : operationLimits){
+            QuestionCreator qc = generateQuestionCreatorFor(limits.getMathOperation());
+            qc.setOperationLimits(limits);
+            gameLevel.addQuestionCreator(qc);
         }
         if(levels.containsKey(difficulty)){
             throw new RuntimeException("Difficulty level already added!");
         }
         levels.put(difficulty, gameLevel);
+    }
+
+
+    private static QuestionCreator generateQuestionCreatorFor(MathOperation mathOperation){
+        return switch(mathOperation){
+            case DIVISION -> new QuestionCreatorForDivision();
+            case SUBTRACTION -> new QuestionCreatorForSubtraction();
+            default -> new QuestionCreator(mathOperation);
+        };
     }
 
 }
