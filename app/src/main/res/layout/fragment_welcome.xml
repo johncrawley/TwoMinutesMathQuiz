@@ -16,6 +16,7 @@
         android:background="@drawable/status_panel_layout_background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/startButtonsLayout"
         app:layout_constraintEnd_toEndOf="parent">
 
         <!-- the title text has multiple shades. Even if you specify a shadow color,
@@ -39,7 +40,6 @@
             android:shadowDy="0"
             android:shadowRadius="20"
             android:gravity="center"
-            android:visibility="gone"
             android:textAlignment="center"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

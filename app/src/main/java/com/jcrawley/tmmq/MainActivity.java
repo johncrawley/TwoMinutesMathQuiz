@@ -24,6 +24,7 @@ import androidx.preference.PreferenceManager;
 
 import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.game.TimerLength;
+import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.MainViewModel;
@@ -141,9 +142,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setQuestionText(String questionText){
+    public void setQuestion(MathQuestion question){
         Bundle bundle = new Bundle();
-        bundle.putString(QUESTION.toString(), questionText);
+        bundle.putString(QUESTION.toString(), question.getQuestionText());
+        bundle.putBoolean(IS_QUESTION_USING_AN_EXPONENT.toString(), question.containsExponent());
         sendMessage(SET_QUESTION, bundle );
     }
 

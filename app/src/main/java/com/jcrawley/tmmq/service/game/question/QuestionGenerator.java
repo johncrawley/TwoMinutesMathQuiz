@@ -15,10 +15,10 @@ public class QuestionGenerator {
     public QuestionGenerator(){
         random = new Random(System.currentTimeMillis());
         questionCreators = new ArrayList<>();
-        questionCreators.add(new QuestionCreator(MathOperation.ADDITION, "+", Integer::sum));
-       // questionCreators.add(new QuestionCreator(MathOperation.SUBTRACTION, "-", true, (x,y) -> x - y));
+        questionCreators.add(new QuestionCreator(MathOperation.ADDITION));
+        questionCreators.add(new QuestionCreator(MathOperation.MULTIPLICATION));
+        questionCreators.add(new QuestionCreator(MathOperation.POWER_OF));
         questionCreators.add(new QuestionCreatorForSubtraction());
-        questionCreators.add(new QuestionCreator(MathOperation.MULTIPLICATION, "×", (x,y) -> x * y));
         questionCreators.add(new QuestionCreatorForDivision());
 
         currentQuestionCreators = new ArrayList<>();
@@ -33,7 +33,6 @@ public class QuestionGenerator {
                 currentQuestionCreators.add(questionCreator);
             }
         }
-
     }
 
 

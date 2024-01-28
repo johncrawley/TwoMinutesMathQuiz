@@ -3,7 +3,7 @@ package com.jcrawley.tmmq.service.game.question;
 public class QuestionCreatorForDivision extends QuestionCreator{
 
     public QuestionCreatorForDivision(){
-        super(MathOperation.DIVISION, "÷", (x,y)-> x / y);
+        super(MathOperation.DIVISION);
     }
 
     @Override

@@ -3,23 +3,15 @@ package com.jcrawley.tmmq.service.game.level;
 import static com.jcrawley.tmmq.service.game.question.MathOperation.ADDITION;
 import static com.jcrawley.tmmq.service.game.question.MathOperation.DIVISION;
 import static com.jcrawley.tmmq.service.game.question.MathOperation.MULTIPLICATION;
+import static com.jcrawley.tmmq.service.game.question.MathOperation.POWER_OF;
 import static com.jcrawley.tmmq.service.game.question.MathOperation.SUBTRACTION;
 
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LevelFactory {
 
     private static Map<Integer, GameLevel> levels;
-
-    public void foo(){
-        int[] array = new int[]{1,2,3};
-        Arrays.stream(array).max().getAsInt();
-        Integer x = 1;
-        x++;
-    }
 
 
     public static Map<Integer, GameLevel> createLevels(){
@@ -41,7 +33,10 @@ public class LevelFactory {
                 addition(12,35,12,35),
                 subtraction(6, 15, 15,30),
                 multiplication(3,12,5,12),
-                division(2,6,2,10));
+                division(2,6,2,10),
+                powerOf(2,10,2,2)
+                );
+
         addLevel(6,
                 addition(12,35,12,35),
                 subtraction(12, 20, 21,45),
@@ -88,6 +83,11 @@ public class LevelFactory {
 
     private static OperationLimits division(int divisorMin, int divisorMax, int ansMin, int ansMax){
         return new OperationLimits(DIVISION, divisorMin, divisorMax, ansMin, ansMax);
+    }
+
+
+    private static OperationLimits powerOf(int minNumber, int maxNumber, int minExponent, int maxExponent){
+        return new OperationLimits(POWER_OF, minNumber, maxNumber, minExponent, maxExponent);
     }
 
 

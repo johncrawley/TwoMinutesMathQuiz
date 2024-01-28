@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
-import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.fragments.game.GameFragment;
 
 import java.util.function.Consumer;
@@ -92,6 +90,11 @@ public class FragmentUtils {
 
     public static String getStr(Bundle bundle, GameFragment.Tag tag){
         return bundle.getString(tag.toString());
+    }
+
+
+    public static boolean getBoolean(Bundle bundle, GameFragment.Tag tag){
+        return  bundle.getBoolean(tag.toString());
     }
 
 

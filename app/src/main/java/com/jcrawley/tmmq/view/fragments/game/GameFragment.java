@@ -5,6 +5,7 @@ import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.NOTIFY_
 import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.SET_TIME_REMAINING;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.animateTextColor;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getBoolean;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getInt;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getStr;
 
@@ -21,6 +22,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.SuperscriptSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +46,8 @@ import java.util.function.Consumer;
 
 public class GameFragment extends Fragment {
 
-    public enum Message {SET_TIME_REMAINING, NOTIFY_GAME_OVER, NOTIFY_INCORRECT_ANSWER, SET_SCORE, SET_QUESTION, SHOW_QUESTION  }
-    public enum Tag { MINUTES_REMAINING, SECONDS_REMAINING, SCORE, QUESTION}
+    public enum Message {SET_TIME_REMAINING, NOTIFY_GAME_OVER, NOTIFY_INCORRECT_ANSWER, SET_SCORE, SET_QUESTION  }
+    public enum Tag { MINUTES_REMAINING, SECONDS_REMAINING, SCORE, QUESTION, IS_QUESTION_USING_AN_EXPONENT}
     private TextView timeRemainingTextView, scoreTextView, questionTextView, inputTextView;
     private int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
     private int defaultAnswerTextColor;
@@ -115,12 +120,19 @@ public class GameFragment extends Fragment {
         timeRemainingTextView = setupTextView(parentView, R.id.timeRemainingText, viewModel.timeRemaining);
         scoreTextView = setupTextView(parentView, R.id.scoreText, createScoreString(viewModel.scoreValue));
         questionTextView = setupTextView(parentView, R.id.questionText, viewModel.questionText);
-        inputTextView = setupTextView(parentView, R.id.inputText, viewModel.questionText);
+        inputTextView = setupTextView(parentView, R.id.inputText, viewModel.inputText);
         textAnimator = new TextAnimator(questionTextView);
     }
 
 
     private TextView setupTextView(View parentView, int id, String viewModelValue){
+        TextView textView = parentView.findViewById(id);
+        textView.setText(viewModelValue);
+        return textView;
+    }
+
+
+    private TextView setupTextView(View parentView, int id, Spanned viewModelValue){
         TextView textView = parentView.findViewById(id);
         textView.setText(viewModelValue);
         return textView;
@@ -251,8 +263,14 @@ public class GameFragment extends Fragment {
 
 
     private void setQuestion(Bundle bundle){
-        boolean wasQuestionTextEmpty = viewModel.questionText.isEmpty();
-        viewModel.questionText = getStr(bundle, Tag.QUESTION);
+        boolean wasQuestionTextEmpty = viewModel.questionText.length() == 0;
+        String text = getStr(bundle, Tag.QUESTION);
+        viewModel.questionText = new SpannableString(text);
+        if(getBoolean(bundle, Tag.IS_QUESTION_USING_AN_EXPONENT)){
+            int lastIndex = text.length()-1;
+            viewModel.questionText.setSpan(new SuperscriptSpan(), lastIndex, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            viewModel.questionText.setSpan(new RelativeSizeSpan(0.5f), lastIndex, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        }
         if(questionTextView.getVisibility() != View.VISIBLE || wasQuestionTextEmpty){
             fadeInQuestionText(500);
         }
@@ -319,7 +337,7 @@ public class GameFragment extends Fragment {
         viewModel.scoreValue = 0;
         viewModel.inputText = "";
         viewModel.timeRemaining = "";
-        viewModel.questionText = "";
+        viewModel.questionText = new SpannableString("");
     }
 
 

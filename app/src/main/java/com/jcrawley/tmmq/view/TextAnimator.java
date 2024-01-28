@@ -1,5 +1,6 @@
 package com.jcrawley.tmmq.view;
 
+import android.text.Spanned;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -10,7 +11,7 @@ public class TextAnimator {
     private final Animation fadeInAnimation = new AlphaAnimation(0.0f, 1.0f);
     private final Animation fadeOutAndInAnimation = new AlphaAnimation(1.0f, 0.0f);
     private final TextView textView;
-    private String text;
+    private Spanned text;
 
 
     public TextAnimator(TextView textView){
@@ -44,7 +45,7 @@ public class TextAnimator {
     }
 
 
-    public void animateTextChange(String text){
+    public void animateTextChange(Spanned text){
         this.text = text;
         textView.startAnimation(fadeOutAndInAnimation);
     }

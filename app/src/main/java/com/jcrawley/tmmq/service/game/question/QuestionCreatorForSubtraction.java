@@ -3,8 +3,9 @@ package com.jcrawley.tmmq.service.game.question;
 public class QuestionCreatorForSubtraction extends QuestionCreator {
 
     public QuestionCreatorForSubtraction(){
-        super(MathOperation.SUBTRACTION, "-", (x,y)-> x - y);
+        super(MathOperation.SUBTRACTION);
     }
+
 
     @Override
     public MathQuestion createQuestion(){

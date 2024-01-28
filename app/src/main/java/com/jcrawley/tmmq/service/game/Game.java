@@ -73,7 +73,7 @@ public class Game {
             return;
         }
         MathQuestion nextQuestion = questionGenerator.generate();
-        gameService.setQuestionTextOnView(nextQuestion.getQuestionText());
+        gameService.setQuestionOnView(nextQuestion);
 
         if(currentQuestion.isGivenAnswerCorrect(answerStr)){
             currentScore++;
@@ -87,7 +87,7 @@ public class Game {
 
 
     private void setQuestionTextOnView(){
-        gameService.setQuestionTextOnView(currentQuestion.getQuestionText());
+        gameService.setQuestionOnView(currentQuestion);
     }
 
 

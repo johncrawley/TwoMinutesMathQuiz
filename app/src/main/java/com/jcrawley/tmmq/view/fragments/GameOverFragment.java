@@ -3,10 +3,8 @@ package com.jcrawley.tmmq.view.fragments;
 import static com.jcrawley.tmmq.view.fragments.utils.ActivityUtils.playSound;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragment;
-import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.isInLandscapeMode;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.setTextForLandscape;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -41,11 +39,6 @@ public class GameOverFragment extends Fragment {
 
     public GameOverFragment() {
         // Required empty public constructor
-    }
-
-
-    public static GameOverFragment newInstance() {
-       return new GameOverFragment();
     }
 
 

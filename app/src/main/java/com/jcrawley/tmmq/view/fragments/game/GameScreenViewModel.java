@@ -1,5 +1,7 @@
 package com.jcrawley.tmmq.view.fragments.game;
 
+import android.text.SpannableString;
+
 import androidx.lifecycle.ViewModel;
 
 public class GameScreenViewModel extends ViewModel {
@@ -8,5 +10,6 @@ public class GameScreenViewModel extends ViewModel {
     public String score = "0";
     public int scoreValue = 0;
     public String timeRemaining = "";
-    public String questionText = "";
+    public SpannableString questionText = new SpannableString("");
+    public boolean isQuestionUsingAnExponent;
 }

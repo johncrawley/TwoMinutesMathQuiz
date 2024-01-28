@@ -25,6 +25,9 @@
     <string name="symbol_backspace">⌫</string>
     <string name="symbol_enter">&#160;→&#160;</string>
 
+
+    <string name ="test">&lt;sup&gt;\u00AE&lt;/sup&gt;</string>
+
     <string name="game_over_text">GAME\nOVER</string>
     <string name="game_over_text_landscape">GAME OVER</string>
     <string name="game_over_details">Level&#160;%1$s,&#160;%2$s</string>

@@ -9,6 +9,7 @@ import android.os.IBinder;
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.game.TimerLength;
+import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.sound.Sound;
@@ -45,11 +46,11 @@ public class GameService extends Service {
     }
 
 
-    public void setQuestionTextOnView(String questionText){
+    public void setQuestionOnView(MathQuestion question){
         if(mainActivity == null){
             return;
         }
-        mainActivity.setQuestionText(questionText);
+        mainActivity.setQuestion(question);
     }
 
 
