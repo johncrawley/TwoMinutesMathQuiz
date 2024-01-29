@@ -1,5 +1,7 @@
 package com.jcrawley.tmmq.service.game.question;
 
+import androidx.annotation.NonNull;
+
 public class MathQuestion {
 
     private final String questionText;
@@ -15,6 +17,16 @@ public class MathQuestion {
 
     public String getQuestionText(){
         return questionText;
+    }
+
+    public int getCorrectAnswer(){
+        return correctAnswer;
+    }
+
+    @NonNull
+    @Override
+    public String toString(){
+        return questionText + " = " + correctAnswer;
     }
 
 

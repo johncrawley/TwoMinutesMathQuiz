@@ -21,6 +21,7 @@ public class InputHelper {
         inputTextView = parentView.findViewById(R.id.inputText);
         inputTextView.setText(viewModel.inputText);
         setupButtons();
+        clearAnswerText();
     }
 
 

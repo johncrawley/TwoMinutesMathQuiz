@@ -36,14 +36,21 @@ public class ColorUtils {
     }
 
 
-    public static void addGradientTo(TextView textView, Context context){
-        Shader textShader = new LinearGradient(0, 0, 0, textView.getTextSize(),
+    public static void addGradientTo(TextView textView, Context context, boolean isInLandscapeMode){
+        float height = isInLandscapeMode ? textView.getTextSize()/1.5f : textView.getTextSize();
+        Shader textShader = new LinearGradient(0, textView.getY(), 0, textView.getY() + height,
                 new int[]{
                         getColorFromAttribute(R.attr.title_text_color_1, context),
                         getColorFromAttribute(R.attr.title_text_color_2, context),
-                        getColorFromAttribute(R.attr.title_text_color_3, context)
+                        getColorFromAttribute(R.attr.title_text_color_3, context),
+                        getColorFromAttribute(R.attr.title_text_color_4, context)
                 }, null, Shader.TileMode.CLAMP);
         textView.getPaint().setShader(textShader);
+    }
+
+
+    public static void addGradientTo(TextView textView, Context context){
+       addGradientTo(textView, context, false);
     }
 
 }

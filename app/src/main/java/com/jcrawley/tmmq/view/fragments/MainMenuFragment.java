@@ -18,6 +18,7 @@ import com.jcrawley.tmmq.view.SettingsActivity;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
+import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.isInLandscapeMode;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.setTextForLandscape;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -94,7 +95,7 @@ public class MainMenuFragment extends Fragment {
         TextView titleText = parentView.findViewById(R.id.titleText);
         TextView titleTextShadow = parentView.findViewById(R.id.titleTextShadow);
         setTextForLandscape(this, R.string.title_text_landscape, titleText, titleTextShadow);
-        addGradientTo(titleText, getContext());
+        addGradientTo(titleText, getContext(), isInLandscapeMode(this));
     }
 
 }

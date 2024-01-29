@@ -71,11 +71,11 @@ public class Game {
 
     public void checkAnswer(String answerStr){
         if(currentQuestion == null){
+            gameService.notifyIncorrectAnswer();
             return;
         }
         MathQuestion nextQuestion = generateQuestion();
         gameService.setQuestionOnView(nextQuestion);
-
         if(currentQuestion.isGivenAnswerCorrect(answerStr)){
             currentScore++;
             gameService.updateScore(currentScore);

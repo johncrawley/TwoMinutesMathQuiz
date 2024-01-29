@@ -85,7 +85,7 @@ public class QuestionCreator {
 
 
     private String createSymbol(){
-        return symbol.isEmpty() ? "" : " " + symbol + " ";
+        return symbol.isEmpty() ? " " : " " + symbol + " ";
     }
 
 }

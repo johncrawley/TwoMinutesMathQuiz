@@ -82,7 +82,7 @@ public class GameFragment extends Fragment {
         inputHelper = new InputHelper(mainActivity, parentView, viewModel);
         mainActivity.startGame();
         setupListeners();
-        FragmentUtils.onBackButtonPressed(this, this::stopTimerAndReturnToWelcomeScreen);
+        setupBackButton();
         isCreated.set(true);
         return parentView;
     }
@@ -106,6 +106,14 @@ public class GameFragment extends Fragment {
         FragmentUtils.setListener(this, Message.SET_QUESTION.toString(), b -> process(this::setQuestion, b));
         FragmentUtils.setListener(this, NOTIFY_GAME_OVER.toString(), b -> process(this::onGameOver, b));
         FragmentUtils.setListener(this, NOTIFY_INCORRECT_ANSWER.toString(), b-> process(this::onIncorrectAnswer, b));
+    }
+
+
+    private void setupBackButton(){
+        FragmentUtils.onBackButtonPressed(this, () ->{
+            resetViewData();
+            stopTimerAndReturnToWelcomeScreen();
+        });
     }
 
 
@@ -261,17 +269,38 @@ public class GameFragment extends Fragment {
         return String.valueOf(score);
     }
 
+    private void log(String msg){
+        System.out.println("^^^ GameFragment: " + msg);
+    }
 
     private void setQuestion(Bundle bundle){
-        boolean wasQuestionTextEmpty = viewModel.questionText.length() == 0;
+        log("Entered setQuestion()");
+        boolean wasExistingQuestionTextEmpty = viewModel.questionText.length() == 0;
+        setQuestionText(bundle);
+        turnExponentToSuperScript(bundle);
+        fadeInFirstQuestionIf(wasExistingQuestionTextEmpty);
+    }
+
+
+    private void setQuestionText(Bundle bundle){
         String text = getStr(bundle, Tag.QUESTION);
+        log("setQuestionText() : question text from bundle: " + text);
         viewModel.questionText = new SpannableString(text);
+    }
+
+
+    private void turnExponentToSuperScript(Bundle bundle){
         if(getBoolean(bundle, Tag.IS_QUESTION_USING_AN_EXPONENT)){
-            int lastIndex = text.length()-1;
-            viewModel.questionText.setSpan(new SuperscriptSpan(), lastIndex, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            viewModel.questionText.setSpan(new RelativeSizeSpan(0.5f), lastIndex, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            String text = getStr(bundle, Tag.QUESTION);
+            int firstIndex = text.length()-2;
+            viewModel.questionText.setSpan(new SuperscriptSpan(), firstIndex, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            viewModel.questionText.setSpan(new RelativeSizeSpan(0.5f), firstIndex, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         }
-        if(questionTextView.getVisibility() != View.VISIBLE || wasQuestionTextEmpty){
+    }
+
+
+    private void fadeInFirstQuestionIf(boolean wasExistingQuestionTextEmpty){
+        if(questionTextView.getVisibility() != View.VISIBLE || wasExistingQuestionTextEmpty){
             fadeInQuestionText(500);
         }
     }
