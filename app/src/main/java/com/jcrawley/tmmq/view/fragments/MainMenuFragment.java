@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainMenuFragment extends Fragment {
 
-    public static final String FRAGMENT_TAG = "welcome_screen_fragment";
+    public static final String FRAGMENT_TAG = "main_menu_fragment";
     private final AtomicBoolean isGameStartInitiated = new AtomicBoolean(false);
 
 
@@ -45,7 +45,7 @@ public class MainMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View parent = inflater.inflate(R.layout.fragment_welcome, container, false);
+        View parent = inflater.inflate(R.layout.fragment_main_menu, container, false);
         isGameStartInitiated.set(false);
         setupButtons(parent);
         setupTitleText(parent);
@@ -56,6 +56,7 @@ public class MainMenuFragment extends Fragment {
     private void setupButtons(View parent){
         setupButton(parent, R.id.startGameButton, this::startGame);
         setupButton(parent, R.id.settingsButton, this::startSettingsActivity);
+        setupButton(parent, R.id.aboutButton, this::goToAboutPage);
     }
 
 
@@ -74,6 +75,11 @@ public class MainMenuFragment extends Fragment {
         }
         isGameStartInitiated.set(true);
         FragmentUtils.loadFragment(this, new ChooseLevelFragment(), ChooseLevelFragment.FRAGMENT_TAG);
+    }
+
+
+    private void goToAboutPage(){
+        FragmentUtils.loadFragment(this, new AboutFragment(), AboutFragment.FRAGMENT_TAG);
     }
 
 

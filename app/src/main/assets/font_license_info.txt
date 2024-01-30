@@ -1,9 +1,17 @@
+
+
+Font used for heading text:
+KP Programmer NBP by total FontGeek DTF, Ltd.
+License: Creative Commons (by-sa) Attribution Share Alike
+https://creativecommons.org/licenses/by-sa/4.0/deed.en
+link: https://www.fontspace.com/kp-programmer-nbp-font-f16304
+
+Font used for the game title on the main menu, and in game icon:
 Copyright 2021 The Sixtyfour Project Authors (https://github.com/jenskutilek/homecomputer-fonts)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:
 https://openfontlicense.org
-
 
 -----------------------------------------------------------
 SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007

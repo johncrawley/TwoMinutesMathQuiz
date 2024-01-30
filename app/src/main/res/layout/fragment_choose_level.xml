@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="@dimen/choose_level_heading_text_size"
+            android:fontFamily="@font/kp_programmer_nbp_3m3x"
             android:autoSizeMaxTextSize="@dimen/choose_level_heading_text_size"
             android:autoSizeMinTextSize="@dimen/choose_level_heading_text_size_min"
             android:autoSizeTextType="uniform"

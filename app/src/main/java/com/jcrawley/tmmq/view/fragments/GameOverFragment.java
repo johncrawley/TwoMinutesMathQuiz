@@ -151,7 +151,7 @@ public class GameOverFragment extends Fragment {
         mainMenuButton = parentView.findViewById(R.id.mainMenuButton);
         mainMenuButton.setOnClickListener(v -> {
             playSound(this, Sound.MENU_BUTTON);
-            startWelcomeScreenFragment();
+            startMainMenuScreenFragment();
         });
     }
 
@@ -165,7 +165,7 @@ public class GameOverFragment extends Fragment {
     }
 
 
-    private void startWelcomeScreenFragment(){
+    private void startMainMenuScreenFragment(){
         loadFragment(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
     }
 }
