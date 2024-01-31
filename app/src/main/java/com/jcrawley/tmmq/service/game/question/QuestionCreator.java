@@ -1,10 +1,8 @@
 package com.jcrawley.tmmq.service.game.question;
 
-import com.jcrawley.tmmq.service.game.level.GameLevel;
 import com.jcrawley.tmmq.service.game.level.OperationLimits;
 
 import java.util.Random;
-import java.util.function.BiFunction;
 
 public class QuestionCreator {
 
@@ -15,7 +13,6 @@ public class QuestionCreator {
     private String previousQuestionStr = "";
     private final boolean isLargeNumberAlwaysFirst;
     int part1, part2;
-
 
 
     public QuestionCreator(MathOperation mathOperation, boolean isLargeNumberAlwaysFirst){
@@ -42,11 +39,6 @@ public class QuestionCreator {
         int result = mathOperation.perform(part1, part2);
         String text = createQuestionText(part1, part2);
         return createFreshQuestion(text, result);
-    }
-
-
-    public MathOperation getMathOperation(){
-        return mathOperation;
     }
 
 
