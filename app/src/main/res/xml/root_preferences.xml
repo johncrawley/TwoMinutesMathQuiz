@@ -2,6 +2,11 @@
 
 
     <PreferenceCategory app:title="@string/preferences_general_header">
+        <SwitchPreference
+            app:key="choose_timer_value_every_time"
+            app:title="@string/preferences_choose_timer_value_at_game_start"
+            app:enabled="false"
+            />
         <ListPreference
             app:entries="@array/time_limit_entries"
             app:entryValues="@array/time_limit_values"

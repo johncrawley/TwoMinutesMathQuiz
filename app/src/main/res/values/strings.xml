@@ -57,6 +57,7 @@
     <!-- Preference Titles -->
     <string name="preferences_general_header">General</string>
     <string name="preferences_vibration">Vibration</string>
+    <string name="preferences_choose_timer_value_at_game_start">Choose Timer Value At Game Start</string>
     <string name="sound_header">Sound</string>
 
 
