@@ -17,6 +17,7 @@ public enum MathOperation {
         this(symbol, biFunction, false);
     }
 
+
     MathOperation(String symbol,BiFunction<Integer, Integer, Integer> biFunction, boolean containsExponent){
         this.symbol = symbol;
         this.biFunction = biFunction;

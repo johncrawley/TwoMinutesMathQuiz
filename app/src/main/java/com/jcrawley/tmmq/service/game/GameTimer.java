@@ -40,16 +40,6 @@ public class GameTimer {
     }
 
 
-    public int getInitialRemainingTime(){
-        return initialRemainingTime;
-    }
-
-
-    public boolean isTimeUp(){
-        return currentRemainingTime <= 0;
-    }
-
-
     public void resetTime(){
         currentRemainingTime = initialRemainingTime;
         calculateMinutesAndSeconds();
@@ -60,16 +50,6 @@ public class GameTimer {
         updateCurrentRemainingTime();
         updateTimer();
         cancelTimerWhenTimeExpires();
-    }
-
-
-    public int getSecondsRemaining(){
-        return secondsRemaining;
-    }
-
-
-    public int getMinutesRemaining(){
-        return minutesRemaining;
     }
 
 

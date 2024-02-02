@@ -34,6 +34,7 @@
     <string name="game_over_text_landscape">GAME OVER</string>
     <string name="game_over_details">Level&#160;%1$s,&#160;%2$s</string>
     <string name="start_game_get_ready">GET READY</string>
+    <string name="start_game_go">GO!</string>
     <string name="ending_score_label_text">Your Score</string>
     <string name="congratulations">CONGRATULATIONS!</string>
     <string name="new_daily_record">NEW DAILY RECORD!</string>

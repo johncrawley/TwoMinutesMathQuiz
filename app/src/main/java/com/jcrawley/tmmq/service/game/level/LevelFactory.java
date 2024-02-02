@@ -33,40 +33,53 @@ public class LevelFactory {
         addLevel(4,
                 addition(10,20,8,20),
                 subtraction(6, 12, 8,15),
-                multiplication(2,10,2,5));
+                multiplication(2,10,2,5),
+                powerOf(2,5,2,2));
         addLevel(5,
                 addition(12,35,12,35),
                 subtraction(6, 15, 15,30),
                 multiplication(3,12,5,12),
                 division(2,6,2,10),
-                powerOf(2,10,2,2)
+                powerOf(4,10,2,2),
+                powerOf(2,5,3,3)
                 );
-
         addLevel(6,
                 addition(12,35,12,35),
                 subtraction(12, 20, 21,45),
                 multiplication(5,13,5,13),
-                division(3,8,2,12));
+                division(3,8,2,12),
+                powerOf(6,12,2,2),
+                powerOf(3,7,3,3));
         addLevel(7,
                 addition(12,35,12,35),
                 subtraction(20, 50, 35,70),
                 multiplication(7,14,8,14),
-                division(5,12,3,12));
+                division(5,12,3,12),
+                powerOf(7,12,2,2),
+                powerOf(6,10,3,3));
         addLevel(8,
                 addition(12,35,12,35),
                 subtraction(50, 150, 150,220),
                 multiplication(9,15,9,15),
-                division(7,13,4,13));
+                division(7,13,4,13),
+                powerOf(8,15,2,2),
+                powerOf(7,12,3,3),
+                powerOf(2,5,4,5));
         addLevel(9,
                 addition(500,1500,300,1450),
                 subtraction(150, 800, 200,900),
                 multiplication(11,16,11,16),
-                division(9,18,5,18));
+                division(9,18,5,18),
+                powerOf(10,17,2,2),
+                powerOf(9,15,3,3),
+                powerOf(4,8,4,5));
         addLevel(10,
                 addition(10_000,20_000,8_000,18_000),
                 subtraction(10_000, 15_000, 3000,9000),
                 multiplication(12,20,15,35),
-                division(12,20,12,20));
+                division(12,20,12,20),
+                powerOf(15,20,3,5),
+                powerOf(2,6,6,8));
         return levels;
     }
 

@@ -105,6 +105,7 @@ public class GetReadyFragment extends Fragment {
                 }
                 else{
                     getMainActivity().playSound(Sound.GET_READY_COMPLETE);
+                    setCountdownTextToGo();
                     navigateToGameFragment();
                 }
             }
@@ -127,6 +128,11 @@ public class GetReadyFragment extends Fragment {
 
     private void updateGameStartCountdownText(int countdownValue){
         countdownTextView.setText(String.valueOf(countdownValue));
+    }
+
+
+    private void setCountdownTextToGo(){
+        countdownTextView.setText(getString(R.string.start_game_go));
     }
 
 
