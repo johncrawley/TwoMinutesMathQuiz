@@ -27,7 +27,6 @@ public class SoundPlayer {
         setupSoundEnabledMap();
         setupSoundPool();
         loadSounds();
-
     }
 
 

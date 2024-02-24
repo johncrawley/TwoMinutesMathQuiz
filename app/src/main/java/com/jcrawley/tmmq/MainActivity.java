@@ -18,7 +18,6 @@ import android.os.Vibrator;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel viewModel;
     private Vibrator vibrator;
     private boolean isVibrationEnabled;
-    private FragmentContainerView fragmentContainerView;
 
 
     private final ServiceConnection connection = new ServiceConnection() {
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    private void log(String msg){
+    private void log(String msg) {
         System.out.println("^^^ MainActivity: " + msg);
     }
 
@@ -67,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupViewModel();
         setupVibe();
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             setupFragments();
         }
         setupGameService();
-     }
+    }
 
 
     public void assignVibrationSettings() {
@@ -79,85 +77,84 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private SharedPreferences getPrefs(){
+    private SharedPreferences getPrefs() {
         return PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
 
-    private void setupFragments(){
-        fragmentContainerView = findViewById(R.id.fragment_container);
-        Fragment welcomeScreenFragment = new MainMenuFragment();
+    private void setupFragments() {
+        Fragment mainMenuFragment = new MainMenuFragment();
         getSupportFragmentManager().beginTransaction()
-        .add(R.id.fragment_container, welcomeScreenFragment)
-        .commit();
-     }
+                .add(R.id.fragment_container, mainMenuFragment)
+                .commit();
+    }
 
 
-    public void playSound(Sound sound){
+    public void playSound(Sound sound) {
         reassignActivityToService();
         gameService.playSound(sound);
     }
 
 
-    public void playSound(Sound sound, int delay){
-        new Handler(Looper.getMainLooper()).postDelayed(()->playSound(sound), delay);
+    public void playSound(Sound sound, int delay) {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> playSound(sound), delay);
     }
 
 
-     private void setupVibe(){
+    private void setupVibe() {
         assignVibrationSettings();
         vibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-     }
+    }
 
 
-     public void onKeypadButtonClicked(){
+    public void onKeypadButtonClicked() {
         vibrate();
         playSound(Sound.KEYPAD_BUTTON);
-     }
+    }
 
 
-     private void vibrate(){
-         if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-             if(isVibrationEnabled) {
-                 vibrator.vibrate(VibrationEffect.createOneShot(55, 1));
-             }
-         }
-     }
+    private void vibrate() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (isVibrationEnabled) {
+                vibrator.vibrate(VibrationEffect.createOneShot(55, 1));
+            }
+        }
+    }
 
 
-     public MainViewModel getViewModel(){
+    public MainViewModel getViewModel() {
         return viewModel;
-     }
+    }
 
 
-     private void setupViewModel(){
+    private void setupViewModel() {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-     }
+    }
 
 
-    public void fadeInQuestionText(String questionText){
+    public void fadeInQuestionText(String questionText) {
         Bundle bundle = new Bundle();
         bundle.putString(QUESTION.toString(), questionText);
         sendMessage(SET_QUESTION, bundle);
     }
 
 
-    public void setQuestion(MathQuestion question){
+    public void setQuestion(MathQuestion question) {
         Bundle bundle = new Bundle();
         bundle.putString(QUESTION.toString(), question.getQuestionText());
         bundle.putBoolean(IS_QUESTION_USING_AN_EXPONENT.toString(), question.containsExponent());
-        sendMessage(SET_QUESTION, bundle );
+        sendMessage(SET_QUESTION, bundle);
     }
 
 
-    private void setupGameService(){
+    private void setupGameService() {
         Intent intent = new Intent(getApplicationContext(), GameService.class);
         getApplicationContext().startService(intent);
         getApplicationContext().bindService(intent, connection, 0);
     }
 
 
-    public void setTimeRemaining(int minutesRemaining, int secondsRemaining){
+    public void setTimeRemaining(int minutesRemaining, int secondsRemaining) {
         Bundle bundle = new Bundle();
         bundle.putInt(MINUTES_REMAINING.toString(), minutesRemaining);
         bundle.putInt(SECONDS_REMAINING.toString(), secondsRemaining);
@@ -165,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void onGameOver(ScoreStatistics scoreStatistics){
+    public void onGameOver(ScoreStatistics scoreStatistics) {
         Bundle bundle = new Bundle();
         bundle.putInt(FINAL_SCORE_KEY, scoreStatistics.getFinalScore());
         bundle.putInt(DAILY_HIGH_SCORE_KEY, scoreStatistics.getDailyHighScore());
@@ -176,33 +173,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void notifyServiceThatGameHasFinished(){
+    public void notifyServiceThatGameHasFinished() {
         reassignActivityToService();
         gameService.notifyThatGameFinished();
     }
 
 
-    public void setScore(int score){
-         Bundle bundle = new Bundle();
-         bundle.putInt(SCORE.toString(), score);
-         sendMessage(SET_SCORE, bundle);
+    public void setScore(int score) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(SCORE.toString(), score);
+        sendMessage(SET_SCORE, bundle);
     }
 
 
-    public void notifyIncorrectAnswer(){
+    public void notifyIncorrectAnswer() {
         sendMessage(NOTIFY_INCORRECT_ANSWER, new Bundle());
     }
 
 
-    public void submitAnswer(String answerStr){
+    public void submitAnswer(String answerStr) {
         reassignActivityToService();
         gameService.submitAnswer(answerStr);
     }
 
 
-    public void startGame(){
+    public void startGame() {
         assignVibrationSettings();
-        if(gameService == null){
+        if (gameService == null) {
             return;
         }
         reassignActivityToService();
@@ -210,8 +207,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void stopGame(){
-        if(gameService == null){
+    public void stopGame() {
+        if (gameService == null) {
             return;
         }
         reassignActivityToService();
@@ -219,21 +216,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public TimerLength getTimerLength(){
+    public TimerLength getTimerLength() {
         int selectedTime = Integer.parseInt(getPrefs().getString("timer_length", "120"));
         int displayStrIndex = getTimerIndexValueFor(selectedTime);
 
         String[] displayStrings = getResources().getStringArray(R.array.time_limit_entries);
-        String selectedTimeDisplayStr = displayStrIndex == -1 ? "" :  displayStrings[displayStrIndex];
+        String selectedTimeDisplayStr = displayStrIndex == -1 ? "" : displayStrings[displayStrIndex];
         return new TimerLength(selectedTime, selectedTimeDisplayStr);
     }
 
 
-    private int getTimerIndexValueFor(int selectedTime){
+    private int getTimerIndexValueFor(int selectedTime) {
         String[] timerValues = getResources().getStringArray(R.array.time_limit_values);
-        for (int i =0; i< timerValues.length; i++){
+        for (int i = 0; i < timerValues.length; i++) {
             int timerValue = Integer.parseInt(timerValues[i]);
-            if( timerValue == selectedTime){
+            if (timerValue == selectedTime) {
                 return i;
             }
         }
@@ -241,24 +238,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setDifficulty(int gameLevel){
+    public void setDifficulty(int gameLevel) {
         reassignActivityToService();
         gameService.setGameLevel(gameLevel);
     }
 
 
-    private void reassignActivityToService(){
-        if(gameService == null){
+    private void reassignActivityToService() {
+        if (gameService == null) {
             return;
         }
-        if(gameService.isActivityUnbound()){
+        if (gameService.isActivityUnbound()) {
             gameService.setActivity(MainActivity.this);
         }
     }
 
 
-    public <E extends Enum<E>> void sendMessage(E operationName, Bundle bundle){
-        getSupportFragmentManager().setFragmentResult(operationName.toString(), bundle );
+    public <E extends Enum<E>> void sendMessage(E operationName, Bundle bundle) {
+        getSupportFragmentManager().setFragmentResult(operationName.toString(), bundle);
     }
 
 

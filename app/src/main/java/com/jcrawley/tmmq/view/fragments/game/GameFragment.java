@@ -269,12 +269,8 @@ public class GameFragment extends Fragment {
         return String.valueOf(score);
     }
 
-    private void log(String msg){
-        System.out.println("^^^ GameFragment: " + msg);
-    }
 
     private void setQuestion(Bundle bundle){
-        log("Entered setQuestion()");
         boolean wasExistingQuestionTextEmpty = viewModel.questionText.length() == 0;
         setQuestionText(bundle);
         turnExponentToSuperScript(bundle);
@@ -284,7 +280,6 @@ public class GameFragment extends Fragment {
 
     private void setQuestionText(Bundle bundle){
         String text = getStr(bundle, Tag.QUESTION);
-        log("setQuestionText() : question text from bundle: " + text);
         viewModel.questionText = new SpannableString(text);
     }
 
@@ -301,16 +296,16 @@ public class GameFragment extends Fragment {
 
     private void fadeInFirstQuestionIf(boolean wasExistingQuestionTextEmpty){
         if(questionTextView.getVisibility() != View.VISIBLE || wasExistingQuestionTextEmpty){
-            fadeInQuestionText(500);
+            fadeInQuestionText();
         }
     }
 
 
-    private void fadeInQuestionText(int delay){
+    private void fadeInQuestionText(){
         new Handler(Looper.getMainLooper()).postDelayed( ()-> {
             questionTextView.setText(viewModel.questionText);
             questionTextView.startAnimation(textAnimator.getFadeInAnimation());
-        },delay);
+        }, getResources().getInteger(R.integer.question_text_fade_in));
     }
 
 
