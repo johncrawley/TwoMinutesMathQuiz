@@ -19,9 +19,6 @@ public class MathQuestion {
         return questionText;
     }
 
-    public int getCorrectAnswer(){
-        return correctAnswer;
-    }
 
     @NonNull
     @Override

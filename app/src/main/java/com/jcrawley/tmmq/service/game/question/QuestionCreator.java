@@ -33,6 +33,11 @@ public class QuestionCreator {
     }
 
 
+    public MathOperation getOperationType(){
+        return mathOperation;
+    }
+
+
     public MathQuestion createQuestion(){
         createParts();
         swapPartsIfLargeNumberShouldBeFirst();
