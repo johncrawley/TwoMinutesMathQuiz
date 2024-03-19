@@ -44,52 +44,62 @@ public class LevelFactory {
                 subtraction(6, 15, 15,30),
                 multiplication(3,12,5,12),
                 division(2,6,2,10),
-                powerOf(4,10,2,2),
-                powerOf(2,5,3,3));
+                powerOf(2,5,3,3),
+                powerOf(4,10,2,2));
 
         addLevel(6,
                 addition(100,200,70,170),
                 subtraction(12, 20, 21,45),
-                multiplication(5,13,5,13),
+                multiplication(5,13,5,12),
+                multiplication(26,50,2,3),
                 division(3,8,2,12),
-                powerOf(6,12,2,2),
-                powerOf(3,7,3,3));
+                powerOf(2,2,4,5),
+                powerOf(3,7,3,3),
+                powerOf(6,12,2,2));
 
         addLevel(7,
                 addition(200,590,290,590),
                 subtraction(20, 50, 35,70),
-                multiplication(7,14,8,14),
+                multiplication(7,14,8,12),
+                multiplication(30,60,2,5),
                 division(5,12,3,12),
-                powerOf(2,2,4,6),
-                powerOf(3,5,3,4),
-                powerOf(8,12,2,2),
-                powerOf(6,10,3,3));
+                powerOf(2,2,5,6),
+                powerOf(3,9,3,3),
+                powerOf(8,12,2,2));
 
         addLevel(8,
                 addition(800,1500,800,1300),
                 subtraction(50, 150, 150,220),
                 multiplication(9,15,9,15),
+                multiplication(70,120,5,9),
                 division(7,13,4,13),
-                powerOf(8,15,2,2),
-                powerOf(7,12,3,3),
-                powerOf(2,5,4,5));
+                powerOf(2,2,6,8),
+                powerOf(3,5,3,4),
+                powerOf(6,8,3,3),
+                powerOf(9,13,2,2));
 
         addLevel(9,
                 addition(1500,3500,1500,2550),
                 subtraction(150, 800, 200,900),
                 multiplication(11,16,11,16),
+                multiplication(100,200,7,11),
                 division(9,18,5,18),
-                powerOf(10,17,2,2),
-                powerOf(9,15,3,3),
-                powerOf(4,8,4,5));
+                powerOf(2,2,7,9),
+                powerOf(3,4,4,5),
+                powerOf(5,10,3,3),
+                powerOf(11,15,2,2));
 
         addLevel(10,
-                addition(5_000,10_000,5_000,12_000),
-                subtraction(300, 500, 1000,5000),
-                multiplication(12,20,15,35),
+                addition(5_000,10_000,3_000,8_000),
+                subtraction(300, 990, 1000,3000),
+                multiplication(8,15,15,20),
+                multiplication(12,20,11,15),
+                multiplication(200,300,11,15),
                 division(12,20,12,20),
-                powerOf(15,20,3,5),
-                powerOf(2,6,6,8));
+                powerOf(2,2,8,12),
+                powerOf(3,5,4,5),
+                powerOf(6,12,3,3),
+                powerOf(15,20,2,2));
 
         return levels;
     }
