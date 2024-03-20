@@ -3,6 +3,8 @@ package com.jcrawley.tmmq.view.fragments;
 import static com.jcrawley.tmmq.view.fragments.utils.ActivityUtils.playSound;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragment;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragmentOnBackButtonPressed;
+import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.isInLandscapeMode;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.setTextForLandscape;
 
 import android.os.Bundle;
@@ -60,30 +62,29 @@ public class GameOverFragment extends Fragment {
     }
 
 
-    private void log(String msg){
-        System.out.println("^^^ " + msg);
-    }
-
-
-    private void printInfo(){
-        log("finalScore: " + finalScore);
-        log(" dailyHighScore: " + dailyHighScore);
-        log("all time highScore: " + allTimeHighScore);
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View parentView = inflater.inflate(R.layout.fragment_game_over, container, false);
+        setupTextViews(parentView);
+        setupButtons(parentView);
+        return parentView;
+    }
+
+
+    private void setupTextViews(View parentView){
         setupFinalScoreText(parentView);
         setupGameOverText(parentView);
         setupDetailsView(parentView);
+        setupHighScoreText(parentView);
+    }
+
+
+    private void setupButtons(View parentView){
         setupStartNewGameButton(parentView);
         setupRetryButton(parentView);
-        FragmentUtils.onBackButtonPressed(this, this::loadGetReadyFragment);
+        setupBackButton();
         animateButtons(parentView);
         enableButtonsAfterDelay();
-        return parentView;
     }
 
 
@@ -129,15 +130,17 @@ public class GameOverFragment extends Fragment {
 
     private void setupDetailsView(View parentView){
         TextView gameDetails = parentView.findViewById(R.id.gameDetailsText);
-
         String gameDetailsStr= getString(R.string.game_over_details, gameLevel, timerLength);
-        gameDetails.setText(gameDetailsStr);
+        String amendedStr = addHighScoreDetailsIfInLandscape(gameDetailsStr);
+        gameDetails.setText(amendedStr);
     }
 
 
-    private void loadGetReadyFragment(){
-        GetReadyFragment getReadyFragment = new GetReadyFragment();
-        loadFragment(this, getReadyFragment, GetReadyFragment.FRAGMENT_TAG);
+    private String addHighScoreDetailsIfInLandscape(String detailsStr){
+        if(!isInLandscapeMode(this) || shouldHighScoreBeHidden()){
+            return detailsStr;
+        }
+        return detailsStr + ", " + getString(R.string.high_score_text, finalScore);
     }
 
 
@@ -147,11 +150,26 @@ public class GameOverFragment extends Fragment {
     }
 
 
+    private void setupHighScoreText(View parentView){
+        if(isInLandscapeMode(this) || shouldHighScoreBeHidden()) {
+            return;
+        }
+        TextView highScoreText = parentView.findViewById(R.id.highScoreText);
+        highScoreText.setText(getString(R.string.high_score_text, allTimeHighScore));
+        highScoreText.setVisibility(View.VISIBLE);
+    }
+
+
+    private boolean shouldHighScoreBeHidden(){
+        return allTimeHighScore < finalScore || allTimeHighScore == 0;
+    }
+
+
     private void setupStartNewGameButton(View parentView){
         mainMenuButton = parentView.findViewById(R.id.mainMenuButton);
         mainMenuButton.setOnClickListener(v -> {
             playSound(this, Sound.MENU_BUTTON);
-            startMainMenuScreenFragment();
+            loadMainMenuScreen();
         });
     }
 
@@ -160,12 +178,24 @@ public class GameOverFragment extends Fragment {
         retryButton = parentView.findViewById(R.id.retryMenuButton);
         retryButton.setOnClickListener(v ->{
             playSound(this, Sound.MENU_BUTTON);
-            loadGetReadyFragment();
+            loadGetReadyScreen();
         });
     }
 
 
-    private void startMainMenuScreenFragment(){
+    public void setupBackButton(){
+        loadFragmentOnBackButtonPressed(this, new LevelSelectFragment(), LevelSelectFragment.FRAGMENT_TAG);
+    }
+
+
+    private void loadGetReadyScreen(){
+        GetReadyFragment getReadyFragment = new GetReadyFragment();
+        loadFragment(this, getReadyFragment, GetReadyFragment.FRAGMENT_TAG);
+    }
+
+
+    private void loadMainMenuScreen(){
         loadFragment(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
     }
+
 }

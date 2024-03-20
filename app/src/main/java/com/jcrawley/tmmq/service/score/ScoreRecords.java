@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import java.time.LocalDateTime;
 
 
-
 public class ScoreRecords {
 
     private enum RecordType { DAILY, ALL_TIME }
@@ -31,8 +30,6 @@ public class ScoreRecords {
 
     private int getAllTimeHighScoreRecord(ScoreStatistics scoreStatistics){
         String allTimeKey = createScorePrefKey(RecordType.ALL_TIME, scoreStatistics);
-        int tempHighScore = scorePrefs.getInt(allTimeKey, 0);
-        log("entered getAllTimeHighScoreRecord() record is " + tempHighScore);
         return scorePrefs.getInt(allTimeKey, 0);
     }
 
@@ -47,15 +44,11 @@ public class ScoreRecords {
         return fullStats;
     }
 
-    private void log(String msg){
-        System.out.println("^^^ ScoreRecords: " + msg);
-    }
 
     private void saveAllTimeHighScore(ScoreStatistics scoreStatistics, int finalScore, int currentAllTimeRecord){
         if(finalScore <= currentAllTimeRecord){
             return;
         }
-        log("saveAllTimeHighScore() about to save : " + finalScore);
         String allTimeKey = createScorePrefKey(RecordType.ALL_TIME, scoreStatistics);
         scorePrefs.edit().putInt(allTimeKey, finalScore).apply();
     }
@@ -72,7 +65,6 @@ public class ScoreRecords {
     }
 
 
-
     private int getDailyHighScoreRecord(ScoreStatistics scoreStatistics){
         String todayDateStr = getDateToday();
         String lastDateStr = scorePrefs.getString(LAST_RECORD_DATE_KEY, todayDateStr);
@@ -82,7 +74,6 @@ public class ScoreRecords {
         String scoreKey = createScorePrefKey(RecordType.DAILY, scoreStatistics);
         return scorePrefs.getInt(scoreKey, 0);
     }
-
 
 
     private String getDateToday(){

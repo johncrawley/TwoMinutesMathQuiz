@@ -74,7 +74,7 @@ public class MainMenuFragment extends Fragment {
             return;
         }
         isGameStartInitiated.set(true);
-        FragmentUtils.loadFragment(this, new ChooseLevelFragment(), ChooseLevelFragment.FRAGMENT_TAG);
+        FragmentUtils.loadFragment(this, new LevelSelectFragment(), LevelSelectFragment.FRAGMENT_TAG);
     }
 
 

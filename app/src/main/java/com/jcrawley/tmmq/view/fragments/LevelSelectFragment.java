@@ -1,5 +1,7 @@
 package com.jcrawley.tmmq.view.fragments;
 
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragmentOnBackButtonPressed;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,18 +20,18 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class ChooseLevelFragment extends Fragment {
+public class LevelSelectFragment extends Fragment {
 
     public static final String FRAGMENT_TAG = "Choose_level_fragment";
     private final AtomicBoolean isLevelChosen = new AtomicBoolean(false);
 
-    public ChooseLevelFragment() {
+    public LevelSelectFragment() {
         // Required empty public constructor
     }
 
 
-    public static ChooseLevelFragment newInstance(String param1, String param2) {
-        ChooseLevelFragment fragment = new ChooseLevelFragment();
+    public static LevelSelectFragment newInstance(String param1, String param2) {
+        LevelSelectFragment fragment = new LevelSelectFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -45,12 +47,13 @@ public class ChooseLevelFragment extends Fragment {
                              Bundle savedInstanceState) {
         isLevelChosen.set(false);
         View parentView =  inflater.inflate(R.layout.fragment_choose_level, container, false);
-        setupButtons(parentView);
+        setupLevelButtons(parentView);
+        setupBackButton();
         return parentView;
     }
 
 
-    public void setupButtons(View parentView){
+    public void setupLevelButtons(View parentView){
         Map<Integer,Integer> buttonsMap = Map.of(
                 R.id.level1Button, 1,
                 R.id.level2Button, 2,
@@ -80,4 +83,8 @@ public class ChooseLevelFragment extends Fragment {
         });
     }
 
+
+    private void setupBackButton(){
+        loadFragmentOnBackButtonPressed(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
+    }
 }

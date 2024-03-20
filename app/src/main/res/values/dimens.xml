@@ -57,6 +57,8 @@
     <dimen name="game_over_heading_text_size_min">24sp</dimen>
     <dimen name="new_record_text_size">48sp</dimen>
     <dimen name="game_over_details_text_size">22sp</dimen>
+    <dimen name="game_over_details_text_size_max">32sp</dimen>
+    <dimen name="game_over_details_text_size_min">12sp</dimen>
     <dimen name="game_over_heading_margin">8dp</dimen>
     <dimen name="game_over_details_margin">8dp</dimen>
     <dimen name="game_over_your_score_heading_margin">8dp</dimen>
@@ -64,6 +66,7 @@
 
     <dimen name="ending_score_label_text_size">24sp</dimen>
     <dimen name="ending_score_text_size">72sp</dimen>
+    <dimen name="ending_score_text_size_min">32sp</dimen>
     <dimen name="input_button">100dp</dimen>
     <dimen name="input_button_text_size">28sp</dimen>
 

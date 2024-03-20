@@ -352,8 +352,7 @@ public class GameFragment extends Fragment {
 
 
     private void loadWelcomeScreen(){
-        MainMenuFragment mainMenuFragment = new MainMenuFragment();
-        FragmentUtils.loadFragment(this, mainMenuFragment, MainMenuFragment.FRAGMENT_TAG);
+        FragmentUtils.loadFragment(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
     }
 
 

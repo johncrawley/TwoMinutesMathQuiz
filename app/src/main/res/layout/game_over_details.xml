@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gameOverTextLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/finalScoreLayout">
+
+    <include layout="@layout/game_over_text"
+        android:id="@+id/gameOverTextInclude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/gameDetailsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/game_over_details_margin"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="@dimen/game_over_details_text_size"
+        android:textColor="?attr/medium_text_color"
+        android:shadowRadius="@integer/medium_text_shadow_radius"
+        android:shadowDx="@integer/medium_text_shadow_dx"
+        android:shadowDy="@integer/medium_text_shadow_dy"
+        android:shadowColor="?attr/text_shadow_layer_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameOverTextInclude"/>
+
+    <TextView
+        android:id="@+id/highScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/game_over_details_margin"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:textSize="@dimen/game_over_details_text_size"
+        android:textColor="?attr/medium_text_color"
+        android:shadowRadius="@integer/medium_text_shadow_radius"
+        android:shadowDx="@integer/medium_text_shadow_dx"
+        android:shadowDy="@integer/medium_text_shadow_dy"
+        android:shadowColor="?attr/text_shadow_layer_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameDetailsText"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

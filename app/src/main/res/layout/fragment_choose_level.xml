@@ -8,7 +8,7 @@
     android:gravity="center"
     android:padding="@dimen/screen_padding"
     android:orientation="vertical"
-    tools:context=".view.fragments.ChooseLevelFragment">
+    tools:context=".view.fragments.LevelSelectFragment">
 
         <TextView
             android:id="@+id/chooseLevelHeading"
