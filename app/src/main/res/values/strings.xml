@@ -41,7 +41,12 @@
     <string name="new_daily_record">NEW DAILY RECORD!</string>
     <string name="new_all_time_record">NEW HIGH SCORE!</string>
 
-    <string name="choose_level_heading">Select Level</string>
+    <string name="choose_level_heading">Level</string>
+    <string name="choose_time_heading">Time</string>
+    <string name="options_start_button">Start</string>
+    <string name="options_previous_button">\u003c</string>
+    <string name="options_next_button">\u003e</string>
+
     <string name="button_text_level_1">1</string>
     <string name="button_text_level_2">2</string>
     <string name="button_text_level_3">3</string>
