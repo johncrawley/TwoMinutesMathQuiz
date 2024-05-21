@@ -15,9 +15,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="@dimen/choose_level_heading_text_size"
+        android:textSize="@dimen/options_heading_text_size"
         android:fontFamily="@font/kp_programmer_nbp_3m3x"
-        android:autoSizeMaxTextSize="@dimen/choose_level_heading_text_size"
+        android:autoSizeMaxTextSize="@dimen/options_heading_text_size"
         android:autoSizeMinTextSize="@dimen/choose_level_heading_text_size_min"
         android:autoSizeTextType="uniform"
         android:maxLines="1"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/chooseLevelLayout"
+        app:layout_constraintBottom_toTopOf="@id/chooseTimeHeading"
         />
 
     <LinearLayout
@@ -42,8 +42,7 @@
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/chooseLevelHeading"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/chooseTimeHeading">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <Button
             android:id="@+id/previousLevelButton"
@@ -89,9 +88,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="@dimen/choose_level_heading_text_size"
+        android:textSize="@dimen/options_heading_text_size"
         android:fontFamily="@font/kp_programmer_nbp_3m3x"
-        android:autoSizeMaxTextSize="@dimen/choose_level_heading_text_size"
+        android:autoSizeMaxTextSize="@dimen/options_heading_text_size"
         android:autoSizeMinTextSize="@dimen/choose_level_heading_text_size_min"
         android:autoSizeTextType="uniform"
         android:maxLines="1"
