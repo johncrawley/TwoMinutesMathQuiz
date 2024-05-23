@@ -77,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void setTimerValue(int value){
+        //do nothing yet
+    }
+
+
     private SharedPreferences getPrefs() {
         return PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }

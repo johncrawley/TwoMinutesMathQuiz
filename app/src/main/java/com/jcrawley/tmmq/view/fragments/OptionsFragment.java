@@ -16,6 +16,8 @@ import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -27,6 +29,10 @@ public class OptionsFragment extends Fragment {
     private final int maxLevel = 10;
     private TextView levelText, timerText;
 
+    private int currentTimerIndex = 1;
+    private final Map<String, Integer> timerMap = Map.of("1:00", 60, "2:00", 120, "3:00", 180);
+    private final List<String> timerValues = List.of("1:00", "2:00", "3:00");
+    private String currentTimerStr = timerValues.get(currentTimerIndex);
 
 
 
@@ -54,14 +60,11 @@ public class OptionsFragment extends Fragment {
                              Bundle savedInstanceState) {
         isLevelChosen.set(false);
         View parentView = inflater.inflate(R.layout.fragment_options, container, false);
-        setupLevelButtons(parentView);
+        setupViews(parentView);
         setupBackButton();
-        setupOptionViews(parentView);
         setupStartButton(parentView);
         return parentView;
     }
-
-
 
 
     private void setupBackButton() {
@@ -69,35 +72,44 @@ public class OptionsFragment extends Fragment {
     }
 
 
-    private void setupOptionViews(View parentView){
-        TextView levelText = parentView.findViewById(R.id.setLevelText);
-        TextView timerText = parentView.findViewById(R.id.setTimerText);
-        setupLevelButtons(parentView);
-        setupTimerButtons(parentView);
-    }
-
-    private void setupLevelButtons(View parentView){
+    private void setupViews(View parentView){
+        levelText = parentView.findViewById(R.id.setLevelText);
+        timerText = parentView.findViewById(R.id.setTimerText);
 
         setupButton(parentView, R.id.previousLevelButton, this::decreaseCurrentLevel);
         setupButton(parentView, R.id.nextLevelButton, this::increaseCurrentLevel);
-    }
-
-
-    private void setupTimerButtons(View parentView){
-        levelText = parentView.findViewById(R.id.setLevelText);
         setupButton(parentView, R.id.previousTimerValueButton, this::decreaseCurrentTimerValue);
         setupButton(parentView, R.id.nextTimerValueButton, this::increaseCurrentTimerValue);
     }
 
 
-
     private void decreaseCurrentTimerValue(){
+        decrementTimerIndex();
+        assignCurrentTimerValue();
+        //getMain().ifPresent(ma -> ma.setTimerValue(currentTimerStr));
+    }
+
+
+
+    private void increaseCurrentTimerValue(){
+        incrementTimerIndex();
+        assignCurrentTimerValue();
+    }
+
+
+    private void assignCurrentTimerValue(){
+        currentTimerStr = timerValues.get(currentTimerIndex);
 
     }
 
 
-    private void increaseCurrentTimerValue(){
+    private void decrementTimerIndex(){
+        currentTimerIndex = currentTimerIndex <= 0 ? timerValues.size() - 1 : currentTimerIndex -1;
+    }
 
+
+    private void incrementTimerIndex(){
+        currentTimerIndex = currentTimerIndex >= timerValues.size() ? 0 : currentTimerIndex + 1;
     }
 
 
