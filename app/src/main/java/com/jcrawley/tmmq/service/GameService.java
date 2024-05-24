@@ -10,6 +10,7 @@ import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.game.TimerLength;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
+import com.jcrawley.tmmq.service.preferences.GamePreferenceManager;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.sound.Sound;
@@ -28,6 +29,7 @@ public class GameService extends Service {
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> notifyGameOverFuture;
     private SoundPlayer soundPlayer;
+    GamePreferenceManager gamePreferenceManager;
 
 
     public GameService() {
@@ -43,6 +45,41 @@ public class GameService extends Service {
 
     public SharedPreferences getScorePrefs(){
         return getSharedPreferences("score_preferences", MODE_PRIVATE);
+    }
+
+
+    public void setTimer(int value){
+        if(gamePreferenceManager != null){
+            gamePreferenceManager.saveTimer(value);
+        }
+        if(game != null){
+            game.setTimerLength(value);
+        }
+    }
+
+
+    public int getTimer(){
+        if(gamePreferenceManager != null){
+            return gamePreferenceManager.getTimer();
+        }
+        return 120;
+    }
+
+    public void setLevel(int value){
+        if(gamePreferenceManager != null){
+            gamePreferenceManager.saveLevel(value);
+        }
+        if(game != null){
+            game.setDifficulty(value);
+        }
+    }
+
+
+    public int getLevel(){
+        if(gamePreferenceManager != null){
+            return gamePreferenceManager.getLevel();
+        }
+        return 5;
     }
 
 
@@ -98,7 +135,7 @@ public class GameService extends Service {
 
     public void onGameOver(ScoreStatistics scoreStatistics){
        ScoreStatistics fullScoreStats = new ScoreRecords(getScorePrefs()).getCompleteScoreStatsAndSaveRecords(scoreStatistics);
-       notifyGameOverFuture = scheduledExecutorService.scheduleAtFixedRate(()-> mainActivity.onGameOver(fullScoreStats), 0, 2, TimeUnit.SECONDS);
+       notifyGameOverFuture = scheduledExecutorService.scheduleWithFixedDelay(()-> mainActivity.onGameOver(fullScoreStats), 0, 2, TimeUnit.SECONDS);
     }
 
 
@@ -107,8 +144,8 @@ public class GameService extends Service {
     }
 
 
-    public void startGame(TimerLength timerLength){
-        game.startGame(timerLength);
+    public void startGame(){
+        game.startGame();
     }
 
 
@@ -122,6 +159,7 @@ public class GameService extends Service {
         log("entered onCreate()");
         game.init(this);
         soundPlayer = new SoundPlayer(getApplicationContext());
+        gamePreferenceManager = new GamePreferenceManager(this);
     }
 
 

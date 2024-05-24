@@ -1,5 +1,7 @@
 package com.jcrawley.tmmq.service.game;
 
+import static com.jcrawley.tmmq.utils.Utils.getTimerStrFor;
+
 import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.game.level.GameLevel;
 import com.jcrawley.tmmq.service.game.level.LevelFactory;
@@ -33,20 +35,19 @@ public class Game {
     }
 
 
-    public void startGame(TimerLength timerLength){
-        if(!isStarted){
-            initiateTimersAndGenerateFirstQuestion(timerLength);
-        }
+    public void setTimerLength(int value){
+        gametimer.setTimerLength(value);
+        timerLengthDisplayStr = getTimerStrFor(value);
     }
 
 
-    private void initiateTimersAndGenerateFirstQuestion(TimerLength timerLength){
-        gametimer.setTimerLength(timerLength.getValue());
-        timerLengthDisplayStr = timerLength.getDisplayStr();
-        isStarted = true;
-        currentQuestion = generateQuestion();
-        setQuestionTextOnView();
-        gametimer.startTimer();
+    public void startGame(){
+        if(!isStarted){
+            isStarted = true;
+            currentQuestion = generateQuestion();
+            setQuestionTextOnView();
+            gametimer.startTimer();
+        }
     }
 
 

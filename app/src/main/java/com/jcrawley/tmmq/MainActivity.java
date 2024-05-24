@@ -22,12 +22,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
 import com.jcrawley.tmmq.service.GameService;
-import com.jcrawley.tmmq.service.game.TimerLength;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
+
+import java.util.Optional;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -78,7 +79,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setTimerValue(int value){
-        //do nothing yet
+        if(gameService != null){
+            gameService.setTimer(value);
+        }
+    }
+
+
+    public void setLevel(int value){
+        if(gameService != null){
+            gameService.setLevel(value);
+        }
+    }
+
+
+    public Optional<GameService> getGameService(){
+        return Optional.ofNullable(gameService);
     }
 
 
@@ -208,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         reassignActivityToService();
-        gameService.startGame(getTimerLength());
+        gameService.startGame();
     }
 
 
@@ -218,28 +233,6 @@ public class MainActivity extends AppCompatActivity {
         }
         reassignActivityToService();
         gameService.quitGame();
-    }
-
-
-    public TimerLength getTimerLength() {
-        int selectedTime = Integer.parseInt(getPrefs().getString("timer_length", "120"));
-        int displayStrIndex = getTimerIndexValueFor(selectedTime);
-
-        String[] displayStrings = getResources().getStringArray(R.array.time_limit_entries);
-        String selectedTimeDisplayStr = displayStrIndex == -1 ? "" : displayStrings[displayStrIndex];
-        return new TimerLength(selectedTime, selectedTimeDisplayStr);
-    }
-
-
-    private int getTimerIndexValueFor(int selectedTime) {
-        String[] timerValues = getResources().getStringArray(R.array.time_limit_values);
-        for (int i = 0; i < timerValues.length; i++) {
-            int timerValue = Integer.parseInt(timerValues[i]);
-            if (timerValue == selectedTime) {
-                return i;
-            }
-        }
-        return -1;
     }
 
 

@@ -1,5 +1,7 @@
 package com.jcrawley.tmmq.view.fragments;
 
+import static com.jcrawley.tmmq.utils.Utils.getTimerStrFor;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getStr;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragmentOnBackButtonPressed;
 
 import android.os.Bundle;
@@ -13,9 +15,11 @@ import androidx.fragment.app.Fragment;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,9 +34,10 @@ public class OptionsFragment extends Fragment {
     private TextView levelText, timerText;
 
     private int currentTimerIndex = 1;
-    private final Map<String, Integer> timerMap = Map.of("1:00", 60, "2:00", 120, "3:00", 180);
-    private final List<String> timerValues = List.of("1:00", "2:00", "3:00");
-    private String currentTimerStr = timerValues.get(currentTimerIndex);
+    private Map<String, Integer> timerMap;
+    private List<Integer> timerValues;
+    private String currentTimerStr;
+    private int currentTimerValue;
 
 
 
@@ -60,10 +65,23 @@ public class OptionsFragment extends Fragment {
                              Bundle savedInstanceState) {
         isLevelChosen.set(false);
         View parentView = inflater.inflate(R.layout.fragment_options, container, false);
+        setupTimerValues();
+        getTimerFromPreferences();
         setupViews(parentView);
         setupBackButton();
         setupStartButton(parentView);
         return parentView;
+    }
+
+
+    private void setupTimerValues(){
+        timerValues = List.of(60, 120, 180);
+        timerMap = new HashMap<>();
+        for(Integer timerValue : timerValues){
+            timerMap.put(getTimerStrFor(timerValue), timerValue);
+        }
+        currentTimerValue = timerValues.get(currentTimerIndex);
+        currentTimerStr = getTimerStrFor(currentTimerValue);
     }
 
 
@@ -86,9 +104,8 @@ public class OptionsFragment extends Fragment {
     private void decreaseCurrentTimerValue(){
         decrementTimerIndex();
         assignCurrentTimerValue();
-        //getMain().ifPresent(ma -> ma.setTimerValue(currentTimerStr));
+        getMain().ifPresent(ma -> ma.setTimerValue(currentTimerValue));
     }
-
 
 
     private void increaseCurrentTimerValue(){
@@ -98,8 +115,13 @@ public class OptionsFragment extends Fragment {
 
 
     private void assignCurrentTimerValue(){
-        currentTimerStr = timerValues.get(currentTimerIndex);
-
+        currentTimerValue = timerValues.get(currentTimerIndex);
+        currentTimerStr = getTimerStrFor(currentTimerValue);
+        Integer value = timerMap.get(currentTimerStr);
+        if(value != null){
+            currentTimerValue = value;
+            timerText.setText(currentTimerStr);
+        }
     }
 
 
@@ -140,12 +162,24 @@ public class OptionsFragment extends Fragment {
         }
     }
 
+
     private void incrementLevel(){
         currentLevel++;
         if(currentLevel > maxLevel){
             currentLevel = 1;
         }
     }
+
+
+    private void getTimerFromPreferences(){
+        getGameService().ifPresent(gs -> {
+            int savedValue = gs.getTimer();
+            currentTimerStr = getTimerStrFor(savedValue);
+            currentTimerValue = savedValue;
+            assignCurrentTimerValue();
+        });
+    }
+
 
 
     private void updateLevelTextView(){
@@ -173,5 +207,10 @@ public class OptionsFragment extends Fragment {
 
     private Optional<MainActivity> getMain(){
         return Optional.ofNullable((MainActivity) getActivity());
+    }
+
+    private Optional<GameService> getGameService(){
+        MainActivity mainActivity = (MainActivity) getActivity();
+        return mainActivity == null ? Optional.empty() : mainActivity.getGameService();
     }
 }
