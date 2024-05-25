@@ -1,7 +1,6 @@
 package com.jcrawley.tmmq.view.fragments;
 
 import static com.jcrawley.tmmq.utils.Utils.getTimerStrFor;
-import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getStr;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragmentOnBackButtonPressed;
 
 import android.os.Bundle;
@@ -18,17 +17,16 @@ import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
+import com.jcrawley.tmmq.view.fragments.utils.GeneralUtils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class OptionsFragment extends Fragment {
 
-    public static final String FRAGMENT_TAG = "Choose_level_fragment";
-    private final AtomicBoolean isLevelChosen = new AtomicBoolean(false);
+    public static final String FRAGMENT_TAG = "Options_fragment";
     private int currentLevel = 5;
     private final int maxLevel = 10;
     private TextView levelText, timerText;
@@ -63,11 +61,11 @@ public class OptionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        isLevelChosen.set(false);
+
         View parentView = inflater.inflate(R.layout.fragment_options, container, false);
+        setupViews(parentView);
         setupTimerValues();
         getTimerFromPreferences();
-        setupViews(parentView);
         setupBackButton();
         setupStartButton(parentView);
         return parentView;
@@ -102,6 +100,7 @@ public class OptionsFragment extends Fragment {
 
 
     private void decreaseCurrentTimerValue(){
+        playMenuButtonSound();
         decrementTimerIndex();
         assignCurrentTimerValue();
         getMain().ifPresent(ma -> ma.setTimerValue(currentTimerValue));
@@ -109,6 +108,7 @@ public class OptionsFragment extends Fragment {
 
 
     private void increaseCurrentTimerValue(){
+        playMenuButtonSound();
         incrementTimerIndex();
         assignCurrentTimerValue();
     }
@@ -126,12 +126,12 @@ public class OptionsFragment extends Fragment {
 
 
     private void decrementTimerIndex(){
-        currentTimerIndex = currentTimerIndex <= 0 ? timerValues.size() - 1 : currentTimerIndex -1;
+        currentTimerIndex = GeneralUtils.decrementListIndex(currentTimerIndex, timerValues.size());
     }
 
 
     private void incrementTimerIndex(){
-        currentTimerIndex = currentTimerIndex >= timerValues.size() ? 0 : currentTimerIndex + 1;
+        currentTimerIndex = GeneralUtils.incrementListIndex(currentTimerIndex, timerValues.size());
     }
 
 
@@ -174,12 +174,12 @@ public class OptionsFragment extends Fragment {
     private void getTimerFromPreferences(){
         getGameService().ifPresent(gs -> {
             int savedValue = gs.getTimer();
+            currentTimerIndex = gs.getSavedTimerIndex();
             currentTimerStr = getTimerStrFor(savedValue);
             currentTimerValue = savedValue;
             assignCurrentTimerValue();
         });
     }
-
 
 
     private void updateLevelTextView(){
@@ -188,17 +188,17 @@ public class OptionsFragment extends Fragment {
 
 
     private void playMenuButtonSound(){
-        getMain().ifPresent(ma-> {ma.playSound(Sound.MENU_BUTTON);});
+        getGameService().ifPresent(gs-> gs.playSound(Sound.MENU_BUTTON));
     }
-
 
 
     private void setupStartButton(View parentView) {
         Button button = parentView.findViewById(R.id.startButton);
         button.setOnClickListener(v -> {
-            getMain().ifPresent(ma-> {
-                ma.setDifficulty(currentLevel);
-                ma.playSound(Sound.MENU_BUTTON);
+            playMenuButtonSound();
+            getGameService().ifPresent(gs ->{
+                gs.setLevel(currentLevel);
+                gs.setTimer(currentTimerValue, currentTimerIndex);
             });
             FragmentUtils.loadFragment(this, new GetReadyFragment(), GetReadyFragment.FRAGMENT_TAG);
         });

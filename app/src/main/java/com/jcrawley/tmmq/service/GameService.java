@@ -57,6 +57,16 @@ public class GameService extends Service {
         }
     }
 
+    public void setTimer(int value, int currentTimerIndex){
+        if(gamePreferenceManager != null){
+            gamePreferenceManager.saveTimer(value);
+            gamePreferenceManager.saveTimerIndex(currentTimerIndex);
+        }
+        if(game != null){
+            game.setTimerLength(value);
+        }
+    }
+
 
     public int getTimer(){
         if(gamePreferenceManager != null){
@@ -64,6 +74,15 @@ public class GameService extends Service {
         }
         return 120;
     }
+
+
+    public int getSavedTimerIndex(){
+        if(gamePreferenceManager != null){
+            return gamePreferenceManager.getTimerIndex();
+        }
+        return 0;
+    }
+
 
     public void setLevel(int value){
         if(gamePreferenceManager != null){

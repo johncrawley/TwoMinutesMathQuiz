@@ -22,4 +22,13 @@ public class GeneralUtils {
     public static boolean isInLandscapeMode(Fragment fragment){
         return fragment.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
+
+
+    public static int incrementListIndex(int currentValue, int listSize){
+        return currentValue >= listSize-1 ? 0 : currentValue + 1;
+    }
+
+    public static int decrementListIndex(int currentValue, int listSize){
+        return currentValue <= 0 ? listSize - 1 : currentValue - 1;
+    }
 }
