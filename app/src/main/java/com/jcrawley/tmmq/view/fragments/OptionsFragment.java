@@ -66,6 +66,7 @@ public class OptionsFragment extends Fragment {
         setupViews(parentView);
         setupTimerValues();
         getTimerFromPreferences();
+        getLevelFromPreferences();
         setupBackButton();
         setupStartButton(parentView);
         return parentView;
@@ -178,6 +179,14 @@ public class OptionsFragment extends Fragment {
             currentTimerStr = getTimerStrFor(savedValue);
             currentTimerValue = savedValue;
             assignCurrentTimerValue();
+        });
+    }
+
+
+    private void getLevelFromPreferences(){
+        getGameService().ifPresent(gs -> {
+            currentLevel = gs.getLevel();
+            updateLevelTextView();
         });
     }
 
