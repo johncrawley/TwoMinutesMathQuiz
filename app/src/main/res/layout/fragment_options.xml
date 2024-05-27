@@ -7,7 +7,7 @@
     android:background="@drawable/layout_background"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".view.fragments.LevelSelectFragment">
+    tools:context=".view.fragments.OptionsFragment">
 
     <LinearLayout
         android:id="@+id/chooseLevelLayout"

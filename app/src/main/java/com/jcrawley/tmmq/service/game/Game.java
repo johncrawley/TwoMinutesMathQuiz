@@ -77,6 +77,12 @@ public class Game {
         }
         MathQuestion nextQuestion = generateQuestion();
         gameService.setQuestionOnView(nextQuestion);
+        handleAnswer(answerStr);
+        currentQuestion = nextQuestion;
+    }
+
+
+    private void handleAnswer(String answerStr){
         if(currentQuestion.isGivenAnswerCorrect(answerStr)){
             currentScore++;
             gameService.updateScore(currentScore);
@@ -84,7 +90,6 @@ public class Game {
         else{
             gameService.notifyIncorrectAnswer();
         }
-        currentQuestion = nextQuestion;
     }
 
 

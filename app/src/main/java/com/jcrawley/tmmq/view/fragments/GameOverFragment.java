@@ -184,7 +184,7 @@ public class GameOverFragment extends Fragment {
 
 
     public void setupBackButton(){
-        loadFragmentOnBackButtonPressed(this, new LevelSelectFragment(), LevelSelectFragment.FRAGMENT_TAG);
+        loadFragmentOnBackButtonPressed(this, new OptionsFragment(), OptionsFragment.FRAGMENT_TAG);
     }
 
 

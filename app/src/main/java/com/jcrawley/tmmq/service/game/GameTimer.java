@@ -22,7 +22,7 @@ public class GameTimer {
 
 
     public void startTimer(){
-        future = scheduledExecutorService.scheduleAtFixedRate(this::decrementRemainingTime, 1,1, TimeUnit.SECONDS);
+        future = scheduledExecutorService.scheduleWithFixedDelay(this::decrementRemainingTime, 1,1, TimeUnit.SECONDS);
     }
 
 

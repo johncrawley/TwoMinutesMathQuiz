@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.jcrawley.tmmq.R;
-import com.jcrawley.tmmq.view.fragments.LevelSelectFragment;
 
 import java.util.function.Consumer;
 
@@ -49,11 +48,6 @@ public class FragmentUtils {
             }
         };
         parentFragment.requireActivity().getOnBackPressedDispatcher().addCallback(parentFragment.getViewLifecycleOwner(), callback);
-    }
-
-
-    public static void doNothingWhenBackButtonPressed(Fragment parentFragment){
-        onBackButtonPressed(parentFragment, ()->{});
     }
 
 

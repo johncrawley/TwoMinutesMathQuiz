@@ -8,7 +8,6 @@ import android.os.IBinder;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
-import com.jcrawley.tmmq.service.game.TimerLength;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.preferences.GamePreferenceManager;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
@@ -56,6 +55,7 @@ public class GameService extends Service {
             game.setTimerLength(value);
         }
     }
+
 
     public void setTimer(int value, int currentTimerIndex){
         if(gamePreferenceManager != null){
@@ -122,34 +122,23 @@ public class GameService extends Service {
     }
 
 
-    public void fadeInQuestionTextOnView(String questionText){
-        if(mainActivity == null){
-            return;
-        }
-        mainActivity.fadeInQuestionText(questionText);
-    }
-
-
     public void notifyIncorrectAnswer(){
         mainActivity.notifyIncorrectAnswer();
     }
 
 
     public void updateScore(int score){
-        if(mainActivity == null){
-            return;
+        if(mainActivity != null){
+            mainActivity.setScore(score);
         }
-        mainActivity.setScore(score);
     }
 
 
     public void updateTimer(int minutesRemaining, int secondsRemaining){
-        if(mainActivity == null){
-            return;
+        if(mainActivity != null){
+            mainActivity.setTimeRemaining(minutesRemaining, secondsRemaining);
         }
-        mainActivity.setTimeRemaining(minutesRemaining, secondsRemaining);
     }
-
 
 
     public void onGameOver(ScoreStatistics scoreStatistics){
@@ -175,7 +164,6 @@ public class GameService extends Service {
 
     @Override
     public void onCreate() {
-        log("entered onCreate()");
         game.init(this);
         soundPlayer = new SoundPlayer(getApplicationContext());
         gamePreferenceManager = new GamePreferenceManager(this);
@@ -185,10 +173,6 @@ public class GameService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return Service.START_NOT_STICKY; // service is not restarted when terminated
-    }
-
-    private void log(String msg){
-        System.out.println("^^^ GameService: " + msg);
     }
 
 
