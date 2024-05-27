@@ -6,152 +6,157 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/layout_background"
     android:gravity="center"
-    android:padding="@dimen/screen_padding"
     android:orientation="vertical"
     tools:context=".view.fragments.LevelSelectFragment">
-
-    <TextView
-        android:id="@+id/chooseLevelHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="@dimen/options_heading_text_size"
-        android:fontFamily="@font/kp_programmer_nbp_3m3x"
-        android:autoSizeMaxTextSize="@dimen/options_heading_text_size"
-        android:autoSizeMinTextSize="@dimen/choose_level_heading_text_size_min"
-        android:autoSizeTextType="uniform"
-        android:maxLines="1"
-        android:layout_margin="@dimen/title_text_margin"
-        android:text="@string/choose_level_heading"
-        android:shadowRadius="@integer/text_shadow_radius"
-        android:shadowDx="@integer/text_shadow_dx"
-        android:shadowDy="@integer/text_shadow_dy"
-        android:textColor="?attr/heading_text_color"
-        android:shadowColor="?attr/text_shadow_layer_color"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/chooseTimeHeading"
-        />
 
     <LinearLayout
         android:id="@+id/chooseLevelLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/chooseLevelHeading"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/chooseTimeLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/previousLevelButton"
-            android:layout_width="70dp"
+        <TextView
+            android:id="@+id/chooseLevelHeading"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/options_previous_button"
-            style="@style/menuButtonStyle"/>
+            android:textAlignment="center"
+            android:textSize="@dimen/options_heading_text_size"
+            android:fontFamily="@font/kp_programmer_nbp_3m3x"
+            android:autoSizeMaxTextSize="@dimen/options_heading_text_size"
+            android:autoSizeMinTextSize="@dimen/choose_level_heading_text_size_min"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:layout_margin="@dimen/options_title_text_margin"
+            android:text="@string/choose_level_heading"
+            android:shadowRadius="@integer/text_shadow_radius"
+            android:shadowDx="@integer/text_shadow_dx"
+            android:shadowDy="@integer/text_shadow_dy"
+            android:textColor="?attr/heading_text_color"
+            android:shadowColor="?attr/text_shadow_layer_color"
+            />
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/status_panel_layout_background"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/setLevelText"
-                android:layout_width="100dp"
+
+            <Button
+                android:id="@+id/previousLevelButton"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:textSize="@dimen/score_text_size"
-                android:text="5"
+                android:text="@string/options_previous_button"
+                style="@style/menuButtonStyle"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:textAlignment="center"/>
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/options_text_layout_background"
+                app:layout_constraintTop_toTopOf="parent">
 
+                <TextView
+                    android:id="@+id/setLevelText"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:textSize="@dimen/score_text_size"
+                    android:text="5"
+                    android:gravity="center"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/nextLevelButton"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="@string/options_next_button"
+                style="@style/menuButtonStyle"/>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/nextLevelButton"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:text="@string/options_next_button"
-            style="@style/menuButtonStyle"/>
-
     </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/chooseTimeHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="@dimen/options_heading_text_size"
-        android:fontFamily="@font/kp_programmer_nbp_3m3x"
-        android:autoSizeMaxTextSize="@dimen/options_heading_text_size"
-        android:autoSizeMinTextSize="@dimen/choose_level_heading_text_size_min"
-        android:autoSizeTextType="uniform"
-        android:maxLines="1"
-        android:layout_margin="@dimen/title_text_margin"
-        android:text="@string/choose_time_heading"
-        android:shadowRadius="@integer/text_shadow_radius"
-        android:shadowDx="@integer/text_shadow_dx"
-        android:shadowDy="@integer/text_shadow_dy"
-        android:textColor="?attr/heading_text_color"
-        android:shadowColor="?attr/text_shadow_layer_color"
-        app:layout_constraintTop_toBottomOf="@id/chooseLevelLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/startButton"
-        />
 
     <LinearLayout
         android:id="@+id/chooseTimeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/chooseTimeHeading"
+        app:layout_constraintTop_toBottomOf="@id/chooseLevelLayout"
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/previousTimerValueButton"
-            android:layout_width="70dp"
+        <TextView
+            android:id="@+id/chooseTimeHeading"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/options_previous_button"
-            style="@style/menuButtonStyle"/>
-
+            android:textAlignment="center"
+            android:textSize="@dimen/options_heading_text_size"
+            android:fontFamily="@font/kp_programmer_nbp_3m3x"
+            android:autoSizeMaxTextSize="@dimen/options_heading_text_size"
+            android:autoSizeMinTextSize="@dimen/choose_level_heading_text_size_min"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:layout_margin="@dimen/options_title_text_margin"
+            android:text="@string/choose_time_heading"
+            android:shadowRadius="@integer/text_shadow_radius"
+            android:shadowDx="@integer/text_shadow_dx"
+            android:shadowDy="@integer/text_shadow_dy"
+            android:textColor="?attr/heading_text_color"
+            android:shadowColor="?attr/text_shadow_layer_color"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/status_panel_layout_background"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/setTimerText"
-                android:layout_width="100dp"
+            <Button
+                android:id="@+id/previousTimerValueButton"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:textSize="@dimen/score_text_size"
-                android:text="2:00"
+                android:text="@string/options_previous_button"
+                style="@style/menuButtonStyle"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:textAlignment="center"/>
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/options_text_layout_background"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/setTimerText"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:textSize="@dimen/score_text_size"
+                    android:text="2:00"
+                    android:gravity="center"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/nextTimerValueButton"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="@string/options_next_button"
+                style="@style/menuButtonStyle"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/nextTimerValueButton"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:text="@string/options_next_button"
-            style="@style/menuButtonStyle"/>
 
     </LinearLayout>
 
@@ -162,7 +167,6 @@
         android:layout_height="wrap_content"
         android:text="@string/options_start_button"
         style="@style/menuButtonStyle"
-        app:layout_constraintTop_toBottomOf="@+id/chooseTimeHeading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

@@ -41,7 +41,7 @@ public class GamePreferenceManager {
 
 
     public int getLevel(){
-        return getInt(PrefKey.TIMER, 5);
+        return getInt(PrefKey.LEVEL, 5);
     }
 
 
