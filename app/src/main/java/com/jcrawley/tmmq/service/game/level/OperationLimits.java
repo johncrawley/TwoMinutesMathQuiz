@@ -5,7 +5,7 @@ import com.jcrawley.tmmq.service.game.question.MathOperation;
 
 public class OperationLimits {
 
-    private MathOperation mathOperation;
+    private final MathOperation mathOperation;
     private final int firstNumberMin;
     private final int firstNumberMax;
     private final int secondNumberMin;
@@ -28,14 +28,6 @@ public class OperationLimits {
         if(secondNumberMin > secondNumberMax){
             throw new RuntimeException("OperationLimits number 2 minimum ("  + ") should be less than maximum (" + firstNumberMax + ").");
         }
-    }
-
-
-    public OperationLimits(){
-        firstNumberMin = 0;
-        firstNumberMax = 0;
-        secondNumberMin = 0;
-        secondNumberMax = 0;
     }
 
 

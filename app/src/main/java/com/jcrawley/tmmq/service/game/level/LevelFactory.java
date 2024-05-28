@@ -36,6 +36,8 @@ public class LevelFactory {
         addLevel(4,
                 addition(20,50,8,30),
                 subtraction(6, 12, 8,15),
+                division(2,2,10),
+                division(3,5,2,5),
                 multiplication(2,10,2,5),
                 powerOf(2,5,2,2));
 
@@ -43,7 +45,8 @@ public class LevelFactory {
                 addition(50,105,30,135),
                 subtraction(6, 15, 15,30),
                 multiplication(3,12,5,12),
-                division(2,6,2,10),
+                division(2,8,32),
+                division(3,6,3,9),
                 powerOf(2,5,3,3),
                 powerOf(4,10,2,2));
 
@@ -52,8 +55,11 @@ public class LevelFactory {
                 subtraction(12, 20, 21,45),
                 multiplication(5,13,5,12),
                 multiplication(26,50,2,3),
-                division(3,8,2,12),
-                powerOf(2,2,4,5),
+                division(2,20,64),
+                division(3,15,32),
+                division(4,12,24),
+                division(5,8,6,12),
+                powerOf(2,4,5),
                 powerOf(3,7,3,3),
                 powerOf(6,12,2,2));
 
@@ -62,8 +68,11 @@ public class LevelFactory {
                 subtraction(20, 50, 35,70),
                 multiplication(7,14,8,12),
                 multiplication(30,60,2,5),
-                division(5,12,3,12),
-                powerOf(2,2,5,6),
+                division(2,60,120),
+                division(3,4,28,48),
+                division(5,6,15,24),
+                division(7,12,8,14),
+                powerOf(2,5,6),
                 powerOf(3,9,3,3),
                 powerOf(8,12,2,2));
 
@@ -72,8 +81,12 @@ public class LevelFactory {
                 subtraction(50, 150, 150,220),
                 multiplication(9,15,9,15),
                 multiplication(70,120,5,9),
-                division(7,13,4,13),
-                powerOf(2,2,6,8),
+                division(2,100,200),
+                division(3,5,40,80),
+                division(6,8,22,50),
+                division(9,11,12,20),
+                division(12,14,7,15),
+                powerOf(2,6,8),
                 powerOf(3,5,3,4),
                 powerOf(6,8,3,3),
                 powerOf(9,13,2,2));
@@ -84,7 +97,7 @@ public class LevelFactory {
                 multiplication(11,16,11,16),
                 multiplication(100,200,7,11),
                 division(9,18,5,18),
-                powerOf(2,2,7,9),
+                powerOf(2,7,9),
                 powerOf(3,4,4,5),
                 powerOf(5,10,3,3),
                 powerOf(11,15,2,2));
@@ -96,7 +109,7 @@ public class LevelFactory {
                 multiplication(12,20,11,15),
                 multiplication(200,300,11,15),
                 division(12,20,12,20),
-                powerOf(2,2,8,12),
+                powerOf(2,8,12),
                 powerOf(3,5,4,5),
                 powerOf(6,12,3,3),
                 powerOf(15,20,2,2));
@@ -124,9 +137,18 @@ public class LevelFactory {
         return new OperationLimits(DIVISION, divisorMin, divisorMax, ansMin, ansMax);
     }
 
+    private static OperationLimits division(int divisor, int ansMin, int ansMax){
+        return division(divisor, divisor, ansMin, ansMax);
+    }
+
 
     private static OperationLimits powerOf(int minNumber, int maxNumber, int minExponent, int maxExponent){
         return new OperationLimits(POWER_OF, minNumber, maxNumber, minExponent, maxExponent);
+    }
+
+
+    private static OperationLimits powerOf(int number, int minExponent, int maxExponent){
+        return  powerOf(number, number, minExponent, maxExponent);
     }
 
 

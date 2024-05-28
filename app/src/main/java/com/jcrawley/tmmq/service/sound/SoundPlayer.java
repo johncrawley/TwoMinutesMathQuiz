@@ -85,7 +85,7 @@ public class SoundPlayer {
         load(Sound.KEYPAD_BUTTON, R.raw.fx_keypad_click);
         load(Sound.INCORRECT_ANSWER, R.raw.fx_incorrect_answer);
         load(Sound.GAME_OVER, R.raw.fx_game_over);
-        load(Sound.MENU_BUTTON, R.raw.high_tom_1);
+        load(Sound.MENU_BUTTON, R.raw.fx_menu_button);
         load(Sound.LOW_TIME, R.raw.fx_low_time);
     }
 
