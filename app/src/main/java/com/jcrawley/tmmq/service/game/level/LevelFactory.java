@@ -31,6 +31,7 @@ public class LevelFactory {
 
         addLevel(3,
                 addition(10,20,5,12),
+                multiplication(2,2,10),
                 subtraction(5, 9, 3,10));
 
         addLevel(4,
@@ -38,13 +39,16 @@ public class LevelFactory {
                 subtraction(6, 12, 8,15),
                 division(2,2,10),
                 division(3,5,2,5),
-                multiplication(2,10,2,5),
+                multiplication(2,5,12),
+                multiplication(3,10,2,5),
                 powerOf(2,5,2,2));
 
         addLevel(5,
                 addition(50,105,30,135),
                 subtraction(6, 15, 15,30),
-                multiplication(3,12,5,12),
+                multiplication(2,12,24),
+                multiplication(3,5,18),
+                multiplication(4,12,5,12),
                 division(2,8,32),
                 division(3,6,3,9),
                 powerOf(2,5,3,3),
@@ -130,6 +134,11 @@ public class LevelFactory {
 
     private static OperationLimits multiplication(int min1, int max1, int min2, int max2){
         return new OperationLimits(MULTIPLICATION, min1, max1, min2, max2);
+    }
+
+
+    private static OperationLimits multiplication(int number1, int min2, int max2){
+        return multiplication( number1, min2, max2);
     }
 
 
