@@ -1,8 +1,11 @@
-package com.jcrawley.tmmq.service.game.question;
+package com.jcrawley.tmmq.service.game.question.creator;
 
-public class QuestionCreatorForSubtraction extends QuestionCreator {
+import com.jcrawley.tmmq.service.game.question.MathOperation;
+import com.jcrawley.tmmq.service.game.question.MathQuestion;
 
-    public QuestionCreatorForSubtraction(){
+public class SubtractionQuestionCreator extends QuestionCreator {
+
+    public SubtractionQuestionCreator(){
         super(MathOperation.SUBTRACTION);
     }
 

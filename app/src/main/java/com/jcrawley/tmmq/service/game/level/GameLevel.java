@@ -3,7 +3,7 @@ package com.jcrawley.tmmq.service.game.level;
 import static com.jcrawley.tmmq.service.game.question.MathOperation.ADDITION;
 
 import com.jcrawley.tmmq.service.game.question.MathOperation;
-import com.jcrawley.tmmq.service.game.question.QuestionCreator;
+import com.jcrawley.tmmq.service.game.question.creator.QuestionCreator;
 
 import java.util.ArrayList;
 import java.util.HashMap;

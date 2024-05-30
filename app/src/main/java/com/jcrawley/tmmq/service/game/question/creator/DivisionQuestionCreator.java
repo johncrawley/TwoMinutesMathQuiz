@@ -1,8 +1,11 @@
-package com.jcrawley.tmmq.service.game.question;
+package com.jcrawley.tmmq.service.game.question.creator;
 
-public class QuestionCreatorForDivision extends QuestionCreator{
+import com.jcrawley.tmmq.service.game.question.MathOperation;
+import com.jcrawley.tmmq.service.game.question.MathQuestion;
 
-    public QuestionCreatorForDivision(){
+public class DivisionQuestionCreator extends QuestionCreator{
+
+    public DivisionQuestionCreator(){
         super(MathOperation.DIVISION);
     }
 

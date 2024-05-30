@@ -7,9 +7,10 @@ import static com.jcrawley.tmmq.service.game.question.MathOperation.POWER_OF;
 import static com.jcrawley.tmmq.service.game.question.MathOperation.SUBTRACTION;
 
 import com.jcrawley.tmmq.service.game.question.MathOperation;
-import com.jcrawley.tmmq.service.game.question.QuestionCreator;
-import com.jcrawley.tmmq.service.game.question.QuestionCreatorForDivision;
-import com.jcrawley.tmmq.service.game.question.QuestionCreatorForSubtraction;
+import com.jcrawley.tmmq.service.game.question.creator.MultiplicationQuestionCreator;
+import com.jcrawley.tmmq.service.game.question.creator.QuestionCreator;
+import com.jcrawley.tmmq.service.game.question.creator.DivisionQuestionCreator;
+import com.jcrawley.tmmq.service.game.question.creator.SubtractionQuestionCreator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class LevelFactory {
                 division(3,5,2,5),
                 multiplication(2,5,12),
                 multiplication(3,10,2,5),
+                powerOf(3,2,2),
                 powerOf(2,5,2,2));
 
         addLevel(5,
@@ -57,8 +59,9 @@ public class LevelFactory {
         addLevel(6,
                 addition(100,200,70,170),
                 subtraction(12, 20, 21,45),
-                multiplication(5,13,5,12),
-                multiplication(26,50,2,3),
+                multiplication(2,22,90),
+                multiplication(3,7,15,45),
+                multiplication(8,12,8,13),
                 division(2,20,64),
                 division(3,15,32),
                 division(4,12,24),
@@ -70,8 +73,10 @@ public class LevelFactory {
         addLevel(7,
                 addition(200,590,290,590),
                 subtraction(20, 50, 35,70),
-                multiplication(7,14,8,12),
-                multiplication(30,60,2,5),
+                multiplication(2, 4,80,250),
+                multiplication(5,9,30,80),
+                multiplication(10,12,20,30),
+                multiplication(13,15,13,15),
                 division(2,60,120),
                 division(3,4,28,48),
                 division(5,6,15,24),
@@ -83,13 +88,15 @@ public class LevelFactory {
         addLevel(8,
                 addition(800,1500,800,1300),
                 subtraction(50, 150, 150,220),
-                multiplication(9,15,9,15),
-                multiplication(70,120,5,9),
+                multiplication(2, 4,250,500),
+                multiplication(5,9,70,120),
+                multiplication(10,12,40,60),
+                multiplication(13,16,16,22),
                 division(2,100,200),
                 division(3,5,40,80),
                 division(6,8,22,50),
                 division(9,11,12,20),
-                division(12,14,7,15),
+                division(12,14,5,15),
                 powerOf(2,6,8),
                 powerOf(3,5,3,4),
                 powerOf(6,8,3,3),
@@ -98,9 +105,16 @@ public class LevelFactory {
         addLevel(9,
                 addition(1500,3500,1500,2550),
                 subtraction(150, 800, 200,900),
-                multiplication(11,16,11,16),
-                multiplication(100,200,7,11),
-                division(9,18,5,18),
+                multiplication(2, 4,500,800),
+                multiplication(5,9,90,160),
+                multiplication(11,12,50,80),
+                multiplication(13,16,20,25),
+                division(2,200,500),
+                division(3,5,100,250),
+                division(6,8,45,80),
+                division(9,11,18,30),
+                division(12,14,12,18),
+                division(15,5,12),
                 powerOf(2,7,9),
                 powerOf(3,4,4,5),
                 powerOf(5,10,3,3),
@@ -109,10 +123,17 @@ public class LevelFactory {
         addLevel(10,
                 addition(5_000,10_000,3_000,8_000),
                 subtraction(300, 990, 1000,3000),
-                multiplication(8,15,15,20),
-                multiplication(12,20,11,15),
-                multiplication(200,300,11,15),
-                division(12,20,12,20),
+                multiplication(2, 1000,5000),
+                multiplication(3,4, 800,1500),
+                multiplication(5,9,150,350),
+                multiplication(11,12,70,100),
+                multiplication(13,17,23,30),
+                division(2,450,2000),
+                division(3,5,230,500),
+                division(6,8,70,120),
+                division(9,11,25,50),
+                division(12,14,16,22),
+                division(15,12,19),
                 powerOf(2,8,12),
                 powerOf(3,5,4,5),
                 powerOf(6,12,3,3),
@@ -138,7 +159,7 @@ public class LevelFactory {
 
 
     private static OperationLimits multiplication(int number1, int min2, int max2){
-        return multiplication( number1, min2, max2);
+        return multiplication( number1, number1, min2, max2);
     }
 
 
@@ -177,8 +198,9 @@ public class LevelFactory {
 
     private static QuestionCreator generateQuestionCreatorFor(MathOperation mathOperation){
         return switch(mathOperation){
-            case DIVISION -> new QuestionCreatorForDivision();
-            case SUBTRACTION -> new QuestionCreatorForSubtraction();
+            case DIVISION -> new DivisionQuestionCreator();
+            case SUBTRACTION -> new SubtractionQuestionCreator();
+            case MULTIPLICATION -> new MultiplicationQuestionCreator();
             default -> new QuestionCreator(mathOperation);
         };
     }

@@ -1,6 +1,8 @@
-package com.jcrawley.tmmq.service.game.question;
+package com.jcrawley.tmmq.service.game.question.creator;
 
 import com.jcrawley.tmmq.service.game.level.OperationLimits;
+import com.jcrawley.tmmq.service.game.question.MathOperation;
+import com.jcrawley.tmmq.service.game.question.MathQuestion;
 
 import java.util.Random;
 
