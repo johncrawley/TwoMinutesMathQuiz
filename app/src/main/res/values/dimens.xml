@@ -5,6 +5,8 @@
     <dimen name="button_table_margin_bottom_landscape">8dp</dimen>
     <dimen name="button_table_margin_bottom_portrait">18dp</dimen>
 
+    <dimen name="input_button_padding_landscape">52dp</dimen>
+
     <dimen name="button_margin">6dp</dimen>
     <dimen name="menu_button_margin">8dp</dimen>
     <dimen name="button_minHeight">20dp</dimen>
@@ -45,11 +47,13 @@
     <dimen name="options_heading_text_size">36sp</dimen>
     <dimen name="choose_level_heading_text_size_min">24sp</dimen>
     <dimen name="question_text_size">56sp</dimen>
+    <dimen name="question_text_size_tab">72sp</dimen>
     <dimen name="time_remaining_text_size">32sp</dimen>
 
     <dimen name="game_stats_label_text_size">12sp</dimen>
     <dimen name="score_text_size">32sp</dimen>
     <dimen name="input_text_size">72sp</dimen>
+    <dimen name="input_text_size_tab">86sp</dimen>
 
     <dimen name="game_start_countdown_text">88sp</dimen>
     <dimen name="game_start_get_ready_text">72sp</dimen>
