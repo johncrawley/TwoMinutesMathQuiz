@@ -17,8 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/startButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintEnd_toEndOf="parent">
 
         <include
             android:layout_width="wrap_content"
@@ -34,6 +33,7 @@
             android:id="@+id/choose_time_include"
             layout="@layout/option"
             />
+
     </LinearLayout>
 
     <Button
@@ -42,6 +42,8 @@
         android:layout_height="wrap_content"
         android:text="@string/options_start_button"
         style="@style/menuButtonStyle"
+        android:layout_margin="@dimen/menu_button_margin_tablet"
+        android:padding="@dimen/menu_button_padding_tablet"
         app:layout_constraintTop_toBottomOf="@+id/optionsLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

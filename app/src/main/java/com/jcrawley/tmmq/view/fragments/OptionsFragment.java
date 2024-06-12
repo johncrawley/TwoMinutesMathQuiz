@@ -90,13 +90,43 @@ public class OptionsFragment extends Fragment {
 
 
     private void setupViews(View parentView){
-        levelText = parentView.findViewById(R.id.setLevelText);
-        timerText = parentView.findViewById(R.id.setTimerText);
+        setupLevelOptions(parentView);
+        setupTimeOptions(parentView);
+    }
 
-        setupButton(parentView, R.id.previousLevelButton, this::decreaseCurrentLevel);
-        setupButton(parentView, R.id.nextLevelButton, this::increaseCurrentLevel);
-        setupButton(parentView, R.id.previousTimerValueButton, this::decreaseCurrentTimerValue);
-        setupButton(parentView, R.id.nextTimerValueButton, this::increaseCurrentTimerValue);
+
+    private void setupLevelOptions(View parentView){
+        ViewGroup vg = parentView.findViewById(R.id.choose_level_include);
+        setupOptions(vg, this::decreaseCurrentLevel, this::increaseCurrentLevel);
+        levelText = getOptionTextFor(vg);
+        setupHeading(vg, R.string.choose_level_heading);
+    }
+
+
+    private void setupTimeOptions(View parentView){
+        ViewGroup vg = parentView.findViewById(R.id.choose_time_include);
+        setupOptions(vg, this::decreaseCurrentTimerValue, this::increaseCurrentTimerValue);
+        timerText = getOptionTextFor(vg);
+        timerText.setText(currentTimerStr);
+        setupHeading(vg, R.string.choose_time_heading);
+    }
+
+
+    private void setupHeading(ViewGroup vg, int strId){
+        String heading = getString(strId);
+        TextView headingTextView = vg.findViewById(R.id.optionHeading);
+        headingTextView.setText(heading);
+    }
+
+
+    private TextView getOptionTextFor(ViewGroup vg){
+        return vg.findViewById(R.id.optionText);
+    }
+
+
+    private void setupOptions(ViewGroup vg, Runnable prevRunnable, Runnable nextRunnable){
+        setupButton(vg, R.id.optionPreviousButton, prevRunnable);
+        setupButton(vg, R.id.optionNextButton, nextRunnable);
     }
 
 

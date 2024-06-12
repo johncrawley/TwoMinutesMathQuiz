@@ -3,81 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragments.MainMenuFragment"
     android:background="@drawable/layout_background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/titleTextLayout"
+    <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginHorizontal="24dp"
-        android:background="@drawable/status_panel_layout_background"
+        android:id="@+id/main_menu_title_text_include"
+        layout="@layout/main_menu_title_text"
+        android:layout_marginHorizontal="30dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/main_menu_buttons_include"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- the title text has multiple shades. Even if you specify a shadow color,
-                these shades will be the shadow, creating a luminescent effect. Instead,
-                we want a black shadow, so an identical text view behind it, and a shadow is assigned to that
-                -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/titleTextShadow"
-            android:layout_margin="@dimen/title_text_margin"
-            android:text="@string/title_text"
-            android:visibility="gone"
-            android:textColor="?attr/title_text_shadow_color"
-            android:textSize="@dimen/title_text_size"
-            android:fontFamily="@font/sixty_four_regular"
-            android:autoSizeMaxTextSize="@dimen/title_text_size"
-            android:autoSizeMinTextSize="@dimen/title_text_size_min"
-            android:autoSizeTextType="uniform"
-            android:maxLines="2"
-            android:shadowColor="?attr/title_text_shadow_color"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="20"
-            android:gravity="center"
-            android:textAlignment="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textStyle="italic"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/titleText"
-            android:layout_margin="@dimen/title_text_margin"
-            android:text="@string/title_text"
-            android:textSize="@dimen/title_text_size"
-            android:fontFamily="@font/sixty_four_regular"
-            android:autoSizeMaxTextSize="@dimen/title_text_size"
-            android:autoSizeMinTextSize="@dimen/title_text_size_min"
-            android:autoSizeTextType="uniform"
-            android:maxLines="2"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textAlignment="center"
-            android:textStyle="italic"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/main_menu_buttons_include"
         layout="@layout/main_menu_buttons"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_title_text_include"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

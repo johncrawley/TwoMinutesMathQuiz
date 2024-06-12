@@ -8,6 +8,7 @@
     <dimen name="input_button_padding_landscape">52dp</dimen>
 
     <dimen name="button_margin">6dp</dimen>
+    <dimen name="menu_button_margin_tablet">14dp</dimen>
     <dimen name="menu_button_margin">8dp</dimen>
     <dimen name="button_minHeight">20dp</dimen>
     <dimen name="button_minWidth">20dp</dimen>
@@ -21,6 +22,7 @@
     <dimen name="button_paddingHorizontal_landscape">20dp</dimen>
     <dimen name="button_paddingVertical_landscape">12dp</dimen>
 
+    <dimen name="menu_button_padding_tablet">18dp</dimen>
 
     <dimen name="time_remaining_margin">8dp</dimen>
     <dimen name="input_text_margin">4dp</dimen>
@@ -41,6 +43,8 @@
 
     <dimen name="title_text_size">52sp</dimen>
     <dimen name="title_text_size_min">24sp</dimen>
+    <dimen name="title_text_size_tablet">86sp</dimen>
+    <dimen name="title_text_size_min_tablet">48sp</dimen>
     <dimen name="title_text_margin">18dp</dimen>
     <dimen name="options_title_text_margin">2dp</dimen>
     <dimen name="choose_level_heading_text_size">56sp</dimen>
