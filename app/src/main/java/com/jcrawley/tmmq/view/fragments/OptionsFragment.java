@@ -36,6 +36,7 @@ public class OptionsFragment extends Fragment {
     private List<Integer> timerValues;
     private String currentTimerStr;
     private int currentTimerValue;
+    public enum Message { NOTIFY_OF_SERVICE_CONNECTED }
 
 
 
@@ -61,15 +62,27 @@ public class OptionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View parentView = inflater.inflate(R.layout.fragment_options, container, false);
+        setupListeners();
         setupViews(parentView);
         setupTimerValues();
-        getTimerFromPreferences();
-        getLevelFromPreferences();
+        assignValuesToFields();
         setupBackButton();
         setupStartButton(parentView);
         return parentView;
+    }
+
+
+    private void setupListeners(){
+        FragmentUtils.setListener(this, Message.NOTIFY_OF_SERVICE_CONNECTED.toString(), b -> assignValuesToFields());
+    }
+
+
+    private void assignValuesToFields(){
+        getGameService().ifPresent(gs -> {
+            assignTimerFromService();
+            assignLevelFromService();
+        });
     }
 
 
@@ -134,7 +147,7 @@ public class OptionsFragment extends Fragment {
         playMenuButtonSound();
         decrementTimerIndex();
         assignCurrentTimerValue();
-        getMain().ifPresent(ma -> ma.setTimerValue(currentTimerValue));
+        setTimerOnService();
     }
 
 
@@ -142,6 +155,7 @@ public class OptionsFragment extends Fragment {
         playMenuButtonSound();
         incrementTimerIndex();
         assignCurrentTimerValue();
+        setTimerOnService();
     }
 
 
@@ -176,6 +190,7 @@ public class OptionsFragment extends Fragment {
         playMenuButtonSound();
         decrementLevel();
         updateLevelTextView();
+        setLevelOnService();
     }
 
 
@@ -183,6 +198,7 @@ public class OptionsFragment extends Fragment {
         playMenuButtonSound();
         incrementLevel();
         updateLevelTextView();
+        setLevelOnService();
     }
 
 
@@ -194,6 +210,7 @@ public class OptionsFragment extends Fragment {
     }
 
 
+
     private void incrementLevel(){
         currentLevel++;
         if(currentLevel > maxLevel){
@@ -202,7 +219,7 @@ public class OptionsFragment extends Fragment {
     }
 
 
-    private void getTimerFromPreferences(){
+    private void assignTimerFromService(){
         getGameService().ifPresent(gs -> {
             int savedValue = gs.getTimer();
             currentTimerIndex = gs.getSavedTimerIndex();
@@ -213,7 +230,7 @@ public class OptionsFragment extends Fragment {
     }
 
 
-    private void getLevelFromPreferences(){
+    private void assignLevelFromService(){
         getGameService().ifPresent(gs -> {
             currentLevel = gs.getLevel();
             updateLevelTextView();
@@ -244,9 +261,15 @@ public class OptionsFragment extends Fragment {
     }
 
 
-    private Optional<MainActivity> getMain(){
-        return Optional.ofNullable((MainActivity) getActivity());
+    private void setTimerOnService(){
+        getGameService().ifPresent(gs -> gs.setTimer(currentTimerValue, currentTimerIndex));
     }
+
+
+    private void setLevelOnService(){
+        getGameService().ifPresent(gs -> gs.setLevel(currentLevel));
+    }
+
 
     private Optional<GameService> getGameService(){
         MainActivity mainActivity = (MainActivity) getActivity();

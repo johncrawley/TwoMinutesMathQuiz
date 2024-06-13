@@ -27,6 +27,7 @@ import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
+import com.jcrawley.tmmq.view.fragments.OptionsFragment;
 
 import java.util.Optional;
 
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             GameService.LocalBinder binder = (GameService.LocalBinder) service;
             gameService = binder.getService();
             gameService.setActivity(MainActivity.this);
+            sendMessage(OptionsFragment.Message.NOTIFY_OF_SERVICE_CONNECTED);
         }
 
         @Override
@@ -75,20 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void assignVibrationSettings() {
         isVibrationEnabled = getPrefs().getBoolean("vibration_enabled", true);
-    }
-
-
-    public void setTimerValue(int value){
-        if(gameService != null){
-            gameService.setTimer(value);
-        }
-    }
-
-
-    public void setLevel(int value){
-        if(gameService != null){
-            gameService.setLevel(value);
-        }
     }
 
 
@@ -236,12 +224,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setDifficulty(int gameLevel) {
-        reassignActivityToService();
-        gameService.setGameLevel(gameLevel);
-    }
-
-
     private void reassignActivityToService() {
         if (gameService == null) {
             return;
@@ -254,6 +236,11 @@ public class MainActivity extends AppCompatActivity {
 
     public <E extends Enum<E>> void sendMessage(E operationName, Bundle bundle) {
         getSupportFragmentManager().setFragmentResult(operationName.toString(), bundle);
+    }
+
+
+    public <E extends Enum<E>> void sendMessage(E operationName) {
+        getSupportFragmentManager().setFragmentResult(operationName.toString(), new Bundle());
     }
 
 
