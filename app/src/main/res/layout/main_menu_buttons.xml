@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/menu_button_margin"
         android:text="@string/main_menu_screen_start_game_button_text"
+        android:textSize="@dimen/menu_button_text_size"
         style="?attr/menu_button_style"/>
 
     <Button
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/menu_button_margin"
         android:text="@string/options_button_text"
+        android:textSize="@dimen/menu_button_text_size"
         style="?attr/menu_button_style"/>
 
     <Button
@@ -34,5 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/menu_button_margin"
         android:text="@string/about_button_text"
+        android:textSize="@dimen/menu_button_text_size"
         style="?attr/menu_button_style"/>
 </LinearLayout>

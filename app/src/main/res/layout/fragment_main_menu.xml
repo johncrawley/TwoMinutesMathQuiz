@@ -8,6 +8,7 @@
     tools:context=".view.fragments.MainMenuFragment"
     android:background="@drawable/layout_background">
 
+
     <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 
 public class GeneralUtils {
 
-
     public static void setTextForLandscape(Fragment fragment, int textId, TextView... textViews){
         if (isInLandscapeMode(fragment)) {
             String text = fragment.getString(textId);
@@ -18,6 +17,7 @@ public class GeneralUtils {
             }
         }
     }
+
 
     public static boolean isInLandscapeMode(Fragment fragment){
         return fragment.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;

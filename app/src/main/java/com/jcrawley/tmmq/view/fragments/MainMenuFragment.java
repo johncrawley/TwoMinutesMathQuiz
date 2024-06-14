@@ -99,8 +99,7 @@ public class MainMenuFragment extends Fragment {
 
     private void setupTitleText(View parentView){
         TextView titleText = parentView.findViewById(R.id.titleText);
-        TextView titleTextShadow = parentView.findViewById(R.id.titleTextShadow);
-        setTextForLandscape(this, R.string.title_text_landscape, titleText, titleTextShadow);
+        setTextForLandscape(this, R.string.title_text_landscape, titleText);
         addGradientTo(titleText, getContext(), isInLandscapeMode(this));
     }
 

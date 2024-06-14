@@ -19,10 +19,12 @@ import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 import com.jcrawley.tmmq.view.fragments.utils.GeneralUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class OptionsFragment extends Fragment {
 
@@ -87,13 +89,19 @@ public class OptionsFragment extends Fragment {
 
 
     private void setupTimerValues(){
-        timerValues = List.of(60, 120, 180);
+        timerValues = parseTimerValuesFromStringResource();
         timerMap = new HashMap<>();
         for(Integer timerValue : timerValues){
             timerMap.put(getTimerStrFor(timerValue), timerValue);
         }
         currentTimerValue = timerValues.get(currentTimerIndex);
         currentTimerStr = getTimerStrFor(currentTimerValue);
+    }
+
+
+    private List<Integer> parseTimerValuesFromStringResource(){
+        String[] timerValuesArray = getString(R.string.timer_values).split(",");
+        return Arrays.stream(timerValuesArray).map(Integer::valueOf).collect(Collectors.toList());
     }
 
 

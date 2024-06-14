@@ -90,8 +90,8 @@ public class GameOverFragment extends Fragment {
 
     private void setupGameOverText(View parentView){
         gameOverText = parentView.findViewById(R.id.gameOverText);
-        gameOverTextShadow = parentView.findViewById(R.id.gameOverTextShadow);
-        setTextForLandscape(this, R.string.game_over_text_landscape, gameOverText, gameOverTextShadow);
+       // gameOverTextShadow = parentView.findViewById(R.id.gameOverTextShadow);
+       // setTextForLandscape(this, R.string.game_over_text_landscape, gameOverText, gameOverTextShadow);
         assignGameOverMessage();
         addGradientTo(gameOverText, getContext());
     }
@@ -130,7 +130,7 @@ public class GameOverFragment extends Fragment {
 
     private void setupDetailsView(View parentView){
         TextView gameDetails = parentView.findViewById(R.id.gameDetailsText);
-        String gameDetailsStr= getString(R.string.game_over_details, gameLevel, timerLength);
+        String gameDetailsStr = getString(R.string.game_over_details, gameLevel, timerLength);
         String amendedStr = addHighScoreDetailsIfInLandscape(gameDetailsStr);
         gameDetails.setText(amendedStr);
     }

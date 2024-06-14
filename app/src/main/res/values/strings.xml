@@ -74,10 +74,6 @@
     <string name="preference_sound_keypad">Keypad Clicks</string>
 
 
-    <string name="preference_timer_length">Timer Length</string>
-    <string name="time_limit_twelve_seconds">12 Seconds</string>
-    <string name="time_limit_thirty_seconds">30 Seconds</string>
-    <string name="time_limit_one_minute">1 Minute</string>
-    <string name="time_limit_two_minutes">2 Minutes</string>
+    <string name="timer_values">3,60,120,180</string>
 
 </resources>
