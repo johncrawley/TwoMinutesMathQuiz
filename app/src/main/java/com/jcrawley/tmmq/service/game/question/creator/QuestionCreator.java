@@ -15,6 +15,7 @@ public class QuestionCreator {
     private String previousQuestionStr = "";
     private final boolean isLargeNumberAlwaysFirst;
     int part1, part2;
+    private int freshQuestionCount;
 
 
     public QuestionCreator(MathOperation mathOperation, boolean isLargeNumberAlwaysFirst){
@@ -51,9 +52,13 @@ public class QuestionCreator {
 
     MathQuestion createFreshQuestion(String text, int correctAnswer){
         if(text.equals(previousQuestionStr)){
-            return createQuestion();
+            freshQuestionCount++;
+            if(freshQuestionCount < 5){
+                return createQuestion();
+            }
         }
         previousQuestionStr = text;
+        freshQuestionCount = 0;
         return  new MathQuestion(text, correctAnswer, mathOperation.containsExponent());
     }
 

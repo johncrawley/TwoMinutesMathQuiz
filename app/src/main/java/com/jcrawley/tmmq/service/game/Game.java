@@ -41,6 +41,13 @@ public class Game {
     }
 
 
+    public void resetTimer(){
+        gametimer.resetTime();
+        gametimer.updateTimer();
+
+    }
+
+
     public void startGame(){
         if(!isStarted){
             isStarted = true;

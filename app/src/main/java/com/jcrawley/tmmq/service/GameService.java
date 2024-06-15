@@ -56,6 +56,10 @@ public class GameService extends Service {
         }
     }
 
+    public void resetTimer(){
+        game.resetTimer();
+    }
+
 
     public void setTimer(int value, int currentTimerIndex){
         if(gamePreferenceManager != null){
@@ -143,7 +147,7 @@ public class GameService extends Service {
 
     public void onGameOver(ScoreStatistics scoreStatistics){
        ScoreStatistics fullScoreStats = new ScoreRecords(getScorePrefs()).getCompleteScoreStatsAndSaveRecords(scoreStatistics);
-       notifyGameOverFuture = scheduledExecutorService.scheduleWithFixedDelay(()-> mainActivity.onGameOver(fullScoreStats), 0, 2, TimeUnit.SECONDS);
+       notifyGameOverFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> mainActivity.onGameOver(fullScoreStats), 0, 2, TimeUnit.SECONDS);
     }
 
 

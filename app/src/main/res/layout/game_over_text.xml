@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center">
-<!--
+
     <TextView
         android:id="@+id/gameOverTextShadow"
         android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-        -->
+
 
     <TextView
         android:id="@+id/gameOverText"

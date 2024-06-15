@@ -65,7 +65,7 @@ public class GameTimer {
     }
 
 
-    private void updateTimer(){
+    public void updateTimer(){
         game.updateTime(minutesRemaining, secondsRemaining);
     }
 

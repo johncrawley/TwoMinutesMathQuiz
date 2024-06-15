@@ -15,11 +15,13 @@
         android:id="@+id/main_menu_title_text_include"
         layout="@layout/main_menu_title_text"
         android:layout_marginHorizontal="30dp"
+        app:layout_constraintVertical_bias="0.25"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/main_menu_buttons_include"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
 
     <include
         android:layout_width="wrap_content"

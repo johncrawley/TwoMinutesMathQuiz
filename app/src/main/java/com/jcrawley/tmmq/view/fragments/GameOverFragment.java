@@ -20,9 +20,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.sound.Sound;
-import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
+
+import java.util.Optional;
 
 
 public class GameOverFragment extends Fragment {
@@ -90,8 +93,8 @@ public class GameOverFragment extends Fragment {
 
     private void setupGameOverText(View parentView){
         gameOverText = parentView.findViewById(R.id.gameOverText);
-       // gameOverTextShadow = parentView.findViewById(R.id.gameOverTextShadow);
-       // setTextForLandscape(this, R.string.game_over_text_landscape, gameOverText, gameOverTextShadow);
+        gameOverTextShadow = parentView.findViewById(R.id.gameOverTextShadow);
+        setTextForLandscape(this, R.string.game_over_text_landscape, gameOverText, gameOverTextShadow);
         assignGameOverMessage();
         addGradientTo(gameOverText, getContext());
     }
@@ -178,6 +181,7 @@ public class GameOverFragment extends Fragment {
         retryButton = parentView.findViewById(R.id.retryMenuButton);
         retryButton.setOnClickListener(v ->{
             playSound(this, Sound.MENU_BUTTON);
+            getGameService().ifPresent(GameService::resetTimer);
             loadGetReadyScreen();
         });
     }
@@ -198,4 +202,12 @@ public class GameOverFragment extends Fragment {
         loadFragment(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
     }
 
+
+    private Optional<GameService> getGameService(){
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if(mainActivity != null){
+            return mainActivity.getGameService();
+        }
+        return Optional.empty();
+    }
 }

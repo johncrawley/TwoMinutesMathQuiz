@@ -5,11 +5,18 @@
     <dimen name="button_table_margin_bottom_landscape">8dp</dimen>
     <dimen name="button_table_margin_bottom_portrait">18dp</dimen>
     <dimen name="menu_button_text_size">24sp</dimen>
+
+    <!-- options fragment -->
     <dimen name="option_text_size">32sp</dimen>
     <dimen name="option_margin_bottom">18dp</dimen>
     <dimen name="option_heading_text_size">36sp</dimen>
     <dimen name="option_heading_text_size_min">24sp</dimen>
     <dimen name="option_button_margin_horizontal">4dp</dimen>
+
+    <!-- Get Ready Fragment -->
+
+
+    <!-- Game Over Fragment -->
     <dimen name="game_over_heading_text_size">74sp</dimen>
     <dimen name="game_over_heading_text_size_min">24sp</dimen>
 
