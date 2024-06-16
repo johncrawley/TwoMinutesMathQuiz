@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<app:LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    app:layout_constraintStart_toStartOf="parent"
+    android:background="@drawable/status_panel_layout_background"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/statLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:minWidth="50dp"
+        android:textSize="@dimen/game_stats_label_text_size"
+        android:text="@string/score_label_text"/>
+
+    <TextView
+        android:id="@+id/statValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/score_text_size"
+        android:text="@string/default_score_text"
+        android:gravity="center"
+        android:textAlignment="center"/>
+</app:LinearLayout>

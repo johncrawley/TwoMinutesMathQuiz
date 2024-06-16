@@ -125,13 +125,31 @@ public class GameFragment extends Fragment {
 
 
     private void setupViews(View parentView){
-        timeRemainingTextView = setupTextView(parentView, R.id.timeRemainingText, viewModel.timeRemaining);
-        scoreTextView = setupTextView(parentView, R.id.scoreText, createScoreString(viewModel.scoreValue));
+        setupStatLabels(parentView);
+        timeRemainingTextView = setupTextView(parentView.findViewById(R.id.remaining_time_stat_include), R.id.timeRemainingText, viewModel.timeRemaining);
+        scoreTextView = setupTextView(parentView.findViewById(R.id.score_stat_include), R.id.scoreText, createScoreString(viewModel.scoreValue));
+        scoreTextView.setText("0");
         questionTextView = setupTextView(parentView, R.id.questionText, viewModel.questionText);
         inputTextView = setupTextView(parentView, R.id.inputText, viewModel.inputText);
         textAnimator = new TextAnimator(questionTextView);
     }
 
+
+    private void setupStatLabels(View parentView){
+        setupLabel(parentView, R.id.score_stat_include, R.string.score_label_text);
+        setupLabel(parentView, R.id.remaining_time_stat_include, R.string.time_remaining_label);
+    }
+
+
+    private void setupLabel(View parentView, int labelLayout, int strId){
+        View layout = parentView.findViewById(labelLayout);
+        if(layout == null){
+            System.out.println("^^^ setupLabel: layout is null");
+
+        }
+        TextView label = layout.findViewById(R.id.statLabel);
+        label.setText(getString(strId));
+    }
 
     private TextView setupTextView(View parentView, int id, String viewModelValue){
         TextView textView = parentView.findViewById(id);

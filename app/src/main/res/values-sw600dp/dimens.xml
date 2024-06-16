@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- multiple size dimensions -->
 
     <dimen name="title_text_margin">24dp</dimen>
     <dimen name="title_text_size">76sp</dimen>
     <dimen name="title_text_size_min">42sp</dimen>
+
     <dimen name="menu_button_text_size">36sp</dimen>
+
+    <!-- Main Menu Fragment -->
+
+    <!-- Options fragment -->
     <dimen name="option_text_size">40sp</dimen>
     <dimen name="option_margin_bottom">36dp</dimen>
     <dimen name="option_heading_text_size">48sp</dimen>
     <dimen name="option_heading_text_size_min">24sp</dimen>
     <dimen name="option_button_margin_horizontal">6dp</dimen>
+
+
+    <!-- Get Ready Fragment -->
+    <dimen name="game_start_get_ready_text">88sp</dimen>
+    <dimen name="game_start_get_ready_text_min">36sp</dimen>
+    <dimen name="game_start_countdown_text">100sp</dimen>
+
+    <!-- Game Fragment -->
+
+
+
+    <!-- Game Over Fragment -->
     <dimen name="game_over_heading_text_size">92sp</dimen>
     <dimen name="game_over_heading_text_size_min">26sp</dimen>
-    <!--
-
-    <dimen name="game_over_heading_text_size">88sp</dimen>
-    <dimen name="game_over_heading_text_size_min">48sp</dimen>
-    -->
 
 
     <dimen name="button_table_margin_top_landscape">4dp</dimen>
@@ -72,9 +85,6 @@
     <dimen name="input_text_size">72sp</dimen>
     <dimen name="input_text_size_tab">86sp</dimen>
 
-    <dimen name="game_start_countdown_text">88sp</dimen>
-    <dimen name="game_start_get_ready_text">72sp</dimen>
-    <dimen name="game_start_get_ready_text_min">36sp</dimen>
     <dimen name="game_start_get_ready_shadow_text">59sp</dimen>
     <dimen name="game_start_get_ready_text_margin">18dp</dimen>
     <dimen name="new_record_text_size">48sp</dimen>

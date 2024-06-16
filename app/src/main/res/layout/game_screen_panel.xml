@@ -11,71 +11,24 @@
         android:layout_margin="@dimen/game_stats_layout_margin"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+
+        <include
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:id="@+id/score_stat_include"
+            layout="@layout/in_game_stat"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/status_panel_layout_background"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-
-            <TextView
-                android:id="@+id/scoreTextLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:minWidth="50dp"
-                android:textSize="@dimen/game_stats_label_text_size"
-                android:text="@string/score_label_text"/>
-
-            <TextView
-                android:id="@+id/scoreText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/score_text_size"
-                android:text="@string/default_score_text"
-                android:gravity="center"
-                android:textAlignment="center"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
+        <include
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/status_panel_layout_background"
+            android:id="@+id/remaining_time_stat_include"
+            layout="@layout/in_game_stat"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/timeRemainingTextLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:textSize="@dimen/game_stats_label_text_size"
-                android:text="@string/time_remaining_label"/>
-
-            <TextView
-                android:id="@+id/timeRemainingText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:textSize="@dimen/time_remaining_text_size"
-                android:text="@string/default_time_remaining"/>
-
-        </LinearLayout>
-
-
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
