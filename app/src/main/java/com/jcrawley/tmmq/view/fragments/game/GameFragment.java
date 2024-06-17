@@ -126,8 +126,8 @@ public class GameFragment extends Fragment {
 
     private void setupViews(View parentView){
         setupStatLabels(parentView);
-        timeRemainingTextView = setupTextView(parentView.findViewById(R.id.remaining_time_stat_include), R.id.timeRemainingText, viewModel.timeRemaining);
-        scoreTextView = setupTextView(parentView.findViewById(R.id.score_stat_include), R.id.scoreText, createScoreString(viewModel.scoreValue));
+        timeRemainingTextView = setupTextView(parentView.findViewById(R.id.remaining_time_stat_include), R.id.statValue, viewModel.timeRemaining);
+        scoreTextView = setupTextView(parentView.findViewById(R.id.score_stat_include), R.id.statValue, createScoreString(viewModel.scoreValue));
         scoreTextView.setText("0");
         questionTextView = setupTextView(parentView, R.id.questionText, viewModel.questionText);
         inputTextView = setupTextView(parentView, R.id.inputText, viewModel.inputText);
@@ -142,9 +142,10 @@ public class GameFragment extends Fragment {
 
 
     private void setupLabel(View parentView, int labelLayout, int strId){
-        View layout = parentView.findViewById(labelLayout);
+        ViewGroup layout = parentView.findViewById(labelLayout);
         if(layout == null){
             System.out.println("^^^ setupLabel: layout is null");
+            return;
 
         }
         TextView label = layout.findViewById(R.id.statLabel);
