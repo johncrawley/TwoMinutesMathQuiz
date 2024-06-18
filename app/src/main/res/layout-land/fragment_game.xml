@@ -14,7 +14,9 @@
         layout="@layout/game_screen_panel"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/input_panel_margin"
+        android:layout_marginTop="@dimen/input_panel_margin_land"
+        android:layout_marginHorizontal="@dimen/input_panel_margin_land"
+        android:layout_marginBottom="@dimen/input_panel_margin_bottom_land"
         android:layout_weight="1" />
 
     <include

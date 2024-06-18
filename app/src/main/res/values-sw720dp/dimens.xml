@@ -2,9 +2,13 @@
 <resources>
 
     <!-- multiple size dimensions -->
-    <dimen name="menu_button_text_size">38sp</dimen>
+    <dimen name="menu_button_text_size">46sp</dimen>
 
     <!-- Main Menu Fragment -->
+    <dimen name="title_text_size">98sp</dimen>
+    <dimen name="title_text_size_min">42sp</dimen>
+    <dimen name="title_text_margin">32dp</dimen>
+
 
     <!-- Options fragment -->
     <dimen name="option_text_size">46sp</dimen>
@@ -21,10 +25,15 @@
 
 
     <!-- Game Fragment -->
+    <dimen name="input_panel_margin">24dp</dimen>
+    <dimen name="input_panel_margin_land">36dp</dimen>
+    <dimen name="input_panel_margin_bottom_land">42dp</dimen>
     <dimen name="game_stats_label_text_size">28sp</dimen>
     <dimen name="stat_value_text_size">48sp</dimen>
     <dimen name="stat_minimum_width">92dp</dimen>
 
+    <dimen name="input_button_text_size">38sp</dimen>
+    <dimen name="input_text_layout_margin_horizontal">48dp</dimen>
     <dimen name="input_text_size">94sp</dimen>
     <dimen name="question_text_size">84sp</dimen>
 
@@ -38,5 +47,8 @@
     <dimen name="game_over_buttons_margin">22dp</dimen>
     <dimen name="ending_score_label_text_size">38sp</dimen>
     <dimen name="ending_score_text_size">92sp</dimen>
+    <dimen name="final_score_min_dimension">172dp</dimen>
+
+    <dimen name="final_score_background_gradient_length">104dp</dimen>
 
 </resources>

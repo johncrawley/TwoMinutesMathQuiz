@@ -7,7 +7,7 @@
         android:color="#3B22A6" />
     <gradient
         android:angle="90"
-        android:gradientRadius="80dp"
+        android:gradientRadius="@dimen/final_score_background_gradient_length"
         android:startColor="#5E40E1"
         android:endColor="#000000"
         android:type="radial"/>

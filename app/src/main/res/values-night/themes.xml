@@ -65,6 +65,7 @@
 
     <style name="enterButtonStyle" parent="@style/inputButtonStyle">
         <item name="backgroundTint">?attr/enter_input_button_background_tint</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_marginHorizontal">4dp</item>
         <item name="android:layout_marginVertical">4dp</item>
         <item name="android:textAlignment">center</item>
