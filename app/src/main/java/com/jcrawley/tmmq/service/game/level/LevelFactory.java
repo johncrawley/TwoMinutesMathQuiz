@@ -81,7 +81,7 @@ public class LevelFactory {
                 division(3,4,28,48),
                 division(5,6,15,24),
                 division(7,12,8,14),
-                powerOf(2,5,6),
+                powerOf(2,5,7),
                 powerOf(3,9,3,3),
                 powerOf(8,12,2,2));
 
