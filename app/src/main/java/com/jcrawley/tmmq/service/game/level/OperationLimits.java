@@ -31,6 +31,11 @@ public class OperationLimits {
     }
 
 
+    public int getRange(){
+        return (firstNumberMax - firstNumberMin) + 1;
+    }
+
+
     public MathOperation getMathOperation(){
         return mathOperation;
     }

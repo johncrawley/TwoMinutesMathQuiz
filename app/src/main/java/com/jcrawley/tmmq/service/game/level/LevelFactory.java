@@ -22,6 +22,7 @@ public class LevelFactory {
 
     public static Map<Integer, GameLevel> createLevels(){
         levels = new HashMap<>();
+        long start = System.currentTimeMillis();
         addLevel(1,
                 addition(1,5,1,5),
                 subtraction(1, 4, 1,6));
@@ -139,6 +140,8 @@ public class LevelFactory {
                 powerOf(6,12,3,3),
                 powerOf(15,20,2,2));
 
+        long duration = System.currentTimeMillis() - start;
+        System.out.println("^^^ LevelFactory: duration: " + duration);
         return levels;
     }
 

@@ -15,15 +15,15 @@ import java.util.Set;
 
 public class GameLevel {
 
-    private final Map<MathOperation, List<QuestionCreator>> questionCreatorsMap;
     private final int difficulty;
     private final Random random;
     private final Set<MathOperation> mathOperationsSet;
     private final List<MathOperation> mathOperations;
+    private final Map<MathOperation, Map<Integer, QuestionCreator>> questionCreatorsMap2;
 
     public GameLevel(int difficulty){
         this.difficulty = difficulty;
-        questionCreatorsMap = new HashMap<>();
+        questionCreatorsMap2 = new HashMap<>();
         mathOperationsSet = new HashSet<>();
         mathOperations = new ArrayList<>();
         initMap();
@@ -31,17 +31,42 @@ public class GameLevel {
     }
 
 
-    private void initMap(){
-        for(MathOperation mo : MathOperation.values()){
-            questionCreatorsMap.put(mo, new ArrayList<>());
+    public QuestionCreator getRandomQuestionCreator(){
+        var qcMap = questionCreatorsMap2.get(getRandomMathOperation());
+        return qcMap == null ? getDefaultQuestionCreator() : getRandomQuestionCreatorFrom(qcMap);
+    }
+
+
+    public void addQuestionCreator(QuestionCreator questionCreator){
+        MathOperation mathOperation = questionCreator.getOperationType();
+        addToList(mathOperation);
+        int limitsRange = questionCreator.getOperationLimits().getRange();
+        var creatorMap = questionCreatorsMap2.computeIfAbsent(mathOperation, k -> new HashMap<>());
+        for(int i = 0; i < limitsRange; i++){
+            creatorMap.put(creatorMap.size(), questionCreator);
         }
     }
 
 
-    public QuestionCreator getRandomQuestionCreator(){
-        List<QuestionCreator> list = questionCreatorsMap.get(getRandomMathOperation());
+    public int getLimitsRangeFor(MathOperation mathOperation){
+        var qcMap = questionCreatorsMap2.get(mathOperation);
+        if(qcMap == null){
+            return -1;
+        }
+        return qcMap.size();
+    }
 
-        return list == null ? getDefaultQuestionCreator() : getRandomQuestionCreatorFrom(list);
+
+    public String getDifficultyStr(){
+        return String.valueOf(difficulty);
+    }
+
+
+
+    private void initMap(){
+        for(MathOperation mo : MathOperation.values()){
+            questionCreatorsMap2.put(mo, new HashMap<>());
+        }
     }
 
 
@@ -57,15 +82,9 @@ public class GameLevel {
     }
 
 
-    private QuestionCreator getRandomQuestionCreatorFrom(List<QuestionCreator> questionCreators){
-        return questionCreators.get(random.nextInt(questionCreators.size()));
-    }
-
-
-    public void addQuestionCreator(QuestionCreator questionCreator){
-        MathOperation mathOperation = questionCreator.getOperationType();
-        addToList(mathOperation);
-        questionCreatorsMap.computeIfAbsent(mathOperation,  x -> new ArrayList<>()).add(questionCreator);
+    private QuestionCreator getRandomQuestionCreatorFrom(Map<Integer, QuestionCreator> qcMap){
+        int index = random.nextInt(qcMap.size());
+        return qcMap.get(index);
     }
 
 
@@ -74,11 +93,6 @@ public class GameLevel {
             mathOperations.add(mo);
             mathOperationsSet.add(mo);
         }
-    }
-
-
-    public String getDifficultyStr(){
-        return String.valueOf(difficulty);
     }
 
 

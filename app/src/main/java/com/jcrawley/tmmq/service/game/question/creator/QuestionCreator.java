@@ -41,6 +41,11 @@ public class QuestionCreator {
     }
 
 
+    public OperationLimits getOperationLimits(){
+        return operationLimits;
+    }
+
+
     public MathQuestion createQuestion(){
         createParts();
         swapPartsIfLargeNumberShouldBeFirst();
