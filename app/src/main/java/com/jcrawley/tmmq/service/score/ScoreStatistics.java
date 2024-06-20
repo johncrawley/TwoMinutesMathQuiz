@@ -12,10 +12,6 @@ public class ScoreStatistics {
     private int allTimeHighScore;
 
 
-    public String getGameLevelDifficulty() {
-        return gameLevel.getDifficultyStr();
-    }
-
     public GameLevel getGameLevel(){
         return gameLevel;
     }
@@ -23,7 +19,6 @@ public class ScoreStatistics {
     public void setGameLevel(GameLevel gameLevel) {
         this.gameLevel = gameLevel;
     }
-
 
     public int getFinalScore() {
         return finalScore;

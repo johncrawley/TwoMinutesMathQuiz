@@ -10,6 +10,7 @@ import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.preferences.GamePreferenceManager;
+import com.jcrawley.tmmq.service.score.ScorePreferencesImpl;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.sound.Sound;
@@ -29,6 +30,7 @@ public class GameService extends Service {
     private ScheduledFuture<?> notifyGameOverFuture;
     private SoundPlayer soundPlayer;
     GamePreferenceManager gamePreferenceManager;
+    private ScoreRecords scoreRecords;
 
 
     public GameService() {
@@ -46,15 +48,6 @@ public class GameService extends Service {
         return getSharedPreferences("score_preferences", MODE_PRIVATE);
     }
 
-
-    public void setTimer(int value){
-        if(gamePreferenceManager != null){
-            gamePreferenceManager.saveTimer(value);
-        }
-        if(game != null){
-            game.setTimerLength(value);
-        }
-    }
 
     public void resetTimer(){
         game.resetTimer();
@@ -146,7 +139,7 @@ public class GameService extends Service {
 
 
     public void onGameOver(ScoreStatistics scoreStatistics){
-       ScoreStatistics fullScoreStats = new ScoreRecords(getScorePrefs()).getCompleteScoreStatsAndSaveRecords(scoreStatistics);
+       ScoreStatistics fullScoreStats = scoreRecords.getCompleteScoreStatsAndSaveRecords(scoreStatistics);
        notifyGameOverFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> mainActivity.onGameOver(fullScoreStats), 0, 2, TimeUnit.SECONDS);
     }
 
@@ -161,16 +154,13 @@ public class GameService extends Service {
     }
 
 
-    public void setGameLevel(int levelNumber){
-        game.setDifficulty(levelNumber);
-    }
-
-
     @Override
     public void onCreate() {
         game.init(this);
         soundPlayer = new SoundPlayer(getApplicationContext());
         gamePreferenceManager = new GamePreferenceManager(this);
+        scoreRecords = new ScoreRecords();
+        scoreRecords.setScorePreferences(new ScorePreferencesImpl(getScorePrefs()));
     }
 
 
