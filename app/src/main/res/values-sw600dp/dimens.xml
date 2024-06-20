@@ -24,6 +24,7 @@
     <dimen name="game_start_get_ready_text_min">36sp</dimen>
     <dimen name="game_start_countdown_text">120sp</dimen>
 
+
     <!-- Game Fragment -->
     <dimen name="input_panel_margin">16dp</dimen>
     <dimen name="input_panel_margin_land">18dp</dimen>
@@ -46,9 +47,16 @@
     <dimen name="game_over_details_text_size">36sp</dimen>
     <dimen name="game_over_buttons_margin">18dp</dimen>
     <dimen name="ending_score_label_text_size">32sp</dimen>
-    <dimen name="ending_score_text_size">80sp</dimen>
-    <dimen name="final_score_min_dimension">180dp</dimen>
-
+    <dimen name="final_score_text_size">78sp</dimen>
+    <dimen name="final_score_text_size_min">30sp</dimen>
+    <dimen name="final_score_min_dimension">130dp</dimen>
     <dimen name="final_score_background_gradient_length">92dp</dimen>
+    <dimen name="final_score_padding">35dp</dimen>
+
+
+    <!-- test -->
+    <dimen name="test_dimen_width">50dp</dimen>
+    <dimen name="test_dimen_height">150dp</dimen>
+
 
 </resources>

@@ -46,9 +46,13 @@
     <dimen name="game_over_details_text_size">48sp</dimen>
     <dimen name="game_over_buttons_margin">22dp</dimen>
     <dimen name="ending_score_label_text_size">38sp</dimen>
-    <dimen name="ending_score_text_size">92sp</dimen>
+    <dimen name="final_score_text_size">92sp</dimen>
+    <dimen name="final_score_text_size_min">32sp</dimen>
     <dimen name="final_score_min_dimension">172dp</dimen>
-
     <dimen name="final_score_background_gradient_length">104dp</dimen>
+    <dimen name="final_score_padding">40dp</dimen>
 
+    <!-- test -->
+    <dimen name="test_dimen_width">150dp</dimen>
+    <dimen name="test_dimen_height">50dp</dimen>
 </resources>
