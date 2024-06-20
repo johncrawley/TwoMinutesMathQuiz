@@ -1,4 +1,4 @@
-package com.jcrawley.tmmq.view;
+package com.jcrawley.tmmq.view.fragments.game;
 
 import android.view.View;
 import android.widget.TextView;
@@ -21,7 +21,6 @@ public class InputHelper {
         inputTextView = parentView.findViewById(R.id.inputText);
         inputTextView.setText(viewModel.inputText);
         setupButtons();
-        clearAnswerText();
     }
 
 

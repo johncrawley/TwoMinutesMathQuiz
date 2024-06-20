@@ -34,7 +34,6 @@ import android.widget.TextView;
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.service.sound.Sound;
-import com.jcrawley.tmmq.view.InputHelper;
 import com.jcrawley.tmmq.view.TextAnimator;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 import com.jcrawley.tmmq.view.fragments.GameOverFragment;
