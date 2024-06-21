@@ -27,10 +27,10 @@ public class ScoreRecords {
     }
 
 
-    private ScoreStatistics buildFullStatsFrom(ScoreStatistics endGameStats, int currentDailyRecord, int currentAllTimeRecord){
+    private ScoreStatistics buildFullStatsFrom(ScoreStatistics endGameStats, int existingDailyRecord, int existingHighScore){
         var fullStats = new ScoreStatistics();
-        fullStats.setDailyHighScore(currentDailyRecord);
-        fullStats.setAllTimeHighScore(currentAllTimeRecord);
+        fullStats.setDailyHighScore(existingDailyRecord);
+        fullStats.setAllTimeHighScore(existingHighScore);
         fullStats.setFinalScore(endGameStats.getFinalScore());
         fullStats.setGameLevel(endGameStats.getGameLevel());
         fullStats.setTimerLength(endGameStats.getTimerLength());

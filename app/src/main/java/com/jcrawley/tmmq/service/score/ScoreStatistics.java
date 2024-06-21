@@ -36,7 +36,7 @@ public class ScoreStatistics {
         this.timerLength = timerLength;
     }
 
-    public int getDailyHighScore() {
+    public int getExistingDailyHighScore() {
         return dailyHighScore;
     }
 
@@ -44,7 +44,7 @@ public class ScoreStatistics {
         this.dailyHighScore = dailyHighScore;
     }
 
-    public int getAllTimeHighScore() {
+    public int getExistingHighScore() {
         return allTimeHighScore;
     }
 

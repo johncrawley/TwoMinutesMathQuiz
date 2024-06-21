@@ -173,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
     public void onGameOver(ScoreStatistics scoreStatistics) {
         Bundle bundle = new Bundle();
         bundle.putInt(FINAL_SCORE_KEY, scoreStatistics.getFinalScore());
-        bundle.putInt(DAILY_HIGH_SCORE_KEY, scoreStatistics.getDailyHighScore());
-        bundle.putInt(ALL_TIME_HIGH_SCORE_KEY, scoreStatistics.getAllTimeHighScore());
+        bundle.putInt(DAILY_HIGH_SCORE_KEY, scoreStatistics.getExistingDailyHighScore());
+        bundle.putInt(ALL_TIME_HIGH_SCORE_KEY, scoreStatistics.getExistingHighScore());
         bundle.putString(TIMER_LENGTH_KEY, scoreStatistics.getTimerLength());
         bundle.putString(GAME_LEVEL_KEY, scoreStatistics.getGameLevel().getDifficultyStr());
         sendMessage(NOTIFY_GAME_OVER, bundle);
