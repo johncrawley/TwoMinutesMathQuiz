@@ -54,10 +54,7 @@ public class ScoreRecords {
 
 
     private int getDailyRecord(String timerLength, String difficulty){
-        if(!isSavedDateToday()){
-            return 0;
-        }
-        return scorePreferences.getDailyHighScore(timerLength, difficulty);
+        return isSavedDateToday() ? scorePreferences.getDailyHighScore(timerLength, difficulty) : 0;
     }
 
 

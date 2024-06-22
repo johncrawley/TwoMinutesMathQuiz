@@ -140,13 +140,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void fadeInQuestionText(String questionText) {
-        Bundle bundle = new Bundle();
-        bundle.putString(QUESTION.toString(), questionText);
-        sendMessage(SET_QUESTION, bundle);
-    }
-
-
     public void setQuestion(MathQuestion question) {
         Bundle bundle = new Bundle();
         bundle.putString(QUESTION.toString(), question.getQuestionText());
@@ -172,11 +165,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onGameOver(ScoreStatistics scoreStatistics) {
         Bundle bundle = new Bundle();
-        bundle.putInt(FINAL_SCORE_KEY, scoreStatistics.getFinalScore());
-        bundle.putInt(DAILY_HIGH_SCORE_KEY, scoreStatistics.getExistingDailyHighScore());
-        bundle.putInt(ALL_TIME_HIGH_SCORE_KEY, scoreStatistics.getExistingHighScore());
-        bundle.putString(TIMER_LENGTH_KEY, scoreStatistics.getTimerLength());
-        bundle.putString(GAME_LEVEL_KEY, scoreStatistics.getGameLevel().getDifficultyStr());
+        addTo(bundle, Key.FINAL_SCORE, scoreStatistics.getFinalScore());
+        addTo(bundle, Key.DAILY_HIGH_SCORE, scoreStatistics.getExistingDailyHighScore());
+        addTo(bundle, Key.HIGH_SCORE, scoreStatistics.getExistingHighScore());
+        addTo(bundle, Key.TIMER_LENGTH, scoreStatistics.getTimerLength());
+        addTo(bundle, Key.GAME_LEVEL, scoreStatistics.getGameLevel().getDifficultyStr());
+
         sendMessage(NOTIFY_GAME_OVER, bundle);
     }
 
@@ -231,6 +225,16 @@ public class MainActivity extends AppCompatActivity {
         if (gameService.isActivityUnbound()) {
             gameService.setActivity(MainActivity.this);
         }
+    }
+
+
+    public <E extends Enum<E>> void addTo(Bundle bundle, E key, int value){
+        bundle.putInt(key.toString(), value);
+    }
+
+
+    public <E extends Enum<E>> void addTo(Bundle bundle, E key, String value){
+        bundle.putString(key.toString(), value);
     }
 
 

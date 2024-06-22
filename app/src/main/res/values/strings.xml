@@ -36,7 +36,7 @@
     <string name="ending_score_label_text">Your Score</string>
     <string name="high_score_text">High Score:&#160;%1$d</string>
     <string name="congratulations">CONGRATULATIONS!</string>
-    <string name="new_daily_record">NEW DAILY RECORD!</string>
+    <string name="new_daily_record">TOP SCORE TODAY!</string>
     <string name="new_all_time_record">NEW HIGH SCORE!</string>
 
     <string name="choose_level_heading">Level</string>

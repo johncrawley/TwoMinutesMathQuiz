@@ -31,11 +31,8 @@ import java.util.Optional;
 public class GameOverFragment extends Fragment {
 
     public static final String FRAGMENT_TAG = "game_over_screen";
-    public static String FINAL_SCORE_KEY = "final_score_key";
-    public static String TIMER_LENGTH_KEY = "timer_length_key";
-    public static String DAILY_HIGH_SCORE_KEY = "daily_high_score_key";
-    public static String ALL_TIME_HIGH_SCORE_KEY = "all_time_high_score_key";
-    public static String GAME_LEVEL_KEY = "game_level_key";
+    public enum Key { FINAL_SCORE, TIMER_LENGTH, DAILY_HIGH_SCORE, HIGH_SCORE, GAME_LEVEL}
+
 
     private int finalScore, dailyHighScore, allTimeHighScore;
     private String timerLength, gameLevel;
@@ -57,11 +54,21 @@ public class GameOverFragment extends Fragment {
 
 
     private void assignDataFrom(Bundle bundle){
-        finalScore = bundle.getInt(FINAL_SCORE_KEY);
-        dailyHighScore = bundle.getInt(DAILY_HIGH_SCORE_KEY);
-        allTimeHighScore = bundle.getInt(ALL_TIME_HIGH_SCORE_KEY);
-        timerLength = bundle.getString(TIMER_LENGTH_KEY);
-        gameLevel = bundle.getString(GAME_LEVEL_KEY);
+        finalScore = getInt(bundle, Key.FINAL_SCORE);
+        dailyHighScore = getInt(bundle, Key.DAILY_HIGH_SCORE);
+        allTimeHighScore = getInt(bundle, Key.HIGH_SCORE);
+        timerLength = getString(bundle, Key.TIMER_LENGTH);
+        gameLevel = getString(bundle, Key.GAME_LEVEL);
+    }
+
+
+    private int getInt(Bundle bundle, Key key){
+        return bundle.getInt(key.toString());
+    }
+
+
+    private String getString(Bundle bundle, Key key){
+        return bundle.getString(key.toString());
     }
 
 
@@ -101,12 +108,18 @@ public class GameOverFragment extends Fragment {
 
 
     private void assignGameOverMessage(){
+        log("Entered assignGameOverMessage() finalScore: " +  finalScore + " highScore: " + allTimeHighScore + " dailyScore: " + dailyHighScore);
         if(finalScore > allTimeHighScore){
             setGameOverText(getResources().getString(R.string.new_all_time_record));
         }
         else if(finalScore > dailyHighScore){
             setGameOverText(getResources().getString(R.string.new_daily_record));
         }
+    }
+
+
+    private void log(String msg){
+        System.out.println("^^^ GameOverFragment: " + msg);
     }
 
 
