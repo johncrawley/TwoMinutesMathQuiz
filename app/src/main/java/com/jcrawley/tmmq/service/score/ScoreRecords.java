@@ -7,10 +7,16 @@ import java.time.LocalDateTime;
 public class ScoreRecords {
 
     private ScorePreferences scorePreferences;
+    private CurrentDateGenerator currentDateGenerator;
 
 
     public void setScorePreferences(ScorePreferences scorePreferences){
         this.scorePreferences = scorePreferences;
+    }
+
+
+    public void setCurrentDateCreator(CurrentDateGenerator currentDateGenerator){
+        this.currentDateGenerator = currentDateGenerator;
     }
 
 
@@ -47,28 +53,17 @@ public class ScoreRecords {
 
     private void saveDailyHighScore(int score, int highScore, String timerLength, String difficulty){
         if(score > highScore){
-            scorePreferences.saveDailyHighScore(score, timerLength, difficulty);
-            scorePreferences.saveDate(getDateToday());
+            scorePreferences.saveDailyHighScore(score, timerLength, difficulty, currentDateGenerator.get());
         }
     }
 
 
     private int getDailyRecord(String timerLength, String difficulty){
-        return isSavedDateToday() ? scorePreferences.getDailyHighScore(timerLength, difficulty) : 0;
+        return scorePreferences.getDailyHighScore(timerLength, difficulty, currentDateGenerator.get());
     }
 
 
-    private boolean isSavedDateToday(){
-        return scorePreferences.getSavedDate().equals(getDateToday());
-    }
 
-
-    private String getDateToday(){
-        LocalDateTime dateToday = LocalDateTime.now();
-        return  dateToday.getDayOfMonth()
-                + "-" + dateToday.getMonthValue()
-                + "-" + dateToday.getYear();
-    }
 
 
 }

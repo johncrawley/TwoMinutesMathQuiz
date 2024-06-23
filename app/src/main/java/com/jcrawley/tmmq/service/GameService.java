@@ -10,6 +10,7 @@ import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.preferences.GamePreferenceManager;
+import com.jcrawley.tmmq.service.score.CurrentDateGeneratorImpl;
 import com.jcrawley.tmmq.service.score.ScorePreferencesImpl;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
@@ -159,8 +160,14 @@ public class GameService extends Service {
         game.init(this);
         soundPlayer = new SoundPlayer(getApplicationContext());
         gamePreferenceManager = new GamePreferenceManager(this);
+        setupScoreRecords();
+    }
+
+
+    private void setupScoreRecords(){
         scoreRecords = new ScoreRecords();
         scoreRecords.setScorePreferences(new ScorePreferencesImpl(getScorePrefs()));
+        scoreRecords.setCurrentDateCreator(new CurrentDateGeneratorImpl());
     }
 
 

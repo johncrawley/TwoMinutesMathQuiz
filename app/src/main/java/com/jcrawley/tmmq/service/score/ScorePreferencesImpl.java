@@ -22,8 +22,14 @@ public class ScorePreferencesImpl implements ScorePreferences{
 
 
     @Override
-    public void saveDailyHighScore(int score, String timerLength, String difficulty) {
+    public void saveDailyHighScore(int score, String timerLength, String difficulty, String dateStr) {
         save(RecordType.DAILY, score, timerLength, difficulty);
+        saveDateFor(timerLength, difficulty, dateStr);
+    }
+
+
+    private void saveDateFor(String timerLength, String difficulty, String dateStr){
+        sharedPreferences.edit().putString(createDateKeyFor(timerLength, difficulty), dateStr).apply();
     }
 
 
@@ -40,8 +46,21 @@ public class ScorePreferencesImpl implements ScorePreferences{
 
 
     @Override
-    public int getDailyHighScore(String timerLength, String difficulty) {
-        return get(RecordType.DAILY, timerLength, difficulty);
+    public int getDailyHighScore(String timerLength, String difficulty, String dateStr) {
+        if(getMostRecentDateFor(timerLength, difficulty).equals(dateStr)){
+            return get(RecordType.DAILY, timerLength, difficulty);
+        }
+        return 0;
+    }
+
+
+    private String getMostRecentDateFor(String timerLength, String difficulty){
+        return sharedPreferences.getString(createDateKeyFor(timerLength,difficulty), "");
+    }
+
+
+    private String createDateKeyFor(String timerLength, String difficulty){
+        return "date_" + timerLength + "__" + difficulty;
     }
 
 
@@ -55,18 +74,6 @@ public class ScorePreferencesImpl implements ScorePreferences{
         return "scoreFor_" + recordType.toString()
                 + "_" + difficulty
                 + "_"  + timerLength;
-    }
-
-
-    @Override
-    public void saveDate(String dateStr){
-        sharedPreferences.edit().putString(LAST_RECORD_DATE_KEY,  dateStr).apply();
-    }
-
-
-    @Override
-    public String getSavedDate(){
-        return sharedPreferences.getString(LAST_RECORD_DATE_KEY, "");
     }
 
 
