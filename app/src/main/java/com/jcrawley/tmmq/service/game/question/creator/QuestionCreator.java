@@ -13,21 +13,21 @@ public class QuestionCreator {
     private final Random random;
     private final String symbol;
     private String previousQuestionStr = "";
-    private final boolean isLargeNumberAlwaysFirst;
     int part1, part2;
     private int freshQuestionCount;
+    private final int swapOffset;
 
 
-    public QuestionCreator(MathOperation mathOperation, boolean isLargeNumberAlwaysFirst){
+    public QuestionCreator(MathOperation mathOperation, int swapOffset){
         this.mathOperation = mathOperation;
         this.symbol = mathOperation.getSymbol();
-        this.isLargeNumberAlwaysFirst = isLargeNumberAlwaysFirst;
         random = new Random(System.nanoTime());
+        this.swapOffset = swapOffset;
     }
 
 
     public QuestionCreator(MathOperation mathOperation){
-        this(mathOperation, false);
+        this(mathOperation, 0);
     }
 
 
@@ -74,13 +74,21 @@ public class QuestionCreator {
     }
 
 
-    void swapPartsIfLargeNumberShouldBeFirst(){
-        if(isLargeNumberAlwaysFirst && part2 > part1){
-            int temp = part2;
-            part2 = part1;
-            part1 = temp;
+
+    public void swapPartsIfLargeNumberShouldBeFirst(){
+        if(swapOffset > 0 && part2 > (part1 + swapOffset)){
+            swapParts();
         }
     }
+
+
+    private void swapParts(){
+        int temp = part2;
+        part2 = part1;
+        part1 = temp;
+    }
+
+
 
 
     private int getRandomNumber(int min, int max){
@@ -97,4 +105,20 @@ public class QuestionCreator {
         return symbol.isEmpty() ? " " : " " + symbol + " ";
     }
 
+
+    /* for testing only */
+    public void setParts(int part1, int part2){
+        this.part1 = part1;
+        this.part2 = part2;
+    }
+
+
+    public int getPart1(){
+        return part1;
+    }
+
+
+    public int getPart2(){
+        return part2;
+    }
 }

@@ -53,7 +53,7 @@
     <dimen name="final_score_text_size_min">28sp</dimen>
     <dimen name="final_score_min_dimension">125dp</dimen>
     <dimen name="final_score_background_gradient_length">90dp</dimen>
-    <dimen name="final_score_padding">18dp</dimen>
+    <dimen name="final_score_padding">15dp</dimen>
 
     <!-- test -->
     <dimen name="test_dimen_width">50dp</dimen>

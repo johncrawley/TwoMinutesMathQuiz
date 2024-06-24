@@ -76,7 +76,7 @@ public class GameLevel {
 
 
     private QuestionCreator getDefaultQuestionCreator(){
-        var qc = new QuestionCreator(MathOperation.ADDITION, false);
+        var qc = new QuestionCreator(MathOperation.ADDITION);
         qc.setOperationLimits(new OperationLimits(ADDITION, 1, 10, 1, 10));
         return qc;
     }

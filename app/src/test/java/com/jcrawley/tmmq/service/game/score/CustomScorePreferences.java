@@ -50,7 +50,6 @@ public class CustomScorePreferences implements ScorePreferences {
     @Override
     public int getDailyHighScore(String timerLength, String difficulty, String date) {
         String savedDate = getSavedDate(timerLength, difficulty);
-        log("getDailyHighScore(), date: " + date + " savedDate: " + savedDate);
         if(savedDate.equals(date)){
             return getScoreFromMap(todayHighScoreMap, timerLength, difficulty);
         }
@@ -58,14 +57,8 @@ public class CustomScorePreferences implements ScorePreferences {
     }
 
 
-    private void log(String msg){
-        System.out.println("^^^ TEST CustomScorePreferences:  " + msg);
-    }
-
-
     private int getScoreFromMap(Map<String, Integer> map, String timerLength, String difficulty){
         Integer result = map.getOrDefault(generateMapKey(timerLength, difficulty), 0);
-        log("getScoreFromMap() result: " + result);
         return result == null ? 0 : result;
     }
 
