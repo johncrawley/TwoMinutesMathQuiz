@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <PreferenceCategory app:title="@string/preferences_general_header">
@@ -6,6 +7,7 @@
             app:key="vibration_enabled"
             app:title="@string/preferences_vibration"
             app:enabled="true"
+            android:defaultValue="true"
             />
     </PreferenceCategory>
 
@@ -14,21 +16,25 @@
             app:key="keypad_sounds"
             app:title="@string/preference_sound_keypad"
             app:enabled="true"
+            android:defaultValue="false"
             />
         <SwitchPreference
             app:key="button_sounds"
             app:title="@string/preference_sound_button_press"
             app:enabled="true"
+            android:defaultValue="false"
             />
         <SwitchPreference
             app:key="game_sounds"
             app:title="@string/preference_sound_game"
             app:enabled="true"
+            android:defaultValue="false"
             />
         <SwitchPreference
             app:key="get_ready_sounds"
             app:title="@string/preference_sound_get_ready"
             app:enabled="true"
+            android:defaultValue="false"
             />
     </PreferenceCategory>
 
