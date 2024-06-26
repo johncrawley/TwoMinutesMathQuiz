@@ -3,6 +3,7 @@
 
     <!-- multiple size dimensions -->
     <dimen name="menu_button_text_size">46sp</dimen>
+    <dimen name="background_gradient_length">600dp</dimen>
 
     <!-- Main Menu Fragment -->
     <dimen name="title_text_size">98sp</dimen>

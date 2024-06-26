@@ -8,6 +8,7 @@
     <dimen name="button_table_margin_bottom_landscape">8dp</dimen>
     <dimen name="button_table_margin_bottom_portrait">18dp</dimen>
     <dimen name="menu_button_text_size">24sp</dimen>
+    <dimen name="background_gradient_length">400dp</dimen>
 
 
     <!-- Main Menu Fragment -->

@@ -16,6 +16,7 @@
             android:fontFamily="@font/sixty_four_regular"
             android:autoSizeMaxTextSize="@dimen/title_text_size"
             android:autoSizeMinTextSize="@dimen/title_text_size_min"
+            android:lineSpacingMultiplier="1.2"
             android:autoSizeTextType="uniform"
             android:maxLines="2"
             android:gravity="center"

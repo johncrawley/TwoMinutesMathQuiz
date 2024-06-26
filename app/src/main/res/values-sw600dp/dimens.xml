@@ -5,11 +5,14 @@
 
 
     <dimen name="menu_button_text_size">36sp</dimen>
+    <dimen name="background_gradient_length">480dp</dimen>
+
 
     <!-- Main Menu Fragment -->
     <dimen name="title_text_size">76sp</dimen>
     <dimen name="title_text_size_min">42sp</dimen>
     <dimen name="title_text_margin">24dp</dimen>
+
 
     <!-- Options fragment -->
     <dimen name="option_text_size">40sp</dimen>

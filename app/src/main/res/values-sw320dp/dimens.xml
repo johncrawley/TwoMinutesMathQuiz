@@ -2,11 +2,11 @@
 <resources>
 
     <!-- multiple size dimensions -->
-
     <dimen name="button_table_margin_top_landscape">2dp</dimen>
     <dimen name="button_table_margin_bottom_landscape">6dp</dimen>
     <dimen name="button_table_margin_bottom_portrait">12dp</dimen>
     <dimen name="menu_button_text_size">22sp</dimen>
+    <dimen name="background_gradient_length">360dp</dimen>
 
     <!-- Main Menu Fragment -->
     <dimen name="title_text_size">48sp</dimen>
