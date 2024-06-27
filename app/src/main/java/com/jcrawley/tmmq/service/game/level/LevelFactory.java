@@ -43,8 +43,8 @@ public class LevelFactory {
                 division(3,5,2,5),
                 multiplication(2,5,12),
                 multiplication(3,10,2,5),
-                powerOf(3,2,2),
-                powerOf(2,5,2,2));
+                powerOf(2,2, 3),
+                powerOf(3,6,2,2));
 
         addLevel(5,
                 addition(50,105,30,135),
