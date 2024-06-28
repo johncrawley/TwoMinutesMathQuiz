@@ -32,7 +32,7 @@
 
 
     <!-- Game Fragment -->
-    <dimen name="input_panel_margin">8dp</dimen>
+    <dimen name="input_panel_margin">4dp</dimen>
     <dimen name="input_panel_margin_land">8dp</dimen>
     <dimen name="input_panel_margin_bottom_land">8dp</dimen>
     <dimen name="game_stats_label_text_size">12sp</dimen>
@@ -40,34 +40,35 @@
     <dimen name="stat_minimum_width">50dp</dimen>
 
     <dimen name="input_button_text_size">28sp</dimen>
-    <dimen name="input_button_margin">6dp</dimen>
+    <dimen name="input_button_margin">4dp</dimen>
+
     <dimen name="input_text_layout_margin_horizontal">12dp</dimen>
-    <dimen name="input_text_size">72sp</dimen>
-    <dimen name="question_text_size">56sp</dimen>
-    <dimen name="question_text_margin_top">20dp</dimen>
-    <dimen name="question_text_margin_bottom">12dp</dimen>
-    <dimen name="input_text_margin_vertical">8dp</dimen>
-    <dimen name="input_text_background_padding">15dp</dimen>
+    <dimen name="input_text_size">64sp</dimen>
+    <dimen name="question_text_size">52sp</dimen>
+    <dimen name="question_text_margin_top">16dp</dimen>
+    <dimen name="question_text_margin_bottom">8dp</dimen>
+    <dimen name="input_text_margin_vertical">2dp</dimen>
+    <dimen name="input_text_background_padding">6dp</dimen>
 
     <dimen name="input_buttons_layout_padding">0dp</dimen>
 
 
     <!-- Game Over Fragment -->
-    <dimen name="game_over_heading_text_size">74sp</dimen>
+    <dimen name="game_over_heading_text_size">68sp</dimen>
     <dimen name="game_over_heading_text_size_min">24sp</dimen>
-    <dimen name="game_over_details_text_size">22sp</dimen>
+    <dimen name="game_over_details_text_size">18sp</dimen>
     <dimen name="game_over_buttons_margin">12dp</dimen>
     <dimen name="ending_score_label_text_size">24sp</dimen>
-    <dimen name="final_score_text_size">65sp</dimen>
+    <dimen name="final_score_text_size">58sp</dimen>
     <dimen name="final_score_text_size_min">28sp</dimen>
-    <dimen name="final_score_min_dimension">125dp</dimen>
-    <dimen name="final_score_background_gradient_length">90dp</dimen>
-    <dimen name="final_score_padding">15dp</dimen>
+    <dimen name="final_score_min_dimension">118dp</dimen>
+    <dimen name="final_score_background_gradient_length">80dp</dimen>
+    <dimen name="final_score_padding">12dp</dimen>
 
     <!-- test -->
     <dimen name="test_dimen_width">50dp</dimen>
     <dimen name="test_dimen_height">50dp</dimen>
-
+    
 
 
 

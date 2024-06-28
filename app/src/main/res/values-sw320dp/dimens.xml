@@ -3,7 +3,7 @@
 
     <!-- multiple size dimensions -->
     <dimen name="button_table_margin_top_landscape">2dp</dimen>
-    <dimen name="button_table_margin_bottom_landscape">6dp</dimen>
+    <dimen name="button_table_margin_bottom_landscape">4dp</dimen>
     <dimen name="button_table_margin_bottom_portrait">12dp</dimen>
     <dimen name="menu_button_text_size">22sp</dimen>
     <dimen name="background_gradient_length">360dp</dimen>
@@ -21,6 +21,7 @@
     <dimen name="option_heading_text_size_min">20sp</dimen>
     <dimen name="option_button_margin_horizontal">4dp</dimen>
 
+
     <!-- Get Ready Fragment -->
     <dimen name="game_start_get_ready_text">65sp</dimen>
     <dimen name="game_start_get_ready_text_min">50sp</dimen>
@@ -30,14 +31,19 @@
     <dimen name="input_panel_margin">4dp</dimen>
     <dimen name="input_panel_margin_land">4dp</dimen>
     <dimen name="input_panel_margin_bottom_land">4dp</dimen>
-    <dimen name="game_stats_label_text_size">8sp</dimen>
+    <dimen name="game_stats_label_text_size">10sp</dimen>
     <dimen name="stat_value_text_size">24sp</dimen>
     <dimen name="stat_minimum_width">40dp</dimen>
 
-    <dimen name="input_button_text_size">22sp</dimen>
+    <dimen name="input_button_text_size">18sp</dimen>
+    <dimen name="input_button_margin">2dp</dimen>
     <dimen name="input_text_layout_margin_horizontal">8dp</dimen>
-    <dimen name="input_text_size">56sp</dimen>
-    <dimen name="question_text_size">48sp</dimen>
+    <dimen name="input_text_size">52sp</dimen>
+    <dimen name="question_text_size">42sp</dimen>
+    <dimen name="question_text_margin_top">14dp</dimen>
+    <dimen name="question_text_margin_bottom">4dp</dimen>
+    <dimen name="input_text_margin_vertical">4dp</dimen>
+    <dimen name="input_text_background_padding">4dp</dimen>
 
     <dimen name="input_buttons_layout_padding">0dp</dimen>
 

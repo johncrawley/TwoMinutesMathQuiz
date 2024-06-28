@@ -39,10 +39,16 @@
     <dimen name="stat_value_text_size">32sp</dimen>
     <dimen name="stat_minimum_width">50dp</dimen>
 
+
     <dimen name="input_button_text_size">28sp</dimen>
+    <dimen name="input_button_margin">4dp</dimen>
     <dimen name="input_text_layout_margin_horizontal">12dp</dimen>
     <dimen name="input_text_size">72sp</dimen>
     <dimen name="question_text_size">56sp</dimen>
+    <dimen name="question_text_margin_top">22dp</dimen>
+    <dimen name="question_text_margin_bottom">12dp</dimen>
+    <dimen name="input_text_margin_vertical">8dp</dimen>
+    <dimen name="input_text_background_padding">15dp</dimen>
 
     <dimen name="input_buttons_layout_padding">0dp</dimen>
 
@@ -84,7 +90,6 @@
     <dimen name="time_remaining_margin">8dp</dimen>
     <dimen name="input_text_margin">4dp</dimen>
     <dimen name="game_stats_layout_margin">4dp</dimen>
-    <dimen name="question_text_margin">22dp</dimen>
     <dimen name="input_buttons_include_margin">18dp</dimen>
     <dimen name="game_stats_panel_padding">6dp</dimen>
     <dimen name="options_text_panel_padding">2dp</dimen>

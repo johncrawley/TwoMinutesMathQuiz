@@ -37,9 +37,14 @@
     <dimen name="stat_minimum_width">80dp</dimen>
 
     <dimen name="input_button_text_size">32sp</dimen>
+    <dimen name="input_button_margin">8dp</dimen>
     <dimen name="input_text_layout_margin_horizontal">24dp</dimen>
     <dimen name="input_text_size">86sp</dimen>
     <dimen name="question_text_size">72sp</dimen>
+    <dimen name="question_text_margin_top">24dp</dimen>
+    <dimen name="question_text_margin_bottom">16dp</dimen>
+    <dimen name="input_text_margin_vertical">12dp</dimen>
+    <dimen name="input_text_background_padding">20dp</dimen>
 
     <dimen name="input_buttons_layout_padding">56dp</dimen>
 

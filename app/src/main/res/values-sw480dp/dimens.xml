@@ -40,12 +40,17 @@
     <dimen name="input_text_layout_margin_horizontal">24dp</dimen>
     <dimen name="input_text_size">86sp</dimen>
     <dimen name="question_text_size">72sp</dimen>
+    <dimen name="question_text_margin_top">22dp</dimen>
+    <dimen name="question_text_margin_bottom">14dp</dimen>
+    <dimen name="input_text_margin_vertical">10dp</dimen>
+    <dimen name="input_text_background_padding">18dp</dimen>
 
     <dimen name="input_buttons_layout_padding">56dp</dimen>
 
 
     <!-- Game Over Fragment -->
     <dimen name="game_over_heading_text_size">98sp</dimen>
+    <dimen name="input_button_margin">6dp</dimen>
     <dimen name="game_over_heading_text_size_min">26sp</dimen>
     <dimen name="game_over_details_text_size">36sp</dimen>
     <dimen name="game_over_buttons_margin">18dp</dimen>

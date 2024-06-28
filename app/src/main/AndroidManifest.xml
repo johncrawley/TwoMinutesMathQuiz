@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/app_icon_1_round"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.TwoMinutesMathQuiz"
-        tools:targetApi="33">
+        tools:targetApi="34">
         <activity
             android:name=".view.SettingsActivity"
             android:exported="false"
