@@ -16,16 +16,4 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dp_size"
-        android:textSize="32sp"
-        android:textColor="@color/accent"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-    </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>
