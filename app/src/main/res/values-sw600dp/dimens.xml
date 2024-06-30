@@ -36,17 +36,17 @@
     <dimen name="stat_value_text_size">38sp</dimen>
     <dimen name="stat_minimum_width">80dp</dimen>
 
-    <dimen name="input_button_text_size">32sp</dimen>
+    <dimen name="input_button_text_size">28sp</dimen>
     <dimen name="input_button_margin">8dp</dimen>
     <dimen name="input_text_layout_margin_horizontal">24dp</dimen>
-    <dimen name="input_text_size">86sp</dimen>
-    <dimen name="question_text_size">72sp</dimen>
-    <dimen name="question_text_margin_top">24dp</dimen>
+    <dimen name="input_text_size">82sp</dimen>
+    <dimen name="question_text_size">68sp</dimen>
+    <dimen name="question_text_margin_top">22dp</dimen>
     <dimen name="question_text_margin_bottom">16dp</dimen>
     <dimen name="input_text_margin_vertical">12dp</dimen>
     <dimen name="input_text_background_padding">20dp</dimen>
 
-    <dimen name="input_buttons_layout_padding">56dp</dimen>
+    <dimen name="input_buttons_layout_padding">46dp</dimen>
 
 
     <!-- Game Over Fragment -->
@@ -57,9 +57,9 @@
     <dimen name="game_over_details_text_size">36sp</dimen>
     <dimen name="game_over_buttons_margin">18dp</dimen>
     <dimen name="ending_score_label_text_size">32sp</dimen>
-    <dimen name="final_score_text_size">78sp</dimen>
+    <dimen name="final_score_text_size">74sp</dimen>
     <dimen name="final_score_text_size_min">30sp</dimen>
-    <dimen name="final_score_min_dimension">130dp</dimen>
+    <dimen name="final_score_min_dimension">160dp</dimen>
     <dimen name="final_score_background_gradient_length">92dp</dimen>
     <dimen name="final_score_padding">35dp</dimen>
 
