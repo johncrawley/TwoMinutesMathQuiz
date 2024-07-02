@@ -33,12 +33,14 @@ import android.widget.TextView;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.TextAnimator;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 import com.jcrawley.tmmq.view.fragments.GameOverFragment;
 import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
@@ -83,6 +85,7 @@ public class GameFragment extends Fragment {
         setupListeners();
         setupBackButton();
         isCreated.set(true);
+        log("Entered onCreateView()");
         return parentView;
     }
 
@@ -96,6 +99,7 @@ public class GameFragment extends Fragment {
     public void onAttach(@NonNull Context context){
         super.onAttach(context);
         isCreated.set(true);
+        log("Entered onAttach()");
     }
 
 
@@ -127,7 +131,7 @@ public class GameFragment extends Fragment {
         setupStatLabels(parentView);
         timeRemainingTextView = setupTextView(parentView.findViewById(R.id.remaining_time_stat_include), R.id.statValue, viewModel.timeRemaining);
         scoreTextView = setupTextView(parentView.findViewById(R.id.score_stat_include), R.id.statValue, createScoreString(viewModel.scoreValue));
-        scoreTextView.setText("0");
+        updateScoreTextView();
         questionTextView = setupTextView(parentView, R.id.questionText, viewModel.questionText);
         inputTextView = setupTextView(parentView, R.id.inputText, viewModel.inputText);
         textAnimator = new TextAnimator(questionTextView);
@@ -143,12 +147,16 @@ public class GameFragment extends Fragment {
     private void setupLabel(View parentView, int labelLayout, int strId){
         ViewGroup layout = parentView.findViewById(labelLayout);
         if(layout == null){
-            System.out.println("^^^ setupLabel: layout is null");
+            log("layout is null");
             return;
 
         }
         TextView label = layout.findViewById(R.id.statLabel);
         label.setText(getString(strId));
+    }
+
+    private void log(String msg){
+        System.out.println("^^^GameFragment: " + msg);
     }
 
     private TextView setupTextView(View parentView, int id, String viewModelValue){
@@ -183,8 +191,12 @@ public class GameFragment extends Fragment {
 
 
     private void updateTimeTextView(int minutesRemaining, int secondsRemaining){
+        Activity activity = getActivity();
+        if(activity == null){
+            return;
+        }
         int totalSecondsRemaining = (minutesRemaining * 60) + secondsRemaining;
-        int warningTime = getResources().getInteger(R.integer.countdown_warning_time);
+        int warningTime = activity.getResources().getInteger(R.integer.countdown_warning_time);
         timeRemainingTextView.setVisibility(View.VISIBLE);
         setTimeRemainingTextColor(totalSecondsRemaining, warningTime);
         handleWarningOnLowTime(totalSecondsRemaining, warningTime);
@@ -273,13 +285,18 @@ public class GameFragment extends Fragment {
 
     private void updateScoreView(Bundle bundle){
         viewModel.scoreValue = getInt(bundle, Tag.SCORE);
-        scoreTextView.setText(createScoreString(viewModel.scoreValue));
+        updateScoreTextView();
     }
 
 
     private void changeInputTextColorForCorrectAnswer(int colorChangeDuration){
         int correctAnswerTextColor = getColorFromAttribute(R.attr.correct_answer_text_color, getContext());
         animateTextColor(inputTextView, defaultAnswerTextColor, correctAnswerTextColor, 0, colorChangeDuration);
+    }
+
+
+    private void updateScoreTextView(){
+        scoreTextView.setText(String.valueOf(viewModel.scoreValue));
     }
 
 
@@ -320,10 +337,16 @@ public class GameFragment extends Fragment {
 
 
     private void fadeInQuestionText(){
+        Activity activity = getActivity();
+        if(activity == null){
+            questionTextView.setText(viewModel.questionText);
+            questionTextView.setVisibility(View.VISIBLE);
+            return;
+        }
         new Handler(Looper.getMainLooper()).postDelayed( ()-> {
             questionTextView.setText(viewModel.questionText);
             questionTextView.startAnimation(textAnimator.getFadeInAnimation());
-        }, getResources().getInteger(R.integer.question_text_fade_in));
+        }, activity.getResources().getInteger(R.integer.question_text_fade_in));
     }
 
 
