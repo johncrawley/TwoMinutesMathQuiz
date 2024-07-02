@@ -1,11 +1,11 @@
 package com.jcrawley.tmmq.view.fragments.game;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
-import com.jcrawley.tmmq.view.fragments.game.GameScreenViewModel;
 
 public class InputHelper {
 
@@ -23,6 +23,7 @@ public class InputHelper {
         setupButtons();
     }
 
+    private Button enterButton;
 
     private void setupButtons(){
         setupButtonForAdd(R.id.button0, 0);
@@ -36,22 +37,24 @@ public class InputHelper {
         setupButtonForAdd(R.id.button8, 8);
         setupButtonForAdd(R.id.button9, 9);
         setupButton(R.id.buttonBackspace, this::backspace);
-        setupButton(R.id.buttonEnter, this::submitAnswer);
+        enterButton = setupButton(R.id.buttonEnter, this::submitAnswer);
     }
 
 
-    private void setupButton(int viewId, Runnable runnable){
-        View view = parentView.findViewById(viewId);
+    private Button setupButton(int viewId, Runnable runnable){
+        Button view = parentView.findViewById(viewId);
         view.setOnClickListener(v -> {
             runnable.run();
             activity.onKeypadButtonClicked();
         });
+        return view;
     }
 
 
     private void setupButtonForAdd(int viewId, int digit){
         View view = parentView.findViewById(viewId);
         view.setOnClickListener(v -> {
+            enterButton.setEnabled(true);
             addDigitToAnswer(digit);
             activity.onKeypadButtonClicked();
         });
@@ -59,11 +62,14 @@ public class InputHelper {
 
 
     private void submitAnswer(){
+        enterButton.setEnabled(false);
         String answer = viewModel.inputText.trim();
         if(answer.isEmpty()){
+            enterButton.setEnabled(true);
             return;
         }
         if(activity == null){
+            enterButton.setEnabled(true);
             return;
         }
         activity.submitAnswer(answer);

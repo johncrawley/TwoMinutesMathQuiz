@@ -41,7 +41,6 @@ public class OptionsFragment extends Fragment {
     public enum Message { NOTIFY_OF_SERVICE_CONNECTED }
 
 
-
     public OptionsFragment() {
         // Required empty public constructor
     }
@@ -258,9 +257,11 @@ public class OptionsFragment extends Fragment {
 
     private void setupStartButton(View parentView) {
         Button button = parentView.findViewById(R.id.startButton);
+        button.setEnabled(true);
         button.setOnClickListener(v -> {
             playMenuButtonSound();
             getGameService().ifPresent(gs ->{
+                button.setEnabled(false);
                 gs.setLevel(currentLevel);
                 gs.setTimer(currentTimerValue, currentTimerIndex);
             });

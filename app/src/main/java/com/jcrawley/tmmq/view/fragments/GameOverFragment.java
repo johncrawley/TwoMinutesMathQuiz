@@ -192,7 +192,9 @@ public class GameOverFragment extends Fragment {
 
     private void setupRetryButton(View parentView){
         retryButton = parentView.findViewById(R.id.retryMenuButton);
+        retryButton.setEnabled(true);
         retryButton.setOnClickListener(v ->{
+            retryButton.setEnabled(false);
             playSound(this, Sound.MENU_BUTTON);
             getGameService().ifPresent(GameService::resetTimer);
             loadGetReadyScreen();
