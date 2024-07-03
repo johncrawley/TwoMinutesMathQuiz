@@ -33,14 +33,12 @@ import android.widget.TextView;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
-import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.TextAnimator;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 import com.jcrawley.tmmq.view.fragments.GameOverFragment;
 import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
 
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
@@ -85,7 +83,6 @@ public class GameFragment extends Fragment {
         setupListeners();
         setupBackButton();
         isCreated.set(true);
-        log("Entered onCreateView()");
         return parentView;
     }
 
@@ -99,7 +96,6 @@ public class GameFragment extends Fragment {
     public void onAttach(@NonNull Context context){
         super.onAttach(context);
         isCreated.set(true);
-        log("Entered onAttach()");
     }
 
 
@@ -146,18 +142,12 @@ public class GameFragment extends Fragment {
 
     private void setupLabel(View parentView, int labelLayout, int strId){
         ViewGroup layout = parentView.findViewById(labelLayout);
-        if(layout == null){
-            log("layout is null");
-            return;
-
+        if(layout != null){
+            TextView label = layout.findViewById(R.id.statLabel);
+            label.setText(getString(strId));
         }
-        TextView label = layout.findViewById(R.id.statLabel);
-        label.setText(getString(strId));
     }
 
-    private void log(String msg){
-        System.out.println("^^^GameFragment: " + msg);
-    }
 
     private TextView setupTextView(View parentView, int id, String viewModelValue){
         TextView textView = parentView.findViewById(id);
@@ -200,7 +190,7 @@ public class GameFragment extends Fragment {
         timeRemainingTextView.setVisibility(View.VISIBLE);
         setTimeRemainingTextColor(totalSecondsRemaining, warningTime);
         handleWarningOnLowTime(totalSecondsRemaining, warningTime);
-        viewModel.timeRemaining = createTimeRemainingString(minutesRemaining, secondsRemaining);;
+        viewModel.timeRemaining = createTimeRemainingString(minutesRemaining, secondsRemaining);
         timeRemainingTextView.setText(viewModel.timeRemaining);
     }
 

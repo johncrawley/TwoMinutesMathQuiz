@@ -30,6 +30,7 @@ import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
 import com.jcrawley.tmmq.view.fragments.OptionsFragment;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel viewModel;
     private Vibrator vibrator;
     private boolean isVibrationEnabled;
+    private final AtomicBoolean isServiceConnected = new AtomicBoolean(false);
 
 
     private final ServiceConnection connection = new ServiceConnection() {
@@ -48,11 +50,13 @@ public class MainActivity extends AppCompatActivity {
             gameService = binder.getService();
             gameService.setActivity(MainActivity.this);
             sendMessage(OptionsFragment.Message.NOTIFY_OF_SERVICE_CONNECTED);
+            isServiceConnected.set(true);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             log("Entered onServiceDisconnected()");
+            isServiceConnected.set(false);
         }
     };
 
@@ -72,6 +76,15 @@ public class MainActivity extends AppCompatActivity {
             setupFragments();
         }
         setupGameService();
+    }
+
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(!isServiceConnected.get()){
+            setupGameService();
+        }
     }
 
 

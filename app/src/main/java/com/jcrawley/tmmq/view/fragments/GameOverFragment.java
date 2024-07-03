@@ -197,6 +197,9 @@ public class GameOverFragment extends Fragment {
             retryButton.setEnabled(false);
             playSound(this, Sound.MENU_BUTTON);
             getGameService().ifPresent(GameService::resetTimer);
+            if(!getGameService().isPresent()){
+                log("game service is not ready!");
+            }
             loadGetReadyScreen();
         });
     }
@@ -209,7 +212,7 @@ public class GameOverFragment extends Fragment {
 
     private void loadGetReadyScreen(){
         GetReadyFragment getReadyFragment = new GetReadyFragment();
-        loadFragment(this, getReadyFragment, GetReadyFragment.FRAGMENT_TAG);
+        loadFragment(this,getReadyFragment, GetReadyFragment.FRAGMENT_TAG);
     }
 
 
