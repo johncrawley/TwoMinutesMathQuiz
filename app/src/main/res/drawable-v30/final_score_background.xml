@@ -10,7 +10,7 @@
         android:gradientRadius="@dimen/final_score_background_gradient_length"
         android:startColor="#5E40E1"
         android:endColor="#000000"
-        android:type="linear"/>
+        android:type="radial"/>
 
     <corners android:radius="300dp" />
 </shape>
