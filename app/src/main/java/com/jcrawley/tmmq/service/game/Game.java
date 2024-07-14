@@ -8,7 +8,9 @@ import com.jcrawley.tmmq.service.game.level.LevelFactory;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Game {
 
@@ -21,6 +23,7 @@ public class Game {
     private String timerLengthDisplayStr;
     private final Map<Integer, GameLevel> levels;
     private GameLevel currentLevel;
+    private QuestionGenerator questionGenerator = new QuestionGenerator();
 
 
     public Game(){
@@ -66,8 +69,12 @@ public class Game {
     }
 
 
+    private Set<String> existingQuestions = new HashSet<>();
+    private int currentQuestionTr
+
+
     private MathQuestion generateQuestion(){
-        return currentLevel.getRandomQuestionCreator().createQuestion();
+       return questionGenerator.generateQuestion(currentLevel);
     }
 
 
