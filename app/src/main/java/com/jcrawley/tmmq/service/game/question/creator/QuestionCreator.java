@@ -92,7 +92,12 @@ public class QuestionCreator {
 
 
     private int getRandomNumber(int min, int max){
-        return min == max ? max : min + random.nextInt((max-min));
+        return min == max ? max : min + getRandomUpperLimit(min, max);
+    }
+
+
+    private int getRandomUpperLimit(int min, int max){
+        return min + random.nextInt((max + 1) - min);
     }
 
 
