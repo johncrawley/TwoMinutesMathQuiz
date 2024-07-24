@@ -1,12 +1,18 @@
 package com.jcrawley.tmmq.service.game.creator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.jcrawley.tmmq.service.game.question.MathOperation;
 import com.jcrawley.tmmq.service.game.question.creator.QuestionCreator;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 
 public class QuestionCreatorTest {
 
@@ -41,5 +47,54 @@ public class QuestionCreatorTest {
         questionCreator.swapPartsIfLargeNumberShouldBeFirst();
         assertEquals(num6, questionCreator.getPart1());
         assertEquals(num5, questionCreator.getPart2());
+    }
+
+    @Test
+    public void randomNumberGeneratorEventuallyGoesThroughFullRange(){
+        try {
+            Method method = QuestionCreator.class.getDeclaredMethod("getRandomNumber", int.class, int.class);
+            method.setAccessible(true);
+            Set<Integer> existingResults = new HashSet<>();
+            int min = 1;
+            int max = 20;
+            int numberOfCycles = 200;
+            for(int i = 0; i < numberOfCycles; i ++){
+                Integer result =(Integer)method.invoke(questionCreator, min, max);
+                if(result != null){
+                    existingResults.add(result);
+                }
+            }
+            for(int i = 1; i <= max; i++){
+                assertTrue(existingResults.contains(i));
+            }
+        }catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e){
+            handleException(e);
+        }
+    }
+
+
+    @Test
+    public void upperRandomLimitsAreCalculatedCorrectly(){
+
+        try {
+            Method method = QuestionCreator.class.getDeclaredMethod("getRandomRange", int.class, int.class);
+            method.setAccessible(true);
+            int min = 5;
+            int max = 10;
+            int numberOfCycles = 100;
+            for(int i = 0; i < numberOfCycles; i ++){
+                Integer result =(Integer)method.invoke(questionCreator, min, max);
+                if(result != null){
+                    assertTrue((int)result <= max - min);
+                }
+            }
+        }catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e){
+            handleException(e);
+        }
+    }
+
+
+    public void handleException(Exception e){
+
     }
 }

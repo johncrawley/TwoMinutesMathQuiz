@@ -28,22 +28,45 @@ public class QuestionGeneratorTest {
     @Test
     public void questionsWillNotRepeatUntilExhausted(){
         GameLevel gameLevel = new GameLevel(5);
+
         QuestionCreator questionCreator = new QuestionCreator(MathOperation.ADDITION);
-        questionCreator.setOperationLimits(new OperationLimits(MathOperation.ADDITION, 1, 3,1,3));
+        questionCreator.setOperationLimits(new OperationLimits(MathOperation.ADDITION, 1, 2,1,2));
         gameLevel.addQuestionCreator(questionCreator);
 
         // the possible questions should be 1+1, 1+2, 2+1, 2+2
         // so four values and should not repeat until all values have been tried
         int maxNumberOfUniqueQuestions = 4;
+       // assertNumberOfUniqueQuestions(maxNumberOfUniqueQuestions, gameLevel);
+
+        QuestionCreator questionCreator2 = new QuestionCreator(MathOperation.MULTIPLICATION);
+        questionCreator2.setOperationLimits(new OperationLimits(MathOperation.MULTIPLICATION, 2, 4,2,4));
+        gameLevel.addQuestionCreator(questionCreator2);
+        // existing 4 +
+        // 2 * 2
+        // 2 * 3
+        // 2 * 4
+        // 3 * 2
+        // 3 * 3
+        // 3 * 4
+        // 4 * 2
+        // 4 * 3
+        // 4 * 4
+        int maxNumberOfUniqueQuestions2 = maxNumberOfUniqueQuestions + 9;
+        assertNumberOfUniqueQuestions(maxNumberOfUniqueQuestions2, gameLevel);
+    }
+
+
+    private void assertNumberOfUniqueQuestions(int expectedMax, GameLevel gameLevel){
         Set<String> questions = new HashSet<>();
-        for(int i = 0; i < maxNumberOfUniqueQuestions ; i ++){
+        for(int i = 0; i < expectedMax; i ++){
             MathQuestion mathQuestion = questionGenerator.generateRandomQuestionFrom(gameLevel);
             questions.add(mathQuestion.getQuestionText());
+            System.out.println("questionText : " + mathQuestion.getQuestionText());
         }
         for(String questionText : questions){
             System.out.println(" question: " + questionText);
         }
-        assertEquals(maxNumberOfUniqueQuestions, questions.size());
+        assertEquals(expectedMax, questions.size());
     }
 
 }

@@ -17,19 +17,24 @@ public class QuestionGenerator {
 
 
     public MathQuestion generateRandomQuestionFrom(GameLevel gameLevel){
-        int maxTries = 10;
+        int maxTries = 15;
         int currentTries = 0;
         MathQuestion mathQuestion = generateQuestion(gameLevel);
-        while(currentTries < maxTries){
+        while(hasQuestionBeenUsedAlready(mathQuestion)){
             mathQuestion = generateQuestion(gameLevel);
-            if(!existingQuestions.contains(mathQuestion.getQuestionText())){
-                return mathQuestion;
-            }
-            currentTries ++;
-            if(currentTries >= maxTries){
+            if(currentTries++ >= maxTries){
+                System.out.println("clearing history!");
                 existingQuestions.clear();
             }
         }
+        existingQuestions.add(mathQuestion.getQuestionText());
         return mathQuestion;
+    }
+
+
+    private boolean hasQuestionBeenUsedAlready(MathQuestion mathQuestion){
+        System.out.println("^^^ QuestionGenerator: generated question: " + mathQuestion.getQuestionText()  + " already used: " + existingQuestions.contains(mathQuestion.getQuestionText()));
+
+        return existingQuestions.contains(mathQuestion.getQuestionText());
     }
 }

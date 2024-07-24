@@ -74,7 +74,6 @@ public class QuestionCreator {
     }
 
 
-
     public void swapPartsIfLargeNumberShouldBeFirst(){
         if(swapOffset > 0 && part2 > (part1 + swapOffset)){
             swapParts();
@@ -89,15 +88,13 @@ public class QuestionCreator {
     }
 
 
-
-
     private int getRandomNumber(int min, int max){
-        return min == max ? max : min + getRandomUpperLimit(min, max);
+        return min == max ? max : min + getRandomRange(min, max);
     }
 
 
-    private int getRandomUpperLimit(int min, int max){
-        return min + random.nextInt((max + 1) - min);
+    private int getRandomRange(int min, int max){
+       return random.nextInt((max + 1) - min);
     }
 
 
