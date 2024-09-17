@@ -2,7 +2,7 @@
     <string name="app_name">Quick Maths</string>
     <string name="title_text">Quick\nMaths</string>
     <string name="title_text_landscape">Quick Maths</string>
-    <string name="about_text">Quick Maths \n Version 1.02, 2024 \n Created by John Crawley</string>
+    <string name="about_text">Quick Maths \n Version 1.1, 2024 \n Created by John Crawley</string>
     <string name="timer_values">60,120,180</string>
 
     <string name="main_menu_screen_start_game_button_text">NEW GAME</string>

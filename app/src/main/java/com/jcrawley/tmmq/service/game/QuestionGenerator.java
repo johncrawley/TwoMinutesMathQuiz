@@ -23,7 +23,6 @@ public class QuestionGenerator {
         while(hasQuestionBeenUsedAlready(mathQuestion)){
             mathQuestion = generateQuestion(gameLevel);
             if(currentTries++ >= maxTries){
-                System.out.println("clearing history!");
                 existingQuestions.clear();
             }
         }
@@ -33,8 +32,6 @@ public class QuestionGenerator {
 
 
     private boolean hasQuestionBeenUsedAlready(MathQuestion mathQuestion){
-        System.out.println("^^^ QuestionGenerator: generated question: " + mathQuestion.getQuestionText()  + " already used: " + existingQuestions.contains(mathQuestion.getQuestionText()));
-
         return existingQuestions.contains(mathQuestion.getQuestionText());
     }
 }

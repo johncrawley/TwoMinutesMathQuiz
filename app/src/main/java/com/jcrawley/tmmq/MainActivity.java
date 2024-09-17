@@ -72,9 +72,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupViewModel();
         setupVibe();
-        if (savedInstanceState == null) {
-            setupFragments();
-        }
+        setupFragmentsIf(savedInstanceState == null);
         setupGameService();
     }
 
@@ -103,7 +101,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void setupFragments() {
+    private void setupFragmentsIf(boolean isSavedInstanceStateNull) {
+        if (!isSavedInstanceStateNull) {
+            return;
+        }
         Fragment mainMenuFragment = new MainMenuFragment();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, mainMenuFragment)
