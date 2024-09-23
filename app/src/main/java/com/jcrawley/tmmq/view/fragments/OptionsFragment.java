@@ -217,7 +217,6 @@ public class OptionsFragment extends Fragment {
     }
 
 
-
     private void incrementLevel(){
         currentLevel++;
         if(currentLevel > maxLevel){

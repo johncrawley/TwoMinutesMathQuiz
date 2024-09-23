@@ -68,15 +68,18 @@ public class GetReadyFragment extends Fragment {
     }
 
 
-    public void startTextAnimation(final TextView v, MainViewModel viewModel){
+    private void startTextAnimation(final TextView v, MainViewModel viewModel){
         updateGameStartCountdownText(viewModel.gameStartCurrentCountdown);
+        AnimationSet animationSet = createScaleAnimationSet(v, viewModel);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> v.startAnimation(animationSet), 500);
+    }
 
+
+    private AnimationSet createScaleAnimationSet(TextView v, MainViewModel viewModel){
         final AnimationSet animationSet = new AnimationSet(true);
-
         addScaleAnimationTo(animationSet, 2f,2f, null);
         addScaleAnimationTo(animationSet, 0.5f,0.5f, createListenerForCountdown(v, viewModel, animationSet));
-
-        new Handler(Looper.getMainLooper()).postDelayed(() -> v.startAnimation(animationSet), 500);
+        return animationSet;
     }
 
 
