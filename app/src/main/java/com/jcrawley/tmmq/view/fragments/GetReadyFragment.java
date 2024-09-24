@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.fragments.game.GameFragment;
@@ -125,6 +126,7 @@ public class GetReadyFragment extends Fragment {
         if(getActivity() == null){
             return;
         }
+        getMainActivity().getGameService().ifPresent(GameService::setSavedValues);
         FragmentUtils.loadFragment(this, new GameFragment(), "gameScreenFragment");
     }
 
