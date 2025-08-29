@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Matemáticas rápidas</string>
+
+    <string name="title_text">Matemáticas rápidas\n</string>
+
+    <string name="title_text_landscape">Matemáticas rápidas</string>
+
+    <string name="created_by">Creado por John Crawley</string>
+
+    <string name="main_menu_screen_start_game_button_text">NUEVO JUEGO</string>
+
+    <string name="game_over_to_main_menu_button_text">MENÚ</string>
+
+    <string name="game_over_retry_button_text">REVER</string>
+
+    <string name="options_button_text">OPCIONES</string>
+
+    <string name="about_button_text">ACERCA DE</string>
+
+    <string name="time_remaining_label">Minutero</string>
+
+    <string name="score_label_text">Puntaje</string>
+
+    <string name="game_over_text">JUEGO TERMINADO</string>
+
+    <string name="game_over_text_landscape">JUEGO TERMINADO</string>
+
+    <string name="game_over_details">Nivel %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">PREPARARSE</string>
+
+    <string name="start_game_go">¡IR!</string>
+
+    <string name="ending_score_label_text">Tu puntuación</string>
+
+    <string name="high_score_text">Puntuación alta: %1$d</string>
+
+    <string name="congratulations">¡FELICIDADES!</string>
+
+    <string name="new_daily_record">¡LA MEJOR PUNTUACIÓN DE HOY!</string>
+
+    <string name="new_all_time_record">¡NUEVA PUNTAJE MÁS ALTO!</string>
+
+    <string name="choose_level_heading">Nivel</string>
+
+    <string name="choose_time_heading">Tiempo</string>
+
+    <string name="options_start_button">COMENZAR</string>
+
+    <string name="title_activity_settings">ConfiguraciónActividad</string>
+
+
+    <string name="preferences_general_header">General</string>
+
+    <string name="preferences_vibration">Vibración</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Elija el valor del temporizador al iniciar el juego</string>
+
+    <string name="sound_header">Sonido</string>
+
+    <string name="preference_sound_button_press">Clics de botón</string>
+
+    <string name="preference_sound_get_ready">Pitidos de preparación</string>
+
+    <string name="preference_sound_game">Sonidos del juego</string>
+
+    <string name="preference_sound_keypad">Clics del teclado</string>
+
+</resources>

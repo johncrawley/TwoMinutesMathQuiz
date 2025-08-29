@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Matemática rápida</string>
+
+    <string name="title_text">Matemática rápida</string>
+
+    <string name="title_text_landscape">Matemática rápida</string>
+
+    <string name="created_by">Criado por John Crawley</string>
+
+    <string name="main_menu_screen_start_game_button_text">NOVO JOGO</string>
+
+    <string name="game_over_to_main_menu_button_text">MENU</string>
+
+    <string name="game_over_retry_button_text">TENTAR NOVAMENTE</string>
+
+    <string name="options_button_text">OPÇÕES</string>
+
+    <string name="about_button_text">SOBRE</string>
+
+    <string name="time_remaining_label">Temporizador</string>
+
+    <string name="score_label_text">Pontuação</string>
+
+    <string name="game_over_text">FIM DE JOGO</string>
+
+    <string name="game_over_text_landscape">GAME OVER</string>
+
+    <string name="game_over_details">Nível %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">PREPARE-SE</string>
+
+    <string name="start_game_go">IR!</string>
+
+    <string name="ending_score_label_text">Sua pontuação</string>
+
+    <string name="high_score_text">Pontuação máxima: %1$d</string>
+
+    <string name="congratulations">PARABÉNS!</string>
+
+    <string name="new_daily_record">MELHOR PONTUAÇÃO DE HOJE!</string>
+
+    <string name="new_all_time_record">NOVA PONTUAÇÃO MÁXIMA!</string>
+
+    <string name="choose_level_heading">Nível</string>
+
+    <string name="choose_time_heading">Tempo</string>
+
+    <string name="options_start_button">COMEÇAR</string>
+
+    <string name="title_activity_settings">ConfiguraçõesAtividade</string>
+
+
+    <string name="preferences_general_header">Em geral</string>
+
+    <string name="preferences_vibration">Vibração</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Escolha o valor do cronômetro no início do jogo</string>
+
+    <string name="sound_header">Som</string>
+
+    <string name="preference_sound_button_press">Cliques de botão</string>
+
+    <string name="preference_sound_get_ready">Bipes de preparação</string>
+
+    <string name="preference_sound_game">Sons do jogo</string>
+
+    <string name="preference_sound_keypad">Cliques do teclado</string>
+
+</resources>

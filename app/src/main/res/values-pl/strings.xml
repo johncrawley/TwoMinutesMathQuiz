@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Szybka matematyka</string>
+
+    <string name="title_text">Szybka matematyka</string>
+
+    <string name="title_text_landscape">Szybka matematyka</string>
+
+    <string name="created_by">Stworzone przez Johna Crawleya</string>
+
+    <string name="main_menu_screen_start_game_button_text">NOWA GRA</string>
+
+    <string name="game_over_to_main_menu_button_text">MENU</string>
+
+    <string name="game_over_retry_button_text">SPRÓBOWAĆ PONOWNIE</string>
+
+    <string name="options_button_text">OPCJE</string>
+
+    <string name="about_button_text">O</string>
+
+    <string name="time_remaining_label">Regulator czasowy</string>
+
+    <string name="score_label_text">Wynik</string>
+
+    <string name="game_over_text">KONIEC GRY</string>
+
+    <string name="game_over_text_landscape">KONIEC GRY</string>
+
+    <string name="game_over_details">Poziom %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">PRZYGOTOWAĆ</string>
+
+    <string name="start_game_go">IŚĆ!</string>
+
+    <string name="ending_score_label_text">Twój wynik</string>
+
+    <string name="high_score_text">Najwyższy wynik: %1$d</string>
+
+    <string name="congratulations">GRATULACJE!</string>
+
+    <string name="new_daily_record">NAJLEPSZY WYNIK DZIŚ!</string>
+
+    <string name="new_all_time_record">NOWY NAJWYŻSZY WYNIK!</string>
+
+    <string name="choose_level_heading">Poziom</string>
+
+    <string name="choose_time_heading">Czas</string>
+
+    <string name="options_start_button">START</string>
+
+    <string name="title_activity_settings">UstawieniaAktywność</string>
+
+
+    <string name="preferences_general_header">Ogólny</string>
+
+    <string name="preferences_vibration">Wibracja</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Wybierz wartość timera na początku gry</string>
+
+    <string name="sound_header">Dźwięk</string>
+
+    <string name="preference_sound_button_press">Kliknięcia przycisków</string>
+
+    <string name="preference_sound_get_ready">Przygotuj się, sygnał dźwiękowy</string>
+
+    <string name="preference_sound_game">Dźwięki gry</string>
+
+    <string name="preference_sound_keypad">Kliknięcia klawiatury</string>
+
+</resources>

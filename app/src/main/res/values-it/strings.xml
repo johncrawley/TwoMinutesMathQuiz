@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Matematica veloce</string>
+
+    <string name="title_text">Matematica veloce</string>
+
+    <string name="title_text_landscape">Matematica veloce</string>
+
+    <string name="created_by">Creato da John Crawley</string>
+
+    <string name="main_menu_screen_start_game_button_text">NUOVO GIOCO</string>
+
+    <string name="game_over_to_main_menu_button_text">MENU</string>
+
+    <string name="game_over_retry_button_text">RIPROVA</string>
+
+    <string name="options_button_text">OPZIONI</string>
+
+    <string name="about_button_text">DI</string>
+
+    <string name="time_remaining_label">Timer</string>
+
+    <string name="score_label_text">Punto</string>
+
+    <string name="game_over_text">GIOCO FINITO</string>
+
+    <string name="game_over_text_landscape">GAME OVER</string>
+
+    <string name="game_over_details">Livello %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">PREPARATI</string>
+
+    <string name="start_game_go">ANDARE!</string>
+
+    <string name="ending_score_label_text">Il tuo punteggio</string>
+
+    <string name="high_score_text">Punteggio più alto: %1$d</string>
+
+    <string name="congratulations">CONGRATULAZIONI!</string>
+
+    <string name="new_daily_record">PUNTEGGIO MIGLIORE OGGI!</string>
+
+    <string name="new_all_time_record">NUOVO PUNTEGGIO PIÙ ALTO!</string>
+
+    <string name="choose_level_heading">Livello</string>
+
+    <string name="choose_time_heading">Tempo</string>
+
+    <string name="options_start_button">INIZIO</string>
+
+    <string name="title_activity_settings">ImpostazioniAttività</string>
+
+
+    <string name="preferences_general_header">Generale</string>
+
+    <string name="preferences_vibration">Vibrazione</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Scegli il valore del timer all\'inizio del gioco</string>
+
+    <string name="sound_header">Suono</string>
+
+    <string name="preference_sound_button_press">Clic sui pulsanti</string>
+
+    <string name="preference_sound_get_ready">Preparati emettendo dei segnali acustici</string>
+
+    <string name="preference_sound_game">Suoni di gioco</string>
+
+    <string name="preference_sound_keypad">Clic della tastiera</string>
+
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Matematică rapidă</string>
+
+    <string name="title_text">Matematică rapidă</string>
+
+    <string name="title_text_landscape">Matematică rapidă</string>
+
+    <string name="created_by">Creat de John Crawley</string>
+
+    <string name="main_menu_screen_start_game_button_text">JOC NOU</string>
+
+    <string name="game_over_to_main_menu_button_text">MENIU</string>
+
+    <string name="game_over_retry_button_text">ÎNCERCAȚI</string>
+
+    <string name="options_button_text">OPȚIUNI</string>
+
+    <string name="about_button_text">DESPRE</string>
+
+    <string name="time_remaining_label">Cronometru</string>
+
+    <string name="score_label_text">Scor</string>
+
+    <string name="game_over_text">JOCUL\nSfârșit</string>
+
+    <string name="game_over_text_landscape">JOC ÎNCHEIAT</string>
+
+    <string name="game_over_details">Nivelul %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">PREGĂTIȚI-VĂ</string>
+
+    <string name="start_game_go">MERGE!</string>
+
+    <string name="ending_score_label_text">Scorul tău</string>
+
+    <string name="high_score_text">Scor mare: %1$d</string>
+
+    <string name="congratulations">FELICITĂRI!</string>
+
+    <string name="new_daily_record">PRINCIPAL SCOR AZI!</string>
+
+    <string name="new_all_time_record">NOUL SCOR MARE!</string>
+
+    <string name="choose_level_heading">Nivel</string>
+
+    <string name="choose_time_heading">Timp</string>
+
+    <string name="options_start_button">ÎNCEPUT</string>
+
+    <string name="title_activity_settings">SetăriActivitate</string>
+
+
+    <string name="preferences_general_header">General</string>
+
+    <string name="preferences_vibration">Vibrație</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Alegeți valoarea temporizatorului la începutul jocului</string>
+
+    <string name="sound_header">Sunet</string>
+
+    <string name="preference_sound_button_press">Clicuri pe butoane</string>
+
+    <string name="preference_sound_get_ready">Pregătiți-vă bipuri</string>
+
+    <string name="preference_sound_game">Sunete de joc</string>
+
+    <string name="preference_sound_keypad">Clicuri de la tastatură</string>
+
+</resources>

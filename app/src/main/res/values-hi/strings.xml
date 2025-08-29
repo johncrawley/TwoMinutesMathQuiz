@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">त्वरित गणित</string>
+
+    <string name="title_text">त्वरित गणित</string>
+
+    <string name="title_text_landscape">त्वरित गणित</string>
+
+    <string name="created_by">जॉन क्रॉली द्वारा निर्मित</string>
+
+    <string name="main_menu_screen_start_game_button_text">नया खेल</string>
+
+    <string name="game_over_to_main_menu_button_text">मेनू</string>
+
+    <string name="game_over_retry_button_text">पुन: प्रयास</string>
+
+    <string name="options_button_text">विकल्प</string>
+
+    <string name="about_button_text">के बारे में</string>
+
+    <string name="time_remaining_label">घड़ी</string>
+
+    <string name="score_label_text">अंक</string>
+
+    <string name="game_over_text">खेल ख़त्म</string>
+
+    <string name="game_over_text_landscape">खेल खत्म</string>
+
+    <string name="game_over_details">स्तर %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">तैयार हो जाओ</string>
+
+    <string name="start_game_go">जाना!</string>
+
+    <string name="ending_score_label_text">तुम्हारे अंक</string>
+
+    <string name="high_score_text">उच्च स्कोर: %1$d</string>
+
+    <string name="congratulations">बधाई हो!</string>
+
+    <string name="new_daily_record">आज सर्वोच्च स्कोर!</string>
+
+    <string name="new_all_time_record">नया उच्च स्कोर!</string>
+
+    <string name="choose_level_heading">स्तर</string>
+
+    <string name="choose_time_heading">समय</string>
+
+    <string name="options_start_button">शुरू</string>
+
+    <string name="title_activity_settings">सेटिंग्सगतिविधि</string>
+
+
+    <string name="preferences_general_header">सामान्य</string>
+
+    <string name="preferences_vibration">कंपन</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">खेल शुरू होने पर टाइमर मान चुनें</string>
+
+    <string name="sound_header">आवाज़</string>
+
+    <string name="preference_sound_button_press">बटन क्लिक</string>
+
+    <string name="preference_sound_get_ready">तैयार हो जाओ बीप्स</string>
+
+    <string name="preference_sound_game">खेल की ध्वनियाँ</string>
+
+    <string name="preference_sound_keypad">कीपैड क्लिक</string>
+
+</resources>

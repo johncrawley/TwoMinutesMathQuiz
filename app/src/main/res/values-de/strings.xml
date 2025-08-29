@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Schnelle Mathematik</string>
+
+    <string name="title_text">Schnelle Mathematik</string>
+
+    <string name="title_text_landscape">Schnelle Mathematik</string>
+
+    <string name="created_by">Erstellt von John Crawley</string>
+
+    <string name="main_menu_screen_start_game_button_text">NEUES SPIEL</string>
+
+    <string name="game_over_to_main_menu_button_text">SPEISEKARTE</string>
+
+    <string name="game_over_retry_button_text">WIEDERHOLEN</string>
+
+    <string name="options_button_text">OPTIONEN</string>
+
+    <string name="about_button_text">UM</string>
+
+    <string name="time_remaining_label">Timer</string>
+
+    <string name="score_label_text">Punktzahl</string>
+
+    <string name="game_over_text">SPIEL VORBEI</string>
+
+    <string name="game_over_text_landscape">SPIEL VORBEI</string>
+
+    <string name="game_over_details">Ebene %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">MACHEN SIE SICH BEREIT</string>
+
+    <string name="start_game_go">GEHEN!</string>
+
+    <string name="ending_score_label_text">Ihr Ergebnis</string>
+
+    <string name="high_score_text">Höchstpunktzahl: %1$d</string>
+
+    <string name="congratulations">GLÜCKWUNSCH!</string>
+
+    <string name="new_daily_record">HEUTE HÖCHSTE ERGEBNISSE!</string>
+
+    <string name="new_all_time_record">NEUER HIGHSCORE!</string>
+
+    <string name="choose_level_heading">Ebene</string>
+
+    <string name="choose_time_heading">Zeit</string>
+
+    <string name="options_start_button">START</string>
+
+    <string name="title_activity_settings">EinstellungenAktivität</string>
+
+
+    <string name="preferences_general_header">Allgemein</string>
+
+    <string name="preferences_vibration">Vibration</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Wählen Sie den Timerwert beim Spielstart</string>
+
+    <string name="sound_header">Klang</string>
+
+    <string name="preference_sound_button_press">Schaltflächenklicks</string>
+
+    <string name="preference_sound_get_ready">Bereitmachen-Pieptöne</string>
+
+    <string name="preference_sound_game">Spielgeräusche</string>
+
+    <string name="preference_sound_keypad">Tastaturklicks</string>
+
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Rýchla matematika</string>
+
+    <string name="title_text">Rýchla\nmatematika</string>
+
+    <string name="title_text_landscape">Rýchla matematika</string>
+
+    <string name="created_by">Vytvoril John Crawley</string>
+
+    <string name="main_menu_screen_start_game_button_text">NOVÁ HRA</string>
+
+    <string name="game_over_to_main_menu_button_text">MENU</string>
+
+    <string name="game_over_retry_button_text">OPAKOVAŤ</string>
+
+    <string name="options_button_text">MOŽNOSTI</string>
+
+    <string name="about_button_text">O</string>
+
+    <string name="time_remaining_label">Časovač</string>
+
+    <string name="score_label_text">skóre</string>
+
+    <string name="game_over_text">UKONČENÁ HRA\n</string>
+
+    <string name="game_over_text_landscape">KONIEC HRY</string>
+
+    <string name="game_over_details">Úroveň %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">PRIPRAVTE SA</string>
+
+    <string name="start_game_go">CHOĎ!</string>
+
+    <string name="ending_score_label_text">Vaše skóre</string>
+
+    <string name="high_score_text">Najvyššie skóre: %1$d</string>
+
+    <string name="congratulations">GRATULUJEME!</string>
+
+    <string name="new_daily_record">DNES NAJLEPŠIE SKÓRE!</string>
+
+    <string name="new_all_time_record">NOVÉ VYSOKÉ SKÓRE!</string>
+
+    <string name="choose_level_heading">úroveň</string>
+
+    <string name="choose_time_heading">Čas</string>
+
+    <string name="options_start_button">ŠTART</string>
+
+    <string name="title_activity_settings">NastaveniaAktivita</string>
+
+
+    <string name="preferences_general_header">generál</string>
+
+    <string name="preferences_vibration">Vibrácie</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Vyberte hodnotu časovača na začiatku hry</string>
+
+    <string name="sound_header">Zvuk</string>
+
+    <string name="preference_sound_button_press">Kliknutia na tlačidlá</string>
+
+    <string name="preference_sound_get_ready">Zvukové signály Get Ready</string>
+
+    <string name="preference_sound_game">Zvuky hry</string>
+
+    <string name="preference_sound_keypad">Kliknutia na klávesnici</string>
+
+</resources>

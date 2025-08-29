@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Rychlá matematika</string>
+
+    <string name="title_text">Rychlá\nmatematika</string>
+
+    <string name="title_text_landscape">Rychlá matematika</string>
+
+    <string name="created_by">Vytvořil John Crawley</string>
+
+    <string name="main_menu_screen_start_game_button_text">NOVÁ HRA</string>
+
+    <string name="game_over_to_main_menu_button_text">MENU</string>
+
+    <string name="game_over_retry_button_text">OPAKOVAT</string>
+
+    <string name="options_button_text">MOŽNOSTI</string>
+
+    <string name="about_button_text">O</string>
+
+    <string name="time_remaining_label">Časovač</string>
+
+    <string name="score_label_text">Skóre</string>
+
+    <string name="game_over_text">KONEC HRY</string>
+
+    <string name="game_over_text_landscape">KONEC HRY</string>
+
+    <string name="game_over_details">Úroveň %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">PŘIPRAVTE SE</string>
+
+    <string name="start_game_go">JÍT!</string>
+
+    <string name="ending_score_label_text">Vaše skóre</string>
+
+    <string name="high_score_text">Nejvyšší skóre: %1$d</string>
+
+    <string name="congratulations">GRATULUJI!</string>
+
+    <string name="new_daily_record">DNES NEJLEPŠÍ SKÓRE!</string>
+
+    <string name="new_all_time_record">NOVÉ VYSOKÉ SKÓRE!</string>
+
+    <string name="choose_level_heading">Úroveň</string>
+
+    <string name="choose_time_heading">Čas</string>
+
+    <string name="options_start_button">START</string>
+
+    <string name="title_activity_settings">NastaveníAktivita</string>
+
+
+    <string name="preferences_general_header">Generál</string>
+
+    <string name="preferences_vibration">Vibrace</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Vyberte hodnotu časovače na začátku hry</string>
+
+    <string name="sound_header">Zvuk</string>
+
+    <string name="preference_sound_button_press">Kliknutí na tlačítka</string>
+
+    <string name="preference_sound_get_ready">Připravte se pípá</string>
+
+    <string name="preference_sound_game">Zvuky hry</string>
+
+    <string name="preference_sound_keypad">Kliknutí na klávesnici</string>
+
+</resources>

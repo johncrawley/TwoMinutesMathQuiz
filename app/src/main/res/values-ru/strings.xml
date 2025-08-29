@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Быстрая математика</string>
+
+    <string name="title_text">Быстрая математика</string>
+
+    <string name="title_text_landscape">Быстрая математика</string>
+
+    <string name="created_by">Создано Джоном Кроули</string>
+
+    <string name="main_menu_screen_start_game_button_text">НОВАЯ ИГРА</string>
+
+    <string name="game_over_to_main_menu_button_text">МЕНЮ</string>
+
+    <string name="game_over_retry_button_text">ПОВТОРИТЬ</string>
+
+    <string name="options_button_text">ПАРАМЕТРЫ</string>
+
+    <string name="about_button_text">О</string>
+
+    <string name="time_remaining_label">Таймер</string>
+
+    <string name="score_label_text">Счет</string>
+
+    <string name="game_over_text">ИГРА\nКОНЕЦ</string>
+
+    <string name="game_over_text_landscape">ИГРА ЗАКОНЧЕНА</string>
+
+    <string name="game_over_details">Уровень %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">ПРИГОТОВЬТЕСЬ</string>
+
+    <string name="start_game_go">ИДТИ!</string>
+
+    <string name="ending_score_label_text">Ваш счет</string>
+
+    <string name="high_score_text">Высокий балл: %1$d</string>
+
+    <string name="congratulations">ПОЗДРАВЛЯЕМ!</string>
+
+    <string name="new_daily_record">ЛУЧШИЙ РЕЗУЛЬТАТ СЕГОДНЯ!</string>
+
+    <string name="new_all_time_record">НОВЫЙ РЕКОРД!</string>
+
+    <string name="choose_level_heading">Уровень</string>
+
+    <string name="choose_time_heading">Время</string>
+
+    <string name="options_start_button">НАЧИНАТЬ</string>
+
+    <string name="title_activity_settings">НастройкиАктивность</string>
+
+
+    <string name="preferences_general_header">Общий</string>
+
+    <string name="preferences_vibration">Вибрация</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Выберите значение таймера в начале игры</string>
+
+    <string name="sound_header">Звук</string>
+
+    <string name="preference_sound_button_press">Нажатия кнопок</string>
+
+    <string name="preference_sound_get_ready">Сигнал готовности</string>
+
+    <string name="preference_sound_game">Звуки игры</string>
+
+    <string name="preference_sound_keypad">Щелчки на клавиатуре</string>
+
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Snabb matematik</string>
+
+    <string name="title_text">Snabbmatte.\n</string>
+
+    <string name="title_text_landscape">Snabb matematik</string>
+
+    <string name="created_by">Skapad av John Crawley</string>
+
+    <string name="main_menu_screen_start_game_button_text">NYTT SPEL</string>
+
+    <string name="game_over_to_main_menu_button_text">MENY</string>
+
+    <string name="game_over_retry_button_text">FÖRSÖKA IGEN</string>
+
+    <string name="options_button_text">ALTERNATIV</string>
+
+    <string name="about_button_text">OM</string>
+
+    <string name="time_remaining_label">Timer</string>
+
+    <string name="score_label_text">Göra</string>
+
+    <string name="game_over_text">SPEL\nSLUT</string>
+
+    <string name="game_over_text_landscape">SPELET SLUT</string>
+
+    <string name="game_over_details">Nivå %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">GÖR DIG</string>
+
+    <string name="start_game_go">GÅ!</string>
+
+    <string name="ending_score_label_text">Din poäng</string>
+
+    <string name="high_score_text">Högsta poäng: %1$d</string>
+
+    <string name="congratulations">GRATTIS!</string>
+
+    <string name="new_daily_record">TOPPBETYG IDAG!</string>
+
+    <string name="new_all_time_record">NYTT HIGH SCORE!</string>
+
+    <string name="choose_level_heading">Nivå</string>
+
+    <string name="choose_time_heading">Tid</string>
+
+    <string name="options_start_button">START</string>
+
+    <string name="title_activity_settings">InställningarAktivitet</string>
+
+
+    <string name="preferences_general_header">Allmän</string>
+
+    <string name="preferences_vibration">Vibration</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Välj Timervärde vid spelstart</string>
+
+    <string name="sound_header">Ljud</string>
+
+    <string name="preference_sound_button_press">Knappklick</string>
+
+    <string name="preference_sound_get_ready">Gör dig redo Pip</string>
+
+    <string name="preference_sound_game">Spelljud</string>
+
+    <string name="preference_sound_keypad">Knappsatsklick</string>
+
+</resources>

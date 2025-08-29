@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Швидка математика</string>
+
+    <string name="title_text">Швидка\nматематика</string>
+
+    <string name="title_text_landscape">Швидка математика</string>
+
+    <string name="created_by">Створено Джоном Кроулі</string>
+
+    <string name="main_menu_screen_start_game_button_text">НОВА ГРА</string>
+
+    <string name="game_over_to_main_menu_button_text">МЕНЮ</string>
+
+    <string name="game_over_retry_button_text">ПОВТОРИТИ</string>
+
+    <string name="options_button_text">ОПЦІЇ</string>
+
+    <string name="about_button_text">ПРО</string>
+
+    <string name="time_remaining_label">Таймер</string>
+
+    <string name="score_label_text">Оцінка</string>
+
+    <string name="game_over_text">ГРУ ЗАВЕРШЕНО</string>
+
+    <string name="game_over_text_landscape">ГРА ЗАВЕРШЕНА</string>
+
+    <string name="game_over_details">Рівень %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">ГОТУЙСЯ</string>
+
+    <string name="start_game_go">ІДИ!</string>
+
+    <string name="ending_score_label_text">Ваш рахунок</string>
+
+    <string name="high_score_text">Найкращий результат: %1$d</string>
+
+    <string name="congratulations">ВІТАЄМО!</string>
+
+    <string name="new_daily_record">КРАЩИЙ РЕЗУЛЬТАТ СЬОГОДНІ!</string>
+
+    <string name="new_all_time_record">НОВИЙ РЕЗУЛЬТАТ!</string>
+
+    <string name="choose_level_heading">Рівень</string>
+
+    <string name="choose_time_heading">час</string>
+
+    <string name="options_start_button">ПОЧАТОК</string>
+
+    <string name="title_activity_settings">ПараметриДіяльність</string>
+
+
+    <string name="preferences_general_header">Загальний</string>
+
+    <string name="preferences_vibration">вібрація</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Виберіть значення таймера на початку гри</string>
+
+    <string name="sound_header">Звук</string>
+
+    <string name="preference_sound_button_press">Натискання кнопок</string>
+
+    <string name="preference_sound_get_ready">Сигнали «Готуйся».</string>
+
+    <string name="preference_sound_game">Звуки гри</string>
+
+    <string name="preference_sound_keypad">Клацання клавіатури</string>
+
+</resources>

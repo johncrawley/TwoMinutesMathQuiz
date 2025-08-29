@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Snelle wiskunde</string>
+
+    <string name="title_text">Snelle wiskunde</string>
+
+    <string name="title_text_landscape">Snelle wiskunde</string>
+
+    <string name="created_by">Gemaakt door John Crawley</string>
+
+    <string name="main_menu_screen_start_game_button_text">NIEUW SPEL</string>
+
+    <string name="game_over_to_main_menu_button_text">MENU</string>
+
+    <string name="game_over_retry_button_text">OPNIEUW PROBEREN</string>
+
+    <string name="options_button_text">OPTIES</string>
+
+    <string name="about_button_text">OVER</string>
+
+    <string name="time_remaining_label">Timer</string>
+
+    <string name="score_label_text">Score</string>
+
+    <string name="game_over_text">SPEL IS AFGELOPEN</string>
+
+    <string name="game_over_text_landscape">SPEL IS AFGELOPEN</string>
+
+    <string name="game_over_details">Niveau %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">MAAK JE KLAAR</string>
+
+    <string name="start_game_go">GAAN!</string>
+
+    <string name="ending_score_label_text">Jouw score</string>
+
+    <string name="high_score_text">Hoogste score: %1$d</string>
+
+    <string name="congratulations">GEFELICITEERD!</string>
+
+    <string name="new_daily_record">TOPSCORE VANDAAG!</string>
+
+    <string name="new_all_time_record">NIEUWE HOOGSTE SCORE!</string>
+
+    <string name="choose_level_heading">Niveau</string>
+
+    <string name="choose_time_heading">Tijd</string>
+
+    <string name="options_start_button">BEGIN</string>
+
+    <string name="title_activity_settings">InstellingenActiviteit</string>
+
+
+    <string name="preferences_general_header">Algemeen</string>
+
+    <string name="preferences_vibration">Trilling</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Kies timerwaarde bij start van het spel</string>
+
+    <string name="sound_header">Geluid</string>
+
+    <string name="preference_sound_button_press">Knop klikken</string>
+
+    <string name="preference_sound_get_ready">Maak je klaar pieptonen</string>
+
+    <string name="preference_sound_game">Spelgeluiden</string>
+
+    <string name="preference_sound_keypad">Toetsenbord klikt</string>
+
+</resources>

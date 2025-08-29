@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">คณิตศาสตร์เร็ว</string>
+
+    <string name="title_text">คณิตศาสตร์ด่วน</string>
+
+    <string name="title_text_landscape">คณิตศาสตร์เร็ว</string>
+
+    <string name="created_by">สร้างโดยจอห์น ครอว์ลีย์</string>
+
+    <string name="main_menu_screen_start_game_button_text">เกมใหม่</string>
+
+    <string name="game_over_to_main_menu_button_text">เมนู</string>
+
+    <string name="game_over_retry_button_text">ลองใหม่อีกครั้ง</string>
+
+    <string name="options_button_text">ตัวเลือก</string>
+
+    <string name="about_button_text">เกี่ยวกับ</string>
+
+    <string name="time_remaining_label">ตัวจับเวลา</string>
+
+    <string name="score_label_text">คะแนน</string>
+
+    <string name="game_over_text">เกมจบแล้ว</string>
+
+    <string name="game_over_text_landscape">เกมจบแล้ว</string>
+
+    <string name="game_over_details">ระดับ %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">เตรียมตัวให้พร้อม</string>
+
+    <string name="start_game_go">ไป!</string>
+
+    <string name="ending_score_label_text">คะแนนของคุณ</string>
+
+    <string name="high_score_text">คะแนนสูง: %1$d</string>
+
+    <string name="congratulations">ยินดีด้วย!</string>
+
+    <string name="new_daily_record">คะแนนสูงสุดในวันนี้!</string>
+
+    <string name="new_all_time_record">คะแนนสูงใหม่!</string>
+
+    <string name="choose_level_heading">ระดับ</string>
+
+    <string name="choose_time_heading">เวลา</string>
+
+    <string name="options_start_button">เริ่ม</string>
+
+    <string name="title_activity_settings">การตั้งค่ากิจกรรม</string>
+
+
+    <string name="preferences_general_header">ทั่วไป</string>
+
+    <string name="preferences_vibration">การสั่นสะเทือน</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">เลือกค่าตัวจับเวลาเมื่อเริ่มเกม</string>
+
+    <string name="sound_header">เสียง</string>
+
+    <string name="preference_sound_button_press">การคลิกปุ่ม</string>
+
+    <string name="preference_sound_get_ready">เตรียมพร้อมเสียงบี๊บ</string>
+
+    <string name="preference_sound_game">เสียงเกม</string>
+
+    <string name="preference_sound_keypad">การคลิกบนแป้นพิมพ์</string>
+
+</resources>

@@ -1,10 +1,27 @@
 <resources>
+    <string name="version" translatable="false">v1.2, 2024-2025</string>
+    <string name="timer_values" translatable="false">60,120,180</string>
+    <string name="default_time_remaining" translatable="false">2:00</string>
+    <string name="default_score_text" translatable="false">0</string>
+    <string name="symbol_0" translatable="false">&#160;&#160;0&#160;&#160;</string>
+    <string name="symbol_1" translatable="false">&#160;&#160;1&#160;&#160;</string>
+    <string name="symbol_2" translatable="false">&#160;&#160;2&#160;&#160;</string>
+    <string name="symbol_3" translatable="false">&#160;&#160;3&#160;&#160;</string>
+    <string name="symbol_4" translatable="false">&#160;&#160;4&#160;&#160;</string>
+    <string name="symbol_5" translatable="false">&#160;&#160;5&#160;&#160;</string>
+    <string name="symbol_6" translatable="false">&#160;&#160;6&#160;&#160;</string>
+    <string name="symbol_7" translatable="false">&#160;&#160;7&#160;&#160;</string>
+    <string name="symbol_8" translatable="false">&#160;&#160;8&#160;&#160;</string>
+    <string name="symbol_9" translatable="false">&#160;&#160;9&#160;&#160;</string>
+    <string name="symbol_backspace" translatable="false">⌫</string>
+    <string name="symbol_enter" translatable="false">&#160;→&#160;</string>
+    <string name="options_previous_button" translatable="false">\u003c</string>
+    <string name="options_next_button" translatable="false">\u003e</string>
+
     <string name="app_name">Quick Maths</string>
     <string name="title_text">Quick\nMaths</string>
     <string name="title_text_landscape">Quick Maths</string>
-    <string name="version">v1.2, 2024, 2025</string>
     <string name="created_by">Created by John Crawley</string>
-    <string name="timer_values">60,120,180</string>
 
     <string name="main_menu_screen_start_game_button_text">NEW GAME</string>
     <string name="game_over_to_main_menu_button_text">MENU</string>
@@ -12,22 +29,7 @@
     <string name="options_button_text">OPTIONS</string>
     <string name="about_button_text">ABOUT</string>
     <string name="time_remaining_label">Timer</string>
-    <string name="default_time_remaining">2:00</string>
     <string name="score_label_text">Score</string>
-    <string name="default_score_text">0</string>
-
-    <string name="symbol_0">&#160;&#160;0&#160;&#160;</string>
-    <string name="symbol_1">&#160;&#160;1&#160;&#160;</string>
-    <string name="symbol_2">&#160;&#160;2&#160;&#160;</string>
-    <string name="symbol_3">&#160;&#160;3&#160;&#160;</string>
-    <string name="symbol_4">&#160;&#160;4&#160;&#160;</string>
-    <string name="symbol_5">&#160;&#160;5&#160;&#160;</string>
-    <string name="symbol_6">&#160;&#160;6&#160;&#160;</string>
-    <string name="symbol_7">&#160;&#160;7&#160;&#160;</string>
-    <string name="symbol_8">&#160;&#160;8&#160;&#160;</string>
-    <string name="symbol_9">&#160;&#160;9&#160;&#160;</string>
-    <string name="symbol_backspace">⌫</string>
-    <string name="symbol_enter">&#160;→&#160;</string>
 
     <string name="game_over_text">GAME\nOVER</string>
     <string name="game_over_text_landscape">GAME OVER</string>
@@ -43,22 +45,16 @@
     <string name="choose_level_heading">Level</string>
     <string name="choose_time_heading">Time</string>
     <string name="options_start_button">START</string>
-    <string name="options_previous_button">\u003c</string>
-    <string name="options_next_button">\u003e</string>
 
     <string name="title_activity_settings">SettingsActivity</string>
 
-    <!-- Preference Titles -->
     <string name="preferences_general_header">General</string>
     <string name="preferences_vibration">Vibration</string>
     <string name="preferences_choose_timer_value_at_game_start">Choose Timer Value At Game Start</string>
     <string name="sound_header">Sound</string>
 
-
     <string name="preference_sound_button_press">Button Clicks</string>
     <string name="preference_sound_get_ready">Get Ready Beeps</string>
     <string name="preference_sound_game">Game Sounds</string>
     <string name="preference_sound_keypad">Keypad Clicks</string>
-
-
 </resources>

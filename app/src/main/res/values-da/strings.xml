@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Hurtig matematik</string>
+
+    <string name="title_text">Hurtig\nmatematik</string>
+
+    <string name="title_text_landscape">Hurtig matematik</string>
+
+    <string name="created_by">Skabt af John Crawley</string>
+
+    <string name="main_menu_screen_start_game_button_text">NYT SPIL</string>
+
+    <string name="game_over_to_main_menu_button_text">MENU</string>
+
+    <string name="game_over_retry_button_text">PRØV IGEN</string>
+
+    <string name="options_button_text">MULIGHEDER</string>
+
+    <string name="about_button_text">OM</string>
+
+    <string name="time_remaining_label">Timer</string>
+
+    <string name="score_label_text">Score</string>
+
+    <string name="game_over_text">SPIL\nSLUT</string>
+
+    <string name="game_over_text_landscape">SPILLET SLUT</string>
+
+    <string name="game_over_details">Niveau %1$s, %2$s</string>
+
+    <string name="start_game_get_ready">Bliv klar</string>
+
+    <string name="start_game_go">GÅ!</string>
+
+    <string name="ending_score_label_text">Din score</string>
+
+    <string name="high_score_text">Høj score: %1$d</string>
+
+    <string name="congratulations">TILLYKKE!</string>
+
+    <string name="new_daily_record">TOP SCORE I DAG!</string>
+
+    <string name="new_all_time_record">NY HIGH SCORE!</string>
+
+    <string name="choose_level_heading">Niveau</string>
+
+    <string name="choose_time_heading">Tid</string>
+
+    <string name="options_start_button">STARTE</string>
+
+    <string name="title_activity_settings">IndstillingerAktivitet</string>
+
+
+    <string name="preferences_general_header">Generel</string>
+
+    <string name="preferences_vibration">Vibration</string>
+
+    <string name="preferences_choose_timer_value_at_game_start">Vælg timerværdi ved spilstart</string>
+
+    <string name="sound_header">Sund</string>
+
+    <string name="preference_sound_button_press">Knap klik</string>
+
+    <string name="preference_sound_get_ready">Gør dig klar Bip</string>
+
+    <string name="preference_sound_game">Spil lyde</string>
+
+    <string name="preference_sound_keypad">Tastatur klik</string>
+
+</resources>
