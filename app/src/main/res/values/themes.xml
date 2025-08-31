@@ -1,7 +1,7 @@
 <resources>
     <style name="Base.Theme.TwoMinutesMathQuiz"  parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimaryDark">@color/primary_dark</item> <!-- Notification Bar -->
-
+        <item name="android:windowBackground">@color/layout_background_bottom</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="default_question_text_color">@color/default_question_text_color</item>
@@ -32,7 +32,8 @@
         <item name="background_color_2">@color/layout_background_bottom</item>
         <item name="heading_text_color">@color/heading_text</item>
         <item name="medium_text_color">@color/medium_text</item>
-        <item name="android:navigationBarColor">@color/primary_dark</item>
+
+        <item name="android:navigationBarColor">@color/primary_dark</item> <!-- deprecated but still works for 3 button nav -->
     </style>
 
 

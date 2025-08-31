@@ -1,5 +1,5 @@
 <resources>
-    <string name="version" translatable="false">v1.2, 2024-2025</string>
+    <string name="version" translatable="false">v1.3, 2024-2025</string>
     <string name="timer_values" translatable="false">60,120,180</string>
     <string name="default_time_remaining" translatable="false">2:00</string>
     <string name="default_score_text" translatable="false">0</string>

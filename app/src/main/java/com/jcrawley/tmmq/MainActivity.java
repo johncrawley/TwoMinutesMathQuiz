@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,12 +16,17 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.view.WindowInsetsController;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
+import com.google.android.material.theme.overlay.MaterialThemeOverlay;
 import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
@@ -70,10 +76,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupInsetPadding();
         setupViewModel();
         setupVibe();
         setupFragmentsIf(savedInstanceState == null);
         setupGameService();
+
+    }
+
+
+    private void setupInsetPadding(){
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainLayout), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
     }
 
 
