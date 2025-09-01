@@ -22,9 +22,9 @@
 
     <string name="score_label_text">Punto</string>
 
-    <string name="game_over_text">GIOCO FINITO</string>
+    <string name="game_over_text">GIOCO\nFINITO</string>
 
-    <string name="game_over_text_landscape">GAME OVER</string>
+    <string name="game_over_text_landscape">GIOCO FINITO</string>
 
     <string name="game_over_details">Livello %1$s, %2$s</string>
 

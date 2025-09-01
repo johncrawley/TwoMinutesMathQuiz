@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center">
 
     <TextView
         android:id="@+id/gameOverTextShadow"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/game_over_heading_margin"
         android:gravity="center"
@@ -20,7 +20,7 @@
         android:autoSizeMaxTextSize="@dimen/game_over_heading_text_size"
         android:autoSizeMinTextSize="@dimen/game_over_heading_text_size_min"
         android:autoSizeTextType="uniform"
-        android:maxLines="3"
+        android:maxLines="2"
         android:shadowRadius="@integer/text_shadow_radius"
         android:shadowDx="@integer/text_shadow_dx"
         android:shadowDy="@integer/text_shadow_dy"
@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/gameOverText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/game_over_heading_margin"
         android:gravity="center"
@@ -45,7 +45,7 @@
         android:autoSizeMaxTextSize="@dimen/game_over_heading_text_size"
         android:autoSizeMinTextSize="@dimen/game_over_heading_text_size_min"
         android:autoSizeTextType="uniform"
-        android:maxLines="3"
+        android:maxLines="2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

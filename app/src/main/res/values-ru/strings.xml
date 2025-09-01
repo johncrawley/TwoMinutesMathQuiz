@@ -22,7 +22,7 @@
 
     <string name="score_label_text">Счет</string>
 
-    <string name="game_over_text">ИГРА\nКОНЕЦ</string>
+    <string name="game_over_text">ИГРА\nЗАКОНЧЕНА</string>
 
     <string name="game_over_text_landscape">ИГРА ЗАКОНЧЕНА</string>
 
