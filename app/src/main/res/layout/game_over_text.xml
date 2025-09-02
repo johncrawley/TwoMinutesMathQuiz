@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/_8sdp"
     android:gravity="center">
 
     <TextView
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/game_over_heading_margin"
         android:gravity="center"
-        android:text="@string/game_over_text"
+        android:text="@string/game_over_text_landscape"
         android:textColor="?attr/text_shadow_layer_color"
         android:textAlignment="center"
         android:fontFamily="@font/kp_programmer_nbp_3m3x"
@@ -37,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/game_over_heading_margin"
         android:gravity="center"
-        android:text="@string/game_over_text"
+        android:text="@string/game_over_text_landscape"
         android:fontFamily="@font/kp_programmer_nbp_3m3x"
         android:textColor="?attr/heading_text_color"
         android:textAlignment="center"

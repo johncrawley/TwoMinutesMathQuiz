@@ -50,10 +50,10 @@
 
 
     <!-- Game Over Fragment -->
-    <dimen name="game_over_heading_text_size">98sp</dimen>
+    <dimen name="game_over_heading_text_size">152sp</dimen>
+    <dimen name="game_over_heading_text_size_min">28sp</dimen>
     <dimen name="game_over_heading_margin">16dp</dimen>
     <dimen name="game_over_heading_layout_margin_horizontal">16dp</dimen>
-    <dimen name="game_over_heading_text_size_min">26sp</dimen>
     <dimen name="game_over_details_text_size">36sp</dimen>
     <dimen name="game_over_buttons_margin">18dp</dimen>
     <dimen name="ending_score_label_text_size">32sp</dimen>
