@@ -87,6 +87,7 @@
                 android:textSize="@dimen/menu_button_text_size"
                 android:enabled="false"
                 style="@style/menuButtonStyle"
+                android:soundEffectsEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/mainMenuButton" />
@@ -100,6 +101,7 @@
                 android:text="@string/game_over_to_main_menu_button_text"
                 android:textSize="@dimen/menu_button_text_size"
                 android:enabled="false"
+                android:soundEffectsEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/retryMenuButton" />

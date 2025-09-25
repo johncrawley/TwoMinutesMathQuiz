@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chooseLevelLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
             android:text="@string/options_previous_button"
             android:textSize="@dimen/menu_button_text_size"
             android:layout_marginHorizontal="@dimen/option_button_margin_horizontal"
+            android:soundEffectsEnabled="false"
             style="@style/menuButtonStyle"/>
 
         <LinearLayout
@@ -56,7 +58,8 @@
                 android:textSize="@dimen/option_text_size"
                 android:text="5"
                 android:gravity="center"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <Button
@@ -66,6 +69,7 @@
             android:layout_marginHorizontal="@dimen/option_button_margin_horizontal"
             android:text="@string/options_next_button"
             android:textSize="@dimen/menu_button_text_size"
+            android:soundEffectsEnabled="false"
             style="@style/menuButtonStyle"/>
     </LinearLayout>
 
