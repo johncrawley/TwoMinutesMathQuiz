@@ -8,7 +8,6 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,17 +15,17 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.view.WindowInsetsController;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.material.theme.overlay.MaterialThemeOverlay;
 import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
@@ -75,8 +74,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         setupInsetPadding();
+        configureNavAndStatusBarAppearance();
         setupViewModel();
         setupVibe();
         setupFragmentsIf(savedInstanceState == null);
@@ -92,6 +93,14 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+    }
+
+
+    private void configureNavAndStatusBarAppearance(){
+        var window = getWindow();
+        var insetsController = WindowCompat.getInsetsController(window, window.getDecorView());
+        insetsController.setAppearanceLightNavigationBars(false);
+        insetsController.setAppearanceLightStatusBars(false);
     }
 
 

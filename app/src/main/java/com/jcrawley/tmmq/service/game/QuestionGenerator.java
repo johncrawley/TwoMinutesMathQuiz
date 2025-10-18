@@ -11,18 +11,13 @@ public class QuestionGenerator {
     private final Set<String> existingQuestions = new HashSet<>();
 
 
-    public MathQuestion generateQuestion(GameLevel gameLevel){
-            return gameLevel.getRandomQuestionCreator().createQuestion();
-    }
-
-
     public MathQuestion generateRandomQuestionFrom(GameLevel gameLevel){
-        int maxTries = 15;
+        int maxTries = 12;
         int currentTries = 0;
-        MathQuestion mathQuestion = generateQuestion(gameLevel);
-        while(hasQuestionBeenUsedAlready(mathQuestion)){
+        var mathQuestion = generateQuestion(gameLevel);
+        while(wasAlreadyAsked(mathQuestion)){
             mathQuestion = generateQuestion(gameLevel);
-            if(currentTries++ >= maxTries){
+            if(++currentTries >= maxTries){
                 existingQuestions.clear();
             }
         }
@@ -31,7 +26,12 @@ public class QuestionGenerator {
     }
 
 
-    private boolean hasQuestionBeenUsedAlready(MathQuestion mathQuestion){
+    public MathQuestion generateQuestion(GameLevel gameLevel){
+        return gameLevel.getRandomQuestionCreator().createQuestion();
+    }
+
+
+    private boolean wasAlreadyAsked(MathQuestion mathQuestion){
         return existingQuestions.contains(mathQuestion.getQuestionText());
     }
 }

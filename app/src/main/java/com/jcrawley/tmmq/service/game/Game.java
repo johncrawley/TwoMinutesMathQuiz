@@ -68,7 +68,7 @@ public class Game {
 
 
     private MathQuestion generateQuestion(){
-       return questionGenerator.generateQuestion(currentLevel);
+       return questionGenerator.generateRandomQuestionFrom(currentLevel);
     }
 
 
