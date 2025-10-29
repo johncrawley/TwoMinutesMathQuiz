@@ -42,6 +42,8 @@ public class MainMenuFragment extends Fragment {
     }
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class MainMenuFragment extends Fragment {
         setupTitleText(parent);
         return parent;
     }
+
 
 
     private void setupButtons(View parent){

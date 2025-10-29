@@ -7,15 +7,15 @@ import java.util.concurrent.TimeUnit;
 
 public class GameTimer {
 
-    private final Game game;
+    private final GameModel gameModel;
     private int initialRemainingTime = 14;
     private int currentRemainingTime = initialRemainingTime;
     private int minutesRemaining, secondsRemaining;
     private ScheduledFuture<?> future;
     private final ScheduledExecutorService scheduledExecutorService;
 
-    public GameTimer(Game game){
-        this.game = game;
+    public GameTimer(GameModel gameModel){
+        this.gameModel = gameModel;
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         calculateMinutesAndSeconds();
     }
@@ -66,7 +66,7 @@ public class GameTimer {
 
 
     public void updateTimer(){
-        game.updateTime(minutesRemaining, secondsRemaining);
+        gameModel.updateTime(minutesRemaining, secondsRemaining);
     }
 
 
@@ -74,7 +74,7 @@ public class GameTimer {
     private void cancelTimerWhenTimeExpires(){
         if(currentRemainingTime <= 0){
             future.cancel(false);
-            game.gameOver();
+            gameModel.gameOver();
         }
     }
 

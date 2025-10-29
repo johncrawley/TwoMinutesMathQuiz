@@ -26,22 +26,15 @@ import java.util.concurrent.TimeUnit;
 public class GameService extends Service {
     IBinder binder = new LocalBinder();
     private MainActivity mainActivity;
-    private final Game game;
+    private  Game game;
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> notifyGameOverFuture;
-    private SoundPlayer soundPlayer;
     GamePreferenceManager gamePreferenceManager;
     private ScoreRecords scoreRecords;
 
 
     public GameService() {
         super();
-        game = new Game();
-    }
-
-
-    public void playSound(Sound sound){
-        soundPlayer.playSound(sound);
     }
 
 
@@ -179,9 +172,7 @@ public class GameService extends Service {
 
     @Override
     public void onCreate() {
-        game.init(this);
-        soundPlayer = new SoundPlayer(getApplicationContext());
-        gamePreferenceManager = new GamePreferenceManager(this);
+        game.init();
         setupScoreRecords();
     }
 

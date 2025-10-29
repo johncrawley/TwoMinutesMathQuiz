@@ -5,8 +5,6 @@ import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.*;
 import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Tag.*;
 
 import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,43 +25,44 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
 import com.jcrawley.tmmq.service.GameService;
+import com.jcrawley.tmmq.service.game.Game;
+import com.jcrawley.tmmq.service.game.GameView;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
+import com.jcrawley.tmmq.service.preferences.GamePreferenceManager;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.sound.Sound;
+import com.jcrawley.tmmq.service.sound.SoundPlayer;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
 import com.jcrawley.tmmq.view.fragments.OptionsFragment;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class MainActivity extends AppCompatActivity {
+/*
 
-    private GameService gameService;
+
+    void resetScore();
+    void setQuestion(MathQuestion question);
+    void notifyIncorrectAnswer();
+    void setScore(int score);
+    void gameOver(ScoreStatistics scoreStatistics);
+    void updateTimer(int minutesRemaining, int secondsRemaining);
+ */
+
+public class MainActivity extends AppCompatActivity implements GameView {
+
     private MainViewModel viewModel;
     private Vibrator vibrator;
     private boolean isVibrationEnabled;
-    private final AtomicBoolean isServiceConnected = new AtomicBoolean(false);
+    private Game game;
+    private SoundPlayer soundPlayer;
+    private GamePreferenceManager gamePreferenceManager;
 
 
-    private final ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName className, IBinder service) {
-            log("Entered onServiceConnected()");
-            GameService.LocalBinder binder = (GameService.LocalBinder) service;
-            gameService = binder.getService();
-            gameService.setActivity(MainActivity.this);
-            sendMessage(OptionsFragment.Message.NOTIFY_OF_SERVICE_CONNECTED);
-            isServiceConnected.set(true);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            log("Entered onServiceDisconnected()");
-            isServiceConnected.set(false);
-        }
-    };
+    public void onServiceConnected(ComponentName className, IBinder service) {
+        sendMessage(OptionsFragment.Message.NOTIFY_OF_SERVICE_CONNECTED);
+    }
 
 
     private void log(String msg) {
@@ -81,8 +80,10 @@ public class MainActivity extends AppCompatActivity {
         setupViewModel();
         setupVibe();
         setupFragmentsIf(savedInstanceState == null);
-        setupGameService();
 
+        soundPlayer = new SoundPlayer(getApplicationContext());
+        gamePreferenceManager = new GamePreferenceManager(this);
+        game = new Game(MainActivity.this);
     }
 
 
@@ -107,19 +108,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        if(!isServiceConnected.get()){
-            setupGameService();
-        }
     }
 
 
     public void assignVibrationSettings() {
         isVibrationEnabled = getPrefs().getBoolean("vibration_enabled", true);
-    }
-
-
-    public Optional<GameService> getGameService(){
-        return Optional.ofNullable(gameService);
     }
 
 
@@ -140,8 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void playSound(Sound sound) {
-        reassignActivityToService();
-        gameService.playSound(sound);
     }
 
 
@@ -181,18 +172,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void resetScore() {
+
+    }
+
+
+    @Override
+    public void gameOver(ScoreStatistics scoreStatistics) {
+
+    }
+
+
+    @Override
+    public void updateTimer(int minutesRemaining, int secondsRemaining) {
+
+    }
+
+    @Override
     public void setQuestion(MathQuestion question) {
         Bundle bundle = new Bundle();
         bundle.putString(QUESTION.toString(), question.getQuestionText());
         bundle.putBoolean(IS_QUESTION_USING_AN_EXPONENT.toString(), question.containsExponent());
         sendMessage(SET_QUESTION, bundle);
-    }
-
-
-    private void setupGameService() {
-        Intent intent = new Intent(getApplicationContext(), GameService.class);
-        getApplicationContext().startService(intent);
-        getApplicationContext().bindService(intent, connection, 0);
     }
 
 
@@ -217,8 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void notifyServiceThatGameHasFinished() {
-        reassignActivityToService();
-        gameService.notifyThatGameFinished();
+        game.notifyThatGameFinished();
     }
 
 
@@ -228,45 +229,27 @@ public class MainActivity extends AppCompatActivity {
         sendMessage(SET_SCORE, bundle);
     }
 
-
+    @Override
     public void notifyIncorrectAnswer() {
         sendMessage(NOTIFY_INCORRECT_ANSWER, new Bundle());
     }
 
 
     public void submitAnswer(String answerStr) {
-        reassignActivityToService();
-        gameService.submitAnswer(answerStr);
+        game.submitAnswer(answerStr);
     }
 
 
     public void startGame() {
         assignVibrationSettings();
-        if (gameService == null) {
-            return;
-        }
-        reassignActivityToService();
-        gameService.startGame();
+        game.startGame();
     }
 
 
     public void stopGame() {
-        if (gameService == null) {
-            return;
-        }
-        reassignActivityToService();
-        gameService.quitGame();
+        game.quit();
     }
 
-
-    private void reassignActivityToService() {
-        if (gameService == null) {
-            return;
-        }
-        if (gameService.isActivityUnbound()) {
-            gameService.setActivity(MainActivity.this);
-        }
-    }
 
 
     public <E extends Enum<E>> void addTo(Bundle bundle, E key, int value){

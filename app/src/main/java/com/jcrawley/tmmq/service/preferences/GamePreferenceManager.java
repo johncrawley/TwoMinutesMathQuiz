@@ -11,8 +11,8 @@ public class GamePreferenceManager {
     private enum PrefKey { TIMER, TIMER_INDEX, LEVEL}
 
 
-    public GamePreferenceManager(GameService gameService){
-        sharedPreferences = gameService.getSharedPreferences("gamePreferences", Context.MODE_PRIVATE);
+    public GamePreferenceManager(Context context){
+        sharedPreferences = context.getSharedPreferences("gamePreferences", Context.MODE_PRIVATE);
     }
 
     public void saveTimer(int value){
