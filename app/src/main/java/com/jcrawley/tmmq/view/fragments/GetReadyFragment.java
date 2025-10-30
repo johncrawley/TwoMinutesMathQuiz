@@ -1,5 +1,7 @@
 package com.jcrawley.tmmq.view.fragments;
 
+import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.getGame;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,7 +18,6 @@ import android.widget.TextView;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
-import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.fragments.game.GameFragment;
@@ -42,7 +43,6 @@ public class GetReadyFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
 
@@ -57,7 +57,7 @@ public class GetReadyFragment extends Fragment {
 
     private void setupViews(View parentView){
         countdownTextView = parentView.findViewById(R.id.gameStartCountdownText);
-        MainViewModel viewModel = getMainViewModel();
+        var viewModel = getMainViewModel();
         setInitialCountdownValue(viewModel);
         startTextAnimation(countdownTextView, viewModel);
     }
@@ -123,11 +123,11 @@ public class GetReadyFragment extends Fragment {
 
 
     private void navigateToGameFragment(){
-        if(getActivity() == null){
-            return;
+        var game = getGame(this);
+        if(game != null){
+            game.setSavedValues();
+            FragmentUtils.loadFragment(this, new GameFragment(), "gameScreenFragment");
         }
-        getMainActivity().getGameService().ifPresent(GameService::setSavedValues);
-        FragmentUtils.loadFragment(this, new GameFragment(), "gameScreenFragment");
     }
 
 

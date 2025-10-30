@@ -9,7 +9,9 @@ public class GameTest {
 
     @Before
     public void init(){
-        game = new Game();
+        var gamePreferenceManager = new MockGamePreferenceManager();
+        var gameView = new MockGameView();
+        game = new Game(gameView, gamePreferenceManager);
     }
 
 

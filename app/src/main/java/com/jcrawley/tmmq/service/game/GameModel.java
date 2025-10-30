@@ -5,6 +5,7 @@ import static com.jcrawley.tmmq.utils.Utils.getTimerStrFor;
 import com.jcrawley.tmmq.service.game.level.GameLevel;
 import com.jcrawley.tmmq.service.game.level.LevelFactory;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
+import com.jcrawley.tmmq.service.game.timer.GameTimer;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 
 import java.util.Map;
@@ -14,7 +15,6 @@ public class GameModel {
 
     private int currentScore;
     private MathQuestion currentQuestion, nextQuestion;
-    private GameTimer gametimer;
     private boolean isStarted;
     private int difficulty = 5;
     private String timerLengthDisplayStr;
@@ -29,21 +29,10 @@ public class GameModel {
     }
 
 
-    public void init(){
-        gametimer = new GameTimer(this);
-    }
-
-
     public void setTimerLength(int value){
-        gametimer.setTimerLength(value);
         timerLengthDisplayStr = getTimerStrFor(value);
     }
 
-
-    public void resetTimer(){
-        gametimer.resetTime();
-        gametimer.updateTimer();
-    }
 
 
     public MathQuestion getCurrentQuestion(){
@@ -71,13 +60,11 @@ public class GameModel {
         if(!isStarted){
             isStarted = true;
             currentQuestion = generateQuestion();
-            gametimer.startTimer();
         }
     }
 
 
     public void quit(){
-        gametimer.cancel();
         isStarted = false;
         currentScore = 0;
     }
@@ -95,7 +82,7 @@ public class GameModel {
 
 
     public void checkAnswer(String answerStr){
-        MathQuestion nextQuestion = generateQuestion();
+        var nextQuestion = generateQuestion();
         process(answerStr);
         currentQuestion = nextQuestion;
     }

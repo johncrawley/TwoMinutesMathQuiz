@@ -9,6 +9,6 @@ public interface GameView {
     void setQuestion(MathQuestion question);
     void notifyIncorrectAnswer();
     void setScore(int score);
-    void gameOver(ScoreStatistics scoreStatistics);
+    void onGameOver(ScoreStatistics scoreStatistics);
     void updateTimer(int minutesRemaining, int secondsRemaining);
 }

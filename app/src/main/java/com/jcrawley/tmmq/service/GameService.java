@@ -14,9 +14,6 @@ import com.jcrawley.tmmq.service.score.CurrentDateGeneratorImpl;
 import com.jcrawley.tmmq.service.score.ScorePreferencesImpl;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
-import com.jcrawley.tmmq.service.sound.Sound;
-import com.jcrawley.tmmq.service.sound.SoundPlayer;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -30,17 +27,13 @@ public class GameService extends Service {
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> notifyGameOverFuture;
     GamePreferenceManager gamePreferenceManager;
-    private ScoreRecords scoreRecords;
+   // private ScoreRecords scoreRecords;
 
 
     public GameService() {
         super();
     }
 
-
-    public SharedPreferences getScorePrefs(){
-        return getSharedPreferences("score_preferences", MODE_PRIVATE);
-    }
 
 
     public void resetTimer(){
@@ -135,33 +128,14 @@ public class GameService extends Service {
     }
 
 
-    public void notifyIncorrectAnswer(){
-        mainActivity.notifyIncorrectAnswer();
-    }
-
-
-    public void updateScore(int score){
-        if(mainActivity != null){
-            mainActivity.setScore(score);
-        }
-    }
-
-
-    public void updateTimer(int minutesRemaining, int secondsRemaining){
-        if(mainActivity != null){
-            mainActivity.setTimeRemaining(minutesRemaining, secondsRemaining);
-        }
-    }
-
-
     public void onGameOver(ScoreStatistics scoreStatistics){
-       ScoreStatistics fullScoreStats = scoreRecords.getCompleteScoreStatsAndSaveRecords(scoreStatistics);
-       notifyGameOverFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> mainActivity.onGameOver(fullScoreStats), 0, 2, TimeUnit.SECONDS);
     }
 
 
     public void notifyThatGameFinished(){
-        notifyGameOverFuture.cancel(false);
+        if(notifyGameOverFuture != null && !notifyGameOverFuture.isCancelled()){
+            notifyGameOverFuture.cancel(false);
+        }
     }
 
 
@@ -172,15 +146,7 @@ public class GameService extends Service {
 
     @Override
     public void onCreate() {
-        game.init();
-        setupScoreRecords();
-    }
-
-
-    private void setupScoreRecords(){
-        scoreRecords = new ScoreRecords();
-        scoreRecords.setScorePreferences(new ScorePreferencesImpl(getScorePrefs()));
-        scoreRecords.setCurrentDateCreator(new CurrentDateGeneratorImpl());
+       // game.init();
     }
 
 

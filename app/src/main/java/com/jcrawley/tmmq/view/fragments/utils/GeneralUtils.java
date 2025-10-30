@@ -5,6 +5,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.jcrawley.tmmq.MainActivity;
+import com.jcrawley.tmmq.service.game.Game;
+
 
 public class GeneralUtils {
 
@@ -30,5 +33,14 @@ public class GeneralUtils {
 
     public static int decrementListIndex(int currentValue, int listSize){
         return currentValue <= 0 ? listSize - 1 : currentValue - 1;
+    }
+
+
+    public static Game getGame(Fragment fragment){
+        var mainActivity = (MainActivity) fragment.getActivity();
+        if(mainActivity == null){
+            return null;
+        }
+        return mainActivity.getGame();
     }
 }

@@ -63,7 +63,7 @@ public class InputHelper {
 
     private void submitAnswer(){
         enterButton.setEnabled(false);
-        String answer = viewModel.inputText.trim();
+        var answer = viewModel.inputText.trim();
         if(answer.isEmpty()){
             enterButton.setEnabled(true);
             return;

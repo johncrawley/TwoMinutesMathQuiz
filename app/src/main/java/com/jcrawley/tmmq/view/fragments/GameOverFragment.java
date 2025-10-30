@@ -4,6 +4,7 @@ import static com.jcrawley.tmmq.view.fragments.utils.ActivityUtils.playSound;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragment;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragmentOnBackButtonPressed;
+import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.getGame;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.isInLandscapeMode;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.setTextForLandscape;
 
@@ -20,12 +21,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
-import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.sound.Sound;
 
-import java.util.Optional;
 
 
 public class GameOverFragment extends Fragment {
@@ -193,12 +191,19 @@ public class GameOverFragment extends Fragment {
     private void setupRetryButton(View parentView){
         retryButton = parentView.findViewById(R.id.retryMenuButton);
         retryButton.setEnabled(true);
-        retryButton.setOnClickListener(v ->{
-            retryButton.setEnabled(false);
-            playSound(this, Sound.MENU_BUTTON);
-            getGameService().ifPresent(GameService::resetTimer);
-            getGameService().ifPresent(gs -> loadGetReadyScreen());
-        });
+        retryButton.setOnClickListener(this::retry);
+
+    }
+
+
+    private void retry(View v){
+        retryButton.setEnabled(false);
+        playSound(this, Sound.MENU_BUTTON);
+        var game = getGame(this);
+        if(game != null){
+            game.resetTimer();
+            loadGetReadyScreen();
+        }
     }
 
 
@@ -217,12 +222,4 @@ public class GameOverFragment extends Fragment {
         loadFragment(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
     }
 
-
-    private Optional<GameService> getGameService(){
-        MainActivity mainActivity = (MainActivity) getActivity();
-        if(mainActivity != null){
-            return mainActivity.getGameService();
-        }
-        return Optional.empty();
-    }
 }

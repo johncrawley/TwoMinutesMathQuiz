@@ -2,6 +2,7 @@ package com.jcrawley.tmmq.view.fragments;
 
 import static com.jcrawley.tmmq.utils.Utils.getTimerStrFor;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragmentOnBackButtonPressed;
+import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.getGame;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
-import com.jcrawley.tmmq.service.GameService;
+import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 import com.jcrawley.tmmq.view.fragments.utils.GeneralUtils;
@@ -23,7 +24,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class OptionsFragment extends Fragment {
@@ -80,10 +80,17 @@ public class OptionsFragment extends Fragment {
 
 
     private void assignValuesToFields(){
-        getGameService().ifPresent(gs -> {
-            assignTimerFromService();
-            assignLevelFromService();
-        });
+        var game = getGame(this);
+        if(game != null){
+            int savedValue = game.getTimer();
+            currentTimerIndex = game.getSavedTimerIndex();
+            currentTimerStr = getTimerStrFor(savedValue);
+            currentTimerValue = savedValue;
+            assignCurrentTimerValue();
+
+            currentLevel = game.getLevel();
+            updateLevelTextView();
+        }
     }
 
 
@@ -197,7 +204,7 @@ public class OptionsFragment extends Fragment {
         playMenuButtonSound();
         decrementLevel();
         updateLevelTextView();
-        setLevelOnService();
+        setGameDifficulty();
     }
 
 
@@ -205,7 +212,7 @@ public class OptionsFragment extends Fragment {
         playMenuButtonSound();
         incrementLevel();
         updateLevelTextView();
-        setLevelOnService();
+        setGameDifficulty();
     }
 
 
@@ -225,32 +232,16 @@ public class OptionsFragment extends Fragment {
     }
 
 
-    private void assignTimerFromService(){
-        getGameService().ifPresent(gs -> {
-            int savedValue = gs.getTimer();
-            currentTimerIndex = gs.getSavedTimerIndex();
-            currentTimerStr = getTimerStrFor(savedValue);
-            currentTimerValue = savedValue;
-            assignCurrentTimerValue();
-        });
-    }
-
-
-    private void assignLevelFromService(){
-        getGameService().ifPresent(gs -> {
-            currentLevel = gs.getLevel();
-            updateLevelTextView();
-        });
-    }
-
-
     private void updateLevelTextView(){
         levelText.setText(String.valueOf(currentLevel));
     }
 
 
     private void playMenuButtonSound(){
-        getGameService().ifPresent(gs-> gs.playSound(Sound.MENU_BUTTON));
+        var mainActivity = (MainActivity)getActivity();
+        if(mainActivity != null){
+           mainActivity.playSound(Sound.MENU_BUTTON);
+        }
     }
 
 
@@ -259,28 +250,31 @@ public class OptionsFragment extends Fragment {
         button.setEnabled(true);
         button.setOnClickListener(v -> {
             playMenuButtonSound();
-            getGameService().ifPresent(gs ->{
-                button.setEnabled(false);
-                gs.setLevel(currentLevel);
-                gs.setTimer(currentTimerValue, currentTimerIndex);
-            });
+            button.setEnabled(false);
+            var game = getGame(this);
+            if(game != null){
+                game.setDifficulty(currentLevel);
+                game.setTimer(currentTimerValue, currentTimerIndex);
+            }
             FragmentUtils.loadFragment(this, new GetReadyFragment(), GetReadyFragment.FRAGMENT_TAG);
         });
     }
 
 
     private void setTimerOnService(){
-        getGameService().ifPresent(gs -> gs.setTimer(currentTimerValue, currentTimerIndex));
+        var game = getGame(this);
+        if(game!= null){
+            game.setTimer(currentTimerValue, currentTimerIndex);
+        }
     }
 
 
-    private void setLevelOnService(){
-        getGameService().ifPresent(gs -> gs.setLevel(currentLevel));
+    private void setGameDifficulty(){
+        var game = getGame(this);
+        if(game != null){
+            game.setDifficulty(currentLevel);
+        }
     }
 
 
-    private Optional<GameService> getGameService(){
-        MainActivity mainActivity = (MainActivity) getActivity();
-        return mainActivity == null ? Optional.empty() : mainActivity.getGameService();
-    }
 }

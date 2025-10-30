@@ -13,7 +13,6 @@ import com.jcrawley.tmmq.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 
@@ -36,8 +35,7 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View parent = inflater.inflate(R.layout.fragment_about, container, false);
-
+        var parent = inflater.inflate(R.layout.fragment_about, container, false);
         setupTitleText(parent);
         return parent;
     }
@@ -46,15 +44,24 @@ public class AboutFragment extends Fragment {
     private void setupTitleText(View parentView) {
         TextView fontInfoText = parentView.findViewById(R.id.fontText);
          if(getContext()!= null){
-                try(InputStream is = getContext().getAssets().open("font_license_info.txt", AssetManager.ACCESS_BUFFER)){
-                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                    br.lines().forEach(this::addTextLine);
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-                formatFontText();
-                fontInfoText.setText(fontText);
+            try(var is = getContext()
+                    .getAssets()
+                    .open("font_license_info.txt", AssetManager.ACCESS_BUFFER)){
+
+                var br = new BufferedReader(new InputStreamReader(is));
+                br.lines().forEach(this::addTextLine);
+                br.close();
+            }catch (IOException e) {
+                printError(e.getMessage());
             }
+            formatFontText();
+            fontInfoText.setText(fontText);
+         }
+    }
+
+
+    private void printError(String msg){
+        System.out.println("Error:  " + msg);
     }
 
 

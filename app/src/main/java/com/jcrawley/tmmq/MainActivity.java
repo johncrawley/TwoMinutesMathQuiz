@@ -4,12 +4,10 @@ import static com.jcrawley.tmmq.view.fragments.GameOverFragment.*;
 import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.*;
 import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Tag.*;
 
-import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -24,31 +22,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
-import com.jcrawley.tmmq.service.GameService;
 import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.game.GameView;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
-import com.jcrawley.tmmq.service.preferences.GamePreferenceManager;
+import com.jcrawley.tmmq.service.game.timer.GameTimer;
+import com.jcrawley.tmmq.service.preferences.GamePreferenceManagerImpl;
+import com.jcrawley.tmmq.service.score.CurrentDateGeneratorImpl;
+import com.jcrawley.tmmq.service.score.ScorePreferencesImpl;
+import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.service.sound.SoundPlayer;
 import com.jcrawley.tmmq.view.MainViewModel;
 import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
-import com.jcrawley.tmmq.view.fragments.OptionsFragment;
 
-import java.util.Optional;
-
-
-/*
-
-
-    void resetScore();
-    void setQuestion(MathQuestion question);
-    void notifyIncorrectAnswer();
-    void setScore(int score);
-    void gameOver(ScoreStatistics scoreStatistics);
-    void updateTimer(int minutesRemaining, int secondsRemaining);
- */
 
 public class MainActivity extends AppCompatActivity implements GameView {
 
@@ -57,12 +44,7 @@ public class MainActivity extends AppCompatActivity implements GameView {
     private boolean isVibrationEnabled;
     private Game game;
     private SoundPlayer soundPlayer;
-    private GamePreferenceManager gamePreferenceManager;
-
-
-    public void onServiceConnected(ComponentName className, IBinder service) {
-        sendMessage(OptionsFragment.Message.NOTIFY_OF_SERVICE_CONNECTED);
-    }
+    private ScoreRecords scoreRecords;
 
 
     private void log(String msg) {
@@ -82,8 +64,12 @@ public class MainActivity extends AppCompatActivity implements GameView {
         setupFragmentsIf(savedInstanceState == null);
 
         soundPlayer = new SoundPlayer(getApplicationContext());
-        gamePreferenceManager = new GamePreferenceManager(this);
-        game = new Game(MainActivity.this);
+        var gamePreferenceManager = new GamePreferenceManagerImpl(this);
+        setupScoreRecords();
+        game = new Game(MainActivity.this, gamePreferenceManager, scoreRecords);
+        var gameTimer = new GameTimer(game, viewModel.gameTimerModel);
+        game.init(viewModel.gameModel, gameTimer);
+
     }
 
 
@@ -93,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements GameView {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
     }
 
 
@@ -132,7 +117,8 @@ public class MainActivity extends AppCompatActivity implements GameView {
     }
 
 
-    public void playSound(Sound sound) {
+    public Game getGame(){
+        return game;
     }
 
 
@@ -150,6 +136,11 @@ public class MainActivity extends AppCompatActivity implements GameView {
     public void onKeypadButtonClicked() {
         vibrate();
         playSound(Sound.KEYPAD_BUTTON);
+    }
+
+
+    public void playSound(Sound sound) {
+        soundPlayer.playSound(sound);
     }
 
 
@@ -179,15 +170,14 @@ public class MainActivity extends AppCompatActivity implements GameView {
 
 
     @Override
-    public void gameOver(ScoreStatistics scoreStatistics) {
-
-    }
-
-
-    @Override
     public void updateTimer(int minutesRemaining, int secondsRemaining) {
-
+        var bundle = new Bundle();
+        bundle.putInt(MINUTES_REMAINING.toString(), minutesRemaining);
+        bundle.putInt(SECONDS_REMAINING.toString(), secondsRemaining);
+        sendMessage(SET_TIME_REMAINING, bundle);
     }
+
+
 
     @Override
     public void setQuestion(MathQuestion question) {
@@ -198,14 +188,7 @@ public class MainActivity extends AppCompatActivity implements GameView {
     }
 
 
-    public void setTimeRemaining(int minutesRemaining, int secondsRemaining) {
-        Bundle bundle = new Bundle();
-        bundle.putInt(MINUTES_REMAINING.toString(), minutesRemaining);
-        bundle.putInt(SECONDS_REMAINING.toString(), secondsRemaining);
-        sendMessage(SET_TIME_REMAINING, bundle);
-    }
-
-
+    @Override
     public void onGameOver(ScoreStatistics scoreStatistics) {
         Bundle bundle = new Bundle();
         addTo(bundle, Key.FINAL_SCORE, scoreStatistics.getFinalScore());
@@ -250,6 +233,17 @@ public class MainActivity extends AppCompatActivity implements GameView {
         game.quit();
     }
 
+
+    private void setupScoreRecords(){
+        scoreRecords = new ScoreRecords();
+        scoreRecords.setScorePreferences(new ScorePreferencesImpl(getScorePrefs()));
+        scoreRecords.setCurrentDateCreator(new CurrentDateGeneratorImpl());
+    }
+
+
+    public SharedPreferences getScorePrefs(){
+        return getSharedPreferences("score_preferences", MODE_PRIVATE);
+    }
 
 
     public <E extends Enum<E>> void addTo(Bundle bundle, E key, int value){
