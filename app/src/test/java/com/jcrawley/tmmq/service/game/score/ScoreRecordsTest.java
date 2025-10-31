@@ -3,7 +3,7 @@ package com.jcrawley.tmmq.service.game.score;
 import static org.junit.Assert.assertEquals;
 
 import com.jcrawley.tmmq.service.game.level.GameLevel;
-import com.jcrawley.tmmq.service.score.ScorePreferences;
+import com.jcrawley.tmmq.service.score.preferences.ScorePreferences;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 

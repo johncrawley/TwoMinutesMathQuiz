@@ -1,9 +1,9 @@
-package com.jcrawley.tmmq.service.score;
+package com.jcrawley.tmmq.service.score.preferences;
 
 import android.content.SharedPreferences;
 
 
-public class ScorePreferencesImpl implements ScorePreferences{
+public class ScorePreferencesImpl implements ScorePreferences {
 
     private final SharedPreferences sharedPreferences;
     public enum RecordType { DAILY, ALL_TIME }

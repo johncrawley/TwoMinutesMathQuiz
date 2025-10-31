@@ -1,6 +1,6 @@
 package com.jcrawley.tmmq.service.game.score;
 
-import com.jcrawley.tmmq.service.score.ScorePreferences;
+import com.jcrawley.tmmq.service.score.preferences.ScorePreferences;
 
 import java.util.HashMap;
 import java.util.Map;

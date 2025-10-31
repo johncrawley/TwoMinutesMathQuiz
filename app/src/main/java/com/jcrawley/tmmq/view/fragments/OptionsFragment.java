@@ -62,18 +62,12 @@ public class OptionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View parentView = inflater.inflate(R.layout.fragment_options, container, false);
-        setupListeners();
         setupViews(parentView);
         setupTimerValues();
         assignValuesToFields();
         setupBackButton();
         setupStartButton(parentView);
         return parentView;
-    }
-
-
-    private void setupListeners(){
-        FragmentUtils.setListener(this, Message.NOTIFY_OF_SERVICE_CONNECTED.toString(), b -> assignValuesToFields());
     }
 
 

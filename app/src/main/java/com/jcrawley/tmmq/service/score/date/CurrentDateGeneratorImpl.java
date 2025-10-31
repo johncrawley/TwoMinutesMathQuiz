@@ -1,8 +1,8 @@
-package com.jcrawley.tmmq.service.score;
+package com.jcrawley.tmmq.service.score.date;
 
 import java.time.LocalDateTime;
 
-public class CurrentDateGeneratorImpl implements CurrentDateGenerator{
+public class CurrentDateGeneratorImpl implements CurrentDateGenerator {
 
     @Override
     public String get() {

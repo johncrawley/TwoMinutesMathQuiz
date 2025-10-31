@@ -23,15 +23,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.sound.Sound;
-
 
 
 public class GameOverFragment extends Fragment {
 
     public enum Key { FINAL_SCORE, TIMER_LENGTH, DAILY_HIGH_SCORE, HIGH_SCORE, GAME_LEVEL}
-
-
     private int finalScore, dailyHighScore, allTimeHighScore;
     private String timerLength, gameLevel;
     private Button mainMenuButton, retryButton;
@@ -45,28 +43,23 @@ public class GameOverFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            assignDataFrom(getArguments());
+        var game = getGame(this);
+        if(game != null){
+            assignDataFrom(game.getScoreStatistics());
         }
     }
 
 
-    private void assignDataFrom(Bundle bundle){
-        finalScore = getInt(bundle, Key.FINAL_SCORE);
-        dailyHighScore = getInt(bundle, Key.DAILY_HIGH_SCORE);
-        allTimeHighScore = getInt(bundle, Key.HIGH_SCORE);
-        timerLength = getString(bundle, Key.TIMER_LENGTH);
-        gameLevel = getString(bundle, Key.GAME_LEVEL);
-    }
-
-
-    private int getInt(Bundle bundle, Key key){
-        return bundle.getInt(key.toString());
-    }
-
-
-    private String getString(Bundle bundle, Key key){
-        return bundle.getString(key.toString());
+    private void assignDataFrom(ScoreStatistics stats){
+        if(stats == null){
+            return;
+        }
+        finalScore = stats.getFinalScore();
+        dailyHighScore = stats.getExistingDailyHighScore();
+        allTimeHighScore = stats.getExistingHighScore();
+        timerLength = stats.getTimerLength();
+        gameLevel = stats.getGameLevel().getDifficultyStr();
+        log("entered assignDataFrom(stats) finalScore: " + finalScore);
     }
 
 

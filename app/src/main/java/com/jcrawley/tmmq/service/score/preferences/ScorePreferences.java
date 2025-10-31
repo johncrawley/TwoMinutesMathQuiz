@@ -1,4 +1,4 @@
-package com.jcrawley.tmmq.service.score;
+package com.jcrawley.tmmq.service.score.preferences;
 
 public interface ScorePreferences {
 

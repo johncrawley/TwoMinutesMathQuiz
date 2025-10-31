@@ -2,7 +2,6 @@ package com.jcrawley.tmmq.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
 
@@ -10,14 +9,10 @@ import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.preferences.GamePreferenceManager;
-import com.jcrawley.tmmq.service.score.CurrentDateGeneratorImpl;
-import com.jcrawley.tmmq.service.score.ScorePreferencesImpl;
-import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 
 public class GameService extends Service {

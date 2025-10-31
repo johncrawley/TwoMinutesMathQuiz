@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.jcrawley.tmmq.R;
+import com.jcrawley.tmmq.view.fragments.message.MessageKey;
 
 import java.util.function.Consumer;
 
@@ -63,13 +64,13 @@ public class FragmentUtils {
     }
 
 
-    public static void setListener(Fragment fragment, String key, Consumer<Bundle> consumer){
-        fragment.getParentFragmentManager().setFragmentResultListener(key, fragment, (requestKey, bundle) -> consumer.accept(bundle));
+    public static void setListener(Fragment fragment, MessageKey key, Consumer<Bundle> consumer){
+        fragment.getParentFragmentManager().setFragmentResultListener(key.toString(), fragment, (requestKey, bundle) -> consumer.accept(bundle));
     }
 
 
-    public static void sendMessage(Fragment fragment, String key){
-        sendMessage(fragment, key, new Bundle());
+    public static void sendMessage(Fragment fragment, MessageKey key){
+        sendMessage(fragment, key.toString(), new Bundle());
     }
 
 

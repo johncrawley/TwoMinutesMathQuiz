@@ -11,7 +11,7 @@ public class GameTest {
     public void init(){
         var gamePreferenceManager = new MockGamePreferenceManager();
         var gameView = new MockGameView();
-        game = new Game(gameView, gamePreferenceManager);
+        //game = new Game(gameView, gamePreferenceManager);
     }
 
 

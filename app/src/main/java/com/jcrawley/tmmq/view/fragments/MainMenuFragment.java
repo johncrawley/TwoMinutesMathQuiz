@@ -53,7 +53,6 @@ public class MainMenuFragment extends Fragment {
     }
 
 
-
     private void setupButtons(View parent){
         setupButton(parent, R.id.startGameButton, this::startGame);
         setupButton(parent, R.id.settingsButton, this::startSettingsActivity);

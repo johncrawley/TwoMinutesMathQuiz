@@ -5,13 +5,11 @@ import static com.jcrawley.tmmq.utils.Utils.getTimerStrFor;
 import com.jcrawley.tmmq.service.game.level.GameLevel;
 import com.jcrawley.tmmq.service.game.level.LevelFactory;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
-import com.jcrawley.tmmq.service.game.timer.GameTimer;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 
 import java.util.Map;
 
 public class GameModel {
-
 
     private int currentScore;
     private MathQuestion currentQuestion, nextQuestion;
@@ -21,7 +19,7 @@ public class GameModel {
     private final Map<Integer, GameLevel> levels;
     private GameLevel currentLevel;
     private final QuestionGenerator questionGenerator = new QuestionGenerator();
-
+    private ScoreStatistics scoreStatistics;
 
     public GameModel(){
         levels = LevelFactory.createLevels();
@@ -32,7 +30,6 @@ public class GameModel {
     public void setTimerLength(int value){
         timerLengthDisplayStr = getTimerStrFor(value);
     }
-
 
 
     public MathQuestion getCurrentQuestion(){
@@ -90,11 +87,27 @@ public class GameModel {
 
     public ScoreStatistics generateStats(){
         var stats = new ScoreStatistics();
+        log("generateStats() currentScore: " + currentScore + " level: " + currentLevel + " timerLength: " + timerLengthDisplayStr);
         stats.setFinalScore(currentScore);
         stats.setGameLevel(currentLevel);
         stats.setTimerLength(timerLengthDisplayStr);
-
+        this.scoreStatistics = stats;
         return stats;
+    }
+
+
+    public void setStats(ScoreStatistics stats){
+        this.scoreStatistics = stats;
+    }
+
+
+    public ScoreStatistics getScoreStatistics(){
+        return scoreStatistics;
+    }
+
+
+    private void log(String msg){
+        System.out.println("^^^ GameModel: " + msg);
     }
 
 

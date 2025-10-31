@@ -5,26 +5,23 @@ import com.jcrawley.tmmq.service.game.timer.GameTimer;
 import com.jcrawley.tmmq.service.preferences.GamePreferenceManager;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
+import com.jcrawley.tmmq.service.score.saver.ScoreSaver;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 public class Game {
 
     private GameModel model;
     private final GameView view;
     private final GamePreferenceManager prefManager;
-    private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-    private ScheduledFuture<?> notifyGameOverFuture;
     private final ScoreRecords scoreRecords;
+    private final ScoreSaver scoreSaver;
     private GameTimer timer;
 
-    public Game(GameView view, GamePreferenceManager gamePreferenceManager, ScoreRecords scoreRecords){
+    public Game(GameView view, GamePreferenceManager gamePreferenceManager, ScoreRecords scoreRecords, ScoreSaver saver){
         this.view = view;
         this.prefManager = gamePreferenceManager;
         this.scoreRecords = scoreRecords;
+        this.scoreSaver = saver;
     }
 
 
@@ -39,13 +36,6 @@ public class Game {
             prefManager.saveTimerIndex(currentTimerIndex);
         }
         setTimerLength(value);
-    }
-
-
-    public void notifyThatGameFinished(){
-        if(notifyGameOverFuture != null && !notifyGameOverFuture.isCancelled()){
-            notifyGameOverFuture.cancel(false);
-        }
     }
 
 
@@ -110,6 +100,11 @@ public class Game {
     }
 
 
+    public ScoreStatistics getScoreStatistics(){
+        return model.getScoreStatistics();
+    }
+
+
     public void checkAnswer(String answerStr){
         if(model.getCurrentQuestion() == null){
             view.notifyIncorrectAnswer();
@@ -134,14 +129,12 @@ public class Game {
 
 
     public void gameOver(){
-        view.onGameOver(model.generateStats());
+        var stats = model.generateStats();
+        var fullStats = scoreRecords.getCompleteScoreStats(stats);
+        scoreSaver.saveScores(fullStats);
+        model.setStats(fullStats);
         model.gameOver();
-    }
-
-
-    public void onGameOver(ScoreStatistics scoreStatistics){
-        var fullScoreStats = scoreRecords.getCompleteScoreStatsAndSaveRecords(scoreStatistics);
-        notifyGameOverFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> view.onGameOver(fullScoreStats), 0, 2, TimeUnit.SECONDS);
+        view.loadGameOverScreen();
     }
 
 

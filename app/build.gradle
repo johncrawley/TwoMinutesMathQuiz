@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 
 android {
-    namespace 'com.jcrawley.tmmq'
+    namespace = 'com.jcrawley.tmmq'
     compileSdk = 36
 
     defaultConfig {
@@ -24,7 +24,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    namespace 'com.jcrawley.tmmq'
+    namespace = 'com.jcrawley.tmmq'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17

@@ -1,8 +1,15 @@
 package com.jcrawley.tmmq;
 
-import static com.jcrawley.tmmq.view.fragments.GameOverFragment.*;
-import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.*;
-import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Tag.*;
+import static com.jcrawley.tmmq.view.fragments.message.BundleKey.IS_QUESTION_USING_AN_EXPONENT;
+import static com.jcrawley.tmmq.view.fragments.message.BundleKey.MINUTES_REMAINING;
+import static com.jcrawley.tmmq.view.fragments.message.BundleKey.QUESTION;
+import static com.jcrawley.tmmq.view.fragments.message.BundleKey.SCORE;
+import static com.jcrawley.tmmq.view.fragments.message.BundleKey.SECONDS_REMAINING;
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.NOTIFY_INCORRECT_ANSWER;
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_QUESTION;
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_SCORE;
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_TIME_REMAINING;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadGameOverFragment;
 
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -27,10 +34,10 @@ import com.jcrawley.tmmq.service.game.GameView;
 import com.jcrawley.tmmq.service.game.question.MathQuestion;
 import com.jcrawley.tmmq.service.game.timer.GameTimer;
 import com.jcrawley.tmmq.service.preferences.GamePreferenceManagerImpl;
-import com.jcrawley.tmmq.service.score.CurrentDateGeneratorImpl;
-import com.jcrawley.tmmq.service.score.ScorePreferencesImpl;
+import com.jcrawley.tmmq.service.score.date.CurrentDateGeneratorImpl;
+import com.jcrawley.tmmq.service.score.preferences.ScorePreferencesImpl;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
-import com.jcrawley.tmmq.service.score.ScoreStatistics;
+import com.jcrawley.tmmq.service.score.saver.ScoreSaverImpl;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.service.sound.SoundPlayer;
 import com.jcrawley.tmmq.view.MainViewModel;
@@ -44,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements GameView {
     private boolean isVibrationEnabled;
     private Game game;
     private SoundPlayer soundPlayer;
-    private ScoreRecords scoreRecords;
 
 
     private void log(String msg) {
@@ -64,12 +70,25 @@ public class MainActivity extends AppCompatActivity implements GameView {
         setupFragmentsIf(savedInstanceState == null);
 
         soundPlayer = new SoundPlayer(getApplicationContext());
+        setupGame();
+    }
+
+
+    private void setupGame(){
         var gamePreferenceManager = new GamePreferenceManagerImpl(this);
-        setupScoreRecords();
-        game = new Game(MainActivity.this, gamePreferenceManager, scoreRecords);
+        var scorePreferences = new ScorePreferencesImpl(getScorePrefs());
+        var currentDateGenerator = new CurrentDateGeneratorImpl();
+        var scoreRecords = new ScoreRecords(scorePreferences, currentDateGenerator);
+        var scoreSaver = new ScoreSaverImpl(scorePreferences, currentDateGenerator);
+        game = new Game(MainActivity.this, gamePreferenceManager, scoreRecords, scoreSaver);
         var gameTimer = new GameTimer(game, viewModel.gameTimerModel);
         game.init(viewModel.gameModel, gameTimer);
+    }
 
+
+    @Override
+    public void loadGameOverScreen(){
+    //    new Handler(Looper.getMainLooper()).postDelayed(()-> loadGameOverFragment(), 2000);
     }
 
 
@@ -172,45 +191,28 @@ public class MainActivity extends AppCompatActivity implements GameView {
     @Override
     public void updateTimer(int minutesRemaining, int secondsRemaining) {
         var bundle = new Bundle();
-        bundle.putInt(MINUTES_REMAINING.toString(), minutesRemaining);
-        bundle.putInt(SECONDS_REMAINING.toString(), secondsRemaining);
+        addTo(bundle, MINUTES_REMAINING, minutesRemaining);
+        addTo(bundle, MINUTES_REMAINING, minutesRemaining);
+        addTo(bundle, SECONDS_REMAINING, secondsRemaining);
         sendMessage(SET_TIME_REMAINING, bundle);
     }
-
 
 
     @Override
     public void setQuestion(MathQuestion question) {
         Bundle bundle = new Bundle();
-        bundle.putString(QUESTION.toString(), question.getQuestionText());
-        bundle.putBoolean(IS_QUESTION_USING_AN_EXPONENT.toString(), question.containsExponent());
+        addTo(bundle, QUESTION, question.getQuestionText());
+        addTo(bundle, IS_QUESTION_USING_AN_EXPONENT, question.containsExponent());
         sendMessage(SET_QUESTION, bundle);
     }
 
 
-    @Override
-    public void onGameOver(ScoreStatistics scoreStatistics) {
-        Bundle bundle = new Bundle();
-        addTo(bundle, Key.FINAL_SCORE, scoreStatistics.getFinalScore());
-        addTo(bundle, Key.DAILY_HIGH_SCORE, scoreStatistics.getExistingDailyHighScore());
-        addTo(bundle, Key.HIGH_SCORE, scoreStatistics.getExistingHighScore());
-        addTo(bundle, Key.TIMER_LENGTH, scoreStatistics.getTimerLength());
-        addTo(bundle, Key.GAME_LEVEL, scoreStatistics.getGameLevel().getDifficultyStr());
-
-        sendMessage(NOTIFY_GAME_OVER, bundle);
-    }
-
-
-    public void notifyServiceThatGameHasFinished() {
-        game.notifyThatGameFinished();
-    }
-
-
     public void setScore(int score) {
-        Bundle bundle = new Bundle();
-        bundle.putInt(SCORE.toString(), score);
+        var bundle = new Bundle();
+        addTo(bundle, SCORE, score);
         sendMessage(SET_SCORE, bundle);
     }
+
 
     @Override
     public void notifyIncorrectAnswer() {
@@ -234,13 +236,6 @@ public class MainActivity extends AppCompatActivity implements GameView {
     }
 
 
-    private void setupScoreRecords(){
-        scoreRecords = new ScoreRecords();
-        scoreRecords.setScorePreferences(new ScorePreferencesImpl(getScorePrefs()));
-        scoreRecords.setCurrentDateCreator(new CurrentDateGeneratorImpl());
-    }
-
-
     public SharedPreferences getScorePrefs(){
         return getSharedPreferences("score_preferences", MODE_PRIVATE);
     }
@@ -253,6 +248,11 @@ public class MainActivity extends AppCompatActivity implements GameView {
 
     public <E extends Enum<E>> void addTo(Bundle bundle, E key, String value){
         bundle.putString(key.toString(), value);
+    }
+
+
+    public <E extends Enum<E>> void addTo(Bundle bundle, E key, boolean value){
+        bundle.putBoolean(key.toString(), value);
     }
 
 

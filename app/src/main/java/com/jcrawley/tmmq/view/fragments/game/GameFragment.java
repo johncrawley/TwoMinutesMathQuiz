@@ -1,8 +1,10 @@
 package com.jcrawley.tmmq.view.fragments.game;
 
-import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.NOTIFY_GAME_OVER;
-import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.NOTIFY_INCORRECT_ANSWER;
-import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.SET_TIME_REMAINING;
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.NOTIFY_INCORRECT_ANSWER;
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_GAME_OVER_STATS;
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_QUESTION;
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_SCORE;
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_TIME_REMAINING;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.animateTextColor;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadGameOverFragment;
@@ -37,6 +39,7 @@ import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.TextAnimator;
+import com.jcrawley.tmmq.view.fragments.message.BundleKey;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -45,8 +48,6 @@ import java.util.function.Consumer;
 
 public class GameFragment extends Fragment {
 
-    public enum Message {SET_TIME_REMAINING, NOTIFY_GAME_OVER, NOTIFY_INCORRECT_ANSWER, SET_SCORE, SET_QUESTION  }
-    public enum Tag { MINUTES_REMAINING, SECONDS_REMAINING, SCORE, QUESTION, IS_QUESTION_USING_AN_EXPONENT}
     private TextView timeRemainingTextView, scoreTextView, questionTextView, inputTextView;
     private int timeRemainingTextNormalColor, timeRemainingTextWarningColor;
     private int defaultAnswerTextColor;
@@ -100,11 +101,11 @@ public class GameFragment extends Fragment {
 
 
     private void setupListeners(){
-        FragmentUtils.setListener(this, SET_TIME_REMAINING.toString(), b -> process(this::updateTimeRemaining, b));
-        FragmentUtils.setListener(this, Message.SET_SCORE.toString(), b -> process(this::setScore, b));
-        FragmentUtils.setListener(this, Message.SET_QUESTION.toString(), b -> process(this::setQuestion, b));
-        FragmentUtils.setListener(this, NOTIFY_GAME_OVER.toString(), b -> process(this::onGameOver, b));
-        FragmentUtils.setListener(this, NOTIFY_INCORRECT_ANSWER.toString(), b-> process(this::onIncorrectAnswer, b));
+        FragmentUtils.setListener(this, SET_TIME_REMAINING, b -> process(this::updateTimeRemaining, b));
+        FragmentUtils.setListener(this, SET_SCORE, b -> process(this::setScore, b));
+        FragmentUtils.setListener(this, SET_QUESTION, b -> process(this::setQuestion, b));
+        FragmentUtils.setListener(this, SET_GAME_OVER_STATS, b -> process(this::onGameOver, b));
+        FragmentUtils.setListener(this, NOTIFY_INCORRECT_ANSWER, b-> process(this::onIncorrectAnswer, b));
     }
 
 
@@ -174,8 +175,8 @@ public class GameFragment extends Fragment {
         if(timeRemainingTextView == null){
             return;
         }
-        int minutesRemaining = getInt(bundle, Tag.MINUTES_REMAINING);
-        int secondsRemaining = getInt(bundle, Tag.SECONDS_REMAINING);
+        int minutesRemaining = getInt(bundle, BundleKey.MINUTES_REMAINING);
+        int secondsRemaining = getInt(bundle, BundleKey.SECONDS_REMAINING);
         runOnUiThread(()-> updateTimeTextView(minutesRemaining, secondsRemaining));
     }
 
@@ -274,7 +275,7 @@ public class GameFragment extends Fragment {
 
 
     private void updateScoreView(Bundle bundle){
-        viewModel.scoreValue = getInt(bundle, Tag.SCORE);
+        viewModel.scoreValue = getInt(bundle, BundleKey.SCORE);
         updateScoreTextView();
     }
 
@@ -304,14 +305,14 @@ public class GameFragment extends Fragment {
 
 
     private void setQuestionText(Bundle bundle){
-        String text = getStr(bundle, Tag.QUESTION);
+        String text = getStr(bundle, BundleKey.QUESTION);
         viewModel.questionText = new SpannableString(text);
     }
 
 
     private void turnExponentToSuperScript(Bundle bundle){
-        if(getBoolean(bundle, Tag.IS_QUESTION_USING_AN_EXPONENT)){
-            String text = getStr(bundle, Tag.QUESTION);
+        if(getBoolean(bundle, BundleKey.IS_QUESTION_USING_AN_EXPONENT)){
+            String text = getStr(bundle, BundleKey.QUESTION);
             int firstIndex = text.length()-2;
             viewModel.questionText.setSpan(new SuperscriptSpan(), firstIndex, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             viewModel.questionText.setSpan(new RelativeSizeSpan(0.5f), firstIndex, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -341,16 +342,21 @@ public class GameFragment extends Fragment {
 
 
     private void onGameOver(Bundle bundle){
+        log("entered onGameOver()");
         notifyGameOverAndPlaySound();
-        runOnUiThread(()->inputHelper.clearAnswerText());
+        runOnUiThread( ()-> inputHelper.clearAnswerText());
         resetViewDataAndLoadGameOver(bundle);
+    }
+
+
+    private void log(String msg){
+        System.out.println("^^^ GameFragment: " + msg);
     }
 
 
     private void notifyGameOverAndPlaySound(){
         MainActivity mainActivity = (MainActivity)getActivity();
         if(mainActivity != null) {
-            mainActivity.notifyServiceThatGameHasFinished();
             mainActivity.playSound(Sound.GAME_OVER);
         }
     }
