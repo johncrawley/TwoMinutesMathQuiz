@@ -2,8 +2,9 @@ package com.jcrawley.tmmq.view.fragments;
 
 import static com.jcrawley.tmmq.view.fragments.utils.ActivityUtils.playSound;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadMainMenuFragment;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadOptionsFragmentOnBackButtonPressed;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragment;
-import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragmentOnBackButtonPressed;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.getGame;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.isInLandscapeMode;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.setTextForLandscape;
@@ -28,7 +29,6 @@ import com.jcrawley.tmmq.service.sound.Sound;
 
 public class GameOverFragment extends Fragment {
 
-    public static final String FRAGMENT_TAG = "game_over_screen";
     public enum Key { FINAL_SCORE, TIMER_LENGTH, DAILY_HIGH_SCORE, HIGH_SCORE, GAME_LEVEL}
 
 
@@ -208,7 +208,7 @@ public class GameOverFragment extends Fragment {
 
 
     public void setupBackButton(){
-        loadFragmentOnBackButtonPressed(this, new OptionsFragment(), OptionsFragment.FRAGMENT_TAG);
+        loadOptionsFragmentOnBackButtonPressed(this);
     }
 
 
@@ -219,7 +219,7 @@ public class GameOverFragment extends Fragment {
 
 
     private void loadMainMenuScreen(){
-        loadFragment(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
+        loadMainMenuFragment(this);
     }
 
 }

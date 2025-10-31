@@ -1,5 +1,6 @@
 package com.jcrawley.tmmq.view.fragments;
 
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadGame;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.getGame;
 
 import android.os.Bundle;
@@ -20,8 +21,6 @@ import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.MainViewModel;
-import com.jcrawley.tmmq.view.fragments.game.GameFragment;
-import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 
 public class GetReadyFragment extends Fragment {
@@ -32,11 +31,6 @@ public class GetReadyFragment extends Fragment {
 
     public GetReadyFragment() {
         // Required empty public constructor
-    }
-
-
-    public static GetReadyFragment newInstance(String param1, String param2) {
-        return new GetReadyFragment();
     }
 
 
@@ -126,7 +120,7 @@ public class GetReadyFragment extends Fragment {
         var game = getGame(this);
         if(game != null){
             game.setSavedValues();
-            FragmentUtils.loadFragment(this, new GameFragment(), "gameScreenFragment");
+            loadGame(this);
         }
     }
 

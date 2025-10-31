@@ -25,11 +25,6 @@ public class FragmentUtils {
     }
 
 
-    public static void loadFragmentOnBackButtonPressed(Fragment parentFragment, Fragment destinationFragment, String fragmentTag){
-        onBackButtonPressed(parentFragment, () -> loadFragment(parentFragment, destinationFragment, fragmentTag));
-    }
-
-
     public static void loadFragment(Fragment parentFragment, Fragment fragment, String tag, Bundle bundle){
         FragmentManager fragmentManager = parentFragment.getParentFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

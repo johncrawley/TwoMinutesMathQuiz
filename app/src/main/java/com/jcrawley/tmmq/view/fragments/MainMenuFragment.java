@@ -15,9 +15,10 @@ import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.SettingsActivity;
-import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.addGradientTo;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadAboutFragment;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadOptionsFragment;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.isInLandscapeMode;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.setTextForLandscape;
 
@@ -26,7 +27,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainMenuFragment extends Fragment {
 
-    public static final String FRAGMENT_TAG = "main_menu_fragment";
     private final AtomicBoolean isGameStartInitiated = new AtomicBoolean(false);
 
 
@@ -40,8 +40,6 @@ public class MainMenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
         isGameStartInitiated.set(false);
     }
-
-
 
 
     @Override
@@ -73,16 +71,15 @@ public class MainMenuFragment extends Fragment {
 
 
     private void startGame(){
-        if(isGameStartInitiated.get() || getActivity() == null){
-            return;
+        if(!isGameStartInitiated.get() && getActivity() != null){
+            isGameStartInitiated.set(true);
+            loadOptionsFragment(this);
         }
-        isGameStartInitiated.set(true);
-        FragmentUtils.loadFragment(this, new OptionsFragment(), OptionsFragment.FRAGMENT_TAG);
     }
 
 
     private void goToAboutPage(){
-        FragmentUtils.loadFragment(this, new AboutFragment(), AboutFragment.FRAGMENT_TAG);
+        loadAboutFragment(this);
     }
 
 

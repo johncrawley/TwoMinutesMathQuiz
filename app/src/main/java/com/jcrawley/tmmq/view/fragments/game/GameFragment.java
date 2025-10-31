@@ -5,6 +5,8 @@ import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.NOTIFY_
 import static com.jcrawley.tmmq.view.fragments.game.GameFragment.Message.SET_TIME_REMAINING;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.animateTextColor;
 import static com.jcrawley.tmmq.view.fragments.utils.ColorUtils.getColorFromAttribute;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadGameOverFragment;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadMainMenuFragment;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getBoolean;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getInt;
 import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.getStr;
@@ -36,8 +38,6 @@ import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.TextAnimator;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
-import com.jcrawley.tmmq.view.fragments.GameOverFragment;
-import com.jcrawley.tmmq.view.fragments.MainMenuFragment;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
@@ -358,7 +358,7 @@ public class GameFragment extends Fragment {
 
     private void resetViewDataAndLoadGameOver(Bundle bundle){
         new Handler(Looper.getMainLooper()).postDelayed(()->{
-            FragmentUtils.loadFragment(this, new GameOverFragment(), GameOverFragment.FRAGMENT_TAG, bundle);
+            loadGameOverFragment(this);
             resetViewData();
         }, 400);
     }
@@ -369,7 +369,7 @@ public class GameFragment extends Fragment {
         if(mainActivity != null){
             mainActivity.stopGame();
         }
-        loadWelcomeScreen();
+        loadMainMenuFragment(this);
     }
 
 
@@ -379,11 +379,6 @@ public class GameFragment extends Fragment {
             return;
         }
         activity.runOnUiThread(runnable);
-    }
-
-
-    private void loadWelcomeScreen(){
-        FragmentUtils.loadFragment(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
     }
 
 

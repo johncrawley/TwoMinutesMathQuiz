@@ -1,7 +1,7 @@
 package com.jcrawley.tmmq.view.fragments;
 
 import static com.jcrawley.tmmq.utils.Utils.getTimerStrFor;
-import static com.jcrawley.tmmq.view.fragments.utils.FragmentUtils.loadFragmentOnBackButtonPressed;
+import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadMainMenuFragmentOnBackButtonPressed;
 import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.getGame;
 
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
-import com.jcrawley.tmmq.service.game.Game;
 import com.jcrawley.tmmq.service.sound.Sound;
 import com.jcrawley.tmmq.view.fragments.utils.FragmentUtils;
 import com.jcrawley.tmmq.view.fragments.utils.GeneralUtils;
@@ -28,7 +27,6 @@ import java.util.stream.Collectors;
 
 public class OptionsFragment extends Fragment {
 
-    public static final String FRAGMENT_TAG = "Options_fragment";
     private int currentLevel = 5;
     private final int maxLevel = 10;
     private TextView levelText, timerText;
@@ -112,7 +110,7 @@ public class OptionsFragment extends Fragment {
 
 
     private void setupBackButton() {
-        loadFragmentOnBackButtonPressed(this, new MainMenuFragment(), MainMenuFragment.FRAGMENT_TAG);
+        loadMainMenuFragmentOnBackButtonPressed(this);
     }
 
 

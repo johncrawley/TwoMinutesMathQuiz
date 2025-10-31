@@ -18,7 +18,6 @@ import java.io.InputStreamReader;
 
 public class AboutFragment extends Fragment {
 
-    public static final String FRAGMENT_TAG = "about_fragment";
     private String fontText = "";
 
     public AboutFragment() {
