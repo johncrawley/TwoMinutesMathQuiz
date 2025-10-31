@@ -1,11 +1,43 @@
 package com.jcrawley.tmmq.service.game.timer;
 
 
+import java.util.concurrent.Future;
+
 public class GameTimerModel {
 
     private int initialRemainingTime = 14;
     private int currentRemainingTime = initialRemainingTime;
     private int minutesRemaining, secondsRemaining;
+    private boolean wasStarted;
+    private Future<?> future;
+
+
+    public void start(){
+        cancelFuture();
+        wasStarted = true;
+    }
+
+
+    public void saveFuture(Future<?> future){
+        this.future = future;
+    }
+
+
+    private void cancelFuture(){
+        if(future != null && !future.isCancelled() && !future.isDone()){
+            future.cancel(false);
+        }
+    }
+
+
+    public void stop(){
+        wasStarted = false;
+    }
+
+
+    public boolean shouldTimerBeRunning(){
+        return wasStarted;
+    }
 
 
     public void setInitialRemainingTime(int initialRemainingTime){

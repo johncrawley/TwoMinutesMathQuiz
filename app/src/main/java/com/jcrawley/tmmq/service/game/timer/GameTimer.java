@@ -20,18 +20,16 @@ public class GameTimer{
         this.game = game;
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         gameTimerModel.calculateMinutesAndSeconds();
+        if(gameTimerModel.shouldTimerBeRunning()){
+            start();
+        }
     }
 
 
     public void start(){
+        gameTimerModel.start();
         future = scheduledExecutorService.scheduleWithFixedDelay(this::decrementRemainingTime, 1,1, TimeUnit.SECONDS);
-    }
-
-
-    public void cancel(){
-        if(future != null && !future.isCancelled() && !future.isDone()){
-            future.cancel(false);
-        }
+        gameTimerModel.saveFuture(future);
     }
 
 
@@ -61,9 +59,18 @@ public class GameTimer{
 
     private void cancelTimerWhenTimeExpires(){
         if(gameTimerModel.isTimeUp()){
-            future.cancel(false);
+            cancel();
             game.gameOver();
         }
     }
+
+
+    public void cancel(){
+        gameTimerModel.stop();
+        if(future != null && !future.isCancelled() && !future.isDone()){
+            future.cancel(false);
+        }
+    }
+
 
 }
