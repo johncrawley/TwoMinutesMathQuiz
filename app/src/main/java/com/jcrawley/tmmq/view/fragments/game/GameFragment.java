@@ -1,7 +1,7 @@
 package com.jcrawley.tmmq.view.fragments.game;
 
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.NOTIFY_GAME_OVER;
 import static com.jcrawley.tmmq.view.fragments.message.MessageKey.NOTIFY_INCORRECT_ANSWER;
-import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_GAME_OVER_STATS;
 import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_QUESTION;
 import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_SCORE;
 import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_TIME_REMAINING;
@@ -104,8 +104,8 @@ public class GameFragment extends Fragment {
         FragmentUtils.setListener(this, SET_TIME_REMAINING, b -> process(this::updateTimeRemaining, b));
         FragmentUtils.setListener(this, SET_SCORE, b -> process(this::setScore, b));
         FragmentUtils.setListener(this, SET_QUESTION, b -> process(this::setQuestion, b));
-        FragmentUtils.setListener(this, SET_GAME_OVER_STATS, b -> process(this::onGameOver, b));
         FragmentUtils.setListener(this, NOTIFY_INCORRECT_ANSWER, b-> process(this::onIncorrectAnswer, b));
+        FragmentUtils.setListener(this, NOTIFY_GAME_OVER, b -> process(this::onGameOver, b));
     }
 
 
@@ -342,15 +342,9 @@ public class GameFragment extends Fragment {
 
 
     private void onGameOver(Bundle bundle){
-        log("entered onGameOver()");
         notifyGameOverAndPlaySound();
         runOnUiThread( ()-> inputHelper.clearAnswerText());
-        resetViewDataAndLoadGameOver(bundle);
-    }
-
-
-    private void log(String msg){
-        System.out.println("^^^ GameFragment: " + msg);
+        resetViewDataAndLoadGameOver();
     }
 
 
@@ -362,7 +356,7 @@ public class GameFragment extends Fragment {
     }
 
 
-    private void resetViewDataAndLoadGameOver(Bundle bundle){
+    private void resetViewDataAndLoadGameOver(){
         new Handler(Looper.getMainLooper()).postDelayed(()->{
             loadGameOverFragment(this);
             resetViewData();

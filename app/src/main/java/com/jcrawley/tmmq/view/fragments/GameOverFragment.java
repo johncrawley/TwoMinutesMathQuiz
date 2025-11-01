@@ -11,6 +11,7 @@ import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.setTextForLand
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -22,6 +23,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jcrawley.tmmq.MainActivity;
 import com.jcrawley.tmmq.R;
 import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.sound.Sound;
@@ -29,7 +31,6 @@ import com.jcrawley.tmmq.service.sound.Sound;
 
 public class GameOverFragment extends Fragment {
 
-    public enum Key { FINAL_SCORE, TIMER_LENGTH, DAILY_HIGH_SCORE, HIGH_SCORE, GAME_LEVEL}
     private int finalScore, dailyHighScore, allTimeHighScore;
     private String timerLength, gameLevel;
     private Button mainMenuButton, retryButton;
@@ -43,15 +44,12 @@ public class GameOverFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        var game = getGame(this);
-        if(game != null){
-            assignDataFrom(game.getScoreStatistics());
-        }
     }
 
 
     private void assignDataFrom(ScoreStatistics stats){
         if(stats == null){
+            log("assignDataFrom() stats are null!");
             return;
         }
         finalScore = stats.getFinalScore();
@@ -68,7 +66,29 @@ public class GameOverFragment extends Fragment {
         View parentView = inflater.inflate(R.layout.fragment_game_over, container, false);
         setupTextViews(parentView);
         setupButtons(parentView);
+        assignDataFromMainViewModel();
         return parentView;
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+
+    private void assignDataFromMainViewModel(){
+        log("Entered assignDataFromMainViewModel()");
+        var mainActivity = (MainActivity) getActivity();
+        if(mainActivity != null){
+            log("mainActivity is not null!");
+            var mainViewModel = mainActivity.getViewModel();
+            if(mainViewModel != null){
+                log("main view model is not null!");
+
+                assignDataFrom(mainViewModel.gameModel.getScoreStatistics());
+            }
+        }
     }
 
 

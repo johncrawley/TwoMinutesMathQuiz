@@ -5,6 +5,7 @@ import static com.jcrawley.tmmq.view.fragments.message.BundleKey.MINUTES_REMAINI
 import static com.jcrawley.tmmq.view.fragments.message.BundleKey.QUESTION;
 import static com.jcrawley.tmmq.view.fragments.message.BundleKey.SCORE;
 import static com.jcrawley.tmmq.view.fragments.message.BundleKey.SECONDS_REMAINING;
+import static com.jcrawley.tmmq.view.fragments.message.MessageKey.NOTIFY_GAME_OVER;
 import static com.jcrawley.tmmq.view.fragments.message.MessageKey.NOTIFY_INCORRECT_ANSWER;
 import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_QUESTION;
 import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_SCORE;
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements GameView {
 
     @Override
     public void loadGameOverScreen(){
-    //    new Handler(Looper.getMainLooper()).postDelayed(()-> loadGameOverFragment(), 2000);
+        sendMessage(NOTIFY_GAME_OVER);
     }
 
 
