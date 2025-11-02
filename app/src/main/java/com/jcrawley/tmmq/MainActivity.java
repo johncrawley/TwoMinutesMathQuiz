@@ -10,7 +10,6 @@ import static com.jcrawley.tmmq.view.fragments.message.MessageKey.NOTIFY_INCORRE
 import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_QUESTION;
 import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_SCORE;
 import static com.jcrawley.tmmq.view.fragments.message.MessageKey.SET_TIME_REMAINING;
-import static com.jcrawley.tmmq.view.fragments.utils.FragmentLoader.loadGameOverFragment;
 
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -54,11 +53,6 @@ public class MainActivity extends AppCompatActivity implements GameView {
     private SoundPlayer soundPlayer;
 
 
-    private void log(String msg) {
-        System.out.println("^^^ MainActivity: " + msg);
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,13 +63,12 @@ public class MainActivity extends AppCompatActivity implements GameView {
         setupViewModel();
         setupVibe();
         setupFragmentsIf(savedInstanceState == null);
-
-        soundPlayer = new SoundPlayer(getApplicationContext());
         setupGame();
     }
 
 
     private void setupGame(){
+        soundPlayer = new SoundPlayer(getApplicationContext());
         var gamePreferenceManager = new GamePreferenceManagerImpl(this);
         var scorePreferences = new ScorePreferencesImpl(getScorePrefs());
         var currentDateGenerator = new CurrentDateGeneratorImpl();

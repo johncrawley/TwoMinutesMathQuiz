@@ -4,7 +4,6 @@ package com.jcrawley.tmmq.service.game;
 import com.jcrawley.tmmq.service.game.timer.GameTimer;
 import com.jcrawley.tmmq.service.preferences.GamePreferenceManager;
 import com.jcrawley.tmmq.service.score.ScoreRecords;
-import com.jcrawley.tmmq.service.score.ScoreStatistics;
 import com.jcrawley.tmmq.service.score.saver.ScoreSaver;
 
 
@@ -97,11 +96,6 @@ public class Game {
 
     public int getSavedTimerIndex(){
         return prefManager.getTimerIndex();
-    }
-
-
-    public ScoreStatistics getScoreStatistics(){
-        return model.getScoreStatistics();
     }
 
 

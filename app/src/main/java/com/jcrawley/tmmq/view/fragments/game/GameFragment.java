@@ -342,18 +342,11 @@ public class GameFragment extends Fragment {
 
 
     private void onGameOver(Bundle bundle){
-        notifyGameOverAndPlaySound();
+        playSound(Sound.GAME_OVER);
         runOnUiThread( ()-> inputHelper.clearAnswerText());
         resetViewDataAndLoadGameOver();
     }
 
-
-    private void notifyGameOverAndPlaySound(){
-        MainActivity mainActivity = (MainActivity)getActivity();
-        if(mainActivity != null) {
-            mainActivity.playSound(Sound.GAME_OVER);
-        }
-    }
 
 
     private void resetViewDataAndLoadGameOver(){

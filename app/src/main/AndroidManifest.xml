@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.SERVICE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -27,17 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name=".service.GameService"
-            android:enabled="true"
-            android:exported="false"
-            android:label="GameService"
-            android:stopWithTask="true">
-            <intent-filter>
-                <action android:name="com.jcrawley.tmmq.GameService" />
-            </intent-filter>
-        </service>
     </application>
 
 </manifest>

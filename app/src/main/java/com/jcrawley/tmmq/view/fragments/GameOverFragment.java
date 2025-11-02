@@ -11,7 +11,6 @@ import static com.jcrawley.tmmq.view.fragments.utils.GeneralUtils.setTextForLand
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -47,9 +46,29 @@ public class GameOverFragment extends Fragment {
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View parentView = inflater.inflate(R.layout.fragment_game_over, container, false);
+        assignDataFromMainViewModel();
+        setupTextViews(parentView);
+        setupButtons(parentView);
+        return parentView;
+    }
+
+
+    private void assignDataFromMainViewModel(){
+        var mainActivity = (MainActivity) getActivity();
+        if(mainActivity != null){
+            var mainViewModel = mainActivity.getViewModel();
+            if(mainViewModel != null){
+                assignDataFrom(mainViewModel.gameModel.getScoreStatistics());
+            }
+        }
+    }
+
+
     private void assignDataFrom(ScoreStatistics stats){
         if(stats == null){
-            log("assignDataFrom() stats are null!");
             return;
         }
         finalScore = stats.getFinalScore();
@@ -57,38 +76,6 @@ public class GameOverFragment extends Fragment {
         allTimeHighScore = stats.getExistingHighScore();
         timerLength = stats.getTimerLength();
         gameLevel = stats.getGameLevel().getDifficultyStr();
-        log("entered assignDataFrom(stats) finalScore: " + finalScore);
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View parentView = inflater.inflate(R.layout.fragment_game_over, container, false);
-        setupTextViews(parentView);
-        setupButtons(parentView);
-        assignDataFromMainViewModel();
-        return parentView;
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-
-    private void assignDataFromMainViewModel(){
-        log("Entered assignDataFromMainViewModel()");
-        var mainActivity = (MainActivity) getActivity();
-        if(mainActivity != null){
-            log("mainActivity is not null!");
-            var mainViewModel = mainActivity.getViewModel();
-            if(mainViewModel != null){
-                log("main view model is not null!");
-
-                assignDataFrom(mainViewModel.gameModel.getScoreStatistics());
-            }
-        }
     }
 
 
@@ -119,18 +106,12 @@ public class GameOverFragment extends Fragment {
 
 
     private void assignGameOverMessage(){
-        log("Entered assignGameOverMessage() finalScore: " +  finalScore + " highScore: " + allTimeHighScore + " dailyScore: " + dailyHighScore);
         if(finalScore > allTimeHighScore){
             setGameOverText(getResources().getString(R.string.new_all_time_record));
         }
         else if(finalScore > dailyHighScore){
             setGameOverText(getResources().getString(R.string.new_daily_record));
         }
-    }
-
-
-    private void log(String msg){
-        System.out.println("^^^ GameOverFragment: " + msg);
     }
 
 
