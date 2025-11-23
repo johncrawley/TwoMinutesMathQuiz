@@ -186,7 +186,6 @@ public class GameOverFragment extends Fragment {
         retryButton = parentView.findViewById(R.id.retryMenuButton);
         retryButton.setEnabled(true);
         retryButton.setOnClickListener(this::retry);
-
     }
 
 
