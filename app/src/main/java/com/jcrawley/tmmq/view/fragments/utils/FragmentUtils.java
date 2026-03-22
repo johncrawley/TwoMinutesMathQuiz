@@ -18,8 +18,8 @@ public class FragmentUtils {
 
 
     public static void showDialog(Fragment parentFragment, DialogFragment dialogFragment, String tag, Bundle bundle){
-        FragmentManager fragmentManager = parentFragment.getParentFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        var fragmentManager = parentFragment.getParentFragmentManager();
+        var fragmentTransaction = fragmentManager.beginTransaction();
         removePreviousFragmentTransaction(fragmentManager, tag, fragmentTransaction);
         dialogFragment.setArguments(bundle);
         dialogFragment.show(fragmentTransaction, tag);
@@ -27,8 +27,8 @@ public class FragmentUtils {
 
 
     public static void loadFragment(Fragment parentFragment, Fragment fragment, String tag, Bundle bundle){
-        FragmentManager fragmentManager = parentFragment.getParentFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        var fragmentManager = parentFragment.getParentFragmentManager();
+        var fragmentTransaction = fragmentManager.beginTransaction();
         removePreviousFragmentTransaction(fragmentManager, tag, fragmentTransaction);
         fragment.setArguments(bundle);
         fragmentManager.beginTransaction()
@@ -40,13 +40,15 @@ public class FragmentUtils {
 
 
     public static void onBackButtonPressed(Fragment parentFragment, Runnable action){
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        var callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 action.run();
             }
         };
-        parentFragment.requireActivity().getOnBackPressedDispatcher().addCallback(parentFragment.getViewLifecycleOwner(), callback);
+        parentFragment.requireActivity()
+                .getOnBackPressedDispatcher()
+                .addCallback(parentFragment.getViewLifecycleOwner(), callback);
     }
 
 
@@ -56,7 +58,7 @@ public class FragmentUtils {
 
 
     private static void removePreviousFragmentTransaction(FragmentManager fragmentManager, String tag, FragmentTransaction fragmentTransaction){
-        Fragment prev = fragmentManager.findFragmentByTag(tag);
+        var prev = fragmentManager.findFragmentByTag(tag);
         if (prev != null) {
             fragmentTransaction.remove(prev);
         }
